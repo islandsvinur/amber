@@ -15,15 +15,27 @@
   </target>
 
   <target name="crawler" depends="build">
-    <jar destfile="${dist}/Crawler.jar" basedir="${build}" />
+    <jar destfile="${dist}/Crawler.jar" basedir="${build}">
+        <manifest>
+            <attribute name="Main-Class" value="Crawler" />
+        </manifest>
+    </jar>
   </target>
 
   <target name="parser" depends="build">
-    <jar destfile="${dist}/Sieve.jar" basedir="${build}" />
+    <jar destfile="${dist}/Sieve.jar" basedir="${build}">
+        <manifest>
+            <attribute name="Main-Class" value="Sieve" />
+        </manifest>
+    </jar>
   </target>
 
   <target name="visualizer" depends="build">
-    <jar destfile="${dist}/ShowOff.jar" basedir="${build}" />
+    <jar destfile="${dist}/ShowOff.jar" basedir="${build}">
+        <manifest>
+            <attribute name="Main-Class" value="ShowOff" />
+        </manifest>
+    </jar>
   </target>
 
   <target name="docs" depends="init">
@@ -36,7 +48,10 @@
 
   <target name="clean">
     <delete dir="${build}" />
-    <delete dir="${dist}" />
     <delete dir="${docs}" />
+  </target>
+  
+  <target name="distclean">
+    <delete dir="${dist}" />
   </target>
 </project>
