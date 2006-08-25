@@ -1,0 +1,42 @@
+<project name="Ambient Earth" default="dist" basedir=".">
+  <property name="src" location="src" />
+  <property name="dist" location="dist" />
+  <property name="docs" location="javadoc" />
+  <property name="build" location="build" />
+
+  <target name="init">
+    <tstamp />
+  </target>
+
+  <target name="build" depends="init">
+    <mkdir dir="${build}" />
+    <mkdir dir="${dist}" />
+    <javac srcdir="${src}" destdir="${build}" />
+  </target>
+
+  <target name="crawler" depends="build">
+    <jar destfile="${dist}/Crawler.jar" basedir="${build}" />
+  </target>
+
+  <target name="parser" depends="build">
+    <jar destfile="${dist}/Sieve.jar" basedir="${build}" />
+  </target>
+
+  <target name="visualizer" depends="build">
+    <jar destfile="${dist}/ShowOff.jar" basedir="${build}" />
+  </target>
+
+  <target name="docs" depends="init">
+    <javadoc packagenames="amber.*" sourcepath="${src}" destdir="${docs}" />
+  </target>
+
+  <target name="dist" depends="crawler, parser, visualizer, docs">
+    <echo message="Hi" />
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}" />
+    <delete dir="${dist}" />
+    <delete dir="${docs}" />
+  </target>
+</project>
