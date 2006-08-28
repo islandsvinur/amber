@@ -2,16 +2,23 @@
   <property name="src" location="src" />
   <property name="dist" location="dist" />
   <property name="docs" location="javadoc" />
+  <property name="lib" location="lib" />
   <property name="build" location="build" />
 
   <target name="init">
     <tstamp />
   </target>
 
+  <path id="project.class.path">
+    <pathelement path="${java.class.path}" />
+    <pathelement location="lib/JavaOpenAIR.jar" />
+  </path>
+
   <target name="build" depends="init">
     <mkdir dir="${build}" />
     <mkdir dir="${dist}" />
-    <javac srcdir="${src}" destdir="${build}" />
+    <unjar src="lib/JavaOpenAIR.jar" dest="${build}" />
+    <javac srcdir="${src}" destdir="${build}" classpathref="project.class.path" />
   </target>
 
   <target name="crawler" depends="build">
@@ -39,7 +46,10 @@
   </target>
 
   <target name="docs" depends="init">
-    <javadoc packagenames="amber.*" sourcepath="${src}" destdir="${docs}" />
+    <javadoc packagenames="amber.*" 
+             sourcepath="${src}" 
+             destdir="${docs}" 
+             classpathref="project.class.path" />
   </target>
 
   <target name="dist" depends="crawler, parser, visualizer, docs">
