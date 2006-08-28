@@ -5,6 +5,7 @@
  */
 
 import amber.crawler.RSS;
+import com.cmlabs.air.*;
 
 /* Starts the Crawler */
 public class Crawler {

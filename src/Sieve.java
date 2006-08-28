@@ -20,7 +20,7 @@ public class Sieve {
                     System.out.println(in.readLine());
                 }
 
-                // KeywordSpotter spotter = new KeywordSpotter();
+                KeywordSpotter spotter = new KeywordSpotter();
             } catch (Exception e) {
                 System.err.println("File input error");
             }
