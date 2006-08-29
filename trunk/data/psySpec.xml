@@ -1,0 +1,13 @@
+<psySpec name="Ambient Earth" version="0.0">  
+
+    <whiteboard name="WB1">
+        <description>Crawlers post messages here, Sieves will get them from here</description>
+    </whiteboard>
+
+    <whiteboard name="WB2">
+        <description>The Sieves drop messages here to be displayed by the ShowOff</description>
+    </whiteboard>
+
+</psySpec> 
+
+
