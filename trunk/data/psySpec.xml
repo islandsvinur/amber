@@ -36,16 +36,66 @@
   POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<psySpec name="Ambient Earth" version="0.0">  
+<psySpec name="Ambient Earth" version="1.20">  
+    
+    <global>
+        <port>10000</port>
+        <title>Ambient Earth</title>
+    </global>
 
-    <whiteboard name="WB1">
-        <description>Crawlers post messages here, Sieves will get them from here</description>
+    <whiteboard name="Whiteboard.1">
+        <description>Stores crawled stories.</description>
     </whiteboard>
 
-    <whiteboard name="WB2">
-        <description>The Sieves drop messages here to be displayed by the ShowOff</description>
+    <whiteboard name="Whiteboard.2">
+        <description>Stores candidate stories.</description>
     </whiteboard>
+
+    <whiteboard name="Whiteboard.3">
+        <description>Stores selected stories.</description>
+    </whiteboard>
+
+    <whiteboard name="Whiteboard.4">
+        <description>Stores stories to be displayed.</description>
+    </whiteboard>
+
+    <module name="Stub-Crawler">
+        <triggers to="Whiteboard.1">
+            <trigger after="500" type="Psyclone.System.Ready" />
+            <trigger after="500" type="NextStory" />
+        </triggers>
+        <post to="Whiteboard.1" type="CrawledStory" />
+    </module>
+
+    <module name="CrawlerToSieve">
+        <description>
+            This module will transfer incoming crawled stories to the storage
+            of candidate stories.
+        </description>
+        <trigger from="Whiteboard.1" type="CrawledStory" after="750" />
+        <post to="Whiteboard.2" type="CandidateStory" />
+    </module>
+
+    <!-- <module name="Stub-Sieve">
+        <description>
+            This module will simulate a Sieve.
+        </description>
+        <trigger from="Whiteboard.2" type="CandidateStory" after="750" />
+        <post to="Whiteboard.3" type="SelectedStory" />
+        <post to="Whiteboard.1" type="NextStory" />
+    </module> -->
+
+    <module name="SieveToDisplay">
+        <description>
+            This module will transfer incoming selected stories to the storage
+            for stories to be displayed.
+        </description>
+        <trigger from="Whiteboard.3" type="SelectedStory" after="750" />
+        <post to="Whiteboard.4" type="Story" />
+    </module>
+
+    <module name="Stub-Display">
+        <trigger from="Whiteboard.4" type="Story" after="750" />
+    </module>
 
 </psySpec> 
-
-
