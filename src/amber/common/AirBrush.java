@@ -38,63 +38,21 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-import java.io.*;
+package amber.common;
 
-import amber.sieve.KeywordSpotter;
-import amber.common.AirBrush;
 import com.cmlabs.air.*;
 
-/* Starts the parser */
-public class Sieve {
+public class AirBrush {
+    private JavaAIRPlug plug;
+    private Message inMsg;
+    private Message outMsg;
 
-    public static void main(String args[]) {
-        JavaAIRPlug plug;
-        Message triggerMsg;
-        Message msg;
-
-        plug = new JavaAIRPlug("Sieve", "localhost", 10000);
+    public AirBrush (String plugname, String hostname, int port) {
+        plug = new JavaAIRPlug(plugname, hostname, port);
 
         if (!plug.init()) {
             System.out.println("Could not connect to the Server ...");
             System.exit(0);
         }
-        
-        while (true) {
-            if ((triggerMsg = plug.waitForNewMessage(50)) != null) {
-                System.out.println(triggerMsg.postedTime.printTime() + ": " +
-                    "Reader received message " + triggerMsg.type + 
-                    " from " + triggerMsg.from);
-                msg = new Message("", "", "SelectedStory");
-                plug.addOutputMessage(msg);
-                msg = new Message("", "", "NextStory");
-                plug.addOutputMessage(msg);
-                plug.sendOutputMessages();
-            } else {
-                if (!plug.isServerAvailable())
-                    System.out.println("Psyclone is avail, but sleeping.");
-                else
-                    System.out.println("Psyclone is not available.");
-            }
-        }
-
-
-        /* if (args.length == 1) {
-            
-            try {
-
-                FileInputStream fp = new FileInputStream(args[0]);
-                BufferedReader in = new BufferedReader(new InputStreamReader(fp));
-
-                KeywordSpotter spotter = new KeywordSpotter();
-                spotter.setInputStream(in);
-                spotter.sieve();
-                spotter.destroy();
-            } catch (Exception e) {
-                System.err.println("File input error");
-            }
-
-        } else {
-            System.err.println("Argument invalid");
-        } */
-   }
+    }
 }

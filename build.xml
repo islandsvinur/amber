@@ -82,21 +82,48 @@
         </manifest>
     </jar>
   </target>
+  
+  <target name="report-document">
+    <exec dir="documentation/report" executable="rubber" failonerror="false">
+        <arg line="-d report.tex" />
+    </exec>
+    <move file="documentation/report/report.pdf" todir="documentation" failonerror="false" />
+    <exec dir="documentation/report" executable="rubber" failonerror="false">
+        <arg line="--clean report.tex" />
+    </exec>
+  </target>
 
-  <target name="docs" depends="init">
+  <target name="design-document">
+    <exec dir="documentation/design" executable="rubber" failonerror="false">
+        <arg line="-d design.tex" />
+    </exec>
+    <move file="documentation/design/design.pdf" todir="documentation" failonerror="false" />
+    <exec dir="documentation/design" executable="rubber" failonerror="false">
+        <arg line="--clean design.tex" />
+    </exec>
+  </target>
+
+  <target name="docs" depends="init, report-document, design-document">
     <javadoc packagenames="amber.*" 
              sourcepath="${src}" 
              destdir="${docs}" 
              classpathref="project.class.path" />
   </target>
 
-  <target name="dist" depends="crawler, parser, visualizer, docs">
-    <echo message="Hi" />
+  <target name="dist" depends="crawler, parser, visualizer">
   </target>
 
   <target name="clean">
     <delete dir="${build}" />
     <delete dir="${docs}" />
+    <delete file="documentation/design.pdf" />
+    <delete file="documentation/report.pdf" />
+    <exec dir="documentation/report" executable="rubber" failonerror="false">
+        <arg line="--clean report.tex" />
+    </exec>
+    <exec dir="documentation/design" executable="rubber" failonerror="false">
+        <arg line="--clean design.tex" />
+    </exec>
   </target>
   
   <target name="distclean">
