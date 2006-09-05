@@ -42,10 +42,13 @@ package amber.sieve;
 
 import com.cmlabs.air.*;
 
+import amber.common.*;
+import amber.interfaces.Sieve;
+
 import java.io.*;
 import java.util.regex.*;
 
-public class KeywordSpotter {
+public class KeywordSpotter implements SieveInterface {
 
     private JavaAIRPlug air;
     private BufferedReader input;
@@ -86,5 +89,9 @@ public class KeywordSpotter {
         } catch (Exception e) {
             System.err.println("File input error");
         }
+    }
+
+    public boolean doSieve (Story msg) {
+        return true;
     }
 }
