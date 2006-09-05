@@ -55,7 +55,7 @@
   <target name="build" depends="init">
     <mkdir dir="${build}" />
     <mkdir dir="${dist}" />
-    <unjar src="lib/JavaOpenAIR.jar" dest="${build}" />
+    <!-- <unjar src="lib/JavaOpenAIR.jar" dest="${build}" /> -->
     <javac srcdir="${src}" destdir="${build}" classpathref="project.class.path" />
   </target>
 
