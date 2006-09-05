@@ -36,6 +36,7 @@
   POSSIBILITY OF SUCH DAMAGE.
 
 -->
+<?xml version="1.0"?>
 <psySpec name="Ambient Earth" version="1.20">  
     
     <global>
@@ -43,59 +44,52 @@
         <title>Ambient Earth</title>
     </global>
 
-    <whiteboard name="Whiteboard.1">
-        <description>Stores crawled stories.</description>
+    <whiteboard name="WB.Stories.Raw">
+        <description>
+            Stores all crawled stories before being analysed by the Sieve.
+        </description>
     </whiteboard>
 
-    <whiteboard name="Whiteboard.2">
-        <description>Stores candidate stories.</description>
+    <whiteboard name="WB.Stories.Processed">
+        <description>
+            Stores stories that went through analysis.
+        </description>
     </whiteboard>
 
-    <whiteboard name="Whiteboard.3">
-        <description>Stores selected stories.</description>
-    </whiteboard>
-
-    <whiteboard name="Whiteboard.4">
-        <description>Stores stories to be displayed.</description>
-    </whiteboard>
-
-    <module name="Stub-Crawler">
-        <triggers to="Whiteboard.1">
-            <trigger after="500" type="Psyclone.System.Ready" />
-            <trigger after="500" type="NextStory" />
-        </triggers>
-        <post to="Whiteboard.1" type="CrawledStory" />
+    <module name="Crawler.RSS">
+        <executable />
+        <description>
+            This module gets RSS feeds via HTTP, parses them and puts the
+            stories in them on the whiteboard (along with meta-data).
+        </description>
+        <spec>
+            <post to="WB.Stories.Raw" type="External.Web.RSS" />
+        </spec>
     </module>
 
-    <module name="CrawlerToSieve">
+    <module name="Sieve.KeywordSpotter">
+        <executable />
         <description>
-            This module will transfer incoming crawled stories to the storage
-            of candidate stories.
+            This module will analyze stories in the raw-stories whiteboard for
+            the existence of certain keywords and puts matching stories on the
+            processed-stories whiteboard, adding a category to them.
         </description>
-        <trigger from="Whiteboard.1" type="CrawledStory" after="750" />
-        <post to="Whiteboard.2" type="CandidateStory" />
+        <spec>
+            <trigger after="100" from="WB.Stories.Raw" type="External.*" />
+            <post to="WB.Stories.Processed" type="Internal.*" />
+        </spec>
     </module>
 
-    <!-- <module name="Stub-Sieve">
+    <module name="ShowOff.FullScreen">
+        <executable />
         <description>
-            This module will simulate a Sieve.
+            This module gets stories from the processed whiteboard and uses the
+            story's meta-data to display the stories in a certain way that is
+            ambient in its interaction.
         </description>
-        <trigger from="Whiteboard.2" type="CandidateStory" after="750" />
-        <post to="Whiteboard.3" type="SelectedStory" />
-        <post to="Whiteboard.1" type="NextStory" />
-    </module> -->
-
-    <module name="SieveToDisplay">
-        <description>
-            This module will transfer incoming selected stories to the storage
-            for stories to be displayed.
-        </description>
-        <trigger from="Whiteboard.3" type="SelectedStory" after="750" />
-        <post to="Whiteboard.4" type="Story" />
-    </module>
-
-    <module name="Stub-Display">
-        <trigger from="Whiteboard.4" type="Story" after="750" />
+        <spec>
+            <trigger from="WB.Stories.Processed" type="Internal.*" />
+        </spec>
     </module>
 
 </psySpec> 
