@@ -43,7 +43,7 @@ package amber.sieve;
 import com.cmlabs.air.*;
 
 import amber.common.*;
-import amber.interfaces.Sieve;
+import amber.SieveInterface;
 
 import java.io.*;
 import java.util.regex.*;
