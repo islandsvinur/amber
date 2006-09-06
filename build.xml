@@ -62,7 +62,7 @@
   <target name="crawler" depends="build">
     <jar destfile="${dist}/Crawler.jar" basedir="${build}">
         <manifest>
-            <attribute name="Main-Class" value="Crawler" />
+            <attribute name="Main-Class" value="amber.Crawler" />
         </manifest>
     </jar>
   </target>
@@ -70,7 +70,7 @@
   <target name="parser" depends="build">
     <jar destfile="${dist}/Sieve.jar" basedir="${build}">
         <manifest>
-            <attribute name="Main-Class" value="Sieve" />
+            <attribute name="Main-Class" value="amber.Sieve" />
         </manifest>
     </jar>
   </target>
@@ -78,7 +78,7 @@
   <target name="visualizer" depends="build">
     <jar destfile="${dist}/ShowOff.jar" basedir="${build}">
         <manifest>
-            <attribute name="Main-Class" value="ShowOff" />
+            <attribute name="Main-Class" value="amber.ShowOff" />
         </manifest>
     </jar>
   </target>
