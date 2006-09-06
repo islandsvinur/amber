@@ -38,6 +38,8 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
+package amber;
+
 import amber.crawler.RSS;
 import com.cmlabs.air.*;
 
