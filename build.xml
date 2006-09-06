@@ -82,6 +82,10 @@
         </manifest>
     </jar>
   </target>
+
+  <target name="website">
+    <exec dir="documentation/website" executable="webgen" failonerror="false" />
+  </target>
   
   <target name="report-document">
     <exec dir="documentation/report" executable="rubber" failonerror="false">
@@ -103,7 +107,7 @@
     </exec>
   </target>
 
-  <target name="docs" depends="init, report-document, design-document">
+  <target name="docs" depends="init, report-document, design-document, website">
     <javadoc packagenames="amber.*" 
              sourcepath="${src}" 
              destdir="${docs}" 
