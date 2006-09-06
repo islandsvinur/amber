@@ -40,6 +40,5 @@
 
 package amber;
 
-public interface SieveInterface {
-    public boolean doSieve (amber.common.Story msg);
+public interface CrawlerInterface {
 }
