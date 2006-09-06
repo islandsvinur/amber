@@ -38,6 +38,8 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
+package amber;
+
 import java.io.*;
 
 import amber.sieve.KeywordSpotter;
