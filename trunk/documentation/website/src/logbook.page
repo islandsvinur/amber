@@ -1,8 +1,75 @@
 ---
-title: Log book
+title: Log
 inMenu: true
 orderInfo: 20
 ---
-h2. Log book
+h2. Log
 
-Here is the place where the log book for your project should go.
+h3. Weeks 35 and earlier
+
+These weeks weren't officially in the traineeship period, but were used for
+some preparation work and introduction at the university. Since in those two
+weeks the intensive Icelandic language course was still going on, those two
+weeks were only half working days.
+
+p(plan). Getting to know the organization, methodologies and procedures
+
+table(log).
+(header). |_(day). Day|_(act). Activity|
+|Thu 22.08|Introduction at the university with other exchange students|
+|Fri 23.08|Introduction to the School of Computer Science and Engineering, talk with Yngvi Björnsson|
+
+table(log).
+(header). |_(day). Day|_(act). Activity|
+|Mon 22.08| |
+|Tue 23.08|Conference call with Kristinn, "SVN repository":http://cadia.ru.is/svn/repos/webmon/|
+|Wed 24.08|Read about "CDM":http://www.mindmakers.org/projects/CDM/pages/|
+|Thu 25.08|Bits and pieces of documentation and first code file structure|
+|Fri 26.08| |
+
+table(log).
+(header). |_(day). Day|_(act). Activity|
+|Mon 28.08| |
+|Tue 29.08|Conference call with Kristinn|
+|Wed 30.08|Created first psySpec file|
+|Thu 31.08|_moving_|
+|Fri  1.09|Chat with Kristinn about psySpec|
+
+h3. Week 36
+
+p(plan). Having a global design of the modules and a first bit of object model,
+meanwhile playing around with posting and retrieving messages with Psyclone.
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon  4.09|Improved psySpec|
+|Tue  5.09|Thinking some more about the architecture|
+|Wed  6.09|Read "paper,":http://www1.cs.columbia.edu/~smaskey/papers/AI_summer_vol_2.pdf began writing design document, created logbook|
+|Thu  7.09| |
+|Fri  8.09| |
+
+h3. Week 37
+
+p(plan).  -
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 11.09| |
+|Tue 12.09| |
+|Wed 13.09| |
+|Thu 14.09| |
+|Fri 15.09| |
+
+h3. Week 47
+
+p(plan). Finish everything up
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 20.11| |
+|Tue 21.11| |
+|Wed 22.11| |
+|Thu 23.11| |
+|Fri 24.11| |
+|Sat 25.11|Flight back|
+
