@@ -1,2 +1,68 @@
 \chapter{Requirements}
 
+There are various kinds of requirements to be identified. A distinction can be
+made between functioanl and extra-functional (or non-functional) requirements.
+
+\section{Extra-functional requirements}
+
+\begin{enumerate}
+  \item The system must make use of the Psyclone framework for communication.
+  \item The system will be implemented in the Java programming language.
+  \item The display module with the Java Applet must be able to run on any
+        machine with the Java plugins properly installed (i.e. not only on the
+        machine running the rest of the system).
+  \item It must be possible to add modules with similar functionality to
+        operate in parallel with modules already there. For instance when the
+        Java Applet is running, it should also be possible to have the full
+        screen module running at the same time. 
+\end{enumerate}
+
+\section{Functional requirements}
+
+These requirements describe which \emph{inputs}, \emph{outputs}, \emph{storage}
+and \emph{computations} exist in the system and how they are \emph{timed and
+synchronized}.
+
+\subsection{Inputs}
+
+\begin{enumerate}
+  \item The system must be configurable to specify which RSS feeds will be
+        monitored.
+  \item The configuration of the system does not have to be done during run-time.
+  \item Changing the configuration of a module may require a restart of the
+        module.
+  \item The system will use the configuration to get information from the
+        internet from the specified RSS feeds.
+  \item The display may have a set of controls to navigate through the history
+        of a feed.
+  \item Parts of the system must accept triggers from Psyclone whiteboards.
+\end{enumerate}
+
+\subsection{Outputs}
+
+\begin{enumerate}
+  \item There will be an output module which is to be used within a website, i.e. a Java Applet.
+  \item There will be an output module which can display more information than
+        the Applet which runs in full screen.
+\end{enumerate}
+
+\subsection{Storage}
+
+\begin{enumerate}
+  \item The system does not store anything.
+\end{enumerate}
+
+\subsection{Computations}
+
+\begin{enumerate}
+  \item The system must decide of a delivered story what its subject(s) is/are.
+  \item The system may put weights on the subjects instead of a boolean value.
+\end{enumerate}
+
+\subsection{Timing and synchronization}
+
+\begin{enumerate}
+  \item Synchronization between modules is handled by Psyclone, so no
+        requirements need to be added to the system itself.
+\end{enumerate}
+
