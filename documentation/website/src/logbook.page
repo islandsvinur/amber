@@ -1,7 +1,7 @@
 ---
 title: Log
 inMenu: true
-orderInfo: 20
+orderInfo: 80
 ---
 h2. Log
 
@@ -45,12 +45,12 @@ table(log).
 |Mon  4.09|Improved psySpec|
 |Tue  5.09|Thinking some more about the architecture|
 |Wed  6.09|Read "paper,":http://www1.cs.columbia.edu/~smaskey/papers/AI_summer_vol_2.pdf began writing design document, created logbook|
-|Thu  7.09| |
+|Thu  7.09|More work on design|
 |Fri  8.09| |
 
 h3. Week 37
 
-p(plan).  -
+p(plan). Finish design document
 
 table(log).
 (header). |_(day). Day |_(act). Activity |
@@ -59,6 +59,10 @@ table(log).
 |Wed 13.09| |
 |Thu 14.09| |
 |Fri 15.09| |
+
+...
+
+...
 
 h3. Week 47
 

@@ -1,5 +1,5 @@
 ---
-title: Homepage
+title: Introduction
 inMenu: true
 orderInfo: 0
 directoryName: Ambient Earth
@@ -9,6 +9,5 @@ h2. Ambient Earth
 Ambient Earth, affectionally called Amber, will try to create an image of the
 buzz of the Internet; what are people talking about, how are stories connected.
 
-It is <a href="{relocatable:about.page}">my</a> internship project, created at
-"Reykjavík University":http://www.ru.is/ in Iceland during the fall semester of
-2006.
+It is my internship project, created at "Reykjavík
+University":http://www.ru.is/ in Iceland during the fall semester of 2006.
