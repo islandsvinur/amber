@@ -1,14 +1,18 @@
 ---
-title: About
+title: Contact me
 inMenu: true
-orderInfo: 10
+orderInfo: 99
 ---
-h2. About Ambient Earth
-
-Description of project!
-
 h2. About the Author
 
 Christian Luijten is a student at "Technische Universiteit
 Eindhoven":http://www.tue.nl/ who likes Icelanders so much that he did a
 traineeship at "Reykjavík University":http://www.ru.is/
+
+|^. *web:*      |"http://nemendur.ru.is/christian06/":http://nemendur.ru.is/christian06/|
+|^. *e-mail:*   |"christian06@ru.is":mailto:christian06@ru.is|
+|^. *telephone:*|(+354) 846 7513|
+|^. *home:*     |Christian Luijten<br />
+                 Guesthouse Egilsborg<br />
+                 Þverholti 20<br />
+                 ÍS-105 Reykjavík|
