@@ -1,4 +1,4 @@
-\section{Modules}
+\section{\label{sct:modules}Modules}
 
 A running Amber system will comprise of at least three modules running at the
 same time; there is a Crawler module, a selector module called Sieve and a
@@ -20,15 +20,24 @@ on the whiteboard.
 
 \subsubsection{KeywordSpotter}
 
+The KeywordSpotter is configured to detect the presence of certain keywords in
+a story which makes it fit in a certain category or subject. In early versions
+the weights of the subjects will be equal. In later versions all weights of all
+subjects of a story must for instance add up to 100\%. This gives the
+visualizer more freedom to place the story.
+
 \subsubsection{PhraseSpotter}
 
+The PhraseSpotter will use a grammar engine to detect whether certain types of
+sentences appear in a story to classify it.
 
 \subsection{ShowOff modules}
 
 \subsubsection{Full screen}
 
 The full screen application will display a lot of information and is there to
-be looked - not glanced - at.
+be looked - not glanced - at. It should be possible to let it do its job
+autonomously, just showing a pretty picture, or to be interactive.
 
 \subsubsection{Ambient applet}
 
@@ -36,3 +45,4 @@ The ambient applet will display a very easy to understand image of the status
 of the page it is on. I.e. if the page is a weblog, it should display subject
 information on that weblog, if it is on the page of a thread of a forum, it
 displays the flow of the discussion.
+
