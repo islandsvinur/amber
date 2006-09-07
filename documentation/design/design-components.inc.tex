@@ -1,23 +1,29 @@
 \section{Modules}
 
+A running Amber system will comprise of at least three modules running at the
+same time; there is a Crawler module, a selector module called Sieve and a
+display called ShowOff.
 
-\subsection{Crawler}
+Every module has a specified interface through which communication with
+Psyclone is handled.
+
+\subsection{Crawler modules}
 
 \subsubsection{RSS}
 
-The RSS crawler will be fairly straightforward. There are actually quite a few
-good RSS parsers around for Java, the only thing the crawler should do is
+The RSS crawler module will be fairly straightforward. There are actually quite
+a few good RSS parsers around for Java, the only thing the crawler should do is
 getting the stories from the RSS feeds along with meta-information and store it
 on the whiteboard.
 
-\subsection{Parser}
+\subsection{Sieve modules}
 
-\subsubsection{Keywords}
+\subsubsection{KeywordSpotter}
 
-\subsubsection{Phrases}
+\subsubsection{PhraseSpotter}
 
 
-\subsection{Display}
+\subsection{ShowOff modules}
 
 \subsubsection{Full screen}
 
