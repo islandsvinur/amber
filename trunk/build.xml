@@ -83,15 +83,16 @@
     </jar>
   </target>
 
-  <target name="website">
+  <target name="website" depends="design-document">
     <exec dir="documentation/website" executable="webgen" failonerror="false" />
+    <copy file="documentation/design/design.pdf" todir="documentation/website/output/amber" />
   </target>
   
   <target name="report-document">
     <exec dir="documentation/report" executable="rubber" failonerror="false">
         <arg line="-d report.tex" />
     </exec>
-    <move file="documentation/report/report.pdf" todir="documentation" failonerror="false" />
+    <copy file="documentation/report/report.pdf" todir="documentation" failonerror="false" />
     <exec dir="documentation/report" executable="rubber" failonerror="false">
         <arg line="--clean report.tex" />
     </exec>
@@ -101,7 +102,7 @@
     <exec dir="documentation/design" executable="rubber" failonerror="false">
         <arg line="-d design.tex" />
     </exec>
-    <move file="documentation/design/design.pdf" todir="documentation" failonerror="false" />
+    <copy file="documentation/design/design.pdf" todir="documentation" failonerror="false" />
     <exec dir="documentation/design" executable="rubber" failonerror="false">
         <arg line="--clean design.tex" />
     </exec>
