@@ -121,6 +121,7 @@
   <target name="clean">
     <delete dir="${build}" />
     <delete dir="${docs}" />
+    <delete dir="documentation/website/output" />
     <delete file="documentation/design.pdf" />
     <delete file="documentation/report.pdf" />
     <exec dir="documentation/report" executable="rubber" failonerror="false">
