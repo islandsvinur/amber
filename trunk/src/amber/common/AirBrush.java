@@ -44,8 +44,8 @@ import com.cmlabs.air.*;
 
 public class AirBrush {
     private JavaAIRPlug plug;
-    private Message inMsg;
-    private Message outMsg;
+    // private Message inMsg;
+    // private Message outMsg;
 
     public AirBrush (String plugname, String hostname, int port) {
         plug = new JavaAIRPlug(plugname, hostname, port);

@@ -40,10 +40,7 @@
 
 package amber.showoff;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class FullScreen {
     
@@ -63,6 +60,10 @@ public class FullScreen {
         mainUI.setSize(300,300);
         mainUI.setVisible(true);
 
+    }
+    
+    public void hello() {
+    	System.out.println("Do what you want.");
     }
 
 }
