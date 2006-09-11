@@ -50,15 +50,29 @@ table(log).
 
 h3. Week 37
 
-p(plan). Finish design document
+p(plan). Finish global design
 
 table(log).
 (header). |_(day). Day |_(act). Activity |
-|Mon 11.09| |
+|Mon 11.09|Project imported into Eclipse + exploring Eclipse, began detailling of Crawler architecture|
 |Tue 12.09| |
 |Wed 13.09| |
 |Thu 14.09| |
 |Fri 15.09| |
+
+<div style="display: none">
+
+h3. Week 38
+
+p(plan). 
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 18.09| |
+|Tue 19.09| |
+|Wed 20.09| |
+|Thu 21.09| |
+|Fri 22.09| |
 
 ...
 
@@ -76,4 +90,6 @@ table(log).
 |Thu 23.11| |
 |Fri 24.11| |
 |Sat 25.11|Flight back|
+
+</div>
 
