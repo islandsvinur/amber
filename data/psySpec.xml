@@ -58,12 +58,14 @@
 
     <module name="Crawler.RSS">
         <executable />
+        <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="180" value="60" />
         <description>
             This module gets RSS feeds via HTTP, parses them and puts the
             stories in them on the whiteboard (along with meta-data).
         </description>
         <spec>
-            <post to="WB.Stories.Raw" type="External.Web.RSS" />
+            <post to="WB.Stories.Raw" type="External.Crawler.RSS.Story" />
         </spec>
     </module>
 
@@ -75,7 +77,7 @@
             processed-stories whiteboard, adding a category to them.
         </description>
         <spec>
-            <trigger after="100" from="WB.Stories.Raw" type="External.*" />
+            <trigger after="100" from="WB.Stories.Raw" type="External.Crawler.*.Story" />
             <post to="WB.Stories.Processed" type="Internal.*" />
         </spec>
     </module>
