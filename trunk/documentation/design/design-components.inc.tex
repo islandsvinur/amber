@@ -1,13 +1,32 @@
 \section{\label{sct:modules}Modules}
 
-A running Amber system will comprise of at least three modules running at the
+A complete Amber system will comprise of at least three modules running at the
 same time; there is a Crawler module, a selector module called Sieve and a
-display called ShowOff.
+display called ShowOff. The modules are separate executables with their own
+life-cycles and resources.
 
 Every module has a specified interface through which communication with
 Psyclone is handled.
 
 \subsection{Crawler modules}
+
+\begin{figure}
+    \includegraphics{image/crawler}
+    \caption{Design of the Crawler, the names are Java classnames}
+\end{figure}
+
+When the Crawler is started, it will create one of the available handlers
+(depending on what is specified on the command line or what is set as default
+during build time). 
+
+It also creates an AirBrush instance to communicate with Psyclone via
+Java\-Open\-AIR. The module name announced to Psyclone is `Crawler.' plus the
+name of the handler, so `Crawler.RSS' in case of the RSS handler.
+
+After connecting with Psyclone, the handler can get its parameters stored in
+the psySpec file and go to work. It will post stories with type
+`External.Crawler.$\langle$handler$\rangle$.Story' (i.e.
+`External.Crawler.RSS.Story') on the whiteboard `WB.Stories.Raw'.
 
 \subsubsection{RSS}
 
@@ -17,6 +36,7 @@ getting the stories from the RSS feeds along with meta-information and store it
 on the whiteboard.
 
 \begin{module}{amber.crawler.RSS}{Crawler.RSS}
+    \post{External.Crawler.RSS.Story}{WB.Stories.Raw}{A story}
 \end{module}
 
 \subsubsection{DiggAPI}
@@ -45,6 +65,8 @@ subjects of a story must for instance add up to 100\%. This gives the
 visualizer more freedom to place the story.
 
 \begin{module}{amber.sieve.KeywordSpotter}{Sieve.KeywordSpotter}
+    \post{Internal.*}{WB.Stories.Processed}{Thingy}
+    \trigger{External.Crawler.*.Story}{WB.Stories.Raw}{Thingy}
 \end{module}
 
 \subsubsection{PhraseSpotter}

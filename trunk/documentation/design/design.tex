@@ -115,14 +115,15 @@
 \newcommand{\strtok}[1]{\textbf{`#1'}}
 
 \newenvironment{module}[2]{
-    \newcommand{\moduleitem}[2]{{\bf ##1:} & ##2 \\ }
-    \tabularx{\linewidth}{|p{3cm}|X|}
-        \hline
-        \multicolumn{2}{|l|}{{\bf public class} #1} \\
-        \hline
+    \newcommand{\moduleitem}[2]{{\bf ##1:} & \multicolumn{2}{|l|}{##2} \\ }
+    \newcommand{\post}[3]{##1 & Posted to ##2 & ##3 \\ }
+    \newcommand{\trigger}[3]{##1 & Triggered from ##2 & ##3 \\ }
+
+    Psyclone module specification for #1: \\
+    \tabularx{\linewidth}{|p{3cm}|p{5cm}|X|}
         \hline
         % \moduleitem{Class \& package}{#1}
-        \moduleitem{Psyclone name}{#2}
+        \moduleitem{Name}{#2}
         \hline
 }{ 
     \endtabularx
