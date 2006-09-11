@@ -43,7 +43,7 @@ package amber;
 import amber.showoff.FullScreen;
 
 /* Starts the Display */
-public class ShowOff {
+public class ShowOff extends amber.common.Object {
 
     public static void main(String args[]) {
         FullScreen app = new FullScreen();

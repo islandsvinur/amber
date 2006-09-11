@@ -42,6 +42,6 @@ package amber.crawler;
 
 import amber.CrawlerInterface;
 
-public class RSS implements CrawlerInterface {
+public class RSS extends amber.common.Object implements CrawlerInterface {
 
 }

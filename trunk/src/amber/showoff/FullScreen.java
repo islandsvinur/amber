@@ -42,7 +42,7 @@ package amber.showoff;
 
 import javax.swing.*;
 
-public class FullScreen {
+public class FullScreen extends amber.common.Object {
     
     private JFrame mainUI = null;
 

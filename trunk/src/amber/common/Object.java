@@ -40,19 +40,10 @@
 
 package amber.common;
 
-import com.cmlabs.air.*;
+public abstract class Object {
 
-public class AirBrush extends Object {
-    private JavaAIRPlug plug;
-    // private Message inMsg;
-    // private Message outMsg;
+	public Object() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public AirBrush (String plugname, String hostname, int port) {
-        plug = new JavaAIRPlug(plugname, hostname, port);
-
-        if (!plug.init()) {
-            System.out.println("Could not connect to the Server ...");
-            System.exit(0);
-        }
-    }
 }

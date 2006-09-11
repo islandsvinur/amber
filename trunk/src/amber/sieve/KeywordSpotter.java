@@ -48,7 +48,7 @@ import amber.SieveInterface;
 import java.io.*;
 import java.util.regex.*;
 
-public class KeywordSpotter implements SieveInterface {
+public class KeywordSpotter extends amber.common.Object implements SieveInterface {
 
     private JavaAIRPlug air;
     private BufferedReader input;
