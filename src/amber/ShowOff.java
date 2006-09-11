@@ -47,5 +47,6 @@ public class ShowOff {
 
     public static void main(String args[]) {
         FullScreen app = new FullScreen();
+        app.hello();
     }
 }

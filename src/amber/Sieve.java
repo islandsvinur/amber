@@ -40,10 +40,6 @@
 
 package amber;
 
-import java.io.*;
-
-import amber.sieve.KeywordSpotter;
-import amber.common.AirBrush;
 import com.cmlabs.air.*;
 
 /* Starts the parser */
