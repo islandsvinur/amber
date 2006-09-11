@@ -28,7 +28,10 @@
      border-top: thin solid #2F393F;
   }
 
-  #body { text-align: justify; }
+  #body { 
+     text-align: justify; 
+     line-height: 1.75em;
+  }
 
   .bar {
      clear: both;
@@ -69,8 +72,8 @@
      background-color: #FCE6EE;
   }
   
-  h2 { border-bottom: thin dashed #635E4A; }
-  h3 { border-bottom: thin dashed #A39B7A; }
+  #body h2 { border-bottom: thin dashed #635E4A; }
+  #body h3 { border-bottom: thin dashed #A39B7A; }
 
   table th { background-color: #F3E7B6; }
   table { margin: 1em 0; }
