@@ -26,24 +26,27 @@ synchronized}.
 \subsection{Inputs}
 
 \begin{enumerate}
-  \item The system must be configurable to specify which RSS feeds will be
+  \item The system must be configurable to specify which sources will be
         monitored.
-  \item The configuration of the system does not have to be done during run-time.
-  \item Changing the configuration of a module may require a restart of the
-        module.
   \item The system will use the configuration to get information from the
-        internet from the specified RSS feeds.
+        internet from the specified sources.
+  \item Configuration of the system goes via Psyclone using module parameters.
   \item The display may have a set of controls to navigate through the history
         of a feed.
   \item Parts of the system must accept triggers from Psyclone whiteboards.
+  \item Sources must be \ac{RSS} feeds. The system should however be prepared
+        to support other source types as well (i.e. it should be easily
+        expandable).
+  \item The Applet display is non-interactive (no input).
 \end{enumerate}
 
 \subsection{Outputs}
 
 \begin{enumerate}
-  \item There will be an output module which is to be used within a website, i.e. a Java Applet.
-  \item There will be an output module which can display more information than
-        the Applet which runs in full screen.
+  \item There is an output module which is to be used within a website,
+        i.e. a Java Applet.
+  \item There is an output module which runs standalone and in full screen
+        and displays more information than the Applet can.
 \end{enumerate}
 
 \subsection{Storage}
@@ -66,3 +69,30 @@ synchronized}.
         requirements need to be added to the system itself.
 \end{enumerate}
 
+\subsection{Visualization}
+
+\subsubsection{Common}
+
+The following requirements are common for both the applet and the standalone
+viewer.
+
+\begin{enumerate}
+  \item A story is represented as a dot.
+  \item Dots fly around freely in the display.
+  \item Dots are attracted by points in the space which represent concepts the
+        stories can be about.
+  \item Dots are ``spewed out'' from the middle, from where they slowly move
+        outward, in the direction of their ``attraction'' points.
+\end{enumerate}
+
+\subsubsection{Applet}
+
+\begin{enumerate}
+  \item
+\end{enumerate}
+
+\subsubsection{Standalone viewer}
+
+\begin{enumerate}
+  \item
+\end{enumerate}
