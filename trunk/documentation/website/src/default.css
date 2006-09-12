@@ -58,8 +58,9 @@
      text-align: right;
   }
 
-  .log { table-layout: fixed; width: 100%; }
+  .log { table-layout: fixed; width: 40em; }
   .log tr.header .day { width: 6em; }
+  .log td { vertical-align: top; }
 
   .plan { font-style: italic; } 
   .plan:before { content: 'Plan: '; }
