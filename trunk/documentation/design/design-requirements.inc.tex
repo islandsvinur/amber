@@ -21,7 +21,8 @@ made between functional and extra-functional (or non-functional) requirements.
 
 These requirements describe which \emph{inputs}, \emph{outputs}, \emph{storage}
 and \emph{computations} exist in the system and how they are \emph{timed and
-synchronized}.
+synchronized}. Finally, since this is a very important part of the project,
+there is a section on \emph{visualization} requirements.
 
 \subsection{Inputs}
 
@@ -64,10 +65,8 @@ synchronized}.
 
 \subsection{Timing and synchronization}
 
-\begin{enumerate}
-  \item Synchronization between modules is handled by Psyclone, so no
-        requirements need to be added to the system itself.
-\end{enumerate}
+Synchronization between modules is handled by Psyclone, so no requirements need
+to be added to the system itself.
 
 \subsection{Visualization}
 
@@ -78,21 +77,27 @@ viewer.
 
 \begin{enumerate}
   \item A story is represented as a dot.
-  \item Dots fly around freely in the display.
-  \item Dots are attracted by points in the space which represent concepts the
-        stories can be about.
-  \item Dots are ``spewed out'' from the middle, from where they slowly move
-        outward, in the direction of their ``attraction'' points.
+  \item In the center of the display is Earth (with picture?).
+  \item Dots are launched into orbit around Earth.
+  \item The orbits follow Kepler's laws of planetary motion.
+  \item The launch velocity is dependent on how ``big'' the story is (like from
+        an important author or it has many references).
+  \item Stories can get velocity boosts by getting replies/comments or
+        references (``trackbacks'') in order to keep them around.
+  \item FIXME: There is a number of dark matter bodies for each subject which
+        attract stories in some amount, depending on their subject.
 \end{enumerate}
+
+FIXME: Think about difference between static and dynamic view\ldots
 
 \subsubsection{Applet}
 
 \begin{enumerate}
-  \item
+  \item 
 \end{enumerate}
 
 \subsubsection{Standalone viewer}
 
 \begin{enumerate}
-  \item
-\end{enumerate}
+  \item 
+\eventually end{enumerate}
