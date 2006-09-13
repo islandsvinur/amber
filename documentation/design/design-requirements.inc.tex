@@ -22,7 +22,8 @@ made between functional and extra-functional (or non-functional) requirements.
 These requirements describe which \emph{inputs}, \emph{outputs}, \emph{storage}
 and \emph{computations} exist in the system and how they are \emph{timed and
 synchronized}. Finally, since this is a very important part of the project,
-there is a section on \emph{visualization} requirements.
+there are two separate sections on \emph{story analysis} and
+\emph{visualization} requirements.
 
 \subsection{Inputs}
 
@@ -68,6 +69,14 @@ there is a section on \emph{visualization} requirements.
 Synchronization between modules is handled by Psyclone, so no requirements need
 to be added to the system itself.
 
+\subsection{Story analysis}
+
+\begin{enumerate}
+  \item When stories come in, they are analysed by analysis modules.
+  \item Every module adds some meta-information to the story depending on the
+        module analysis.
+\end{enumerate}
+
 \subsection{Visualization}
 
 \subsubsection{Common}
@@ -81,23 +90,39 @@ viewer.
   \item Dots are launched into orbit around Earth.
   \item The orbits follow Kepler's laws of planetary motion.
   \item The launch velocity is dependent on how ``big'' the story is (like from
-        an important author or it has many references).
-  \item Stories can get velocity boosts by getting replies/comments or
-        references (``trackbacks'') in order to keep them around.
-  \item FIXME: There is a number of dark matter bodies for each subject which
-        attract stories in some amount, depending on their subject.
+        an important author or if it has many references) at the time of
+        writing, but is always smaller than the escape velocity.
+  \item Stories get velocity boosts by getting replies/comments or
+        references (``trackbacks'') in order to keep them around longer.
+  \item Stories which don't get reactions will just orbit Earth for a while and
+        eventually fall back down \mbox{(i.e. launch velocity $<$ escape
+        velocity)}.
+  \item Only the meta-information added to the stories by the Sieve modules is
+        used to determine launch variables.
+  \item There are some small, heavy bodies in geostationary orbit around Earth
+        representing values of an enumeration of meta-information (for instance
+        story subjects). They attract the stories depending on how much they
+        match the story's subject. It is possible for a story to get into orbit
+        with such a heavy body if it is really strongly connected to the
+        subject.
 \end{enumerate}
 
-FIXME: Think about difference between static and dynamic view\ldots
+There will be two different views, a static and a dynamic one. Which one is
+used depends on the application. To get an idea of the activity at a certain
+moment in time, the static view is used. For a ``real-time'' view of internet
+activity, the dynamic view can be used.
 
-\subsubsection{Applet}
+The term ``static'' doesn't mean the image is standing still, it will behave
+exactly the same as the dynamic view. However, some physical laws don't apply
+or are differently calibrated in order to give a constant image. In other
+words, while in dynamic view stories can appear and disappear, in the static
+view the stories are a given constant.
+
+\subsubsection{Differences between Applet and Standalone viewer}
 
 \begin{enumerate}
-  \item 
+  \item The applet display will in practice be considerably smaller than the
+        standalone viewer. Therefore, the applet is less detailed and some
+        physical laws might need to be bend a bit.
 \end{enumerate}
 
-\subsubsection{Standalone viewer}
-
-\begin{enumerate}
-  \item 
-\eventually end{enumerate}
