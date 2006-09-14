@@ -40,30 +40,49 @@
 
 package amber.showoff;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JWindow;
 
 public class FullScreen extends amber.common.Object {
     
-    private JFrame mainUI = null;
-
     public FullScreen() {
-        System.out.println("Hallo wereld");
+    	JWindow main = new JWindow();
+        GraphicsEnvironment.getLocalGraphicsEnvironment()
+        				   .getDefaultScreenDevice()
+        				   .setFullScreenWindow(main);
+        Container mainpane = main.getContentPane();
+        
+        mainpane.setBackground(Color.black);
+        
+        JPanel list = new JPanel();
+        list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
+        list.setBackground(Color.black);
+        
+        JButton b = new JButton();
+        b.setText("Quit");
+        b.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) { 
+        		System.exit(0); 
+        	};
+        });
+        
+        EarthView v = new EarthView();
+        v.start();
 
-        mainUI = new JFrame();
-        mainUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        list.add(v);
+        list.add(b);
 
-        JLabel text = new JLabel();
-        text.setText("Hello world");
+        mainpane.add(list);
 
-        mainUI.getContentPane().add(text);
-
-        mainUI.setSize(300,300);
-        mainUI.setVisible(true);
-
+        
+        main.show();
     }
-    
-    public void hello() {
-    	System.out.println("Do what you want.");
-    }
-
 }
