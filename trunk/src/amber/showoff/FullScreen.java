@@ -40,6 +40,8 @@
 
 package amber.showoff;
 
+import amber.common.Object;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
@@ -51,38 +53,40 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class FullScreen extends amber.common.Object {
-    
+public class FullScreen extends Object {
+    private EarthView earthView;
+
     public FullScreen() {
-    	JWindow main = new JWindow();
+        JWindow main = new JWindow();
         GraphicsEnvironment.getLocalGraphicsEnvironment()
-        				   .getDefaultScreenDevice()
-        				   .setFullScreenWindow(main);
+                .getDefaultScreenDevice().setFullScreenWindow(main);
         Container mainpane = main.getContentPane();
-        
+
         mainpane.setBackground(Color.black);
-        
+
         JPanel list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         list.setBackground(Color.black);
-        
+
         JButton b = new JButton();
         b.setText("Quit");
         b.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) { 
-        		System.exit(0); 
-        	};
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            };
         });
-        
-        EarthView v = new EarthView();
-        v.start();
 
-        list.add(v);
+        earthView = new EarthView();
+
+        list.add(earthView);
         list.add(b);
 
         mainpane.add(list);
 
-        
         main.show();
+    }
+
+    public void start() {
+        earthView.start();
     }
 }

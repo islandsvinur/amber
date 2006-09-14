@@ -48,9 +48,11 @@ import amber.SieveInterface;
 import java.io.*;
 import java.util.regex.*;
 
-public class KeywordSpotter extends amber.common.Object implements SieveInterface {
+public class KeywordSpotter extends amber.common.Object implements
+        SieveInterface {
 
     private JavaAIRPlug air;
+
     private BufferedReader input;
 
     public KeywordSpotter() {
@@ -80,7 +82,8 @@ public class KeywordSpotter extends amber.common.Object implements SieveInterfac
             while ((str = input.readLine()) != null) {
                 str = str.trim();
                 if (Pattern.matches(".*I.k.*", str)) {
-                    Message msg = new Message("", "", "My.Message.Type", str, "");
+                    Message msg = new Message("", "", "My.Message.Type", str,
+                            "");
                     air.addOutputMessage(msg);
                     air.sendOutputMessages();
                     System.out.println(str);
@@ -91,7 +94,7 @@ public class KeywordSpotter extends amber.common.Object implements SieveInterfac
         }
     }
 
-    public boolean doSieve (Story msg) {
+    public boolean doSieve(Story msg) {
         return true;
     }
 }
