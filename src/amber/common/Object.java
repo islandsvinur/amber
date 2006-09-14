@@ -42,8 +42,8 @@ package amber.common;
 
 public abstract class Object {
 
-	public Object() {
-		// TODO Auto-generated constructor stub
-	}
+    public Object() {
+        // TODO Auto-generated constructor stub
+    }
 
 }

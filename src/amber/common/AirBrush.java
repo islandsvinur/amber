@@ -44,10 +44,11 @@ import com.cmlabs.air.*;
 
 public class AirBrush extends Object {
     private JavaAIRPlug plug;
+
     // private Message inMsg;
     // private Message outMsg;
 
-    public AirBrush (String plugname, String hostname, int port) {
+    public AirBrush(String plugname, String hostname, int port) {
         plug = new JavaAIRPlug(plugname, hostname, port);
 
         if (!plug.init()) {

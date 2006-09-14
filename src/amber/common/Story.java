@@ -40,6 +40,6 @@
 
 package amber.common;
 
-public class Story extends Object { 
+public class Story extends Object {
 
 }
