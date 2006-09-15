@@ -44,8 +44,16 @@ import java.util.Queue;
 
 import amber.common.Story;
 
-public interface ShowOffObject {
-    public void start();
-    public void stop();
-    public void setStoryQueue(Queue<Story> q);
+public class ShowOffObject {
+    public void start() {
+        ;
+    }
+
+    public void stop() {
+        ;
+    }
+
+    public void setStoryQueue(Queue<Story> q) {
+        ;
+    }
 }

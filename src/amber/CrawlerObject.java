@@ -40,5 +40,5 @@
 
 package amber;
 
-public interface CrawlerObject {
+public class CrawlerObject {
 }

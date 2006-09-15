@@ -40,16 +40,71 @@
 
 package amber;
 
-import amber.common.AirBrush;
+import java.util.LinkedList;
+
+import amber.common.Story;
 import amber.showoff.FullScreen;
 
+import com.cmlabs.air.JavaAIRPlug;
+import com.cmlabs.air.Message;
+
 /* Starts the Display */
-public class ShowOff extends amber.common.Object {
+public class ShowOff extends amber.common.Object implements Runnable {
+    private ShowOffObject module;
+
+    private JavaAIRPlug plug;
+
+    private LinkedList<Story> storyQueue;
+
+    private Thread thread;
+
+    public ShowOff() {
+        module = new FullScreen();
+        plug = new JavaAIRPlug("ShowOff.FullScreen", "localhost", 10000);
+        storyQueue = new LinkedList<Story>();
+    }
+
+    public void start() {
+        // air.connect();
+
+        if (!plug.init()) {
+            System.err.println("Could not connect to the server.");
+            System.exit(1);
+        } else {
+            System.out.println("Connected to server.");
+        }
+        if (!plug.openTwoWayConnectionTo("WB.Stories.Processed")) {
+            System.err
+                    .println("Could not open callback connection to whiteboard.");
+        } else {
+            System.out.println("Connected to whiteboard.");
+        }
+
+        module.start();
+        System.out.println("Started module");
+
+        thread = new Thread(this);
+        // thread.start();
+    }
 
     public static void main(String args[]) {
-        FullScreen app = new FullScreen();
-        AirBrush air = new AirBrush("ShowOff.FullScreen", "localhost", 10000);
+        ShowOff so = new ShowOff();
+        so.start();
+    }
 
-        app.start();
+    public void run() {
+        Message message;
+        Story story;
+
+        while (Thread.currentThread() == thread) {
+            if ((message = plug.waitForNewMessage(100)) != null) {
+                System.out.println("Message received from " + message.from
+                        + "\nContent: " + message.content);
+                story = new Story(message.content);
+                if (!storyQueue.offer(story)) {
+                    System.err.println("Couldn't add story to queue.");
+                }
+            }
+        }
     }
 }

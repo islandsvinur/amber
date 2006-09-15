@@ -41,5 +41,14 @@
 package amber.common;
 
 public class Story extends Object {
+    private String content;
+
+    public Story(String c) {
+        content = c;
+    }
+    
+    public String getContent() {
+        return content;
+    }
 
 }

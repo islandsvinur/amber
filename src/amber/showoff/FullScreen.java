@@ -40,8 +40,7 @@
 
 package amber.showoff;
 
-import amber.ShowOffInterface;
-import amber.common.Object;
+import amber.ShowOffObject;
 import amber.common.Story;
 
 import java.awt.Color;
@@ -56,7 +55,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class FullScreen extends Object implements ShowOffInterface {
+public class FullScreen extends ShowOffObject {
     private EarthView earthView;
 
     public FullScreen() {
@@ -84,9 +83,7 @@ public class FullScreen extends Object implements ShowOffInterface {
         list.add(earthView);
         list.add(b);
 
-        mainpane.add(list);
-
-        main.show();
+        mainpane.add(list);        
     }
 
     public void start() {
