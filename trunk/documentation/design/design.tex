@@ -114,18 +114,18 @@
 \newcommand{\q}{\quad}
 \newcommand{\strtok}[1]{\textbf{`#1'}}
 
-\newenvironment{module}[2]{
-    \newcommand{\moduleitem}[2]{{\bf ##1:} & \multicolumn{2}{|l|}{##2} \\ }
-    \newcommand{\post}[3]{##1 & Posted to ##2 & ##3 \\ }
-    \newcommand{\trigger}[3]{##1 & Triggered from ##2 & ##3 \\ }
+\newenvironment{module}[1]{
+    \newcommand{\post}[2]{##1 & Write to & ##2 \\ }
+    \newcommand{\trigger}[2]{##1 & Read from & ##2 \\ }
 
-    Psyclone module specification for #1: \\
-    \tabularx{\linewidth}{|p{3cm}|p{5cm}|X|}
+    Psyclone module specification for module \textbf{#1} \\
+    \tabularx{\linewidth}{|X|c|X|}
         \hline
-        % \moduleitem{Class \& package}{#1}
-        \moduleitem{Name}{#2}
+        \textbf{Type} & \textbf{R/W} & \textbf{Whiteboard} \\
+        \hline
         \hline
 }{ 
+        \hline
     \endtabularx
 }
 
