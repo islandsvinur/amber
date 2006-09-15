@@ -40,16 +40,16 @@
 
 package amber.sieve;
 
-import com.cmlabs.air.*;
+import java.io.BufferedReader;
+import java.util.regex.Pattern;
 
-import amber.common.*;
-import amber.SieveInterface;
+import amber.SieveObject;
+import amber.common.Story;
 
-import java.io.*;
-import java.util.regex.*;
+import com.cmlabs.air.JavaAIRPlug;
+import com.cmlabs.air.Message;
 
-public class KeywordSpotter extends amber.common.Object implements
-        SieveInterface {
+public class KeywordSpotter extends SieveObject {
 
     private JavaAIRPlug air;
 

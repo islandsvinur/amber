@@ -40,6 +40,6 @@
 
 package amber;
 
-public interface SieveObject {
-    public boolean doSieve(amber.common.Story msg);
+public class SieveObject {
+    // public boolean doSieve(amber.common.Story msg);
 }

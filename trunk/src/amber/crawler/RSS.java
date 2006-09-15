@@ -40,8 +40,8 @@
 
 package amber.crawler;
 
-import amber.CrawlerInterface;
+import amber.CrawlerObject;
 
-public class RSS extends amber.common.Object implements CrawlerInterface {
+public class RSS extends CrawlerObject {
 
 }
