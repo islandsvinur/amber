@@ -11,8 +11,9 @@ Psyclone is handled.
 \subsection{Crawler modules}
 
 \begin{figure}
+    \centering
     \includegraphics{image/crawler}
-    \caption{Design of the Crawler, the names are Java classnames}
+    \caption{Diagram of the design of the Crawler, the names are Java classnames}
 \end{figure}
 
 When the Crawler is started, it will create one of the available handlers
@@ -61,6 +62,10 @@ DiggAPI module is created.
 
 \subsection{Sieve modules}
 
+Every invocation of a Sieve on a Story will decrease its \texttt{processLeft}
+value until it is 0. When it reaches 0, the story is moved to the ``processed''
+whiteboard WB.Stories.Processed.
+
 \subsubsection{KeywordSpotter}
 
 The KeywordSpotter is configured to detect the presence of certain keywords in
@@ -83,6 +88,12 @@ sentences appear in a story to classify it.
 \end{module}
 
 \subsection{ShowOff modules}
+
+\begin{figure}
+    \centering
+    \includegraphics{image/showoff-fullscreen}
+    \caption{Diagram of the design of the full screen ShowOff module, the names are abbreviated Java classnames}
+\end{figure}
 
 \subsubsection{Full screen}
 
