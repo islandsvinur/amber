@@ -36,8 +36,8 @@ a few good RSS parsers around for Java, the only thing the crawler should do is
 getting the stories from the RSS feeds along with meta-information and store it
 on the whiteboard.
 
-\begin{module}{amber.crawler.RSS}{Crawler.RSS}
-    \post{External.Crawler.RSS.Story}{WB.Stories.Raw}{A story}
+\begin{module}{Crawler.RSS}
+    \post{External.Crawler.RSS.Story}{WB.Stories.Raw}
 \end{module}
 
 \subsubsection{DiggAPI}
@@ -52,7 +52,8 @@ announced\footnote{\url{http://diggtheblog.blogspot.com/2006/07/digg-labs-launch
 that they will publish a public API within the next months. If time allows, a
 DiggAPI module is created.
 
-\begin{module}{amber.crawler.DiggAPI}{Crawler.DiggAPI}
+\begin{module}{Crawler.DiggAPI}
+    \post{External.Crawler.DiggAPI.Story}{WB.Stories.Raw}
 \end{module}
 
 % \subsubsection{BloggerDataAPI}
@@ -74,9 +75,10 @@ the weights of the subjects will be equal. In later versions all weights of all
 subjects of a story must for instance add up to 100\%. This gives the
 visualizer more freedom to place the story.
 
-\begin{module}{amber.sieve.KeywordSpotter}{Sieve.KeywordSpotter}
-    \post{Internal.*}{WB.Stories.Processed}{Thingy}
-    \trigger{External.Crawler.*.Story}{WB.Stories.Raw}{Thingy}
+\begin{module}{Sieve.KeywordSpotter}
+    \post{Internal.Story}{WB.Stories.Processed}
+    \post{External.Crawler.*.Story}{WB.Stories.Raw}
+    \trigger{External.Crawler.*.Story}{WB.Stories.Raw}
 \end{module}
 
 \subsubsection{PhraseSpotter}
@@ -84,7 +86,7 @@ visualizer more freedom to place the story.
 The PhraseSpotter will use a grammar engine to detect whether certain types of
 sentences appear in a story to classify it.
 
-\begin{module}{amber.sieve.PhraseSpotter}{Sieve.PhraseSpotter}
+\begin{module}{Sieve.PhraseSpotter}
 \end{module}
 
 \subsection{ShowOff modules}
@@ -101,7 +103,8 @@ The full screen application will display a lot of information and is there to
 be looked - not glanced - at. It should be possible to let it do its job
 autonomously, just showing a pretty picture, or to be interactive.
 
-\begin{module}{amber.showoff.FullScreen}{ShowOff.FullScreen}
+\begin{module}{ShowOff.FullScreen}
+    \trigger{Internal.Story}{WB.Stories.Processed}
 \end{module}
 
 \subsubsection{Ambient applet}
@@ -111,6 +114,7 @@ of the page it is on. I.e. if the page is a weblog, it should display subject
 information on that weblog, if it is on the page of a thread of a forum, it
 displays the flow of the discussion.
 
-\begin{module}{amber.showoff.Applet}{ShowOff.Applet}
+\begin{module}{ShowOff.Applet}
+    \trigger{Internal.Story}{WB.Stories.Processed}
 \end{module}
 
