@@ -66,7 +66,7 @@ table(log).
 |Tue 12.09|"Computer problems":AppleKB304308, Install of backup computer,<br />Visualization requirements, Call with Kristinn about visual aspects|
 |Wed 13.09|Visualization requirements extended, Began research on using "Graphics":http://java.sun.com/docs/books/tutorial/2d/index.html in Java|
 |Thu 14.09|Mainly work on prototype of full screen display|
-|Fri 15.09| |
+|Fri 15.09|Think about display module's architecture, Work on full screen display|
 
 [AppleKB304308]http://docs.info.apple.com/article.html?artnum=304308
 
