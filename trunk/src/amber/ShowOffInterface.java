@@ -40,5 +40,12 @@
 
 package amber;
 
+import java.util.Queue;
+
+import amber.common.Story;
+
 public interface ShowOffInterface {
+    public void start();
+    public void stop();
+    public void setStoryQueue(Queue<Story> q);
 }
