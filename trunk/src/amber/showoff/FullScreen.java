@@ -40,20 +40,23 @@
 
 package amber.showoff;
 
+import amber.ShowOffInterface;
 import amber.common.Object;
+import amber.common.Story;
 
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class FullScreen extends Object {
+public class FullScreen extends Object implements ShowOffInterface {
     private EarthView earthView;
 
     public FullScreen() {
@@ -88,5 +91,15 @@ public class FullScreen extends Object {
 
     public void start() {
         earthView.start();
+    }
+
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void setStoryQueue(Queue<Story> q) {
+        // TODO Auto-generated method stub
+        
     }
 }
