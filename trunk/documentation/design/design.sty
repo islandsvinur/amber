@@ -1,0 +1,17 @@
+
+\newenvironment{module}[1]{
+    \newcommand{\post}[2]{##1 & Write to & ##2 \\ }
+    \newcommand{\trigger}[2]{##1 & Read from & ##2 \\ }
+
+    Psyclone module specification for module \textbf{#1} \\
+    \tabularx{\linewidth}{|X|c|X|}
+        \hline
+        \textbf{Type} & \textbf{R/W} & \textbf{Whiteboard} \\
+        \hline
+        \hline
+}{ 
+        % FIXME: enabling this gives strange alignment error
+        % \hline
+    \endtabularx
+}
+
