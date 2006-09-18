@@ -8,13 +8,13 @@
 \usepackage{amssymb}
 \usepackage{babel}
 \usepackage{calc}
+\usepackage{design}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{listings}
 \usepackage{url}
 
-\newcommand{\Rvk}{Reykjav\'\i{}k }
 \newcommand{\AmbE}{Ambient~Earth}
 \newcommand{\Amber}{\textsc{Amber}}
 
@@ -97,9 +97,9 @@
 \institution{
  CADIA group \\
  School of Science and Engineering \\
- \Rvk University, \Rvk \\[1em]
+ Reykjavík University, Reykjavík \\[1em]
  \emph{Under supervision of:\/} \\
- Kristinn R. Th\'orisson, Ph.D. (\Rvk University) \\
+ Kristinn R. Thórisson, Ph.D. (Reykjavík University) \\
  dr.ir. Huub van de Wetering (Eindhoven University of Technology) \\
 }
 
@@ -114,25 +114,9 @@
 \newcommand{\q}{\quad}
 \newcommand{\strtok}[1]{\textbf{`#1'}}
 
-\newenvironment{module}[1]{
-    \newcommand{\post}[2]{##1 & Write to & ##2 \\ }
-    \newcommand{\trigger}[2]{##1 & Read from & ##2 \\ }
-
-    Psyclone module specification for module \textbf{#1} \\
-    \tabularx{\linewidth}{|X|c|X|}
-        \hline
-        \textbf{Type} & \textbf{R/W} & \textbf{Whiteboard} \\
-        \hline
-        \hline
-}{ 
-        % FIXME: enabling this gives strange alignment error
-        % \hline
-    \endtabularx
-}
-
 \begin{document}
 
-\acrodef{RU}{\Rvk University}
+\acrodef{RU}{Reykjavík University}
 \acrodef{CADIA}{Center for Analysis \& Design of Intelligent Agents}
 \acrodef{RSS}{Rich Site Summary}
 
@@ -152,6 +136,8 @@
 \include{design-requirements.inc}
 
 \include{design-architecture.inc}
+
+\include{design-detailed.inc}
 
 % \include{design-conclusion.inc}
 
