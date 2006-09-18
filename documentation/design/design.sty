@@ -1,3 +1,71 @@
+% ``Header'' file for design document
+
+% Used packages
+\RequirePackage[printonlyused]{acronym}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{babel}
+\RequirePackage{calc}
+\RequirePackage{fancyhdr}
+\RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{listings}
+\RequirePackage{url}
+
+% Global settings.
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+
+% Improved title page.
+\makeatletter
+\newcommand{\institution}{\newcommand{\@institution}}
+\renewcommand\maketitle{\begin{titlepage}%
+\let\footnotesize\small
+\let\footnoterule\relax
+\let \footnote \thanks
+\null\vfil
+\vskip 60\p@
+\begin{center}%
+  {\LARGE \@title \par}%
+  \vskip 3em%
+  {\large
+   \lineskip .75em%
+    \begin{tabular}[t]{c}%
+      \@author
+    \end{tabular}\par}%
+    \vskip 1.5em%
+  {\large \@date \par}%       % Set date in \large size.
+\end{center}\par
+\@thanks
+\vfill
+{\small
+ \begin{flushright}
+  \begin{tabular}{l}\hline
+  \@institution\hline
+  \end{tabular}
+ \end{flushright}
+}
+\global\let\@institution\@empty
+\global\let\institution\relax
+\end{titlepage}
+}
+
+% Fancy header settings.
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark}
+\fancyhead[RE]{\bfseries\leftmark}
+\fancypagestyle{plain}{%
+  \fancyhead{}\renewcommand{\headrulewidth}{0pt}}
+
+\newcommand{\AmbE}{Ambient~Earth}
+\newcommand{\Amber}{\textsc{Amber}}
 
 \newenvironment{module}[1]{
     \newcommand{\post}[2]{##1 & Write to & ##2 \\ }
