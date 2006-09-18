@@ -83,3 +83,38 @@
     \endtabularx
 }
 
+\newcommand{\classname}[1]{\subsection{#1}}
+\newcommand{\void}{\textbf{void}}
+
+\newenvironment{classinterface}{
+  \newcommand{\method}[4]{##1 & ##2(##3) & ##4 \\}
+  \newcommand{\init}[3]{\method{##1}{\textbf{new} ##1}{##2}{##3}}
+
+  \subsubsection{Interface}
+
+  \tabularx{\linewidth+2cm}{rp{5cm}|X}
+    Returns & Name and argument & Description \\
+    \hline
+}{
+  \endtabularx
+}
+
+\newenvironment{classmetadata}{
+  \newcommand{\metadataitem}[2]{\textbf{##1:} & ##2 \\}
+
+  \newcommand{\ancestor}[1]{\metadataitem{Extends}{##1}}
+  \newcommand{\implements}[1]{\metadataitem{Implements}{##1}}
+  \newcommand{\function}[1]{\metadataitem{Function}{##1}}
+  \newcommand{\dependency}[1]{\metadataitem{Dependencies}{##1}}
+  \newcommand{\references}[1]{\metadataitem{References}{##1}}
+  \newcommand{\processing}[1]{\metadataitem{Processing}{##1}}
+  \newcommand{\data}[1]{\metadataitem{Data}{##1}}
+
+  % Aliases
+  \newcommand{\extends}[1]{\ancestor{##1}}
+
+  \tabularx{\linewidth}{lX}
+  \metadataitem{Type}{Class}
+}{ 
+  \endtabularx
+}
