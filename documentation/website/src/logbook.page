@@ -11,8 +11,8 @@ p(plan). Getting to know the organization, methodologies and procedures
 
 These weeks weren't officially in the traineeship period, but were used for
 some preparation work and introduction at the university. Since in those two
-weeks the intensive Icelandic language course was still going on, those two
-weeks were only half working days.
+weeks the "intensive Icelandic language course":http://hi.is/page/ilpc was
+still going on, those two weeks were only half working days.
 
 h3. Week 33
 
@@ -70,27 +70,152 @@ table(log).
 
 [AppleKB304308]http://docs.info.apple.com/article.html?artnum=304308
 
-<div style="display: none">
-
 h3. Week 38
 
-p(plan). 
+p(plan). Create detailed design, code along, starting with basic visualization
 
 table(log).
 (header). |_(day). Day |_(act). Activity |
-|Mon 18.09| |
+|Mon 18.09|Started detailed design on class level|
 |Tue 19.09| |
 |Wed 20.09| |
 |Thu 21.09| |
 |Fri 22.09| |
 
-...
+h3. Week 39
 
-...
+p(plan). Create detailed design and code for crawler module. In the weekend,
+enjoy the trip to Vatnajökull, Jökulsárlon, Svartifoss etc.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 25.09| |
+|Tue 26.09| |
+|Wed 27.09| |
+|Thu 28.09| |
+|Fri 29.09| |
+
+</div>
+
+h3. Week 40
+
+p(plan). Create detailed design and code for analysis modules.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 2.10| |
+|Tue 3.10| |
+|Wed 4.10| |
+|Thu 5.10| |
+|Fri 6.10| |
+
+</div>
+
+h3. Week 41
+
+p(plan). Continue detailed design and code for analysis modules.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 9.10| |
+|Tue 10.10| |
+|Wed 11.10| |
+|Thu 12.10| |
+|Fri 13.10| |
+
+</div>
+
+h3. Week 42
+
+p(plan). Continue detailed design and code for visualization.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 16.10| |
+|Tue 17.10| |
+|Wed 18.10| |
+|Thu 19.10| |
+|Fri 20.10| |
+
+</div>
+
+h3. Week 43
+
+p(plan). Continue detailed design and code for visualization.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 23.10| |
+|Tue 24.10| |
+|Wed 25.10| |
+|Thu 26.10| |
+|Fri 27.10| |
+
+</div>
+
+h3. Week 44
+
+p(plan). Continue detailed design and code for visualization.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 30.10| |
+|Tue 31.10| |
+|Wed 1.11| |
+|Thu 2.11| |
+|Fri 3.11| |
+
+</div>
+
+h3. Week 45
+
+p(plan). ...
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 6.11| |
+|Tue 7.11| |
+|Wed 8.11| |
+|Thu 9.11| |
+|Fri 10.11| |
+
+</div>
+
+h3. Week 46
+
+p(plan). Fine-tune visualization parameters.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 13.11| |
+|Tue 14.11| |
+|Wed 15.11| |
+|Thu 16.11| |
+|Fri 17.11| |
+
+</div>
 
 h3. Week 47
 
-p(plan). Finish everything up
+p(plan). Finish everything up, write demonstration scenarios.
+
+<div class="invisible">
 
 table(log).
 (header). |_(day). Day |_(act). Activity |
@@ -99,7 +224,7 @@ table(log).
 |Wed 22.11| |
 |Thu 23.11| |
 |Fri 24.11| |
-|Sat 25.11|Flight back|
+|Sat 25.11|_Flight back_|
 
 </div>
 
