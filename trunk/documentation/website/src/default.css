@@ -1,3 +1,5 @@
+  .invisible { display: none; }
+
   a          { text-decoration: none; }
   a:link     { color: #738899; }
   a:visited  { color: #A39B7A; }
