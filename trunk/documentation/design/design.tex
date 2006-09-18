@@ -1,92 +1,10 @@
 \documentclass[english,a4paper,twoside]{report}
 
-% Used packages
-\usepackage[printonlyused]{acronym}
-\usepackage[utf8]{inputenc}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{babel}
-\usepackage{calc}
 \usepackage{design}
-\usepackage{fancyhdr}
-\usepackage{graphicx}
-\usepackage{tabularx}
-\usepackage{listings}
-\usepackage{url}
 
-\newcommand{\AmbE}{Ambient~Earth}
-\newcommand{\Amber}{\textsc{Amber}}
-
-% Global settings.
-\setlength{\parskip}{\medskipamount}
-\setlength{\parindent}{0pt}
-
-% Listing settings.
-\lstset{basicstyle=\fontfamily{cmss}\small,frame=tb}
-\lstset{columns=fixed,basewidth=0.5em,keepspaces=true}
-\lstset{aboveskip=1em,belowskip=0.5em}
-\lstset{numbers=left,numberstyle=\tiny,stepnumber=5}
-\lstset{showtabs=false,showspaces=false,showstringspaces=false}
-
-% Improved title page.
-\makeatletter
-\newcommand{\institution}{\newcommand{\@institution}}
-\renewcommand\maketitle{\begin{titlepage}%
-\let\footnotesize\small
-\let\footnoterule\relax
-\let \footnote \thanks
-\null\vfil
-\vskip 60\p@
-\begin{center}%
-  {\LARGE \@title \par}%
-  \vskip 3em%
-  {\large
-   \lineskip .75em%
-    \begin{tabular}[t]{c}%
-      \@author
-    \end{tabular}\par}%
-    \vskip 1.5em%
-  {\large \@date \par}%       % Set date in \large size.
-\end{center}\par
-\@thanks
-\vfill
-{\small
- \begin{flushright}
-  \begin{tabular}{l}\hline
-  \@institution\hline
-  \end{tabular}
- \end{flushright}
-}
-\global\let\@institution\@empty
-\global\let\institution\relax
-\end{titlepage}
-}
-
-% Improved acronym environment.
-\newenvironment{acronym*}[1]{%
-   \newcommand{\acrolabel}[1]{\textbf{##1}\hfil}%
-   \providecommand*{\acro}{\AC@acro}%
-   \begin{list}{}{%
-      \renewcommand{\makelabel}{\acrolabel}%
-      \settowidth{\labelwidth}{\textbf{#1}}%
-      \setlength{\leftmargin}{\labelwidth+\labelsep}%
-      }
-   }{%
-   \end{list}
-}\makeatother
-
-% Fancy header settings.
-\pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
-\fancyhf{}
-\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
-\fancyhead[LE,RO]{\bfseries\thepage}
-\fancyhead[LO]{\bfseries\rightmark}
-\fancyhead[RE]{\bfseries\leftmark}
-\fancypagestyle{plain}{%
-  \fancyhead{}\renewcommand{\headrulewidth}{0pt}}
+\acrodef{RU}{Reykjavík University}
+\acrodef{CADIA}{Center for Analysis \& Design of Intelligent Agents}
+\acrodef{RSS}{Rich Site Summary}
 
 % Document meta data.
 %FIXME: better title & remove draft suffix
@@ -103,22 +21,7 @@
  dr.ir. Huub van de Wetering (Eindhoven University of Technology) \\
 }
 
-% Macros.
-\newcommand{\anode}[1]{\textsl{#1\/}}
-\newcommand{\atype}[1]{\ensuremath{\textsl{#1\/}}}
-\newcommand{\content}[1]{\textsl{#1\/}}
-\newcommand{\entry}[1]{\texttt{#1}}
-\renewcommand{\implies}{\Rightarrow}
-\newcommand{\pole}{\addtocounter{fd@flagcount}{1}}
-\newcommand{\mblstinline}[1]{\mbox{[\lstinline[columns=fixed]{#1}]}}
-\newcommand{\q}{\quad}
-\newcommand{\strtok}[1]{\textbf{`#1'}}
-
 \begin{document}
-
-\acrodef{RU}{Reykjavík University}
-\acrodef{CADIA}{Center for Analysis \& Design of Intelligent Agents}
-\acrodef{RSS}{Rich Site Summary}
 
 \maketitle
 
