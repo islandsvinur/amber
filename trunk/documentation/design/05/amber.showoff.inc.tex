@@ -1,0 +1,115 @@
+\section{Objects in the amber.showoff package}
+
+\classname{Configuration}
+
+\begin{classmetadata}
+  \ancestor{amber.common.Configuration}
+  \function{Store configuration}
+\end{classmetadata}
+
+\begin{interface}
+  \method{void}{setValue}{String key}
+    {Sets the value of key in the configuration.}
+\end{interface}
+
+
+
+\classname{EarthView}
+
+\begin{classmetadata}
+  \extends{java.awt.Canvas}
+  \implements{Runnable}
+\end{classmetadata}
+
+\begin{interface}
+  \init{EarthView}{}
+    {Initializes the earthview display. It is a child of Canvas and can as such
+    be used inside any application. Before starting the Earthview, first couple
+    a Particle collection to it using setParticleCollection.}
+  \method{\void}{setParticleCollection}{pc: Collection$\langle$Particle$\rangle$}
+    {Sets the collection of particles to be displayed in the view.}
+  \method{\void}{run}{}
+    {Runs the thread (for Runnable).}
+  \method{\void}{start}{}
+    {Starts the thread, lets EarthView draw stuff.}
+\end{interface}
+
+
+
+\classname{FullScreen}
+
+\begin{classmetadata}
+  \ancestor{amber.ShowOffObject}
+  % \function{}
+\end{classmetadata}
+
+\begin{interface}
+  \init{FullScreen}{}
+    {Initializes something.}
+  \method{\void}{start}{}
+    {Start the visualization.}
+\end{interface}
+
+
+
+\classname{Particle}
+
+\begin{classmetadata}
+  \function{Storage of particle data.}
+  \data{An object of this class has information about its location and
+    velocity, and it knows from which story it originates.}
+\end{classmetadata}
+
+\begin{interface}
+  \init{Particle}{Story s}
+    {Initializes a particle for Story s.}
+  \method{\void}{launch}{}
+    {Launches the particle, all parameters must be set, they cannot be changed
+      afterwards.}
+  \method{\void}{boost}{double}
+    {Boost the particle in the direction it is heading. This can happen when
+      for instance the Story gets replies or comments; boosting keeps the
+      particle around longer.}
+  \method{double}{getMass}{}
+    {Gets the mass of the particle}
+  \method{Vector$\langle$double$\rangle$}{getLocation}{}
+    {Gets the location}
+  \method{Vector$\langle$double$\rangle$}{getVelocity}{}
+    {Gets the velocity}
+  \method{Vector$\langle$double$\rangle$}{getAcceleration}{}
+    {Gets the acceleration}
+  \method{\void}{setMass}{double s}
+    {Sets the mass of the particle to s}
+  \method{\void}{setLocation}{Vector$\langle$double$\rangle$ v}
+    {Sets the location to v}
+  \method{\void}{setVelocity}{Vector$\langle$double$\rangle$ v}
+    {Sets the velocity to v}
+  \method{\void}{setAcceleration}{Vector$\langle$double$\rangle$ v}
+    {Sets the acceleration to v}
+  \method{\void}{setNewValuesAfter}{double t}
+    {Calculates and sets new values using the current values after a period of
+      time t}
+\end{interface}
+
+
+
+\classname{Applet}
+
+\begin{classmetadata}
+  \extends{java.applet.Applet}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\begin{figure}
+  \centering
+  \includegraphics{image/showoff-fullscreen}
+  \caption{
+    Diagram of the design of the full screen ShowOff module, the names are
+    abbreviated Java classnames
+  }
+\end{figure}
+

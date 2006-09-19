@@ -83,12 +83,14 @@
     \endtabularx
 }
 
-\newcommand{\classname}[1]{\subsection{#1}}
+\newcommand{\interfacename}[1]{\subsection[Interface #1]{public interface #1}}
+
+\newcommand{\classname}[1]{\subsection[Class #1]{public class #1}}
 \newcommand{\void}{\textbf{void}}
 
-\newenvironment{classinterface}{
+\newenvironment{interface}{
   \newcommand{\method}[4]{##1 & ##2(##3) & ##4 \\}
-  \newcommand{\init}[3]{\method{##1}{\textbf{new} ##1}{##2}{##3}}
+  \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
 
   \subsubsection{Interface}
 
