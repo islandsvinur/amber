@@ -84,8 +84,9 @@
 }
 
 \newcommand{\interfacename}[1]{\subsection[Interface #1]{public interface #1}}
-
 \newcommand{\classname}[1]{\subsection[Class #1]{public class #1}}
+\newcommand{\abstractclassname}[1]{\subsection[Class #1]{public abstract class #1}}
+
 \newcommand{\void}{\textbf{void}}
 
 \newenvironment{interface}{
@@ -104,16 +105,13 @@
 \newenvironment{classmetadata}{
   \newcommand{\metadataitem}[2]{\textbf{##1:} & ##2 \\}
 
-  \newcommand{\ancestor}[1]{\metadataitem{Extends}{##1}}
-  \newcommand{\implements}[1]{\metadataitem{Implements}{##1}}
-  \newcommand{\function}[1]{\metadataitem{Function}{##1}}
-  \newcommand{\dependency}[1]{\metadataitem{Dependencies}{##1}}
-  \newcommand{\references}[1]{\metadataitem{References}{##1}}
-  \newcommand{\processing}[1]{\metadataitem{Processing}{##1}}
-  \newcommand{\data}[1]{\metadataitem{Data}{##1}}
-
-  % Aliases
-  \newcommand{\extends}[1]{\ancestor{##1}}
+  \newcommand{\extends}[1]    {\metadataitem{Extends}{##1}}
+  \newcommand{\implements}[1] {\metadataitem{Implements}{##1}}
+  \newcommand{\function}[1]   {\metadataitem{Function}{##1}}
+  \newcommand{\dependency}[1] {\metadataitem{Dependencies}{##1}}
+  \newcommand{\references}[1] {\metadataitem{References}{##1}}
+  \newcommand{\processing}[1] {\metadataitem{Processing}{##1}}
+  \newcommand{\data}[1]       {\metadataitem{Data}{##1}}
 
   \tabularx{\linewidth}{lX}
   \metadataitem{Type}{Class}

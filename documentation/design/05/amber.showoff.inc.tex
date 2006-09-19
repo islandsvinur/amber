@@ -3,7 +3,7 @@
 \classname{Configuration}
 
 \begin{classmetadata}
-  \ancestor{amber.common.Configuration}
+  \extends{amber.common.Configuration}
   \function{Store configuration}
 \end{classmetadata}
 
@@ -39,7 +39,8 @@
 \classname{FullScreen}
 
 \begin{classmetadata}
-  \ancestor{amber.ShowOffObject}
+  \extends{amber.ShowOffObject}
+  \implements{amber.common.AirBrushCallable}
   % \function{}
 \end{classmetadata}
 
