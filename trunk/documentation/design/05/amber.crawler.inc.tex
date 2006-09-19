@@ -13,9 +13,15 @@
 \classname{RSS}
 
 \begin{classmetadata}
+  \extends{amber.CrawlerObject}
+  \implements{amber.common.AirBrushCallable}
 \end{classmetadata}
 
 \begin{interface}
+  \method{Boolean}{addFeed}{URL}
+    {Adds a feed to the crawler. Will be crawled during the next cycle. Returns
+      true if succesful, false otherwise.}
+  \method{Boolean}{removeFeed}{}{FIXME: do or don't?}
 \end{interface}
 
 
