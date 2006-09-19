@@ -1,0 +1,78 @@
+\section{Objects in the amber.common package}
+
+\classname{AirBrush}
+
+\begin{classmetadata}
+  \function{Ease communication with Psyclone through JavaOpenAIR.}
+\end{classmetadata}
+
+\begin{interface}
+  \init{AirBrush}{String moduleName, String hostName, int port}
+    {Initializes a connection with Psyclone on \emph{hostName:port} for module
+      \emph{moduleName}.}
+  \method{\void}{setCallbackObject}{AirBrush\-Callable}
+    {Sets the callback object to be used for calls from AirBrush.}
+\end{interface}
+
+
+
+\interfacename{AirBrushCallable}
+
+\begin{interface}
+  \method{\void}{airBrushCallBack}{FIXME}
+    {Used as callback function for the AirBrush.}
+\end{interface}
+
+
+
+\classname{Configuration}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{Object}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{Story}
+
+\begin{classmetadata}
+  \function{Storage of Story data.}
+  \data{Story has a Map$\langle$String, Object$\rangle$ field where it stores
+    all data. It also holds a value with the number of analyses left until it
+    is considered enough to be visualized. Instead of thrown back on the
+    whiteboard with raw stories, it should then go the the processed stories.}
+\end{classmetadata}
+
+\begin{interface}
+  \method{\void}{setAuthor}{String}{Sets the author of the story.}
+  \method{String}{getAuthor}{}{Gets the author of the story.}
+  \method{\void}{setCreationTime}{Date}{Set the creation time of the story}
+  \method{Date}{getCreationTime}{}{Get the creation time of the story.}
+  \method{\void}{setContent}{String}{Set the content of the story.}
+  \method{String}{getContent}{}{Get the content of the story.}
+  \method{\void}{setValue}{String k, Object v}
+    {Sets an arbitrary object v under keyword k.}
+  \method{Object}{getValue}{String k}
+    {Gets the object v stored under keyword k.}
+  \method{Boolean}{lockForAnalysis}{}
+    {Request a lock on the story for analysis. Returns true when given, assumes
+      niceness of the analysis modules.}
+  \method{\void}{unlock}{}
+    {Removes the lock. Again, assumes niceness of the analysis modules.}
+  \method{Boolean}{isAnalysisDone}{}
+    {Returns true when the story finds it is analysed enough and doesn't need
+      another run.}
+\end{interface}
+

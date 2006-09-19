@@ -1,0 +1,72 @@
+\section{Objects in the amber package}
+
+The classes in the main package are launchers for the three different modules
+and abstract classes for the main objects of these modules. Basically it works
+like this; if the Crawler class is started it creates a CrawlerObject and
+starts it.
+
+\classname{Crawler}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{CrawlerObject}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{ShowOff}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{ShowOffObject}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+  \method{\void}{start}{}
+    {Starts the ShowOff module.}
+  \method{\void}{stop}{}
+    {Stops the ShowOff module.}
+  \method{\void}{setStoryQueue}{Queue$\langle$Story$\rangle$ q}
+    {Sets the queue of incoming stories. ShowOff will handle communication with
+    the Psyclone whiteboard and puts stories in the queue.}
+\end{interface}
+
+
+
+\classname{Sieve}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
+
+
+\classname{SieveObject}
+
+\begin{classmetadata}
+\end{classmetadata}
+
+\begin{interface}
+\end{interface}
+
