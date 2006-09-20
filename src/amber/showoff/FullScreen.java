@@ -40,28 +40,27 @@
 
 package amber.showoff;
 
-import amber.ShowOffObject;
-import amber.common.Story;
-
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JWindow;
+
+import amber.ShowOffObject;
 
 public class FullScreen extends ShowOffObject {
     private EarthView earthView;
 
     public FullScreen() {
-        JWindow main = new JWindow();
+        /* JWindow main = new JWindow();
         GraphicsEnvironment.getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice().setFullScreenWindow(main);
+                .getDefaultScreenDevice().setFullScreenWindow(main); */
+        JFrame main = new JFrame();
+        main.setSize(300, 300);
         Container mainpane = main.getContentPane();
 
         mainpane.setBackground(Color.black);
@@ -79,24 +78,17 @@ public class FullScreen extends ShowOffObject {
         });
 
         earthView = new EarthView();
+        earthView.setVisible(true);
 
         list.add(earthView);
         list.add(b);
 
-        mainpane.add(list);        
+        mainpane.add(list);
+        main.setVisible(true);
     }
 
     public void start() {
         earthView.start();
     }
 
-    public void stop() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setStoryQueue(Queue<Story> q) {
-        // TODO Auto-generated method stub
-        
-    }
 }

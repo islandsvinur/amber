@@ -41,7 +41,7 @@
 package amber;
 
 /* Starts the Crawler */
-public class Crawler extends amber.common.Object {
+public class Crawler {
 
     public static void main(String args[]) {
 

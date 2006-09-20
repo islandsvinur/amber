@@ -42,18 +42,69 @@ package amber.common;
 
 import com.cmlabs.air.*;
 
-public class AirBrush extends Object {
+public class AirBrush implements Runnable {
     private JavaAIRPlug plug;
+    private Thread thread;
+
+    private AirBrushCallable callback;
 
     // private Message inMsg;
     // private Message outMsg;
 
+    private void checkConnection() throws Exception {
+        if (callback == null) { throw new Exception("No Callback object given."); }
+    }
+
     public AirBrush(String plugname, String hostname, int port) {
         plug = new JavaAIRPlug(plugname, hostname, port);
+    }
+
+    public boolean connect() throws Exception {
+        checkConnection();
 
         if (!plug.init()) {
             System.out.println("Could not connect to the Server ...");
-            System.exit(0);
+            return false;
+        }
+        return true;
+    }
+    
+    public void startListening() throws Exception {
+        if (thread != null) {
+            throw new Exception("Already running!");
+        }
+        thread = new Thread(this);
+        thread.start();
+    }
+    
+    public void stopListening() {
+        thread = null;
+    }
+
+    public boolean openWhiteboard(String wb) throws Exception {
+        checkConnection();
+
+        if (!plug.openTwoWayConnectionTo(wb)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public void postMessage(Message msg) {
+        
+    }
+
+    public void setCallbackObject(AirBrushCallable cb) {
+        callback = cb;
+    }
+
+    public void run() {
+        Message message;
+
+        while (Thread.currentThread() == thread) {
+            if ((message = plug.waitForNewMessage(100)) != null) {
+                callback.airBrushReceiveMessage(message);
+            }
         }
     }
 }

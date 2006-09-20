@@ -40,51 +40,58 @@
 
 package amber;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+import amber.common.AirBrush;
+import amber.common.AirBrushCallable;
 import amber.common.Story;
 import amber.showoff.FullScreen;
 
-import com.cmlabs.air.JavaAIRPlug;
 import com.cmlabs.air.Message;
 
 /* Starts the Display */
-public class ShowOff extends amber.common.Object implements Runnable {
+public class ShowOff implements AirBrushCallable {
     private ShowOffObject module;
 
-    private JavaAIRPlug plug;
+    private AirBrush airbrush;
 
+    @SuppressWarnings("unused")
     private LinkedList<Story> storyQueue;
-
-    private Thread thread;
 
     public ShowOff() {
         module = new FullScreen();
-        plug = new JavaAIRPlug("ShowOff.FullScreen", "localhost", 10000);
+        airbrush = new AirBrush("ShowOff.FullScreen", "localhost", 10000);
+        airbrush.setCallbackObject(this);
         storyQueue = new LinkedList<Story>();
     }
 
     public void start() {
-        // air.connect();
+        try {
+            airbrush.connect();
 
-        if (!plug.init()) {
-            System.err.println("Could not connect to the server.");
-            System.exit(1);
-        } else {
-            System.out.println("Connected to server.");
-        }
-        if (!plug.openTwoWayConnectionTo("WB.Stories.Processed")) {
-            System.err
-                    .println("Could not open callback connection to whiteboard.");
-        } else {
-            System.out.println("Connected to whiteboard.");
-        }
+            if (!airbrush.openWhiteboard("WB.Stories.Processed")) {
+                System.err
+                        .println("Could not open callback connection to whiteboard.");
+            } else {
+                System.out.println("Connected to whiteboard.");
+            }
+            airbrush.startListening();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         module.start();
         System.out.println("Started module");
-
-        thread = new Thread(this);
-        // thread.start();
     }
 
     public static void main(String args[]) {
@@ -92,19 +99,40 @@ public class ShowOff extends amber.common.Object implements Runnable {
         so.start();
     }
 
-    public void run() {
-        Message message;
-        Story story;
+public void airBrushReceiveMessage(Message msg) {
+        System.out.println("Receiving Message from AirBrush.");
 
-        while (Thread.currentThread() == thread) {
-            if ((message = plug.waitForNewMessage(100)) != null) {
-                System.out.println("Message received from " + message.from
-                        + "\nContent: " + message.content);
-                story = new Story(message.content);
-                if (!storyQueue.offer(story)) {
-                    System.err.println("Couldn't add story to queue.");
-                }
+        if (msg.type == "Internal.Story") {
+            Story story; 
+            DocumentBuilderFactory factory = DocumentBuilderFactory
+                    .newInstance();
+            DocumentBuilder builder;
+            Document document = null;
+
+            try {
+                builder = factory.newDocumentBuilder();
+                document = builder.parse(msg.content);
+            } catch (ParserConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SAXException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+            
+            Element content = document.getElementById("content");
+            Element author = document.getElementById("author");
+            Element publicationDate = document.getElementById("publicationDate");
+            
+            story = new Story(content.getNodeValue(), 
+                    author.getNodeValue(), 
+                    publicationDate.getNodeValue());
+            
         }
-    }
-}
+
+        // TODO Auto-generated method stub
+
+    }}
