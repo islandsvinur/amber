@@ -99,11 +99,11 @@ public class ShowOff implements AirBrushCallable {
         so.start();
     }
 
-public void airBrushReceiveMessage(Message msg) {
+    public void airBrushReceiveMessage(Message msg) {
         System.out.println("Receiving Message from AirBrush.");
 
         if (msg.type == "Internal.Story") {
-            Story story; 
+            Story story;
             DocumentBuilderFactory factory = DocumentBuilderFactory
                     .newInstance();
             DocumentBuilder builder;
@@ -122,17 +122,20 @@ public void airBrushReceiveMessage(Message msg) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
+
             Element content = document.getElementById("content");
             Element author = document.getElementById("author");
-            Element publicationDate = document.getElementById("publicationDate");
-            
-            story = new Story(content.getNodeValue(), 
-                    author.getNodeValue(), 
+            Element publicationDate = document
+                    .getElementById("publicationDate");
+
+            story = new Story(content.getNodeValue(), author.getNodeValue(),
                     publicationDate.getNodeValue());
-            
+
+            // FIXME: Now add this story to the queue
+
         }
 
         // TODO Auto-generated method stub
 
-    }}
+    }
+}
