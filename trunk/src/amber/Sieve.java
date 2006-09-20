@@ -43,7 +43,7 @@ package amber;
 import com.cmlabs.air.*;
 
 /* Starts the parser */
-public class Sieve extends amber.common.Object {
+public class Sieve {
 
     public static void main(String args[]) {
         JavaAIRPlug plug;

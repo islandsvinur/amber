@@ -40,15 +40,47 @@
 
 package amber.common;
 
-public class Story extends Object {
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
+public class Story {
     private String content;
 
-    public Story(String c) {
-        content = c;
+    private String author;
+
+    private Date publicationDate;
+
+    public Story(String content) {
+        this.content = content;
     }
     
+    public Story(String content, String author) {
+        this.content = content;
+        this.author = author;
+    }
+
+    public Story(String content, String author, String publicationDate) {
+        this.content = content;
+        this.author = author;
+        try {
+            this.publicationDate = DateFormat.getDateInstance().parse(publicationDate);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public String getContent() {
         return content;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
     }
 
 }

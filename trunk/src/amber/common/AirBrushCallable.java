@@ -40,10 +40,8 @@
 
 package amber.common;
 
-public abstract class Object {
+import com.cmlabs.air.Message;
 
-    public Object() {
-        // TODO Auto-generated constructor stub
-    }
-
+public interface AirBrushCallable {
+    public void airBrushReceiveMessage(Message msg);
 }
