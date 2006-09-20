@@ -77,8 +77,8 @@ p(plan). Create detailed design, code along, starting with basic visualization
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 18.09|Started detailed design on class level|
-|Tue 19.09| |
-|Wed 20.09| |
+|Tue 19.09|Short talk with Kristinn, <br />Discussion about whether threads are at all possible to implement, <br />RSS doesn't really support threads (as in that every semantic meaning coupled to feeds is done by humans), <br />NNTP does work with threads, but its working is largely unknown to me, <br />Will implement the system as if threads are perfectly possible in RSS and come up with a solution later.|
+|Wed 20.09|Work on visualization module and AirBrush Psyclone interface, Communication succeeded|
 |Thu 21.09| |
 |Fri 22.09| |
 
