@@ -54,7 +54,7 @@ public class EarthView extends JPanel implements Runnable {
     Graphics offGraphics;
 	Image offImage;
 	Dimension offDimension;
-	private int delay = 40;
+	private int delay = 1000;
 	private Thread animator;
 	private int frame = 0;
     

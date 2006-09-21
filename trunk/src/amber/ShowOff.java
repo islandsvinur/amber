@@ -41,6 +41,7 @@
 package amber;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -49,6 +50,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import amber.common.AirBrush;
@@ -100,9 +103,11 @@ public class ShowOff implements AirBrushCallable {
     }
 
     public void airBrushReceiveMessage(Message msg) {
-        System.out.println("Receiving Message from AirBrush.");
+        System.out.println("Receiving " + msg.type + " from AirBrush.");
 
-        if (msg.type == "Internal.Story") {
+        // if (msg.type == "Internal.Story") {
+        System.out.println("Message content: " + msg.content);
+        if (true) {
             Story story;
             DocumentBuilderFactory factory = DocumentBuilderFactory
                     .newInstance();
@@ -111,7 +116,8 @@ public class ShowOff implements AirBrushCallable {
 
             try {
                 builder = factory.newDocumentBuilder();
-                document = builder.parse(msg.content);
+                document = builder.parse(new InputSource(new StringReader(
+                        msg.content)));
             } catch (ParserConfigurationException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -122,16 +128,22 @@ public class ShowOff implements AirBrushCallable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            Element storyElement = document.getDocumentElement();
 
-            Element content = document.getElementById("content");
-            Element author = document.getElementById("author");
-            Element publicationDate = document
-                    .getElementById("publicationDate");
+            NodeList content = storyElement.getElementsByTagName("text");
+            NodeList author = storyElement.getElementsByTagName("name");
+            NodeList publicationDate = storyElement
+                    .getElementsByTagName("date");
 
-            story = new Story(content.getNodeValue(), author.getNodeValue(),
-                    publicationDate.getNodeValue());
+            story = new Story(content.item(0).getTextContent(), author.item(0)
+                    .getTextContent(), publicationDate.item(0).getTextContent());
 
+            System.out.println("Received story written by "
+                    + author.item(0).getTextContent() + " on "
+                    + publicationDate.item(0).getTextContent() + ": "
+                    + content.item(0).getTextContent());
             // FIXME: Now add this story to the queue
+            storyQueue.offer(story);
 
         }
 
