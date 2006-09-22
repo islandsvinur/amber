@@ -4,15 +4,23 @@
 \classname{EarthView}
 
 \begin{classmetadata}
-  \extends{java.awt.Canvas}
+  \extends{javax.swing.JPanel}
   \implements{Runnable}
+  \dependencies{FullScreen, StoryLauncher}
+  \function{EarthView is a graphical user interface element based on a JPanel
+      which displays a picture of Earth in space, with particles orbiting
+      around it. Attractors can be added to influence the orbits of the
+      particles.}
+  \processing{There is a list of particles, which contains information on
+      their location and more. EarthView draws each of the particles in the
+      list on itself.}
 \end{classmetadata}
 
 \begin{interface}
-  \init{EarthView}{}
-    {Initializes the earthview display. It is a child of Canvas and can as such
-    be used inside any application. Before starting the Earthview, first couple
-    a Particle collection to it using setParticleCollection.}
+  \init{EarthView}{Collection$\langle$Particle$\rangle$ pc}
+    {Initializes the EarthView display. It is a child of JPanel and can as such
+    be used inside any Swing application. Before starting the Earthview, first
+    couple a Particle collection to it using setParticleCollection.}
   \method{\void}{setParticleCollection}{pc: Collection$\langle$Particle$\rangle$}
     {Sets the collection of particles to be displayed in the view.}
   \method{\void}{run}{}
@@ -28,7 +36,9 @@
 \begin{classmetadata}
   \extends{amber.ShowOffObject}
   \implements{amber.common.AirBrushCallable}
-  % \function{}
+  \dependencies{ShowOff}
+  \function{This is a ShowOff module which displays the visualization in full
+    screen size.}
 \end{classmetadata}
 
 \begin{interface}
@@ -46,6 +56,7 @@
   \function{Storage of particle data.}
   \data{An object of this class has information about its location and
     velocity, and it knows from which story it originates.}
+  \dependencies{StoryLauncher, Particles}
 \end{classmetadata}
 
 \begin{interface}
@@ -60,19 +71,19 @@
       particle around longer.}
   \method{double}{getMass}{}
     {Gets the mass of the particle}
-  \method{Vector$\langle$double$\rangle$}{getLocation}{}
+  \method{Point2d}{getLocation}{}
     {Gets the location}
-  \method{Vector$\langle$double$\rangle$}{getVelocity}{}
+  \method{Vector2d}{getVelocity}{}
     {Gets the velocity}
-  \method{Vector$\langle$double$\rangle$}{getAcceleration}{}
+  \method{Vector2d}{getAcceleration}{}
     {Gets the acceleration}
   \method{\void}{setMass}{double s}
     {Sets the mass of the particle to s}
-  \method{\void}{setLocation}{Vector$\langle$double$\rangle$ v}
+  \method{\void}{setLocation}{Point2d v}
     {Sets the location to v}
-  \method{\void}{setVelocity}{Vector$\langle$double$\rangle$ v}
+  \method{\void}{setVelocity}{Vector2d v}
     {Sets the velocity to v}
-  \method{\void}{setAcceleration}{Vector$\langle$double$\rangle$ v}
+  \method{\void}{setAcceleration}{Vector2d v}
     {Sets the acceleration to v}
   \method{\void}{setNewValuesAfter}{double t}
     {Calculates and sets new values using the current values after a period of
