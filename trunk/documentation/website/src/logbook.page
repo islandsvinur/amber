@@ -79,29 +79,38 @@ table(log).
 |Mon 18.09|Started detailed design on class level|
 |Tue 19.09|Short talk with Kristinn, <br />Discussion about whether threads are at all possible to implement, <br />RSS doesn't really support threads (as in that every semantic meaning coupled to feeds is done by humans), <br />NNTP does work with threads, but its working is largely unknown to me, <br />Will implement the system as if threads are perfectly possible in RSS and come up with a solution later.|
 |Wed 20.09|Work on visualization module and AirBrush Psyclone interface, Communication succeeded|
-|Thu 21.09| |
-|Fri 22.09| |
+|Thu 21.09|Implemented most of the methods currently present in the detailed design.|
+|Fri 22.09|Continued programming without design, <br/>Later concluded that it is not a good idea to work without proper design.|
+
+The weekend was spent on trips to Stykkisholmur (on Snæfellsnes) and Vík
+(southernmost point of Iceland).
 
 h3. Week 39
 
-p(plan). Create detailed design and code for crawler module. In the weekend,
-enjoy the trip to Vatnajökull, Jökulsárlon, Svartifoss etc.
+p(plan). Create detailed design and code for crawler module. Enjoy the trip to
+Vatnajökull, Jökulsárlon, Svartifoss etc.
 
-<div class="invisible">
+Work on the crawler will be taken up this week, this module will hopefully be
+finished completely by Sunday, in order to be able to work on the analysis
+modules starting week 40.
 
 table(log).
 (header). |_(day). Day |_(act). Activity |
-|Mon 25.09| |
+|Mon 25.09|Object model of crawler,<br />Created classes,<br />Implemented simplest methods|
 |Tue 26.09| |
 |Wed 27.09| |
-|Thu 28.09| |
-|Fri 29.09| |
-
-</div>
+|Thu 28.09|_Trip to Vatnajökull_|
+|Fri 29.09|_Trip to Vatnajökull_|
+|Sat 30.09| |
+|Sun 1.10| |
 
 h3. Week 40
 
 p(plan). Create detailed design and code for analysis modules.
+
+The analysis modules will be fairly simple at first, just enough to provide the
+visualiser with enough data to show something interesting. I planned two weeks
+of work on these.
 
 <div class="invisible">
 
