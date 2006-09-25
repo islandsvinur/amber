@@ -40,19 +40,7 @@
 
 package amber;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.LinkedList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import amber.common.AirBrush;
 import amber.common.AirBrushCallable;
@@ -67,87 +55,60 @@ public class ShowOff implements AirBrushCallable {
 
     private AirBrush airbrush;
 
-    @SuppressWarnings("unused")
-    private LinkedList<Story> storyQueue;
+    LinkedList<Story> storyQueue;
 
     public ShowOff() {
-        module = new FullScreen();
-        airbrush = new AirBrush("ShowOff.FullScreen", "localhost", 10000);
-        airbrush.setCallbackObject(this);
-        storyQueue = new LinkedList<Story>();
+	storyQueue = new LinkedList<Story>();
+	module = new FullScreen(storyQueue);
+	airbrush = new AirBrush("ShowOff.FullScreen", "172.23.16.81", 10000);
+	airbrush.setCallbackObject(this);
     }
 
     public void start() {
-        try {
-            airbrush.connect();
+	try {
+	    airbrush.connect();
 
-            if (!airbrush.openWhiteboard("WB.Stories.Processed")) {
-                System.err
-                        .println("Could not open callback connection to whiteboard.");
-            } else {
-                System.out.println("Connected to whiteboard.");
-            }
-            airbrush.startListening();
+	    if (!airbrush.openWhiteboard("WB.Stories.Processed")) {
+		System.err
+			.println("Could not open callback connection to whiteboard.");
+	    } else {
+		System.out.println("Connected to whiteboard.");
+	    }
+	    airbrush.startListening();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        module.start();
-        System.out.println("Started module");
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    System.exit(-1);
+	}
+	module.start();
+	System.out.println("Started module");
     }
 
     public static void main(String args[]) {
-        ShowOff so = new ShowOff();
-        so.start();
+	ShowOff so = new ShowOff();
+	so.start();
     }
 
+    /* Callback function for AirBrush. */
     public void airBrushReceiveMessage(Message msg) {
-        System.out.println("Receiving " + msg.type + " from AirBrush.");
+	System.out.println("Receiving " + msg.type + " from AirBrush.");
 
-        // if (msg.type == "Internal.Story") {
-        System.out.println("Message content: " + msg.content);
-        if (true) {
-            Story story;
-            DocumentBuilderFactory factory = DocumentBuilderFactory
-                    .newInstance();
-            DocumentBuilder builder;
-            Document document = null;
+	if (msg.type.trim() == "Internal.Story") {
+	    System.out.println("Story content: " + msg.content);
+	    
+	    // Create an empty story
+	    Story story = new Story();
+	    // Parse the XML into the Story object
+	    story.fromXML(msg.content);
 
-            try {
-                builder = factory.newDocumentBuilder();
-                document = builder.parse(new InputSource(new StringReader(
-                        msg.content)));
-            } catch (ParserConfigurationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SAXException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Element storyElement = document.getDocumentElement();
+	    // Print some information
+	    System.out.println("Received story written by "
+		    + story.getAuthor() + " on "
+		    + story.getPublicationDate() + ": "
+		    + story.getContent());
+	    // Now add this story to the queue
+	    storyQueue.offer(story);
 
-            NodeList content = storyElement.getElementsByTagName("text");
-            NodeList author = storyElement.getElementsByTagName("name");
-            NodeList publicationDate = storyElement
-                    .getElementsByTagName("date");
-
-            story = new Story(content.item(0).getTextContent(), author.item(0)
-                    .getTextContent(), publicationDate.item(0).getTextContent());
-
-            System.out.println("Received story written by "
-                    + author.item(0).getTextContent() + " on "
-                    + publicationDate.item(0).getTextContent() + ": "
-                    + content.item(0).getTextContent());
-            // FIXME: Now add this story to the queue
-            storyQueue.offer(story);
-
-        }
-
-        // TODO Auto-generated method stub
-
+	}
     }
 }

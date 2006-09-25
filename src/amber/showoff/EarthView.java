@@ -44,64 +44,133 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
 
 import javax.swing.JPanel;
+import javax.vecmath.Point2d;
+
+import amber.common.Story;
+import amber.showoff.Particle.ParticleException;
 
 public class EarthView extends JPanel implements Runnable {
-	
-	private static final long serialVersionUID = -3882808552754900513L;
-    
+
+    private static final long serialVersionUID = -3882808552754900513L;
+
     Graphics offGraphics;
-	Image offImage;
-	Dimension offDimension;
-	private int delay = 1000;
-	private Thread animator;
-	private int frame = 0;
-    
+
+    Image offImage;
+
+    Dimension offDimension;
+
+    private int frameDelay = 40;
+
+    private Double scalingFactor = 1.0;
+
+    private Thread animator;
+
+    private int frame = 0;
+
+    private LinkedList<Particle> particles;
+
+    private Queue<Story> storyQueue;
+
     public void start() {
-        setBackground(Color.black);
-        setForeground(Color.white);
-		animator = new Thread(this);
-		animator.start();
+	setBackground(Color.black);
+	setForeground(Color.white);
+	particles = new LinkedList<Particle>();
+	animator = new Thread(this);
+	animator.start();
+    }
+
+    public void paintComponent(Graphics g) {
+	int earthRadius = 50;
+	int orbitRadius = 100;
+	Dimension d = getSize();
+
+	g.setColor(getBackground());
+	g.fillRect(0, 0, d.width, d.height);
+
+	g.setColor(getForeground());
+	g.fillOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
+		earthRadius, earthRadius);
+
+	if (particles != null) {
+	    Iterator<Particle> i = particles.iterator();
+	    while (i.hasNext()) {
+		drawParticle(g, i.next());
+	    }
 	}
 
-	public void paintComponent(Graphics g) {
-        int earthRadius = 50;
-        int orbitRadius = 300;
-		Dimension d = getSize();
-        		
-		g.setColor(getBackground());
-		g.clearRect(0, 0, d.width, d.height);
-       
-            
-        g.setColor(getForeground());
-        g.fillOval((d.width - earthRadius) / 2, 
-                   (d.height - earthRadius) / 2, 
-                   earthRadius, 
-                   earthRadius);
+	g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius
+		* Math.sin(((float) frame) / 25.)),
+		(int) ((d.height - earthRadius) / 2 + orbitRadius
+			* Math.cos(((float) frame) / 25.)), 10, 10);
 
-        g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius * Math.sin(((float) frame) / 25.)), 
-                   (int) ((d.height - earthRadius) / 2 + orbitRadius * Math.cos(((float) frame) / 25.)), 
-                   10, 
-                   10);
+	g.drawString("Frame " + frame, 30, 30);
+    }
 
+    public void drawParticle(Graphics g, Particle p) {
+	int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) * scalingFactor);
+	Point2d loc = (Point2d) p.getLocation().clone();
+	loc.scale(scalingFactor);
 
-        g.drawString("Frame " + frame, 30, 30);
-	}
+	g.fillOval((int) (loc.x - diameter / 2), (int) (loc.y - diameter / 2),
+		diameter, diameter);
+    }
 
-	public void run() {
-		long tm = System.currentTimeMillis();
-		while (Thread.currentThread() == animator) {
-			repaint();
-            			
-			try {
-				tm += delay;
-				Thread.sleep(Math.max(0, tm - System.currentTimeMillis()));
-			} catch (InterruptedException e) {
-				break;
-			}
-			frame++;
+    public void run() {
+	long tm = System.currentTimeMillis();
+	while (Thread.currentThread() == animator) {
+	    repaint();
+
+	    try {
+		Particle p;
+		tm += frameDelay;
+		Iterator<Particle> i = particles.iterator();
+		while (i.hasNext()) {
+		    p = i.next();
+		    p.setNewValuesAfter((double) (frameDelay) / 1000.0);
+		    if (p.crashed()) {
+			particles.remove(p);
+		    }
 		}
-		
+		if (!storyQueue.isEmpty()) {
+		    Story s = storyQueue.remove();
+		    p = new Particle(s);
+		    calculateLaunchParameters(p, s);
+		    p.launch();
+		    particles.add(p);
+		}
+
+		Thread.sleep(Math.max(0, tm - System.currentTimeMillis()));
+	    } catch (InterruptedException e) {
+		break;
+	    }
+	    frame++;
 	}
+
+    }
+
+    private void calculateLaunchParameters(Particle p, Story s) {
+	// TODO Auto-generated method stub
+	try {
+	    p.setLocation(10.0, 10.0);
+	    p.setVelocity(20.0, 20.0);
+	    p.setAccelleration(1.0, 1.0);
+	} catch (ParticleException pe) {
+
+	}
+    }
+
+    public void setParticleCollection(LinkedList<Particle> pc) {
+	particles = pc;
+    }
+
+    public void setStoryQueue(Queue<Story> sq) {
+	storyQueue = sq;
+    }
 }

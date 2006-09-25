@@ -41,54 +41,64 @@
 package amber.showoff;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JWindow;
 
 import amber.ShowOffObject;
+import amber.common.Story;
 
 public class FullScreen extends ShowOffObject {
     private EarthView earthView;
 
-    public FullScreen() {
-        /* JWindow main = new JWindow();
-        GraphicsEnvironment.getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice().setFullScreenWindow(main); */
-        JFrame main = new JFrame();
-        main.setSize(300, 300);
-        Container mainpane = main.getContentPane();
+    public FullScreen(Queue<Story> sq) {
+	JFrame main = new JFrame();
+	main.setSize(300, 300);
+	/*
+         * main = new JWindow();
+         * GraphicsEnvironment.getLocalGraphicsEnvironment()
+         * .getDefaultScreenDevice().setFullScreenWindow(main);
+         */
 
-        mainpane.setBackground(Color.black);
+	Container mainpane = main.getContentPane();
 
-        JPanel list = new JPanel();
-        list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
-        list.setBackground(Color.black);
+	mainpane.setBackground(Color.black);
 
-        JButton b = new JButton();
-        b.setText("Quit");
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            };
-        });
+	JPanel list = new JPanel();
+	list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
+	list.setBackground(Color.black);
 
-        earthView = new EarthView();
-        earthView.setVisible(true);
+	JButton b = new JButton();
+	b.setText("Quit");
+	b.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		System.exit(0);
+	    };
+	});
 
-        list.add(earthView);
-        list.add(b);
+	earthView = new EarthView();
+	earthView.setVisible(true);
+	earthView.setStoryQueue(sq);
 
-        mainpane.add(list);
-        main.setVisible(true);
+	list.add(earthView);
+	list.add(b);
+
+	mainpane.add(list);
+	main.setVisible(true);
     }
 
     public void start() {
-        earthView.start();
+	earthView.start();
     }
 
 }
