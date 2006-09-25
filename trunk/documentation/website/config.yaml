@@ -1,0 +1,7 @@
+CopyFileHandler:
+    paths: 
+        - **/*.css
+        - **/*.jpg
+        - **/*.png
+        - **/*.gif
+        - amber/amber.dtd
