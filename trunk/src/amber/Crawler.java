@@ -40,10 +40,42 @@
 
 package amber;
 
+import amber.common.AirBrush;
+import amber.crawler.RSS;
+
 /* Starts the Crawler */
 public class Crawler {
+    private CrawlerObject co;
+    private AirBrush airbrush;
+    
+    public Crawler() {
+	co = new RSS();
+	airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
+	airbrush.setCallbackObject(co);
+    }
 
     public static void main(String args[]) {
+	Crawler c = new Crawler();
+	c.start();
+    }
 
+    private void start() {
+	try {
+	    airbrush.connect();
+	    if (!airbrush.openWhiteboard("WB.Stories.Raw")) {
+		System.err
+			.println("Could not open callback connection to whiteboard.");
+	    } else {
+		System.out.println("Connected to whiteboard.");
+	    }
+	    airbrush.startListening();
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    System.exit(-1);
+	}
+	
+	co.start();
+	System.out.println("Module started.");
     }
 }
