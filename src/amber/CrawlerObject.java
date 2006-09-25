@@ -40,5 +40,9 @@
 
 package amber;
 
-public class CrawlerObject {
+import amber.common.AirBrushCallable;
+
+public abstract class CrawlerObject implements AirBrushCallable {
+
+    public abstract void start();
 }

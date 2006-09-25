@@ -40,8 +40,46 @@
 
 package amber.crawler;
 
-import amber.CrawlerObject;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public class RSS extends CrawlerObject {
+import com.cmlabs.air.Message;
+
+import amber.CrawlerObject;
+import amber.common.Story;
+
+public class RSS extends CrawlerObject implements Runnable {
+    private List<Story> stories;
+    
+    private URL feedURL;
+    
+    public RSS() {
+	stories = Collections.synchronizedList(new LinkedList<Story>());
+    }
+
+    public void airBrushReceiveMessage(Message msg) {
+	if (msg.type.trim() == "Crawler.RSS.Feed") {
+	    try {
+		feedURL = new URL(msg.content);
+	    } catch (MalformedURLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+    }
+
+    @Override
+    public void start() {
+	// TODO Auto-generated method stub
+
+    }
+
+    public void run() {
+	// TODO Auto-generated method stub
+
+    }
 
 }
