@@ -43,38 +43,47 @@ package amber;
 import amber.common.AirBrush;
 import amber.crawler.RSS;
 
-/* Starts the Crawler */
+/* Crawler object class 
+ * It handles creation and starting of AirBrush and CrawlerObject objects and 
+ * reads the commandline arguments if any.
+ */
 public class Crawler {
     private CrawlerObject co;
+
     private AirBrush airbrush;
-    
+
     public Crawler() {
 	co = new RSS();
 	airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
 	airbrush.setCallbackObject(co);
     }
 
+    /* Launch method */
     public static void main(String args[]) {
 	Crawler c = new Crawler();
 	c.start();
     }
 
+    /* Starts the program */
     private void start() {
 	try {
+	    // Connect to Psyclone
 	    airbrush.connect();
+	    // Try to open the whiteboard
 	    if (!airbrush.openWhiteboard("WB.Stories.Raw")) {
 		System.err
 			.println("Could not open callback connection to whiteboard.");
 	    } else {
 		System.out.println("Connected to whiteboard.");
 	    }
+	    // Start listening for messages coming onto the whiteboard
 	    airbrush.startListening();
 
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.exit(-1);
 	}
-	
+
 	co.start();
 	System.out.println("Module started.");
     }
