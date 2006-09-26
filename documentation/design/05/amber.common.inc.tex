@@ -25,16 +25,6 @@
 
 
 
-\classname{Configuration}
-
-\begin{classmetadata}
-\end{classmetadata}
-
-\begin{interface}
-\end{interface}
-
-
-
 \classname{Story}
 
 \begin{classmetadata}
@@ -46,16 +36,16 @@
 \end{classmetadata}
 
 \begin{interface}
-  \method{\void}{setAuthor}{String}{Sets the author of the story.}
+  \method{\void}{setAuthor}{String author}{Sets the author of the story.}
   \method{String}{getAuthor}{}{Gets the author of the story.}
-  \method{\void}{setCreationTime}{Date}{Set the creation time of the story}
+  \method{\void}{setCreationTime}{Date time}{Set the creation time of the story}
   \method{Date}{getCreationTime}{}{Get the creation time of the story.}
-  \method{\void}{setContent}{String}{Set the content of the story.}
+  \method{\void}{setContent}{String text}{Set the content of the story.}
   \method{String}{getContent}{}{Get the content of the story.}
   \method{\void}{setValue}{String k, Object v}
-    {Sets an arbitrary object v under keyword k.}
+    {Store an arbitrary object v under keyword k.}
   \method{Object}{getValue}{String k}
-    {Gets the object v stored under keyword k.}
+    {Gets the object stored under keyword k.}
   \method{Boolean}{lockForAnalysis}{}
     {Request a lock on the story for analysis. Returns true when given, assumes
       niceness of the analysis modules.}
@@ -64,5 +54,12 @@
   \method{Boolean}{isAnalysisDone}{}
     {Returns true when the story finds it is analysed enough and doesn't need
       another run.}
+  \method{void}{fromXML}{String xml}
+    {Parses an XML string (e.g. coming from Psyclone) to the contents of the
+      object (overwrites values currently stored!). Note, together with toXML,
+      this is the identity function: story.fromXML(toXML) = story.}
+  \method{String}{toXML}{}
+    {Converts the contents of the object to a XML string to be sent via
+      Psyclone.}
 \end{interface}
 

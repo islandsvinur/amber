@@ -89,7 +89,7 @@
 \newcommand{\void}{\textbf{void}}
 
 \newenvironment{interface}{
-  \newcommand{\method}[4]{\hline ##1 & ##2(##3) & ##4 \\}
+  \newcommand{\method}[4]{\hline ##1 & ##2\-(##3) & ##4 \\}
   \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
 
   \subsubsection{Interface}
@@ -103,13 +103,13 @@
 \newenvironment{classmetadata}{
   \newcommand{\metadataitem}[2]{\textbf{##1:} & ##2 \\}
 
-  \newcommand{\extends}[1]    {\metadataitem{Extends}{##1}}
-  \newcommand{\implements}[1] {\metadataitem{Implements}{##1}}
-  \newcommand{\function}[1]   {\metadataitem{Function}{##1}}
-  \newcommand{\dependency}[1] {\metadataitem{Dependencies}{##1}}
-  \newcommand{\references}[1] {\metadataitem{References}{##1}}
-  \newcommand{\processing}[1] {\metadataitem{Processing}{##1}}
-  \newcommand{\data}[1]       {\metadataitem{Data}{##1}}
+  \newcommand{\extends}[1]      {\metadataitem{Extends}{##1}}
+  \newcommand{\implements}[1]   {\metadataitem{Implements}{##1}}
+  \newcommand{\function}[1]     {\metadataitem{Function}{##1}}
+  \newcommand{\dependencies}[1] {\metadataitem{Dependencies}{##1}}
+  \newcommand{\references}[1]   {\metadataitem{References}{##1}}
+  \newcommand{\processing}[1]   {\metadataitem{Processing}{##1}}
+  \newcommand{\data}[1]         {\metadataitem{Data}{##1}}
 
   \tabularx{\linewidth}{lX}
   \metadataitem{Type}{Class}
