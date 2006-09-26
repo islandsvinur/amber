@@ -40,6 +40,7 @@
 
 package amber;
 
+import java.io.StringReader;
 import java.util.LinkedList;
 
 import amber.common.AirBrush;
@@ -68,7 +69,7 @@ public class ShowOff implements AirBrushCallable {
 	try {
 	    airbrush.connect();
 
-	    if (!airbrush.openWhiteboard("WB.Stories.Processed")) {
+	    if (!airbrush.openWhiteboard("WB.Stories")) {
 		System.err
 			.println("Could not open callback connection to whiteboard.");
 	    } else {
@@ -93,13 +94,12 @@ public class ShowOff implements AirBrushCallable {
     public void airBrushReceiveMessage(Message msg) {
 	System.out.println("Receiving " + msg.type + " from AirBrush.");
 
-	if (msg.type.trim() == "Internal.Story") {
+	if (msg.type.equals("Internal.Story")) {
 	    System.out.println("Story content: " + msg.content);
 	    
-	    // Create an empty story
-	    Story story = new Story();
-	    // Parse the XML into the Story object
-	    story.fromXML(msg.content);
+	    Story story;
+        // Parse the XML into the Story object
+	    story = Story.createFromYAML(msg.content);
 
 	    // Print some information
 	    System.out.println("Received story written by "
