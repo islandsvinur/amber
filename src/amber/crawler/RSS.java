@@ -71,7 +71,6 @@ public class RSS extends CrawlerObject implements Runnable {
 	}
     }
 
-    @Override
     public void start() {
 	// TODO Auto-generated method stub
 
