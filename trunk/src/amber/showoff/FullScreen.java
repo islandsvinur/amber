@@ -41,16 +41,13 @@
 package amber.showoff;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
