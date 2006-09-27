@@ -53,38 +53,41 @@ public class Crawler {
     private AirBrush airbrush;
 
     public Crawler() {
-	co = new RSS();
-	airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
-	airbrush.setCallbackObject(co);
+        co = new RSS();
+        airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
+        airbrush.setCallbackObject(co);
     }
 
     /* Launch method */
     public static void main(String args[]) {
-	Crawler c = new Crawler();
-	c.start();
+        Crawler c = new Crawler();
+        c.start();
     }
 
     /* Starts the program */
-    private void start() {
-	try {
-	    // Connect to Psyclone
-	    airbrush.connect();
-	    // Try to open the whiteboard
-	    if (!airbrush.openWhiteboard("WB.Stories")) {
-		System.err
-			.println("Could not open callback connection to whiteboard.");
-	    } else {
-		System.out.println("Connected to whiteboard.");
-	    }
-	    // Start listening for messages coming onto the whiteboard
-	    airbrush.startListening();
+    public void start() {
+        try {
+            // Connect to Psyclone
+            airbrush.connect();
+            // Try to open the whiteboard
+            if (!airbrush.openWhiteboard("WB.Stories")) {
+                System.err
+                        .println("Could not open callback connection to whiteboard.");
+            } else {
+                System.out.println("Connected to whiteboard.");
+            }
+            // Start listening for messages coming onto the whiteboard
+            airbrush.startListening();
 
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    System.exit(-1);
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
-	co.start();
-	System.out.println("Module started.");
+        co.start();
+        System.out.println("Module started.");
+    }
+    public void stop() {
+        ;
     }
 }
