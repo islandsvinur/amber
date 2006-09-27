@@ -44,15 +44,15 @@
         <title>Ambient Earth</title>
     </global>
 
-    <whiteboard name="WB.Stories.Raw">
+    <whiteboard name="WB.Stories">
         <description>
-            Stores all crawled stories before being analysed by the Sieve.
+            Stores all crawled stories.
         </description>
     </whiteboard>
 
-    <whiteboard name="WB.Stories.Processed">
+    <whiteboard name="WB.Analysis">
         <description>
-            Stores stories that went through analysis.
+            Story analysis is stored here.
         </description>
     </whiteboard>
 
@@ -65,7 +65,7 @@
             stories in them on the whiteboard (along with meta-data).
         </description>
         <spec>
-            <post to="WB.Stories.Raw" type="External.Crawler.RSS.Story" />
+            <post to="WB.Stories" type="Story" />
         </spec>
     </module>
 
@@ -77,8 +77,8 @@
             processed-stories whiteboard, adding a category to them.
         </description>
         <spec>
-            <trigger after="100" from="WB.Stories.Raw" type="External.Crawler.*.Story" />
-            <post to="WB.Stories.Processed" type="Internal.*" />
+            <trigger from="WB.Stories" type="Story" />
+            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
@@ -90,7 +90,8 @@
             ambient in its interaction.
         </description>
         <spec>
-            <trigger from="WB.Stories.Processed" type="Internal.*" />
+            <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Analysis" type="Analysis.*" />
         </spec>
     </module>
 
