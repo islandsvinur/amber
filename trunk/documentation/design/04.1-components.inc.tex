@@ -3,7 +3,8 @@
 A complete Amber system will comprise at least three modules running at the
 same time; there is a Crawler module, a selector module called Sieve and a
 display called ShowOff. The modules are separate executables with their own
-life-cycles and resources.
+life-cycles and resources. Since TCP/IP is used, the executables don't need to
+be on the same machine to communicate.
 
 Every module has a specified interface through which communication with
 Psyclone is handled.
@@ -19,9 +20,8 @@ Java\-Open\-AIR. The module name announced to Psyclone is `Crawler.' plus the
 name of the handler, so `Crawler.RSS' in case of the RSS handler.
 
 After connecting with Psyclone, the handler can get its parameters stored in
-the psySpec file and go to work. It will post stories with type
-`External.Crawler.$\langle$handler$\rangle$.Story' (i.e.
-`External.Crawler.RSS.Story') on the whiteboard `WB.Stories.Raw'.
+the psySpec file and go to work. It will post stories with type `Story'  on the
+whiteboard `WB.Stories'.
 
 \subsubsection{RSS}
 
@@ -31,7 +31,7 @@ getting the stories from the RSS feeds along with meta-information and store it
 on the whiteboard.
 
 \begin{module}{Crawler.RSS}
-    \post{External.Crawler.RSS.Story}{WB.Stories.Raw}
+    \post{Story}{WB.Stories}
 \end{module}
 
 \subsubsection{DiggAPI}
@@ -47,19 +47,20 @@ that they will publish a public API within the next months. If time allows, a
 DiggAPI module is created.
 
 \begin{module}{Crawler.DiggAPI}
-    \post{External.Crawler.DiggAPI.Story}{WB.Stories.Raw}
+    \post{Story}{WB.Stories}
 \end{module}
 
 % \subsubsection{BloggerDataAPI}
 % 
 % One of the larger weblog hosters is Google with their Blogger service. There
 % is an API available to get information from it.
+% 
+% \begin{module}{Crawler.BloggerDataAPI}
+%   \post{Story}{WB.Stories}
+% \end{module}
+
 
 \subsection{Sieve modules}
-
-Every invocation of a Sieve on a Story will decrease its \texttt{processLeft}
-value until it is 0. When it reaches 0, the story is moved to the ``processed''
-whiteboard WB.Stories.Processed.
 
 \subsubsection{KeywordSpotter}
 
@@ -70,9 +71,8 @@ subjects of a story must for instance add up to 100\%. This gives the
 visualizer more freedom to place the story.
 
 \begin{module}{Sieve.KeywordSpotter}
-    \post{Internal.Story}{WB.Stories.Processed}
-    \post{External.Crawler.*.Story}{WB.Stories.Raw}
-    \trigger{External.Crawler.*.Story}{WB.Stories.Raw}
+    \trigger{Story}{WB.Stories}
+    \post{Analysis}{WB.Analysis}
 \end{module}
 
 \subsubsection{PhraseSpotter}
@@ -80,8 +80,10 @@ visualizer more freedom to place the story.
 The PhraseSpotter will use a grammar engine to detect whether certain types of
 sentences appear in a story to classify it.
 
-% \begin{module}{Sieve.PhraseSpotter}
-% \end{module}
+\begin{module}{Sieve.PhraseSpotter}
+    \trigger{Story}{WB.Stories}
+    \post{Analysis}{WB.Analysis}
+\end{module}
 
 \subsection{ShowOff modules}
 
@@ -92,7 +94,8 @@ be looked - not glanced - at. It should be possible to let it do its job
 autonomously, just showing a pretty picture, or to be interactive.
 
 \begin{module}{ShowOff.FullScreen}
-    \trigger{Internal.Story}{WB.Stories.Processed}
+    \trigger{Story}{WB.Stories}
+    \trigger{Analysis}{WB.Analysis}
 \end{module}
 
 \subsubsection{Ambient applet}
@@ -103,6 +106,7 @@ information on that weblog, if it is on the page of a thread of a forum, it
 displays the flow of the discussion.
 
 \begin{module}{ShowOff.Applet}
-    \trigger{Internal.Story}{WB.Stories.Processed}
+    \trigger{Story}{WB.Stories}
+    \trigger{Analysis}{WB.Analysis}
 \end{module}
 

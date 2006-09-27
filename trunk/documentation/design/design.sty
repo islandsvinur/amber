@@ -68,12 +68,12 @@
 \newcommand{\Amber}{\textsc{Amber}}
 
 \newenvironment{module}[1]{
-    \newcommand{\post}[2]{##1 & Write to & ##2 \\ }
-    \newcommand{\trigger}[2]{##1 & Read from & ##2 \\ }
+    \newcommand{\post}[2]{Post to ##2 & ##1 \\ }
+    \newcommand{\trigger}[2]{Triggered by ##2 & ##1 \\ }
 
     Psyclone module specification for module \textbf{#1} \\
-    \tabularx{\linewidth}{X|cX}
-        \textbf{Type} & \textbf{R/W} & \textbf{Whiteboard} \\
+    \tabularx{\linewidth}{l|X}
+        \textbf{Whiteboard} & \textbf{Type} \\
         \hline
         \hline
 }{ 
@@ -87,6 +87,7 @@
 \newcommand{\abstractclassname}[1]{\subsection[Class #1]{public abstract class #1}}
 
 \newcommand{\void}{\textbf{void}}
+\newcommand{\static}{\textbf{static}}
 
 \newenvironment{interface}{
   \newcommand{\method}[4]{\hline ##1 & ##2\-(##3) & ##4 \\}

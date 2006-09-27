@@ -5,32 +5,24 @@ and abstract classes for the main objects of these modules. Basically it works
 like this; if the Crawler class is started it creates a CrawlerObject and
 starts it.
 
-\abstractclassname{AmberObject}
-\begin{classmetadata}
-  \implements{Runnable}
-  \function{Provide a consistent interface and functionality to all three Amber
-    modules.}
-  \processing{AmberObject has functionality for running a module in a thread,
-    which is most likely to be necessary. Further it has methods for graceful
-    start and stop.}
-\end{classmetadata}
-\begin{interface}
-  \method{\void}{start}{}
-    {Starts the module.}
-  \method{\void}{stop}{}
-    {Stops the module.}
-  \method{\void}{run}{}
-    {Needed for implementation of Runnable interface.}
-\end{interface}
-
-
 
 \classname{Crawler}
 
 \begin{classmetadata}
+  \function{The Crawler object makes launching a crawler easy and uniform for
+      all crawler types.}
 \end{classmetadata}
 
 \begin{interface}
+  \init{Crawler}{}
+    {Creates an instance of Crawler. Also creates a CrawlerObject and the
+      connection to Psyclone.}
+  \method{\static\ \void}{main}{String\[\] args}
+    {Method executed upon launch of the Crawler.}
+  \method{\void}{start}
+    {Starts the Crawler.}
+  \method{\void}{stop}
+    {Stops the Crawler.}
 \end{interface}
 
 
@@ -38,7 +30,8 @@ starts it.
 \abstractclassname{CrawlerObject}
 
 \begin{classmetadata}
-  \extends{AmberObject}
+  \function{The CrawlerObject class provides a uniform interface for crawler
+      applications.}
 \end{classmetadata}
 
 \begin{interface}
@@ -59,7 +52,6 @@ starts it.
 \abstractclassname{ShowOffObject}
 
 \begin{classmetadata}
-  \extends{AmberObject}
 \end{classmetadata}
 
 \begin{interface}
@@ -83,7 +75,6 @@ starts it.
 \abstractclassname{SieveObject}
 
 \begin{classmetadata}
-  \extends{AmberObject}
 \end{classmetadata}
 
 \begin{interface}
