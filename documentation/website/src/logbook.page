@@ -98,9 +98,9 @@ table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 25.09|Object model of crawler,<br />Created classes,<br />Implemented simplest methods|
 |Tue 26.09|Global design slightly changed, Document needs yet to be adapted,<br/>Idea to use XML dropped, using YAML now for contents of the messages|
-|Wed 27.09| |
-|Thu 28.09|_Trip to Vatnajökull_|
-|Fri 29.09|_Trip to Vatnajökull_|
+|Wed 27.09|Design document adapted to new architecture,<br/>YAML methods for Story added etc.|
+|_Thu 28.09_|_Trip to Vatnajökull_|
+|_Fri 29.09_|_Trip to Vatnajökull_|
 |Sat 30.09| |
 |Sun 1.10| |
 
