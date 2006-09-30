@@ -19,7 +19,7 @@
 \interfacename{AirBrushCallable}
 
 \begin{interface}
-  \method{\void}{airBrushCallBack}{FIXME}
+  \method{\void}{airBrushCallBack}{com.cmlabs.air.Message msg}
     {Used as callback function for the AirBrush.}
 \end{interface}
 
@@ -54,12 +54,12 @@
   \method{Boolean}{isAnalysisDone}{}
     {Returns true when the story finds it is analysed enough and doesn't need
       another run.}
-  \method{void}{fromXML}{String xml}
-    {Parses an XML string (e.g. coming from Psyclone) to the contents of the
-      object (overwrites values currently stored!). Note, together with toXML,
-      this is the identity function: story.fromXML(toXML) = story.}
-  \method{String}{toXML}{}
-    {Converts the contents of the object to a XML string to be sent via
+  \method{void}{fromYAML}{String yaml}
+    {Parses a \ac{YAML} string (e.g. coming from Psyclone) to the contents of the
+      object (overwrites values currently stored!). Note, together with toYAML,
+      this is the identity function: story.fromYAML(story.toYAML()) = story.}
+  \method{String}{toYAML}{}
+    {Converts the contents of the object to a \ac{YAML} string to be sent via
       Psyclone.}
 \end{interface}
 

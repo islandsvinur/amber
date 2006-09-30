@@ -3,17 +3,18 @@
 There are a few message types in the system. Two of which must be defined
 system-wide because they are used in the communication between modules.
 
-\subsection{Message type `Story'}
+\subsection{\label{sct:messages:story}Message type `Story'}
 
 The Story message is only posted to the whiteboard `WB.Stories' and only by
 Crawler modules.
 
-The message content is a YAML\footnote{\url{http://www.yaml.org/}} document
+The message content is a \ac{YAML}\footnote{\url{http://www.yaml.org/}} document
 which represents the storyData field inside the Java counterpart of the
 message. It contains at least the properties `URI' (to identify the story,
 GUIDs are RSS specific and cannot be used), `Author', `Title', `Story-Content'.
-It may also contain `Publication-Date' (which is the date of publication in RFC
-2822 format), `Kind' and other fields.
+
+It may also contain `Publication-Date' (which is the date of publication in
+Internet~Message~Format\cite[Section~3.3]{RFC2822}), `Kind' and other fields.
 
 An example of a YAML document containing Story data:
 
@@ -62,6 +63,6 @@ the field.
 
 Every analysis module sends a message to the whiteboard if it thinks it is
 relevant. It is thus possible that the same URI will get multiple analysis
-results, the visualizer module must cope with this and merge the available
-information.
+results or nothing at all, the visualizer module must cope with this and merge
+the available information.
 

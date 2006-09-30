@@ -21,7 +21,7 @@
     {Initializes the EarthView display. It is a child of JPanel and can as such
     be used inside any Swing application. Before starting the Earthview, first
     couple a Particle collection to it using setParticleCollection.}
-    \method{\void}{setParticleCollection}{pc: \mbox{Collection$\langle$Particle$\rangle$}}
+    \method{\void}{setParticleCollection}{\mbox{Collection$\langle$Particle$\rangle$} pc}
     {Sets the collection of particles to be displayed in the view.}
   \method{\void}{run}{}
     {Runs the thread (for Runnable).}
@@ -46,6 +46,8 @@
     {Initializes something.}
   \method{\void}{start}{}
     {Start the visualization.}
+  \method{void}{airBrushReceiveMessage}{Message msg}
+    {}
 \end{interface}
 
 

@@ -70,8 +70,10 @@
 \newenvironment{module}[1]{
     \newcommand{\post}[2]{Post to ##2 & ##1 \\ }
     \newcommand{\trigger}[2]{Triggered by ##2 & ##1 \\ }
+    
+    \vspace{1em}
+    \textbf{Psyclone module specification for module #1:}
 
-    Psyclone module specification for module \textbf{#1} \\
     \tabularx{\linewidth}{l|X}
         \textbf{Whiteboard} & \textbf{Type} \\
         \hline
