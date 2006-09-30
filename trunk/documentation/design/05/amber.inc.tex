@@ -19,9 +19,9 @@ starts it.
       connection to Psyclone.}
   \method{\static\ \void}{main}{String\[\] args}
     {Method executed upon launch of the Crawler.}
-  \method{\void}{start}
+  \method{\void}{start}{}
     {Starts the Crawler.}
-  \method{\void}{stop}
+  \method{\void}{stop}{}
     {Stops the Crawler.}
 \end{interface}
 
@@ -32,9 +32,14 @@ starts it.
 \begin{classmetadata}
   \function{The CrawlerObject class provides a uniform interface for crawler
       applications.}
+  \implements{AirBrushCallable}
 \end{classmetadata}
 
 \begin{interface}
+  \method{\void}{start}{}
+    {Starts the CrawlerObject.}
+  \method{\void}{stop}{}
+    {Stops the CrawlerObject.}
 \end{interface}
 
 
@@ -42,6 +47,8 @@ starts it.
 \classname{ShowOff}
 
 \begin{classmetadata}
+  \function{The ShowOff object makes launching a visualization module easy and
+      uniform for all visualizer types.}
 \end{classmetadata}
 
 \begin{interface}
@@ -52,6 +59,9 @@ starts it.
 \abstractclassname{ShowOffObject}
 
 \begin{classmetadata}
+  \function{The ShowOffObject class provides a uniform interface for visualization
+      applications.}
+  \implements{AirBrushCallable}
 \end{classmetadata}
 
 \begin{interface}
@@ -65,6 +75,8 @@ starts it.
 \classname{Sieve}
 
 \begin{classmetadata}
+  \function{The Sieve object makes launching a analysis module easy and uniform
+      for all analyser types.}
 \end{classmetadata}
 
 \begin{interface}
@@ -75,6 +87,9 @@ starts it.
 \abstractclassname{SieveObject}
 
 \begin{classmetadata}
+  \function{The SieveObject class provides a uniform interface for analysis
+      applications.}
+  \implements{AirBrushCallable}
 \end{classmetadata}
 
 \begin{interface}
