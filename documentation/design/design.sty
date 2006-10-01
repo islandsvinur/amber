@@ -92,14 +92,15 @@
 \newcommand{\static}{\textbf{static}}
 
 \newenvironment{interface}{
-  \newcommand{\method}[4]{\hline ##1 & ##2\-(##3) & ##4 \\}
+  \newcommand{\method}[4]{##1 & ##2\-(##3) & ##4 \\ \hline}
   \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
 
   \subsubsection{Interface}
 
   \tabularx{\linewidth+2cm}{rp{5cm}|X}
     \textbf{Returns} & \textbf{Name and argument} & \textbf{Description} \\
-    \hline }{
+    \hline \hline 
+}{
   \endtabularx
 }
 
