@@ -42,26 +42,38 @@ package amber.crawler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.cmlabs.air.Message;
 
 import amber.CrawlerObject;
 import amber.common.Story;
 
-public class RSS extends CrawlerObject implements Runnable {
+import com.cmlabs.air.Message;
+
+import de.nava.informa.core.ChannelIF;
+import de.nava.informa.core.ItemIF;
+import de.nava.informa.impl.basic.ChannelBuilder;
+import de.nava.informa.parsers.FeedParser;
+import de.nava.informa.utils.poller.Poller;
+import de.nava.informa.utils.poller.PollerObserverIF;
+
+public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
     private List<Story> stories;
     
     private URL feedURL;
     
+    private Poller poller;
+    
     public RSS() {
 	stories = Collections.synchronizedList(new LinkedList<Story>());
+        poller = new Poller(1);
     }
 
     public void airBrushReceiveMessage(Message msg) {
-	if (msg.type.trim() == "Crawler.RSS.Feed") {
+	if (msg.type.equals("Feed.RSS")) {
 	    try {
 		feedURL = new URL(msg.content);
 	    } catch (MalformedURLException e) {
@@ -73,7 +85,18 @@ public class RSS extends CrawlerObject implements Runnable {
 
     public void start() {
 	// TODO Auto-generated method stub
-
+        poller.addObserver(this);
+        ChannelIF channel = null;
+        try {
+            channel = FeedParser.parse(new ChannelBuilder(), new URL("http://ijsland.luijten.org/feed"));
+        } catch (Exception e) {
+            System.err.println("Fout!");
+        }
+        Collection items = channel.getItems();
+        for (Iterator it = items.iterator(); it.hasNext(); ) {
+            ItemIF item = (ItemIF) it.next();
+            System.out.println("Item: dated " + item.getDate()); // posts a message
+        }
     }
 
     public void run() {
@@ -83,6 +106,31 @@ public class RSS extends CrawlerObject implements Runnable {
 
     @Override
     public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void channelChanged(ChannelIF arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void channelErrored(ChannelIF arg0, Exception arg1) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void itemFound(ItemIF arg0, ChannelIF arg1) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void pollFinished(ChannelIF arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void pollStarted(ChannelIF arg0) {
         // TODO Auto-generated method stub
         
     }

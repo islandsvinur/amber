@@ -59,43 +59,43 @@ public class FullScreen extends ShowOffObject {
     private EarthView earthView;
 
     public FullScreen(Queue<Story> sq) {
-	JFrame main = new JFrame();
-	main.setSize(300, 300);
-	/*
+        JFrame main = new JFrame();
+        main.setSize(300, 300);
+        /*
          * main = new JWindow();
          * GraphicsEnvironment.getLocalGraphicsEnvironment()
          * .getDefaultScreenDevice().setFullScreenWindow(main);
          */
 
-	Container mainpane = main.getContentPane();
+        Container mainpane = main.getContentPane();
 
-	mainpane.setBackground(Color.black);
+        mainpane.setBackground(Color.black);
 
-	JPanel list = new JPanel();
-	list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
-	list.setBackground(Color.black);
+        JPanel list = new JPanel();
+        list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
+        list.setBackground(Color.black);
 
-	JButton b = new JButton();
-	b.setText("Quit");
-	b.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		System.exit(0);
-	    };
-	});
+        JButton b = new JButton();
+        b.setText("Quit");
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            };
+        });
 
-	earthView = new EarthView();
-	earthView.setVisible(true);
-	earthView.setStoryQueue(sq);
+        earthView = new EarthView();
+        earthView.setVisible(true);
+        earthView.setStoryQueue(sq);
 
-	list.add(earthView);
-	list.add(b);
+        list.add(earthView);
+        list.add(b);
 
-	mainpane.add(list);
-	main.setVisible(true);
+        mainpane.add(list);
+        main.setVisible(true);
     }
 
     public void start() {
-	earthView.start();
+        earthView.start();
     }
 
 }
