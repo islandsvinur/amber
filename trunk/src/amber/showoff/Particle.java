@@ -64,110 +64,111 @@ public class Particle {
     private Point2d location = null;
 
     private Double mass = null;
-    
+
     private Double density = null;
 
     private Story story;
 
     private Vector2d velocity = null;
-    
+
     private Double timeSinceCreation = 0.0;
 
     public Particle(Story s) {
-	story = s;
+        story = s;
     }
 
     public void boost(Double f) {
-	velocity.scale(f);
+        velocity.scale(f);
     }
 
     private void checkLaunched() throws ParticleAlreadyLaunchedException {
-	if (launched) {
-	    throw new ParticleAlreadyLaunchedException();
-	}
+        if (launched) {
+            throw new ParticleAlreadyLaunchedException();
+        }
     }
-    
+
     public Double getDensity() {
-	return density;
+        return density;
     }
+
     public void setDensity(Double d) throws ParticleException {
-	checkLaunched();
-	density = d;
+        checkLaunched();
+        density = d;
     }
 
     public Tuple2d getAccelleration() {
-	return accel;
+        return accel;
     }
 
     public Point2d getLocation() {
-	return location;
+        return location;
     }
 
     public Double getMass() {
-	return mass;
+        return mass;
     }
 
     public Story getStory() {
-	return story;
+        return story;
     }
 
     public Vector2d getVelocity() {
-	return velocity;
+        return velocity;
     }
 
     public boolean isLaunched() {
-	return launched;
+        return launched;
     }
 
     public void launch() {
-	launched = true;
+        launched = true;
     }
 
     public void setAccelleration(Double x, Double y) throws ParticleException {
-	setAccelleration(new Vector2d(x, y));
+        setAccelleration(new Vector2d(x, y));
     }
 
     private void setAccelleration(Vector2d a) throws ParticleException {
-	checkLaunched();
-	accel = a;
+        checkLaunched();
+        accel = a;
     }
 
     public void setLocation(Double x, Double y) throws ParticleException {
-	setLocation(new Point2d(x, y));
+        setLocation(new Point2d(x, y));
     }
 
     private void setLocation(Point2d l) throws ParticleException {
-	checkLaunched();
-	location = l;
+        checkLaunched();
+        location = l;
     }
 
     public void setMass(Double m) {
-	mass = m;
+        mass = m;
     }
 
     public void setNewValuesAfter(Double time) {
-	timeSinceCreation += time;
-	
-	location.x = Math.sin(timeSinceCreation);
-	location.y = Math.cos(timeSinceCreation);
-	velocity.x = -1 * Math.cos(timeSinceCreation);
-	velocity.y = Math.sin(timeSinceCreation);
-	accel.x = -1 * Math.sin(timeSinceCreation);
-	accel.y = -1 * Math.cos(timeSinceCreation);
+        timeSinceCreation += time;
+
+        location.x = Math.sin(timeSinceCreation);
+        location.y = Math.cos(timeSinceCreation);
+        velocity.x = -1 * Math.cos(timeSinceCreation);
+        velocity.y = Math.sin(timeSinceCreation);
+        accel.x = -1 * Math.sin(timeSinceCreation);
+        accel.y = -1 * Math.cos(timeSinceCreation);
     }
 
     public void setVelocity(Double x, Double y) throws ParticleException {
-	setVelocity(new Vector2d(x, y));
+        setVelocity(new Vector2d(x, y));
     }
 
     private void setVelocity(Vector2d v) throws ParticleException {
-	checkLaunched();
-	velocity = v;
+        checkLaunched();
+        velocity = v;
     }
 
     public boolean crashed() {
-	// TODO Auto-generated method stub
-	return false;
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }
