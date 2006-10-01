@@ -25,6 +25,17 @@
 
 
 
+\interfacename{ModuleInterface}
+
+\begin{interface}
+  \method{\void}{start}{}
+    {Start the module.}
+  \method{\void}{stop}{}
+    {Stop the module.}
+\end{interface}
+
+
+
 \classname{Story}
 
 \begin{classmetadata}
@@ -36,6 +47,9 @@
 \end{classmetadata}
 
 \begin{interface}
+  \method{\static\ \void}{createFromYAML}{String yaml}
+    {Creates a Story object, and initializes it from the \emph{yaml} argument
+      (see fromYAML method).}
   \method{\void}{setAuthor}{String author}{Sets the author of the story.}
   \method{String}{getAuthor}{}{Gets the author of the story.}
   \method{\void}{setCreationTime}{Date time}{Set the creation time of the story}
@@ -54,7 +68,7 @@
   \method{Boolean}{isAnalysisDone}{}
     {Returns true when the story finds it is analysed enough and doesn't need
       another run.}
-  \method{void}{fromYAML}{String yaml}
+  \method{\void}{fromYAML}{String yaml}
     {Parses a \ac{YAML} string (e.g. coming from Psyclone) to the contents of the
       object (overwrites values currently stored!). Note, together with toYAML,
       this is the identity function: story.fromYAML(story.toYAML()) = story.}
