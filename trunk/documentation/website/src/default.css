@@ -78,8 +78,15 @@
   #body h2 { border-bottom: thin dashed #635E4A; }
   #body h3 { border-bottom: thin dashed #A39B7A; }
 
-  table th { background-color: #F3E7B6; }
+  table th { 
+     color: #635E4A;
+     background-color: #F3E7B6; 
+     border: thin solid #A39B7A;
+  }
   table { margin: 1em 0; }
+
+  table tr { background: white; }
+  table tr.even { background: #F3F7F6; }
 
   /* styling the menu */
 
