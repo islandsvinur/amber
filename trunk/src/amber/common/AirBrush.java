@@ -91,7 +91,7 @@ public class AirBrush implements Runnable {
     }
     
     public void postMessage(Message msg) {
-        
+        plug.postOutputMessage(msg);
     }
 
     public void setCallbackObject(AirBrushCallable cb) {

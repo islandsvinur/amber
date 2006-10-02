@@ -53,8 +53,8 @@ public class Crawler {
     private AirBrush airbrush;
 
     public Crawler() {
-        co = new RSS();
         airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
+        co = new RSS(airbrush);
         airbrush.setCallbackObject(co);
     }
 

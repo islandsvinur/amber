@@ -47,25 +47,29 @@ import org.jvyaml.YAML;
 public class Story {
 
     private Properties storyData;
+    
+    private String keyIdentifier = "URI";
+    private String keyAuthor = "Author";
+    private String keyTitle = "Title";
+    private String keyContent = "Story-Content";
+    private String keyPublicationDate = "Publication-Date";
 
     /* Creates an empty story object. */
     public Story() {
         storyData = new Properties();
     }
-
-    public Story(String content) {
+    
+    public Story(String identifier) {
         this();
-        storyData.setProperty("Content", content);
+        storyData.setProperty(keyIdentifier, identifier);
     }
-
-    public Story(String content, String author) {
-        this(content);
-        storyData.setProperty("Author", author);
-    }
-
-    public Story(String content, String author, String publicationDate) {
-        this(content, author);
-        storyData.setProperty("Publication date", publicationDate);
+    
+    public Story(String identifier, String author, String title, String content) {
+        this();
+        storyData.setProperty(keyIdentifier, identifier);
+        storyData.setProperty(keyAuthor, author);
+        storyData.setProperty(keyTitle, title);
+        storyData.setProperty(keyContent, content);
     }
     
     public static Story createFromYAML(String in) {
@@ -80,17 +84,25 @@ public class Story {
     public void setProperty(String key, String value) {
         storyData.setProperty(key, value);
     }
+    
+    public String getID() {
+        return storyData.getProperty(keyIdentifier);
+    }
+    
+    public String getTitle() {
+        return storyData.getProperty(keyTitle);
+    }
 
     public String getContent() {
-        return getProperty("Content");
+        return getProperty(keyContent);
     }
 
     public String getAuthor() {
-        return getProperty("Author");
+        return getProperty(keyAuthor);
     }
 
     public String getPublicationDate() {
-        return getProperty("Publication date");
+        return getProperty(keyPublicationDate);
     }
 
     /* Converts a Story into an YAML String */
