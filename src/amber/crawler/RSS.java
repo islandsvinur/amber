@@ -49,6 +49,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import amber.CrawlerObject;
+import amber.common.AirBrush;
 import amber.common.Story;
 
 import com.cmlabs.air.Message;
@@ -62,77 +63,96 @@ import de.nava.informa.utils.poller.PollerObserverIF;
 
 public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
     private List<Story> stories;
-    
+
     private URL feedURL;
-    
+
     private Poller poller;
     
-    public RSS() {
-	stories = Collections.synchronizedList(new LinkedList<Story>());
+    private AirBrush airbrush;
+
+    public RSS(AirBrush ab) {
+        stories = Collections.synchronizedList(new LinkedList<Story>());
         poller = new Poller(1);
+        airbrush = ab;
     }
 
     public void airBrushReceiveMessage(Message msg) {
-	if (msg.type.equals("Feed.RSS")) {
-	    try {
-		feedURL = new URL(msg.content);
-	    } catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	}
+        if (msg.type.equals("Feed.RSS")) {
+            try {
+                feedURL = new URL(msg.content);
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     public void start() {
-	// TODO Auto-generated method stub
-        poller.addObserver(this);
         ChannelIF channel = null;
         try {
-            channel = FeedParser.parse(new ChannelBuilder(), new URL("http://ijsland.luijten.org/feed"));
+            channel = FeedParser.parse(new ChannelBuilder(), new URL(
+                    "http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
         } catch (Exception e) {
             System.err.println("Fout!");
         }
         Collection items = channel.getItems();
-        for (Iterator it = items.iterator(); it.hasNext(); ) {
-            ItemIF item = (ItemIF) it.next();
-            System.out.println("Item: dated " + item.getDate()); // posts a message
+        for (Iterator it = items.iterator(); it.hasNext();) {
+            handleItem((ItemIF) it.next());
         }
+        
+        poller.addObserver(this);
+        poller.setPeriod(60000);
+        poller.registerChannel(channel);
+    }
+    
+    private void handleItem(ItemIF item) {
+        Story story = new Story(item.getGuid().toString(), item.getCreator(), item.getTitle(), item.toString());
+        
+        Message msg = new Message();
+        msg.to = "WB.Stories";
+        msg.type = "Story";
+        msg.content = story.toString();
+        
+        airbrush.postMessage(msg);
+        System.out.println("Posted item titled: " + item.getTitle()); 
     }
 
     public void run() {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void stop() {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void channelChanged(ChannelIF arg0) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void channelErrored(ChannelIF arg0, Exception arg1) {
         // TODO Auto-generated method stub
-        
+
     }
 
-    public void itemFound(ItemIF arg0, ChannelIF arg1) {
+    public void itemFound(ItemIF item, ChannelIF channel) {
         // TODO Auto-generated method stub
-        
+        System.out.println("Found item: " + item.getTitle());
+        handleItem(item);
+
     }
 
     public void pollFinished(ChannelIF arg0) {
         // TODO Auto-generated method stub
-        
+        System.out.println("Polling ended.");
     }
 
     public void pollStarted(ChannelIF arg0) {
         // TODO Auto-generated method stub
-        
+        System.out.println("Polling started.");
     }
 
 }
