@@ -43,10 +43,7 @@ package amber.crawler;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import amber.CrawlerObject;
 import amber.common.AirBrush;
@@ -62,16 +59,13 @@ import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
 public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
-    private List<Story> stories;
-
-    private URL feedURL;
+    private ChannelIF channel = null;
 
     private Poller poller;
-    
+
     private AirBrush airbrush;
 
     public RSS(AirBrush ab) {
-        stories = Collections.synchronizedList(new LinkedList<Story>());
         poller = new Poller(1);
         airbrush = ab;
     }
@@ -79,7 +73,7 @@ public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
     public void airBrushReceiveMessage(Message msg) {
         if (msg.type.equals("Feed.RSS")) {
             try {
-                feedURL = new URL(msg.content);
+                switchFeed(new URL(msg.content));
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -87,34 +81,50 @@ public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
         }
     }
 
-    public void start() {
-        ChannelIF channel = null;
+    private void switchFeed(URL url) {
+        System.out.println("Switching feed to: " + url.toExternalForm());
+
+        if (channel != null) {
+            poller.unregisterChannel(channel);
+        }
+
         try {
-            channel = FeedParser.parse(new ChannelBuilder(), new URL(
-                    "http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
+            channel = FeedParser.parse(new ChannelBuilder(), url);
         } catch (Exception e) {
             System.err.println("Fout!");
         }
         Collection items = channel.getItems();
         for (Iterator it = items.iterator(); it.hasNext();) {
-            handleItem((ItemIF) it.next());
+            itemFound((ItemIF) it.next(), channel);
+        }
+        
+        poller.registerChannel(channel);
+    }
+
+    public void start() {
+        try {
+            // switchFeed(new URL("http://planet.gnome.org/rss20.xml"));
+            // switchFeed(new URL("http://ijsland.luijten.org/feed"));
+            switchFeed(new URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         
         poller.addObserver(this);
-        poller.setPeriod(60000);
-        poller.registerChannel(channel);
+        poller.setPeriod(10 * 60 * 1000);
     }
-    
+
     private void handleItem(ItemIF item) {
-        Story story = new Story(item.getGuid().toString(), item.getCreator(), item.getTitle(), item.toString());
-        
+        Story story = new Story(item.getGuid().getLocation(), item.getCreator(),
+                item.getTitle(), item.getDescription());
+
         Message msg = new Message();
         msg.to = "WB.Stories";
         msg.type = "Story";
-        msg.content = story.toString();
-        
+        msg.content = story.toYAML();
+
         airbrush.postMessage(msg);
-        System.out.println("Posted item titled: " + item.getTitle()); 
     }
 
     public void run() {
@@ -139,19 +149,15 @@ public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
     }
 
     public void itemFound(ItemIF item, ChannelIF channel) {
-        // TODO Auto-generated method stub
         System.out.println("Found item: " + item.getTitle());
         handleItem(item);
-
     }
 
     public void pollFinished(ChannelIF arg0) {
-        // TODO Auto-generated method stub
         System.out.println("Polling ended.");
     }
 
     public void pollStarted(ChannelIF arg0) {
-        // TODO Auto-generated method stub
         System.out.println("Polling started.");
     }
 

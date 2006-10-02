@@ -66,10 +66,15 @@ public class Story {
     
     public Story(String identifier, String author, String title, String content) {
         this();
+        //storyData.setProperty(keyIdentifier, identifier);
+        //storyData.setProperty(keyAuthor, author);
+        //storyData.setProperty(keyContent, content);
+        //storyData.setProperty(keyTitle, title);
         storyData.setProperty(keyIdentifier, identifier);
         storyData.setProperty(keyAuthor, author);
-        storyData.setProperty(keyTitle, title);
-        storyData.setProperty(keyContent, content);
+        // FIXME: Look into why JvYAML can't handle non-printable chars
+        storyData.setProperty(keyTitle, title.replaceAll("[^\\p{Print}]", ""));
+        storyData.setProperty(keyContent, content.replaceAll("[^\\p{Print}]", ""));
     }
     
     public static Story createFromYAML(String in) {
