@@ -18,7 +18,7 @@ h3. Week 33
 
 table(log).
 (header). |_(day). Day|_(act). Activity|
-|Thu 22.08|Introduction at the university with other exchange students|
+(even). |Thu 22.08|Introduction at the university with other exchange students|
 |Fri 23.08|Introduction to the School of Computer Science and Engineering, talk with Yngvi Björnsson|
 
 h3. Week 34
@@ -26,9 +26,9 @@ h3. Week 34
 table(log).
 (header). |_(day). Day|_(act). Activity|
 |Mon 22.08| |
-|Tue 23.08|Conference call with Kristinn, "SVN repository":http://cadia.ru.is/svn/repos/webmon/|
+(even). |Tue 23.08|Conference call with Kristinn, "SVN repository":http://cadia.ru.is/svn/repos/webmon/|
 |Wed 24.08|Read about "CDM":http://www.mindmakers.org/projects/CDM/pages/|
-|Thu 25.08|Bits and pieces of documentation and first code file structure|
+(even). |Thu 25.08|Bits and pieces of documentation and first code file structure|
 |Fri 26.08| |
 
 h3. Week 35
@@ -36,9 +36,9 @@ h3. Week 35
 table(log).
 (header). |_(day). Day|_(act). Activity|
 |Mon 28.08| |
-|Tue 29.08|Conference call with Kristinn|
+(even). |Tue 29.08|Conference call with Kristinn|
 |Wed 30.08|Created first psySpec file|
-|Thu 31.08|_Moving to Þverholt_|
+(even). |Thu 31.08|_Moving to Þverholt_|
 |Fri  1.09|Chat with Kristinn about psySpec|
 
 h3. Week 36
@@ -49,9 +49,9 @@ meanwhile playing around with posting and retrieving messages with Psyclone.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon  4.09|Improved psySpec|
-|Tue  5.09|Thinking some more about the architecture|
+(even). |Tue  5.09|Thinking some more about the architecture|
 |Wed  6.09|Read "paper":CDM, Began writing design document, Created logbook page|
-|Thu  7.09|More work on design|
+(even). |Thu  7.09|More work on design|
 |Fri  8.09|More work on design|
 
 [CDM]http://www1.cs.columbia.edu/~smaskey/papers/AI_summer_vol_2.pdf
@@ -63,9 +63,9 @@ p(plan). Finish global design, Think about visualization issues
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 11.09|Project imported into Eclipse + exploring Eclipse, began detailling of Crawler architecture|
-|Tue 12.09|"Computer problems":AppleKB304308, Install of backup computer,<br />Visualization requirements, Call with Kristinn about visual aspects|
+(even). |Tue 12.09|"Computer problems":AppleKB304308, Install of backup computer,<br />Visualization requirements, Call with Kristinn about visual aspects|
 |Wed 13.09|Visualization requirements extended, Began research on using "Graphics":http://java.sun.com/docs/books/tutorial/2d/index.html in Java|
-|Thu 14.09|Mainly work on prototype of full screen display|
+(even). |Thu 14.09|Mainly work on prototype of full screen display|
 |Fri 15.09|Think about display module's architecture, Work on full screen display|
 
 [AppleKB304308]http://docs.info.apple.com/article.html?artnum=304308
@@ -77,9 +77,9 @@ p(plan). Create detailed design, code along, starting with basic visualization
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 18.09|Started detailed design on class level|
-|Tue 19.09|Short talk with Kristinn, <br />Discussion about whether threads are at all possible to implement, <br />RSS doesn't really support threads (as in that every semantic meaning coupled to feeds is done by humans), <br />NNTP does work with threads, but its working is largely unknown to me, <br />Will implement the system as if threads are perfectly possible in RSS and come up with a solution later.|
+(even). |Tue 19.09|Short talk with Kristinn, <br />Discussion about whether threads are at all possible to implement, <br />RSS doesn't really support threads (as in that every semantic meaning coupled to feeds is done by humans), <br />NNTP does work with threads, but its working is largely unknown to me, <br />Will implement the system as if threads are perfectly possible in RSS and come up with a solution later.|
 |Wed 20.09|Work on visualization module and AirBrush Psyclone interface, Communication succeeded|
-|Thu 21.09|Implemented most of the methods currently present in the detailed design.|
+(even). |Thu 21.09|Implemented most of the methods currently present in the detailed design.|
 |Fri 22.09|Continued programming without design, <br/>Later concluded that it is not a good idea to work without proper design.|
 
 The weekend was spent on trips to Stykkisholmur (on Snæfellsnes) and Vík
@@ -97,12 +97,14 @@ modules starting week 40.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 25.09|Object model of crawler,<br />Created classes,<br />Implemented simplest methods|
-|Tue 26.09|Global design slightly changed, Document needs yet to be adapted,<br/>Idea to use XML dropped, using YAML now for contents of the messages|
+(even). |Tue 26.09|Global design slightly changed, Document needs yet to be adapted,<br/>Idea to use XML dropped, using YAML now for contents of the messages|
 |Wed 27.09|Design document adapted to new architecture,<br/>YAML methods for Story added etc.|
-|_Thu 28.09_|_Trip to Vatnajökull_|
+(even). |_Thu 28.09_|_Trip to Vatnajökull_|
 |_Fri 29.09_|_Trip to Vatnajökull_|
-|Sat 30.09| |
-|Sun 1.10| |
+(even). |Sat 30.09|Design document updated|
+|Sun 1.10|Experimented with the Informa library,<br/>Design document updated|
+
+Module not completed this week, will become early next week.
 
 h3. Week 40
 
@@ -112,17 +114,13 @@ The analysis modules will be fairly simple at first, just enough to provide the
 visualiser with enough data to show something interesting. I planned two weeks
 of work on these.
 
-<div class="invisible">
-
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 2.10| |
-|Tue 3.10| |
+(even). |Tue 3.10| |
 |Wed 4.10| |
-|Thu 5.10| |
+(even). |Thu 5.10| |
 |Fri 6.10| |
-
-</div>
 
 h3. Week 41
 
@@ -133,9 +131,9 @@ p(plan). Continue detailed design and code for analysis modules.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 9.10| |
-|Tue 10.10| |
+(even). |Tue 10.10| |
 |Wed 11.10| |
-|Thu 12.10| |
+(even). |Thu 12.10| |
 |Fri 13.10| |
 
 </div>
@@ -149,9 +147,9 @@ p(plan). Continue detailed design and code for visualization.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 16.10| |
-|Tue 17.10| |
+(even). |Tue 17.10| |
 |Wed 18.10| |
-|Thu 19.10| |
+(even). |Thu 19.10| |
 |Fri 20.10| |
 
 </div>
@@ -165,9 +163,9 @@ p(plan). Continue detailed design and code for visualization.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 23.10| |
-|Tue 24.10| |
+(even). |Tue 24.10| |
 |Wed 25.10| |
-|Thu 26.10| |
+(even). |Thu 26.10| |
 |Fri 27.10| |
 
 </div>
@@ -181,9 +179,9 @@ p(plan). Continue detailed design and code for visualization.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 30.10| |
-|Tue 31.10| |
+(even). |Tue 31.10| |
 |Wed 1.11| |
-|Thu 2.11| |
+(even). |Thu 2.11| |
 |Fri 3.11| |
 
 </div>
@@ -197,9 +195,9 @@ p(plan). ...
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 6.11| |
-|Tue 7.11| |
+(even). |Tue 7.11| |
 |Wed 8.11| |
-|Thu 9.11| |
+(even). |Thu 9.11| |
 |Fri 10.11| |
 
 </div>
@@ -213,9 +211,9 @@ p(plan). Fine-tune visualization parameters.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 13.11| |
-|Tue 14.11| |
+(even). |Tue 14.11| |
 |Wed 15.11| |
-|Thu 16.11| |
+(even). |Thu 16.11| |
 |Fri 17.11| |
 
 </div>
@@ -229,11 +227,27 @@ p(plan). Finish everything up, write demonstration scenarios.
 table(log).
 (header). |_(day). Day |_(act). Activity |
 |Mon 20.11| |
-|Tue 21.11| |
+(even). |Tue 21.11| |
 |Wed 22.11| |
-|Thu 23.11| |
+(even). |Thu 23.11| |
 |Fri 24.11| |
-|Sat 25.11|_Flight back_|
+(even). |Sat 25.11|_Flight back_|
+
+</div>
+
+h3. Week 48 (back in Eindhoven)
+
+p(plan). Finish internship report.
+
+<div class="invisible">
+
+table(log).
+(header). |_(day). Day |_(act). Activity |
+|Mon 27.11| |
+(even). |Tue 28.11| |
+|Wed 29.11| |
+(even). |Thu 30.11| |
+|Fri  1.12| |
 
 </div>
 
