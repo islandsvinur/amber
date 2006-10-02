@@ -70,7 +70,7 @@ public class Crawler {
             // Connect to Psyclone
             airbrush.connect();
             // Try to open the whiteboard
-            if (!airbrush.openWhiteboard("WB.Stories")) {
+            if (!airbrush.openWhiteboard("WB.Stories") || !airbrush.openWhiteboard("WB.Control")) {
                 System.err
                         .println("Could not open callback connection to whiteboard.");
             } else {
