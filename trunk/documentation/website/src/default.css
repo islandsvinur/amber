@@ -61,7 +61,7 @@
   }
 
   .log { table-layout: fixed; width: 40em; }
-  .log tr.header .day { width: 6em; }
+  .log tr.table-header .day { width: 6em; }
   .log td { vertical-align: top; }
 
   .plan { font-style: italic; } 
@@ -85,8 +85,9 @@
   }
   table { margin: 1em 0; }
 
-  table tr { background: white; }
-  table tr.even { background: #F3F7F6; }
+  table tr.table-row-even { background: #F3F7F6; }
+  table tr.table-row-odd { background: white; }
+  table tr.log-special-day { color: #635E4A; }
 
   /* styling the menu */
 
