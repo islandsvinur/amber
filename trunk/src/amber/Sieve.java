@@ -74,19 +74,5 @@ public class Sieve {
                     System.out.println("Psyclone is not available.");
             }
         }
-
-        /*
-         * if (args.length == 1) {
-         * 
-         * try {
-         * 
-         * FileInputStream fp = new FileInputStream(args[0]); BufferedReader in =
-         * new BufferedReader(new InputStreamReader(fp));
-         * 
-         * KeywordSpotter spotter = new KeywordSpotter();
-         * spotter.setInputStream(in); spotter.sieve(); spotter.destroy(); }
-         * catch (Exception e) { System.err.println("File input error"); }
-         *  } else { System.err.println("Argument invalid"); }
-         */
     }
 }

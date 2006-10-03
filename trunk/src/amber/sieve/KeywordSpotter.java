@@ -40,61 +40,36 @@
 
 package amber.sieve;
 
-import java.io.BufferedReader;
-import java.util.regex.Pattern;
-
 import amber.SieveObject;
+import amber.common.AirBrush;
+import amber.common.Analysis;
 import amber.common.Story;
-
-import com.cmlabs.air.JavaAIRPlug;
-import com.cmlabs.air.Message;
 
 public class KeywordSpotter extends SieveObject {
 
-    private JavaAIRPlug air;
+    public KeywordSpotter(AirBrush ab) {
+        super(ab);
+        // TODO Auto-generated constructor stub
+    }
 
-    private BufferedReader input;
+    @Override
+    public Analysis doAnalysis(Story story) {
+        Analysis a = new Analysis();
+        a.setID(story.getID());
 
-    public KeywordSpotter() {
-        System.out.println("Keyword spotter created");
-
-        air = new JavaAIRPlug("KeywordSpotter", "localhost", 10000);
-        if (!air.init()) {
-            System.err.println("Could not connect to psyclone");
+        String content = story.getContent();
+        if (content.matches("IJsland")) {
+            // If the string IJsland appears in the text, it's definitely about
+            // Iceland
+            a.setTopicRelevance("1.0");
         }
 
-        /* plug.postOutputMessage(new Message()); */
-    }
-
-    public void destroy() {
-        if (air != null) {
-            air.destroy();
+        String author = story.getAuthor();
+        if (author.matches("Christian Luijten")) {
+            // Christian Luijten writes 75% of the time about the topic
+            a.setTopicRelevance("0.75");
         }
-    }
 
-    public void setInputStream(BufferedReader in) {
-        input = in;
-    }
-
-    public void sieve() {
-        try {
-            String str;
-            while ((str = input.readLine()) != null) {
-                str = str.trim();
-                if (Pattern.matches(".*I.k.*", str)) {
-                    Message msg = new Message("", "", "My.Message.Type", str,
-                            "");
-                    air.addOutputMessage(msg);
-                    air.sendOutputMessages();
-                    System.out.println(str);
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("File input error");
-        }
-    }
-
-    public boolean doSieve(Story msg) {
-        return true;
+        return a;
     }
 }
