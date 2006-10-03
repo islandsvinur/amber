@@ -39,7 +39,7 @@
 <project name="Ambient Earth" default="dist" basedir=".">
   <property name="src" location="src" />
   <property name="dist" location="dist" />
-  <property name="docs" location="javadoc" />
+  <property name="javadoc" location="javadoc" />
   <property name="lib" location="lib" />
   <property name="build" location="build" />
 
@@ -83,53 +83,65 @@
     </jar>
   </target>
 
-  <target name="website" depends="design-document">
+  <!-- DOCUMENTATION START -->
+
+  <target name="website" depends="init">
     <exec dir="documentation/website" executable="webgen" failonerror="false" />
-    <copy file="documentation/design/design.pdf" todir="documentation/website/output/amber" />
   </target>
+
+  <target name="clean-website">
+    <delete dir="documentation/website/output" />
+  </target>
+
   
-  <target name="report-document">
+  <target name="report-document" depends="init">
     <exec dir="documentation/report" executable="rubber" failonerror="false">
         <arg line="-d report.tex" />
     </exec>
-    <copy file="documentation/report/report.pdf" todir="documentation" failonerror="false" />
+  </target>
+
+  <target name="clean-report-document">
     <exec dir="documentation/report" executable="rubber" failonerror="false">
         <arg line="--clean report.tex" />
     </exec>
   </target>
 
-  <target name="design-document">
+
+  <target name="design-document" depends="init">
     <exec dir="documentation/design" executable="rubber" failonerror="false">
         <arg line="-d design.tex" />
     </exec>
-    <copy file="documentation/design/design.pdf" todir="documentation" failonerror="false" />
+  </target>
+
+  <target name="clean-design-document">
     <exec dir="documentation/design" executable="rubber" failonerror="false">
         <arg line="--clean design.tex" />
     </exec>
   </target>
 
-  <target name="docs" depends="init, report-document, design-document, website">
+
+  <target name="javadoc" depends="init">
     <javadoc packagenames="amber.*" 
              sourcepath="${src}" 
-             destdir="${docs}" 
+             destdir="${javadoc}" 
              classpathref="project.class.path" />
   </target>
 
-  <target name="dist" depends="crawler, parser, visualizer">
+  <target name="clean-javadoc">
+    <delete dir="${javadoc}" />
   </target>
 
-  <target name="clean">
+
+  <target name="documentation" depends="javadoc, report-document, design-document, website" />
+
+  <target name="clean-documentation" depends="clean-report-document, clean-design-document, clean-website, clean-javadoc" />
+
+  <!-- DOCUMENTATION END -->
+
+  <target name="dist" depends="crawler, parser, visualizer" />
+
+  <target name="clean" depends="clean-documentation">
     <delete dir="${build}" />
-    <delete dir="${docs}" />
-    <delete dir="documentation/website/output" />
-    <delete file="documentation/design.pdf" />
-    <delete file="documentation/report.pdf" />
-    <exec dir="documentation/report" executable="rubber" failonerror="false">
-        <arg line="--clean report.tex" />
-    </exec>
-    <exec dir="documentation/design" executable="rubber" failonerror="false">
-        <arg line="--clean design.tex" />
-    </exec>
   </target>
   
   <target name="distclean">
