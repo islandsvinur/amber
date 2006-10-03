@@ -116,13 +116,16 @@ public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
     }
 
     private void handleItem(ItemIF item) {
-        Story story = new Story(item.getGuid().getLocation(), item.getCreator(),
-                item.getTitle(), item.getDescription());
+        Story s = new Story();
+        s.setID(item.getGuid().getLocation().replaceAll("[^\\p{Print}]", ""));
+        s.setAuthor(item.getCreator().replaceAll("[^\\p{Print}]", ""));
+        s.setTitle(item.getTitle().replaceAll("[^\\p{Print}]", ""));
+        s.setContent(item.getDescription().replaceAll("[^\\p{Print}]", ""));
 
         Message msg = new Message();
         msg.to = "WB.Stories";
         msg.type = "Story";
-        msg.content = story.toYAML();
+        msg.content = s.toYAML();
 
         airbrush.postMessage(msg);
     }

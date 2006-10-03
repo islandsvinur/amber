@@ -38,40 +38,61 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-package amber;
+package amber.common;
 
-import com.cmlabs.air.Message;
+public class Analysis extends AmberMessage {
 
-import amber.common.AirBrush;
-import amber.common.AirBrushCallable;
-import amber.common.Analysis;
-import amber.common.Story;
+    private String keyIdentifier = "URI";
 
-public abstract class SieveObject implements AirBrushCallable {
-    private AirBrush airbrush;
+    private String keyTopicRelevance = "Topic-Relevance";
 
-    public SieveObject(AirBrush ab) {
-        airbrush = ab;
+    private String keyAuthorRelevance = "Author-Relevance";
+
+    private boolean relevant = false;
+
+    public Analysis() {
+        super();
     }
 
-    public void airBrushReceiveMessage(Message msg) {
-        if (msg.type.equals("Story")) {
-            System.out.println("Story received");
-            handleIncomingStory(msg);
-        }
+    public Analysis(String identifier) {
+        this();
+        setProperty(keyIdentifier, identifier);
     }
 
-    public abstract Analysis doAnalysis(Story story);
-
-    private void handleIncomingStory(Message msg) {
-        Story s = Story.createFromYAML(msg.content);
-        Analysis a = doAnalysis(s);
-        
-        if (a.isRelevant()) {
-            Message m = new Message();
-            m.to = "WB.Analyses";
-            m.content = a.toYAML();
-            airbrush.postMessage(m);
-        }
+    public static Analysis createFromYAML(String in) {
+        Analysis a = new Analysis();
+        a.fromYAML(in);
+        return a;
     }
+
+    public boolean isRelevant() {
+        return relevant;
+    }
+
+    public String getTopicRelevance() {
+        return getProperty(keyTopicRelevance);
+    }
+
+    public String getAuthorRelevance() {
+        return getProperty(keyAuthorRelevance);
+    }
+
+    public String getID() {
+        return getProperty(keyIdentifier);
+    }
+
+    public void setTopicRelevance(String value) {
+        setProperty(keyTopicRelevance, value);
+        relevant = true;
+    }
+
+    public void setAuthorRelevance(String value) {
+        setProperty(keyAuthorRelevance, value);
+        relevant = true;
+    }
+
+    public void setID(String value) {
+        setProperty(keyIdentifier, value);
+    }
+
 }
