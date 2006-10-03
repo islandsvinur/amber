@@ -5,7 +5,28 @@
 \classname{KeywordSpotter}
 
 \begin{classmetadata}
+  \extends{SieveObject}
   \implements{amber.common.AirBrushCallable}
+  \function{The KeywordSpotter is configured to detect the presence of certain
+            keywords in a story which makes it fit in a certain category or
+            subject. In early versions the weights of the subjects will be
+            equal. In later versions all weights of all subjects of a story
+            must for instance add up to 100\%.  This gives the visualizer more
+            freedom to place the story.}
+\end{classmetadata}
+
+% \begin{interface}
+% \end{interface}
+
+
+
+\classname{PhraseSpotter}
+
+\begin{classmetadata}
+  \extends{SieveObject}
+  \implements{amber.common.AirBrushCallable}
+  \function{The PhraseSpotter will use a grammar engine to detect whether
+            certain types of sentences appear in a story to classify it.}
 \end{classmetadata}
 
 % \begin{interface}

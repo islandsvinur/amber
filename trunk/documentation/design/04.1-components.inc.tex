@@ -30,8 +30,12 @@ a few good RSS parsers around for Java, the only thing the crawler should do is
 getting the stories from the RSS feeds along with meta-information and store it
 on the whiteboard.
 
+Although the module is called RSS, it can also handle Atom feeds, which is also
+quite a popular format.
+
 \begin{module}{Crawler.RSS}
-    \post{Story}{WB.Stories}
+  \trigger{Feed.*}{WB.Control}
+  \post{Story}{WB.Stories}
 \end{module}
 
 \subsubsection{DiggAPI}
@@ -62,30 +66,34 @@ DiggAPI module is created.
 
 \subsection{Sieve modules}
 
-\subsubsection{KeywordSpotter}
+All analysis modules, or sieves, will get a trigger from a new story on the
+whiteboard WB.Stories. They analyse it and if there is anything to say about
+the story, a Analysis message is sent to the whiteboard WB.Analyses containing
+its judgement on the story.
 
-The KeywordSpotter is configured to detect the presence of certain keywords in
-a story which makes it fit in a certain category or subject. In early versions
-the weights of the subjects will be equal. In later versions all weights of all
-subjects of a story must for instance add up to 100\%. This gives the
-visualizer more freedom to place the story.
+The contents of this message is specified in Section~\ref{sct:messages}.
 
-\begin{module}{Sieve.KeywordSpotter}
+Analysis modules may take any time they like to come to a verdict, but it is
+possible that a story has already disappeared from the visualization if the
+response is very late.
+
+Since all modules employ the same external behaviour, the Psyclone
+specification is the same for every one of them.
+
+\begin{module}{Sieve.???}
     \trigger{Story}{WB.Stories}
-    \post{Analysis}{WB.Analysis}
-\end{module}
-
-\subsubsection{PhraseSpotter}
-
-The PhraseSpotter will use a grammar engine to detect whether certain types of
-sentences appear in a story to classify it.
-
-\begin{module}{Sieve.PhraseSpotter}
-    \trigger{Story}{WB.Stories}
-    \post{Analysis}{WB.Analysis}
+    \post{Analysis}{WB.Analyses}
 \end{module}
 
 \subsection{ShowOff modules}
+
+The ShowOff modules are visualizers which combine the crawled stories from the
+Crawler with the analyses from the Sieve modules.
+
+\begin{module}{ShowOff.???}
+    \trigger{Story}{WB.Stories}
+    \trigger{Analysis}{WB.Analyses}
+\end{module}
 
 \subsubsection{Full screen}
 
@@ -93,20 +101,10 @@ The full screen application will display a lot of information and is there to
 be looked - not glanced - at. It should be possible to let it do its job
 autonomously, just showing a pretty picture, or to be interactive.
 
-\begin{module}{ShowOff.FullScreen}
-    \trigger{Story}{WB.Stories}
-    \trigger{Analysis}{WB.Analysis}
-\end{module}
-
 \subsubsection{Ambient applet}
 
-The ambient applet will display a very easy to understand image of the status
-of the page it is on. I.e. if the page is a weblog, it should display subject
-information on that weblog, if it is on the page of a thread of a forum, it
-displays the flow of the discussion.
-
-\begin{module}{ShowOff.Applet}
-    \trigger{Story}{WB.Stories}
-    \trigger{Analysis}{WB.Analysis}
-\end{module}
+The ambient applet will display a very easy to understand image (a glance at it
+should be enough) of the status of the page it is on. I.e. if the page is a
+weblog, it should display subject information on that weblog, if it is on the
+page of a thread of a forum, it displays the flow of the discussion.
 

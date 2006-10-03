@@ -60,14 +60,6 @@
     {Store an arbitrary object v under keyword k.}
   \method{Object}{getValue}{String k}
     {Gets the object stored under keyword k.}
-  \method{Boolean}{lockForAnalysis}{}
-    {Request a lock on the story for analysis. Returns true when given, assumes
-      niceness of the analysis modules.}
-  \method{\void}{unlock}{}
-    {Removes the lock. Again, assumes niceness of the analysis modules.}
-  \method{Boolean}{isAnalysisDone}{}
-    {Returns true when the story finds it is analysed enough and doesn't need
-      another run.}
   \method{\void}{fromYAML}{String yaml}
     {Parses a \ac{YAML} string (e.g. coming from Psyclone) to the contents of the
       object (overwrites values currently stored!). Note, together with toYAML,
