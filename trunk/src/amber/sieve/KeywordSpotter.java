@@ -41,16 +41,10 @@
 package amber.sieve;
 
 import amber.SieveObject;
-import amber.common.AirBrush;
 import amber.common.Analysis;
 import amber.common.Story;
 
 public class KeywordSpotter extends SieveObject {
-
-    public KeywordSpotter(AirBrush ab) {
-        super(ab);
-        // TODO Auto-generated constructor stub
-    }
 
     @Override
     public Analysis doAnalysis(Story story) {
@@ -71,5 +65,17 @@ public class KeywordSpotter extends SieveObject {
         }
 
         return a;
+    }
+
+    @Override
+    public void start() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
     }
 }

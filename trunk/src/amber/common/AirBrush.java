@@ -43,7 +43,7 @@ package amber.common;
 import com.cmlabs.air.*;
 
 public class AirBrush implements Runnable {
-    private JavaAIRPlug plug;
+    private JavaAIRPlug plug = null;
     private Thread thread;
 
     private AirBrushCallable callback;
@@ -52,10 +52,19 @@ public class AirBrush implements Runnable {
     // private Message outMsg;
 
     private void checkConnection() throws Exception {
+        if (plug == null) { throw new Exception("No connection with Psyclone."); }
         if (callback == null) { throw new Exception("No Callback object given."); }
     }
-
-    public AirBrush(String plugname, String hostname, int port) {
+    
+    public AirBrush() {
+        
+    }
+    
+    public AirBrush(String plugname, String hostname, Integer port) {
+        connect(plugname, hostname, port);
+    }
+    
+    public void connect(String plugname, String hostname, Integer port) {
         plug = new JavaAIRPlug(plugname, hostname, port);
     }
 
@@ -67,6 +76,19 @@ public class AirBrush implements Runnable {
             return false;
         }
         return true;
+    }
+    public void connectAndOpenWhiteboard(String wb) throws Exception {
+        // Connect to Psyclone
+        connect();
+        // Try to open the whiteboard
+        if (!openWhiteboard(wb)) {
+            System.err
+                    .println("Could not open callback connection to whiteboard.");
+        } else {
+            System.out.println("Connected to whiteboard.");
+        }
+        // Start listening for messages coming onto the whiteboard
+        startListening();
     }
     
     public void startListening() throws Exception {

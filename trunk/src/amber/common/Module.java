@@ -38,15 +38,34 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-package amber;
+package amber.common;
 
-import java.util.Queue;
+public abstract class Module implements AirBrushCallable {
+    
+    private boolean connected = false;
 
-import amber.common.Module;
-import amber.common.Story;
+    // FIXME get this hardcoding out
+    private String airHostName = "172.23.16.81";
+    
+    // FIXME get this hardcoding out
+    private Integer airPort = 10000;
 
-public abstract class ShowOffObject extends Module {
-    public void setStoryQueue(Queue<Story> q) {
-        ;
+    protected AirBrush airBrush;
+    
+    public Module() {
+        new AirBrush();
     }
+    
+    public Module(String moduleName) {
+        airBrush = new AirBrush(moduleName, airHostName, airPort);
+        airBrush.setCallbackObject(this);
+        connected = true;
+    }
+    
+    public boolean isConnected() {
+        return connected;
+    }
+    
+    public abstract void start();
+    public abstract void stop();
 }

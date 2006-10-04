@@ -40,19 +40,13 @@
 
 package amber;
 
-import com.cmlabs.air.Message;
-
-import amber.common.AirBrush;
-import amber.common.AirBrushCallable;
 import amber.common.Analysis;
+import amber.common.Module;
 import amber.common.Story;
 
-public abstract class SieveObject implements AirBrushCallable {
-    private AirBrush airbrush;
+import com.cmlabs.air.Message;
 
-    public SieveObject(AirBrush ab) {
-        airbrush = ab;
-    }
+public abstract class SieveObject extends Module {
 
     public void airBrushReceiveMessage(Message msg) {
         if (msg.type.equals("Story")) {
@@ -71,7 +65,7 @@ public abstract class SieveObject implements AirBrushCallable {
             Message m = new Message();
             m.to = "WB.Analyses";
             m.content = a.toYAML();
-            airbrush.postMessage(m);
+            airBrush.postMessage(m);
         }
     }
 }

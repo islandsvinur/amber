@@ -40,54 +40,23 @@
 
 package amber;
 
-import amber.common.AirBrush;
+import amber.common.Launcher;
 import amber.crawler.RSS;
 
 /* Crawler object class 
  * It handles creation and starting of AirBrush and CrawlerObject objects and 
  * reads the commandline arguments if any.
  */
-public class Crawler {
-    private CrawlerObject co;
+public class Crawler extends Launcher {
 
-    private AirBrush airbrush;
-
-    public Crawler() {
-        airbrush = new AirBrush("Crawler.RSS", "172.23.16.81", 10000);
-        co = new RSS(airbrush);
-        airbrush.setCallbackObject(co);
+    public Crawler(Class moduleName) throws InstantiationException, IllegalAccessException {
+        super(moduleName);
     }
 
     /* Launch method */
-    public static void main(String args[]) {
-        Crawler c = new Crawler();
+    public static void main(String args[]) throws InstantiationException, IllegalAccessException {
+        // FIXME: make this more dynamic
+        Crawler c = new Crawler(RSS.class);
         c.start();
-    }
-
-    /* Starts the program */
-    public void start() {
-        try {
-            // Connect to Psyclone
-            airbrush.connect();
-            // Try to open the whiteboard
-            if (!airbrush.openWhiteboard("WB.Stories") || !airbrush.openWhiteboard("WB.Control")) {
-                System.err
-                        .println("Could not open callback connection to whiteboard.");
-            } else {
-                System.out.println("Connected to whiteboard.");
-            }
-            // Start listening for messages coming onto the whiteboard
-            airbrush.startListening();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-        co.start();
-        System.out.println("Module started.");
-    }
-    public void stop() {
-        ;
     }
 }

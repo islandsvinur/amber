@@ -38,15 +38,27 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-package amber;
+package amber.common;
 
-import java.util.Queue;
+public abstract class Launcher {
+    private Module mod;
 
-import amber.common.Module;
-import amber.common.Story;
+    public Launcher(Class moduleName) throws InstantiationException,
+            IllegalAccessException {
+        mod = (Module) moduleName.newInstance();
+    }
 
-public abstract class ShowOffObject extends Module {
-    public void setStoryQueue(Queue<Story> q) {
-        ;
+    /* Starts the program */
+    public void start() {
+        System.err.println("Starting module: " + mod.getClass().getSimpleName());
+        mod.start();
+        System.err.println("Module started.");
+    }
+
+    /* Stops the program */
+    public void stop() {
+        System.err.println("Stopping module: " + mod.getClass().getSimpleName());
+        mod.stop();
+        System.err.println("Module stopped.");
     }
 }
