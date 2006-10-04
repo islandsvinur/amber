@@ -117,8 +117,8 @@ of work on these.
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 2.10|First version of Crawler finished,<br />Starts monitoring a feed,<br/>Can switch feeds via 'Feed.RSS' message on 'WB.Control'|
-(table-row-even). |Tue 3.10|Detailed design of abstract analysis modules|
-(table-row-odd). |Wed 4.10| |
+(table-row-even). |Tue 3.10|Detailed design of abstract analysis modules, First steps of implementation|
+(table-row-odd). |Wed 4.10|Refactoring and cleanup of code|
 (table-row-even). |Thu 5.10| |
 (table-row-odd). |Fri 6.10| |
 
