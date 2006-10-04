@@ -52,6 +52,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
+import com.cmlabs.air.Message;
+
 import amber.ShowOffObject;
 import amber.common.Story;
 
@@ -96,6 +98,17 @@ public class FullScreen extends ShowOffObject {
 
     public void start() {
         earthView.start();
+    }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void airBrushReceiveMessage(Message msg) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

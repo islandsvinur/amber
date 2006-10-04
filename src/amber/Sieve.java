@@ -40,39 +40,22 @@
 
 package amber;
 
-import com.cmlabs.air.*;
+import amber.common.Launcher;
+import amber.sieve.KeywordSpotter;
 
 /* Starts the parser */
-public class Sieve {
+public class Sieve extends Launcher {
 
-    public static void main(String args[]) {
-        JavaAIRPlug plug;
-        Message triggerMsg;
-        Message msg;
+    public Sieve(Class moduleName) throws InstantiationException,
+            IllegalAccessException {
+        super(moduleName);
+    }
 
-        plug = new JavaAIRPlug("Sieve", "localhost", 10000);
-
-        if (!plug.init()) {
-            System.out.println("Could not connect to the Server ...");
-            System.exit(0);
-        }
-
-        while (true) {
-            if ((triggerMsg = plug.waitForNewMessage(50)) != null) {
-                System.out.println(triggerMsg.postedTime.printTime() + ": "
-                        + "Reader received message " + triggerMsg.type
-                        + " from " + triggerMsg.from);
-                msg = new Message("", "", "SelectedStory");
-                plug.addOutputMessage(msg);
-                msg = new Message("", "", "NextStory");
-                plug.addOutputMessage(msg);
-                plug.sendOutputMessages();
-            } else {
-                if (!plug.isServerAvailable())
-                    System.out.println("Psyclone is avail, but sleeping.");
-                else
-                    System.out.println("Psyclone is not available.");
-            }
-        }
+    /* Launch method */
+    public static void main(String args[]) throws InstantiationException,
+            IllegalAccessException {
+        // FIXME: make this more dynamic
+        Sieve s = new Sieve(KeywordSpotter.class);
+        s.start();
     }
 }

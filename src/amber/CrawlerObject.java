@@ -40,9 +40,16 @@
 
 package amber;
 
-import amber.common.AirBrushCallable;
+import amber.common.Module;
 
-public abstract class CrawlerObject implements AirBrushCallable {
-    public abstract void start();
-    public abstract void stop();
+public abstract class CrawlerObject extends Module {
+
+    public CrawlerObject(String moduleName) {
+        super(moduleName);
+    }
+
+    public CrawlerObject() {
+        super();
+    }
+
 }

@@ -46,7 +46,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import amber.CrawlerObject;
-import amber.common.AirBrush;
 import amber.common.Story;
 
 import com.cmlabs.air.Message;
@@ -58,16 +57,14 @@ import de.nava.informa.parsers.FeedParser;
 import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
-public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
+public class RSS extends CrawlerObject implements PollerObserverIF {
     private ChannelIF channel = null;
 
     private Poller poller;
 
-    private AirBrush airbrush;
-
-    public RSS(AirBrush ab) {
+    public RSS() {
+        super("Crawler.RSS");
         poller = new Poller(1);
-        airbrush = ab;
     }
 
     public void airBrushReceiveMessage(Message msg) {
@@ -127,12 +124,7 @@ public class RSS extends CrawlerObject implements Runnable, PollerObserverIF {
         msg.type = "Story";
         msg.content = s.toYAML();
 
-        airbrush.postMessage(msg);
-    }
-
-    public void run() {
-        // TODO Auto-generated method stub
-
+        airBrush.postMessage(msg);
     }
 
     @Override
