@@ -40,75 +40,19 @@
 
 package amber;
 
-import java.io.StringReader;
-import java.util.LinkedList;
-
-import amber.common.AirBrush;
-import amber.common.AirBrushCallable;
-import amber.common.Story;
+import amber.common.Launcher;
 import amber.showoff.FullScreen;
 
-import com.cmlabs.air.Message;
-
 /* Starts the Display */
-public class ShowOff implements AirBrushCallable {
-    private ShowOffObject module;
+public class ShowOff extends Launcher {
 
-    private AirBrush airbrush;
-
-    LinkedList<Story> storyQueue;
-
-    public ShowOff() {
-	storyQueue = new LinkedList<Story>();
-	module = new FullScreen(storyQueue);
-	airbrush = new AirBrush("ShowOff.FullScreen", "172.23.16.81", 10000);
-	airbrush.setCallbackObject(this);
+    public ShowOff(Class name) throws InstantiationException, IllegalAccessException {
+        super(name);
     }
 
-    public void start() {
-	try {
-	    airbrush.connect();
-
-	    if (!airbrush.openWhiteboard("WB.Stories")) {
-		System.err
-			.println("Could not open callback connection to whiteboard.");
-	    } else {
-		System.out.println("Connected to whiteboard.");
-	    }
-	    airbrush.startListening();
-
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    System.exit(-1);
-	}
-	module.start();
-	System.out.println("Started module");
+    public static void main(String args[]) throws InstantiationException, IllegalAccessException {
+        ShowOff so = new ShowOff(FullScreen.class);
+        so.start();
     }
-
-    public static void main(String args[]) {
-	ShowOff so = new ShowOff();
-	so.start();
-    }
-
-    /* Callback function for AirBrush. */
-    public void airBrushReceiveMessage(Message msg) {
-	System.out.println("Receiving " + msg.type + " from AirBrush.");
-
-	if (msg.type.equals("Internal.Story")) {
-	    System.out.println("Story content: " + msg.content);
-	    
-	    Story story;
-        // Parse the XML into the Story object
-	    story = Story.createFromYAML(msg.content);
-
-	    // Print some information
-	    System.out.println("Received story written by "
-		    + story.getAuthor() + " on "
-		    + story.getPublicationDate() + ": "
-		    + story.getContent());
-	    // Now add this story to the queue
-	    storyQueue.offer(story);
-
-	}
-    }
+ 
 }

@@ -48,8 +48,4 @@ public abstract class CrawlerObject extends Module {
         super(moduleName);
     }
 
-    public CrawlerObject() {
-        super();
-    }
-
 }

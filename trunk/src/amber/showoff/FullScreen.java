@@ -44,25 +44,22 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JWindow;
-
-import com.cmlabs.air.Message;
 
 import amber.ShowOffObject;
-import amber.common.Story;
 
 public class FullScreen extends ShowOffObject {
-    private EarthView earthView;
+    final private EarthView earthView;
 
-    public FullScreen(Queue<Story> sq) {
+    public FullScreen(String moduleName) {
+        super(moduleName);
+        
         JFrame main = new JFrame();
-        main.setSize(300, 300);
+        main.setSize(500, 500);
         /*
          * main = new JWindow();
          * GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -87,7 +84,7 @@ public class FullScreen extends ShowOffObject {
 
         earthView = new EarthView();
         earthView.setVisible(true);
-        earthView.setStoryQueue(sq);
+        earthView.setStoryQueue(storyQueue);
 
         list.add(earthView);
         list.add(b);
@@ -102,11 +99,6 @@ public class FullScreen extends ShowOffObject {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void airBrushReceiveMessage(Message msg) {
         // TODO Auto-generated method stub
         
     }

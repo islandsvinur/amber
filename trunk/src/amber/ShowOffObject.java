@@ -40,13 +40,38 @@
 
 package amber;
 
-import java.util.Queue;
+import java.util.LinkedList;
+import com.cmlabs.air.Message;
 
 import amber.common.Module;
 import amber.common.Story;
 
 public abstract class ShowOffObject extends Module {
-    public void setStoryQueue(Queue<Story> q) {
-        ;
+    
+    protected LinkedList<Story> storyQueue;
+    
+    public ShowOffObject(String moduleName) {
+        super(moduleName);
+        storyQueue = new LinkedList<Story>();
+    }
+    
+    public void airBrushReceiveMessage(Message msg) {
+        // TODO Auto-generated method stub
+        System.out.println("Receiving " + msg.type + " from AirBrush.");
+
+        if (msg.type.equals("Story")) {
+            System.out.println("Story content: " + msg.content);
+
+            Story story;
+            // Parse the XML into the Story object
+            story = Story.createFromYAML(msg.content);
+
+            // Print some information
+            System.out.println("Received story written by " + story.getAuthor()
+                    + " on " + story.getPublicationDate() + ": "
+                    + story.getContent());
+            // Now add this story to the queue
+            storyQueue.offer(story);
+        }
     }
 }
