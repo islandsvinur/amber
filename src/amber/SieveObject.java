@@ -48,6 +48,10 @@ import com.cmlabs.air.Message;
 
 public abstract class SieveObject extends Module {
 
+    public SieveObject(String moduleName) {
+        super(moduleName);
+    }
+
     public void airBrushReceiveMessage(Message msg) {
         if (msg.type.equals("Story")) {
             System.out.println("Story received");

@@ -40,11 +40,25 @@
 
 package amber.sieve;
 
+import com.cmlabs.air.Message;
+
 import amber.SieveObject;
 import amber.common.Analysis;
 import amber.common.Story;
 
 public class KeywordSpotter extends SieveObject {
+
+    public KeywordSpotter() {
+        super("Sieve.KeywordSpotter");
+    }
+
+    @Override
+    public void airBrushReceiveMessage(Message msg) {
+        super.airBrushReceiveMessage(msg);
+        if (msg.type.equals("Keywords")) {
+            // FIXME: Do something
+        }
+    }
 
     @Override
     public Analysis doAnalysis(Story story) {

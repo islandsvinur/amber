@@ -45,16 +45,12 @@ public abstract class Module implements AirBrushCallable {
     private boolean connected = false;
 
     // FIXME get this hardcoding out
-    private String airHostName = "172.23.16.81";
+    final static private String airHostName = "172.23.16.81";
     
     // FIXME get this hardcoding out
-    private Integer airPort = 10000;
+    final static private Integer airPort = 10000;
 
-    protected AirBrush airBrush;
-    
-    public Module() {
-        new AirBrush();
-    }
+    final protected AirBrush airBrush;
     
     public Module(String moduleName) {
         airBrush = new AirBrush(moduleName, airHostName, airPort);
