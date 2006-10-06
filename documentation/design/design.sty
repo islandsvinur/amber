@@ -52,12 +52,19 @@
 \end{titlepage}
 }
 
+% Redefinition of the abstract environment so that it follows the current
+% paragraph indent style.
+\renewenvironment{abstract}%
+ {\small\begin{center}{\bfseries\abstractname}\begin{quote}}
+ {\end{quote}\end{center}}
+
+
 % Fancy header settings.
 \pagestyle{fancy}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \fancyhf{}
-\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
+\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth-1cm}
 \fancyhead[LE,RO]{\bfseries\thepage}
 \fancyhead[LO]{\bfseries\rightmark}
 \fancyhead[RE]{\bfseries\leftmark}
@@ -97,7 +104,7 @@
 
   \subsubsection{Interface}
 
-  \tabularx{\linewidth+2cm}{rp{5cm}|X}
+  \tabularx{\linewidth}{rp{5cm}|X}
     \textbf{Returns} & \textbf{Name and argument} & \textbf{Description} \\
     \hline \hline 
 }{
