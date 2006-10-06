@@ -50,9 +50,9 @@
         </description>
     </whiteboard>
 
-    <whiteboard name="WB.Analysis">
+    <whiteboard name="WB.Analyses">
         <description>
-            Story analysis is stored here.
+            Story analyses are stored here.
         </description>
     </whiteboard>
 

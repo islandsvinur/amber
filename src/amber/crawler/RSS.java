@@ -101,8 +101,8 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
     public void start() {
         try {
             // switchFeed(new URL("http://planet.gnome.org/rss20.xml"));
-            // switchFeed(new URL("http://ijsland.luijten.org/feed"));
-            switchFeed(new URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
+            switchFeed(new URL("http://ijsland.luijten.org/feed"));
+            // switchFeed(new URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -118,6 +118,7 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
         s.setAuthor(item.getCreator().replaceAll("[^\\p{Print}]", ""));
         s.setTitle(item.getTitle().replaceAll("[^\\p{Print}]", ""));
         s.setContent(item.getDescription().replaceAll("[^\\p{Print}]", ""));
+        s.setPublicationDate(item.getDate());
 
         Message msg = new Message();
         msg.to = "WB.Stories";

@@ -42,11 +42,13 @@ package amber.common;
 
 public class Analysis extends AmberMessage {
 
-    private String keyIdentifier = "URI";
+    final static private String keyIdentifier = "URI";
 
-    private String keyTopicRelevance = "Topic-Relevance";
+    final static private String keyTopicRelevance = "Topic-Relevance";
 
-    private String keyAuthorRelevance = "Author-Relevance";
+    final static private String keyAuthorRelevance = "Author-Relevance";
+
+    final static private String keyTopic = "Topic";
 
     private boolean relevant = false;
 
@@ -69,30 +71,46 @@ public class Analysis extends AmberMessage {
         return relevant;
     }
 
-    public String getTopicRelevance() {
-        return getProperty(keyTopicRelevance);
+    public Double getTopicRelevance() {
+        return getDoubleProperty(keyTopicRelevance);
     }
 
-    public String getAuthorRelevance() {
-        return getProperty(keyAuthorRelevance);
+    public Double getAuthorRelevance() {
+        return getDoubleProperty(keyAuthorRelevance);
     }
 
     public String getID() {
-        return getProperty(keyIdentifier);
+        return getStringProperty(keyIdentifier);
     }
 
-    public void setTopicRelevance(String value) {
-        setProperty(keyTopicRelevance, value);
+    public String getTopic() {
+        return getStringProperty(keyTopic);
+    }
+
+    public void setRelevance(String key, Double value) {
+        Double curr = getDoubleProperty(key);
+        if (curr != null) {
+            setProperty(key, Math.max(curr, value));
+        } else {
+            setProperty(key, value);
+        }
         relevant = true;
     }
 
-    public void setAuthorRelevance(String value) {
-        setProperty(keyAuthorRelevance, value);
-        relevant = true;
+    public void setTopicRelevance(Double value) {
+        setRelevance(keyTopicRelevance, value);
+    }
+
+    public void setAuthorRelevance(Double value) {
+        setRelevance(keyAuthorRelevance, value);
     }
 
     public void setID(String value) {
         setProperty(keyIdentifier, value);
+    }
+
+    public void setTopic(String value) {
+        setProperty(keyTopic, value);
     }
 
 }

@@ -40,17 +40,19 @@
 
 package amber.common;
 
+import java.util.Date;
+
 public class Story extends AmberMessage {
 
-    private String keyIdentifier = "URI";
+    final static private String keyIdentifier = "URI";
 
-    private String keyAuthor = "Author";
+    final static private String keyAuthor = "Author";
 
-    private String keyTitle = "Title";
+    final static private String keyTitle = "Title";
 
-    private String keyContent = "Story-Content";
+    final static private String keyContent = "Story-Content";
 
-    private String keyPublicationDate = "Publication-Date";
+    final static private String keyPublicationDate = "Publication-Date";
 
     public Story() {
         super();
@@ -68,23 +70,23 @@ public class Story extends AmberMessage {
     }
 
     public String getID() {
-        return getProperty(keyIdentifier);
+        return (String) getProperty(keyIdentifier);
     }
 
     public String getTitle() {
-        return getProperty(keyTitle);
+        return (String) getProperty(keyTitle);
     }
 
     public String getContent() {
-        return getProperty(keyContent);
+        return (String) getProperty(keyContent);
     }
 
     public String getAuthor() {
-        return getProperty(keyAuthor);
+        return (String) getProperty(keyAuthor);
     }
 
-    public String getPublicationDate() {
-        return getProperty(keyPublicationDate);
+    public Date getPublicationDate() {
+        return (Date) getProperty(keyPublicationDate);
     }
 
     public void setID(String value) {
@@ -103,7 +105,7 @@ public class Story extends AmberMessage {
         setProperty(keyAuthor, value);
     }
 
-    public void setPublicationDate(String value) {
+    public void setPublicationDate(Date value) {
         setProperty(keyPublicationDate, value);
     }
 
