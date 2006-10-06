@@ -61,21 +61,22 @@ public class KeywordSpotter extends SieveObject {
     }
 
     @Override
-    public Analysis doAnalysis(Story story) {
+    public Analysis doAnalysis(Story story, String topic) {
         Analysis a = new Analysis();
         a.setID(story.getID());
+        a.setTopic(topic);
 
         String content = story.getContent();
         if (content.matches("IJsland")) {
             // If the string IJsland appears in the text, it's definitely about
             // Iceland
-            a.setTopicRelevance("1.0");
+            a.setTopicRelevance(1.0);
         }
 
         String author = story.getAuthor();
-        if (author.matches("Christian Luijten")) {
-            // Christian Luijten writes 75% of the time about the topic
-            a.setTopicRelevance("0.75");
+        if (author.matches("Christian")) {
+            // Christian writes 75% of the time about the topic
+            a.setTopicRelevance(0.75);
         }
 
         return a;

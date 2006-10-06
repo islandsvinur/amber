@@ -59,11 +59,12 @@ public abstract class SieveObject extends Module {
         }
     }
 
-    public abstract Analysis doAnalysis(Story story);
+    public abstract Analysis doAnalysis(Story story, String topic);
 
     private void handleIncomingStory(Message msg) {
         Story s = Story.createFromYAML(msg.content);
-        Analysis a = doAnalysis(s);
+        String t = "iceland";
+        Analysis a = doAnalysis(s, t);
         
         if (a.isRelevant()) {
             Message m = new Message();
