@@ -119,8 +119,8 @@ table(log).
 (table-row-odd). |Mon 2.10|First version of Crawler finished,<br />Starts monitoring a feed,<br/>Can switch feeds via 'Feed.RSS' message on 'WB.Control'|
 (table-row-even). |Tue 3.10|Detailed design of abstract analysis modules, First steps of implementation|
 (table-row-odd). |Wed 4.10|Refactoring and cleanup of code|
-(table-row-even). |Thu 5.10| |
-(table-row-odd). |Fri 6.10| |
+(table-row-even). |Thu 5.10|More code cleanup,<br/>Working crawler with simple analysis module behind it:<br/>WB.Analyses received first messages|
+(table-row-odd). |Fri 6.10|Work on the design document, <br/>Created UML diagrams following advise of Huub|
 
 h3. Week 41
 
