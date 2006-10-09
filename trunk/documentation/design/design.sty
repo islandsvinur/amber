@@ -8,6 +8,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{babel}
 \RequirePackage{calc}
+\RequirePackage{chngpage}
 \RequirePackage{fancyhdr}
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
@@ -17,6 +18,7 @@
 % Global settings.
 \setlength{\parskip}{\medskipamount}
 \setlength{\parindent}{0pt}
+\setlength{\textheight}{22cm}
 
 % Improved title page.
 \makeatletter
@@ -91,22 +93,24 @@
     \endtabularx
 }
 
-\newcommand{\interfacename}[1]{\subsection[Interface #1]{public interface #1}}
-\newcommand{\classname}[1]{\subsection[Class #1]{public class #1}}
-\newcommand{\abstractclassname}[1]{\subsection[Class #1]{public abstract class #1}}
+\newcommand{\interfacename}[1]{\subsubsection[Interface #1]{public interface #1}}
+\newcommand{\classname}[1]{\subsubsection[Class #1]{public class #1}}
+\newcommand{\abstractclassname}[1]{\subsubsection[Class #1]{public abstract class #1}}
 
 \newcommand{\void}{\textbf{void}}
 \newcommand{\static}{\textbf{static}}
 
 \newenvironment{interface}{
-  \newcommand{\method}[4]{##1 & ##2\-(##3) & ##4 \\ \hline}
-  \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
+  \newcommand{\method}[4]{ & ##2: & ##4 \\}
+  \newcommand{\init}[3]{\method{x}{\textbf{new} ##1}{##2}{##3}}
+  % \newcommand{\method}[4]{##1 & ##2\-(##3) & ##4 \\ \hline}
+  % \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
 
-  \subsubsection{Interface}
 
-  \tabularx{\linewidth}{rp{5cm}|X}
-    \textbf{Returns} & \textbf{Name and argument} & \textbf{Description} \\
-    \hline \hline 
+  \tabularx{\linewidth}{p{.5cm}lX}
+    \multicolumn{2}{l}{\textbf{Interface:}} & \\
+    % \textbf{Name} & \textbf{Description} \\
+    % \hline \hline 
 }{
   \endtabularx
 }
