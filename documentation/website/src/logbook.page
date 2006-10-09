@@ -126,17 +126,13 @@ h3. Week 41
 
 p(plan). Continue detailed design and code for analysis modules.
 
-<div class="invisible">
-
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 9.10| |
+(table-row-odd). |Mon 9.10|Description of classes in UML diagrams added,<br/>Object models created for all three applications|
 (table-row-even). |Tue 10.10| |
 (table-row-odd). |Wed 11.10| |
 (table-row-even). |Thu 12.10| |
 (table-row-odd). |Fri 13.10| |
-
-</div>
 
 h3. Week 42
 
