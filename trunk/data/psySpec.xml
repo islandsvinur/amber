@@ -62,7 +62,7 @@
         </description>
     </whiteboard>
 
-    <module name="Crawler.RSS">
+    <module name="Module.Crawler.RSS.Anonymous">
         <executable />
         <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" />
         <parameter name="RefreshTime" type="Integer" min="1" max="180" value="60" />
@@ -72,11 +72,12 @@
         </description>
         <spec>
             <post to="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="Feed.*" />
+            <!-- <trigger from="WB.Control" type="Crawler.RSS.*" /> -->
+            <trigger from="WB.Control" type="All.*" />
         </spec>
     </module>
 
-    <module name="Sieve.KeywordSpotter">
+    <module name="Module.Sieve.KeywordSpotter.Anonymous">
         <executable />
         <description>
             This module will analyze stories in the raw-stories whiteboard for
@@ -85,11 +86,12 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Control" type="All.*" />
             <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
-    <module name="ShowOff.FullScreen">
+    <module name="Module.ShowOff.FullScreen.Anonymous">
         <executable />
         <description>
             This module gets stories from the processed whiteboard and uses the
@@ -98,6 +100,20 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Control" type="All.*" />
+            <trigger from="WB.Analysis" type="Analysis.*" />
+        </spec>
+    </module>
+
+    <module name="Module.ShowOff.Applet.Anonymous">
+        <executable />
+        <description>
+            This module gets stories from the processed whiteboard and uses the
+            story's meta-data to display the stories in a Java applet.
+        </description>
+        <spec>
+            <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Control" type="All.*" />
             <trigger from="WB.Analysis" type="Analysis.*" />
         </spec>
     </module>
