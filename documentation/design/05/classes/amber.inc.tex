@@ -1,56 +1,21 @@
 \subsection{Objects in the amber package}
 
-The classes in the main package are launchers for the three different modules
-and abstract classes for the main objects of these modules. Basically it works
-like this; if the Crawler class is started it creates a CrawlerObject and
-starts it.
 
-\classname{Crawler}
+
+\abstractclassname{Crawler}
 
 \begin{classmetadata}
-  \function{The Crawler object makes launching a crawler easy and uniform for
-      all crawler types.}
-\end{classmetadata}
-
-\begin{interface}
-  \init{Crawler}{}
-    {Creates an instance of Crawler. Also creates a CrawlerObject and the
-      connection to Psyclone.}
-  \method{\static\ \void}{main}{String\[\] args}
-    {Method executed upon launch of the Crawler.}
-  \method{\void}{start}{}
-    {Starts the Crawler.}
-  \method{\void}{stop}{}
-    {Stops the Crawler.}
-\end{interface}
-
-
-
-\abstractclassname{CrawlerObject}
-
-\begin{classmetadata}
-  \function{The CrawlerObject class provides a uniform interface for crawler
+  \function{The Crawler class provides a uniform interface for crawler
       applications.}
   \implements{AirBrushCallable, ModuleInterface}
 \end{classmetadata}
 
 
 
-\classname{ShowOff}
+\abstractclassname{ShowOff}
 
 \begin{classmetadata}
-  \function{The ShowOff object makes launching a visualization module easy and
-      uniform for all visualizer types.}
-\end{classmetadata}
-
-% \begin{interface}
-% \end{interface}
-
-
-\abstractclassname{ShowOffObject}
-
-\begin{classmetadata}
-  \function{The ShowOffObject class provides a uniform interface for visualization
+  \function{The ShowOff class provides a uniform interface for visualization
       applications.}
   \implements{AirBrushCallable, ModuleInterface}
 \end{classmetadata}
@@ -63,22 +28,10 @@ starts it.
 
 
 
-\classname{Sieve}
+\abstractclassname{Sieve}
 
 \begin{classmetadata}
-  \function{The Sieve object makes launching a analysis module easy and uniform
-      for all analyser types.}
-\end{classmetadata}
-
-% \begin{interface}
-% \end{interface}
-
-
-
-\abstractclassname{SieveObject}
-
-\begin{classmetadata}
-  \function{The SieveObject class provides a uniform interface for analysis
+  \function{The Sieve class provides a uniform interface for analysis
       applications.}
   \implements{AirBrushCallable, ModuleInterface}
 \end{classmetadata}

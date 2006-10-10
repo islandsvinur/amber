@@ -1,8 +1,8 @@
 package amber.showoff;
 
-import amber.ShowOffObject;
+import amber.ShowOff;
 
-public class Applet extends ShowOffObject {
+public class Applet extends ShowOff {
 
     public Applet(String moduleName, String hostname, Integer port) {
         super("Applet." + moduleName, hostname, port);

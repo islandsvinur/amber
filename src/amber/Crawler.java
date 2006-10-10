@@ -42,9 +42,9 @@ package amber;
 
 import amber.common.Module;
 
-public abstract class CrawlerObject extends Module {
+public abstract class Crawler extends Module {
 
-    public CrawlerObject(String moduleName, String hostname, Integer port) {
+    public Crawler(String moduleName, String hostname, Integer port) {
         super("Crawler." + moduleName, hostname, port);
     }
 

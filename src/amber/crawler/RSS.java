@@ -45,7 +45,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 
-import amber.CrawlerObject;
+import amber.Crawler;
 import amber.common.Story;
 
 import com.cmlabs.air.Message;
@@ -57,7 +57,7 @@ import de.nava.informa.parsers.FeedParser;
 import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
-public class RSS extends CrawlerObject implements PollerObserverIF {
+public class RSS extends Crawler implements PollerObserverIF {
     private ChannelIF channel = null;
 
     private Poller poller;
