@@ -62,12 +62,15 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
 
     private Poller poller;
 
-    public RSS() {
-        super("Crawler.RSS");
+    public RSS(String name, String hostname, Integer port) {
+        super("RSS." + name, hostname, port);
         poller = new Poller(1);
     }
 
-    public void airBrushReceiveMessage(Message msg) {
+    public boolean airBrushReceiveMessage(Message msg) {
+        if (super.airBrushReceiveMessage(msg))
+            return true;
+
         if (msg.type.equals("Feed.RSS")) {
             try {
                 switchFeed(new URL(msg.content));
@@ -75,7 +78,9 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            return true;
         }
+        return false;
     }
 
     private void switchFeed(URL url) {
@@ -94,7 +99,7 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
         for (Iterator it = items.iterator(); it.hasNext();) {
             itemFound((ItemIF) it.next(), channel);
         }
-        
+
         poller.registerChannel(channel);
     }
 
@@ -102,23 +107,45 @@ public class RSS extends CrawlerObject implements PollerObserverIF {
         try {
             // switchFeed(new URL("http://planet.gnome.org/rss20.xml"));
             switchFeed(new URL("http://ijsland.luijten.org/feed"));
-            // switchFeed(new URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
+            // switchFeed(new
+            // URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         poller.addObserver(this);
         poller.setPeriod(10 * 60 * 1000);
     }
 
     private void handleItem(ItemIF item) {
         Story s = new Story();
-        s.setID(item.getGuid().getLocation().replaceAll("[^\\p{Print}]", ""));
-        s.setAuthor(item.getCreator().replaceAll("[^\\p{Print}]", ""));
-        s.setTitle(item.getTitle().replaceAll("[^\\p{Print}]", ""));
-        s.setContent(item.getDescription().replaceAll("[^\\p{Print}]", ""));
-        s.setPublicationDate(item.getDate());
+        try {
+            s.setID(item.getGuid().getLocation()
+                    .replaceAll("[^\\p{Print}]", ""));
+        } catch (Exception e) {
+            System.out.println("Something went wicked.");
+        }
+        try {
+            s.setAuthor(item.getCreator().replaceAll("[^\\p{Print}]", ""));
+        } catch (Exception e) {
+            System.out.println("Something went wicked.");
+        }
+        try {
+            s.setTitle(item.getTitle().replaceAll("[^\\p{Print}]", ""));
+        } catch (Exception e) {
+            System.out.println("Something went wicked.");
+        }
+        try {
+            s.setContent(item.getDescription().replaceAll("[^\\p{Print}]", ""));
+        } catch (Exception e) {
+            System.out.println("Something went wicked.");
+        }
+        try {
+            s.setPublicationDate(item.getDate());
+        } catch (Exception e) {
+            System.out.println("Something went wicked.");
+        }
 
         Message msg = new Message();
         msg.to = "WB.Stories";

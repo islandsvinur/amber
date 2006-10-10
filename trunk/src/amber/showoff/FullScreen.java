@@ -55,8 +55,8 @@ import amber.ShowOffObject;
 public class FullScreen extends ShowOffObject {
     final private EarthView earthView;
 
-    public FullScreen(String moduleName) {
-        super(moduleName);
+    public FullScreen(String moduleName, String hostname, Integer port) {
+        super("FullScreen." + moduleName, hostname, port);
         
         JFrame main = new JFrame();
         main.setSize(500, 500);

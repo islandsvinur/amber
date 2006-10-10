@@ -47,25 +47,38 @@ import amber.common.Story;
 import com.cmlabs.air.Message;
 
 public abstract class SieveObject extends Module {
+    private String topicString;
 
-    public SieveObject(String moduleName) {
-        super(moduleName);
+    public SieveObject(String moduleName, String hostname, Integer port) {
+        super("Sieve." + moduleName, hostname, port);
     }
 
-    public void airBrushReceiveMessage(Message msg) {
-        if (msg.type.equals("Story")) {
-            System.out.println("Story received");
-            handleIncomingStory(msg);
+    public boolean airBrushReceiveMessage(Message msg) {
+        if (super.airBrushReceiveMessage(msg))
+            return true;
+
+        if (msg.to.equals("WB.Stories")) {
+            if (msg.type.equals("Story")) {
+                System.out.println("Story received");
+                handleIncomingStory(msg);
+                return true;
+            }
+        } else if (msg.to.equals("WB.Control")) {
+            if (msg.type.equals("Sieve.Topic")) {
+                topicString = msg.content;
+                System.out.println("Topic set to: " + topicString);
+                return true;
+            }
         }
+        return false;
     }
 
     public abstract Analysis doAnalysis(Story story, String topic);
 
     private void handleIncomingStory(Message msg) {
         Story s = Story.createFromYAML(msg.content);
-        String t = "iceland";
-        Analysis a = doAnalysis(s, t);
-        
+        Analysis a = doAnalysis(s, topicString);
+
         if (a.isRelevant()) {
             Message m = new Message();
             m.to = "WB.Analyses";

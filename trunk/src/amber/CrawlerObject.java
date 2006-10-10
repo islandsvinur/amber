@@ -44,8 +44,8 @@ import amber.common.Module;
 
 public abstract class CrawlerObject extends Module {
 
-    public CrawlerObject(String moduleName) {
-        super(moduleName);
+    public CrawlerObject(String moduleName, String hostname, Integer port) {
+        super("Crawler." + moduleName, hostname, port);
     }
 
 }
