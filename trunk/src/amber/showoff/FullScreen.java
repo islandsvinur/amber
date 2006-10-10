@@ -50,9 +50,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import amber.ShowOffObject;
+import amber.ShowOff;
 
-public class FullScreen extends ShowOffObject {
+public class FullScreen extends ShowOff {
     final private EarthView earthView;
 
     public FullScreen(String moduleName, String hostname, Integer port) {

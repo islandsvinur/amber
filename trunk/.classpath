@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/jvyaml.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Informa RSS Library"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jakarta Commons"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

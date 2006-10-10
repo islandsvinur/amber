@@ -25,30 +25,12 @@ Since the project is written in Java, the code objects are classes. This
 section deals mainly with the relation between the class hierarchies and their
 function.
 
-\subsection{Launcher class hierarchy}
-
-The Launcher is a class which provides an interface to the command line and is
-responsible for starting and stopping the program. It has a command line
-argument parser which makes unwanted hard coding of parameters largely
-unneccesary.
-
-There are three subclasses of Launcher, one for each application executable. In
-Figure~\ref{fig:class-diagram-launcher}, a UML diagram of the class hierarchy
-is displayed, including public interface.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics{image/class-diagram-launcher}
-  \caption{
-    \label{fig:class-diagram-launcher}
-    The inheritance model of the Launcher class}
-\end{figure}
-
 \subsection{Module class hierarchy}
 
 The Module family is the collection of classes which can perform a production
-task within the \Amber\ system. The first distinction is the general
-functionality: crawling, analysing and visualising.
+task within the \Amber\ system. They are the most important family of objects.
+The first distinction is the general functionality: crawling, analysing and
+visualising.
 
 Secondly, as there can be more than one means to do one of the three main
 tasks, a class can extend one of these main modules. Thus we get the UML
@@ -87,7 +69,7 @@ Figure~\ref{fig:class-diagram-ambermessage}.
 
 \subsection{Other classes}
 
-There are classes which directly extend from the Java Object class and are as
+There are classes which directly descend from the Java Object class and are as
 such outside the \Amber\ hierarchy. They are displayed in
 Figure~\ref{fig:class-diagram}.
 
@@ -99,6 +81,11 @@ requests so.
 
 Another class is the AirBrush class, which eases communication with the Java
 OpenAIR library.
+
+The Launcher is a class which provides an interface to the command line and is
+responsible for starting and stopping the program. It has a command line
+argument parser which makes unwanted hard coding of parameters largely
+unneccesary.
 
 Lastly, there is the EarthView class which is a Swing component to be placed in
 a window, which will draw Particles as they orbit around the earth.

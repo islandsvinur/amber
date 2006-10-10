@@ -40,42 +40,50 @@
 
 package amber;
 
-import java.util.LinkedList;
-import com.cmlabs.air.Message;
-
+import amber.common.Analysis;
 import amber.common.Module;
 import amber.common.Story;
 
-public abstract class ShowOffObject extends Module {
-    
-    protected LinkedList<Story> storyQueue;
-    
-    public ShowOffObject(String moduleName, String hostname, Integer port) {
-        super("ShowOff." + moduleName, hostname, port);
-        storyQueue = new LinkedList<Story>();
+import com.cmlabs.air.Message;
+
+public abstract class Sieve extends Module {
+    private String topicString;
+
+    public Sieve(String moduleName, String hostname, Integer port) {
+        super("Sieve." + moduleName, hostname, port);
     }
-    
+
     public boolean airBrushReceiveMessage(Message msg) {
         if (super.airBrushReceiveMessage(msg))
             return true;
-        
-        System.out.println("Receiving " + msg.type + " from AirBrush.");
 
-        if (msg.type.equals("Story")) {
-            System.out.println("Story content: " + msg.content);
-
-            Story story;
-            // Parse the XML into the Story object
-            story = Story.createFromYAML(msg.content);
-
-            // Print some information
-            System.out.println("Received story written by " + story.getAuthor()
-                    + " on " + story.getPublicationDate() + ": "
-                    + story.getContent());
-            // Now add this story to the queue
-            storyQueue.offer(story);
-            return true;
+        if (msg.to.equals("WB.Stories")) {
+            if (msg.type.equals("Story")) {
+                System.out.println("Story received");
+                handleIncomingStory(msg);
+                return true;
+            }
+        } else if (msg.to.equals("WB.Control")) {
+            if (msg.type.equals("Sieve.Topic")) {
+                topicString = msg.content;
+                System.out.println("Topic set to: " + topicString);
+                return true;
+            }
         }
         return false;
+    }
+
+    public abstract Analysis doAnalysis(Story story, String topic);
+
+    private void handleIncomingStory(Message msg) {
+        Story s = Story.createFromYAML(msg.content);
+        Analysis a = doAnalysis(s, topicString);
+
+        if (a.isRelevant()) {
+            Message m = new Message();
+            m.to = "WB.Analyses";
+            m.content = a.toYAML();
+            airBrush.postMessage(m);
+        }
     }
 }

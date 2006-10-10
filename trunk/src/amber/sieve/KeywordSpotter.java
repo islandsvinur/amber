@@ -42,11 +42,11 @@ package amber.sieve;
 
 import com.cmlabs.air.Message;
 
-import amber.SieveObject;
+import amber.Sieve;
 import amber.common.Analysis;
 import amber.common.Story;
 
-public class KeywordSpotter extends SieveObject {
+public class KeywordSpotter extends Sieve {
 
     private String contentMatchString;
     private String authorMatchString;

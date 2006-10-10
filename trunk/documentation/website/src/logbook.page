@@ -129,7 +129,7 @@ p(plan). Continue detailed design and code for analysis modules.
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 9.10|Description of classes in UML diagrams added,<br/>Object models created for all three applications|
-(table-row-even). |Tue 10.10| |
+(table-row-even). |Tue 10.10|Command line parser,<br/>One executable for all modules,<br/>More refactoring,<br/>Common configuration interface|
 (table-row-odd). |Wed 11.10| |
 (table-row-even). |Thu 12.10| |
 (table-row-odd). |Fri 13.10| |
