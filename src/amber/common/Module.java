@@ -40,35 +40,46 @@
 
 package amber.common;
 
+import com.cmlabs.air.Message;
+
 public abstract class Module implements AirBrushCallable {
 
-    private boolean connected = false;
-
-    // FIXME get this hardcoding out
-    final static private String airHostName = "172.23.16.81";
-
-    // FIXME get this hardcoding out
-    final static private Integer airPort = 10000;
+ 
+    final public String moduleName;
 
     final protected AirBrush airBrush;
 
-    public Module(String moduleName) {
-        airBrush = new AirBrush(moduleName, airHostName, airPort);
+    public Module(String name, String hostname, Integer port) {
+        moduleName = "Module." + name;
+        
+        airBrush = new AirBrush(moduleName, hostname, port);
         airBrush.setCallbackObject(this);
+        
         try {
             airBrush.startListening();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        connected = true;
+    }
+   
+    public boolean airBrushReceiveMessage(Message msg) {
+        System.out.println("Receiving message of type " + msg.type);
+        if (msg.to.equals("WB.Control")) {
+            if (msg.type.equals("All.Start")) {
+                start();
+                return true;
+            } else if (msg.type.equals("All.Stop")) {
+                stop();
+                return true;
+            }
+        }
+        return false;
     }
 
-    public boolean isConnected() {
-        return connected;
-    }
-
+    /* Start normal operation after initialization and configuration */
     public abstract void start();
 
+    /* Stop normal operation and exit */
     public abstract void stop();
 }

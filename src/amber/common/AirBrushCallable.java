@@ -43,5 +43,5 @@ package amber.common;
 import com.cmlabs.air.Message;
 
 public interface AirBrushCallable {
-    public void airBrushReceiveMessage(Message msg);
+    public boolean airBrushReceiveMessage(Message msg);
 }

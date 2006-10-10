@@ -48,16 +48,30 @@ import amber.common.Story;
 
 public class KeywordSpotter extends SieveObject {
 
-    public KeywordSpotter() {
-        super("Sieve.KeywordSpotter");
+    private String contentMatchString;
+    private String authorMatchString;
+
+    public KeywordSpotter(String name, String hostname, Integer port) {
+        super("KeywordSpotter." + name, hostname, port);
     }
 
     @Override
-    public void airBrushReceiveMessage(Message msg) {
-        super.airBrushReceiveMessage(msg);
-        if (msg.type.equals("Keywords")) {
-            // FIXME: Do something
+    public boolean airBrushReceiveMessage(Message msg) {
+        if (super.airBrushReceiveMessage(msg))
+            return true;
+        
+        if (msg.to.equals("WB.Control")) {
+            if (msg.type.equals("KeywordSpotter.Keywords.Contents")) {
+                contentMatchString = msg.content;
+                System.out.println("Content match string: " + contentMatchString);
+                return true;
+            } else if (msg.type.equals("KeywordSpotter.Keywords.Author")) {
+                authorMatchString = msg.content;
+                System.out.println("Author match string: " + authorMatchString);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -67,16 +81,13 @@ public class KeywordSpotter extends SieveObject {
         a.setTopic(topic);
 
         String content = story.getContent();
-        if (content.matches("IJsland")) {
-            // If the string IJsland appears in the text, it's definitely about
-            // Iceland
+        if (content.matches(contentMatchString)) {
             a.setTopicRelevance(1.0);
         }
 
         String author = story.getAuthor();
-        if (author.matches("Christian")) {
-            // Christian writes 75% of the time about the topic
-            a.setTopicRelevance(0.75);
+        if (author.matches(authorMatchString)) {
+            a.setAuthorRelevance(1.0);
         }
 
         return a;
@@ -85,12 +96,12 @@ public class KeywordSpotter extends SieveObject {
     @Override
     public void start() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void stop() {
         // TODO Auto-generated method stub
-        
+
     }
 }

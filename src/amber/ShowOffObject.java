@@ -50,13 +50,15 @@ public abstract class ShowOffObject extends Module {
     
     protected LinkedList<Story> storyQueue;
     
-    public ShowOffObject(String moduleName) {
-        super(moduleName);
+    public ShowOffObject(String moduleName, String hostname, Integer port) {
+        super("ShowOff." + moduleName, hostname, port);
         storyQueue = new LinkedList<Story>();
     }
     
-    public void airBrushReceiveMessage(Message msg) {
-        // TODO Auto-generated method stub
+    public boolean airBrushReceiveMessage(Message msg) {
+        if (super.airBrushReceiveMessage(msg))
+            return true;
+        
         System.out.println("Receiving " + msg.type + " from AirBrush.");
 
         if (msg.type.equals("Story")) {
@@ -72,6 +74,8 @@ public abstract class ShowOffObject extends Module {
                     + story.getContent());
             // Now add this story to the queue
             storyQueue.offer(story);
+            return true;
         }
+        return false;
     }
 }

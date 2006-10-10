@@ -40,25 +40,79 @@
 
 package amber.common;
 
+import org.apache.commons.cli.BasicParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
 public abstract class Launcher {
-    private Module mod;
 
-    public Launcher(Class moduleName) throws InstantiationException,
+    private static CommandLine parseCommandLine(String[] args)
+            throws ParseException {
+        Options o = new Options();
+
+        o.addOption("m", "module", true, "The module to be launched.");
+        o.addOption("h", "help", false, "Show help.");
+        o.addOption("s", "host", true, "Hostname of the Psyclone server.");
+        o.addOption("p", "port", true, "Port number of the Psyclone server.");
+        o
+                .addOption(
+                        "i",
+                        "identifier",
+                        true,
+                        "Gives an identifier to the module to be started."
+                                + " Allows controlling applications to send direct messages.");
+
+        BasicParser parser = new BasicParser();
+        CommandLine cl = parser.parse(o, args);
+
+        printHelp(o, cl);
+
+        return cl;
+    }
+
+    private static void printHelp(Options o, CommandLine cl) {
+        if (cl.hasOption('h')) {
+            HelpFormatter f = new HelpFormatter();
+            f.printHelp("Launcher", o);
+        }
+    }
+
+    /* Launch method */
+    public static void main(String args[]) throws InstantiationException,
             IllegalAccessException {
-        mod = (Module) moduleName.newInstance();
-    }
+        try {
+            CommandLine cl = parseCommandLine(args);
+            String id, hostname;
+            Integer port;
 
-    /* Starts the program */
-    public void start() {
-        System.err.println("Starting module: " + mod.getClass().getSimpleName());
-        mod.start();
-        System.err.println("Module started.");
-    }
+            id = cl.getOptionValue("identifier", "Anonymous");
 
-    /* Stops the program */
-    public void stop() {
-        System.err.println("Stopping module: " + mod.getClass().getSimpleName());
-        mod.stop();
-        System.err.println("Module stopped.");
+            hostname = cl.getOptionValue("hostname", "localhost");
+            port = Integer.valueOf(cl.getOptionValue("port", "10000"));
+
+            System.out.println("Going to start some module");
+            
+            if (cl.hasOption("m")) {
+                String modName = cl.getOptionValue("m");
+
+                if (modName.equals("RSS")) {
+                    new amber.crawler.RSS(id, hostname, port);
+                } else if (modName.equals("KeywordSpotter")) {
+                    new amber.sieve.KeywordSpotter(id, hostname, port);
+                } else if (modName.equals("FullScreen")) {
+                    new amber.showoff.FullScreen(id, hostname, port);
+                } else if (modName.equals("Applet")) {
+                    new amber.showoff.Applet(id, hostname, port);
+                }
+            }
+            
+            System.out.println("Module started");
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

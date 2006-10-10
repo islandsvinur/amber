@@ -65,6 +65,7 @@ public class AirBrush implements Runnable {
     }
     
     public void connect(String plugname, String hostname, Integer port) {
+        System.out.println("Creating connection with Psyclone at " + hostname + ":" + port + " with service name " + plugname);
         plug = new JavaAIRPlug(plugname, hostname, port);
     }
 
@@ -125,7 +126,9 @@ public class AirBrush implements Runnable {
 
         while (Thread.currentThread() == thread) {
             if ((message = plug.waitForNewMessage(100)) != null) {
-                callback.airBrushReceiveMessage(message);
+                if (!callback.airBrushReceiveMessage(message)) {
+                    System.out.println("Note: Unhandled callback for: " + message.type + " to: " + message.to);
+                }
             }
         }
     }

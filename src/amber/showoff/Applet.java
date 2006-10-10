@@ -4,8 +4,8 @@ import amber.ShowOffObject;
 
 public class Applet extends ShowOffObject {
 
-    public Applet(String moduleName) {
-        super(moduleName);
+    public Applet(String moduleName, String hostname, Integer port) {
+        super("Applet." + moduleName, hostname, port);
         // TODO Auto-generated constructor stub
     }
 
