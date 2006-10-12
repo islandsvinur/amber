@@ -1,7 +1,7 @@
 \section{\label{sct:modules}Modules}
 
 A complete \Amber\ system will comprise at least three modules running at the
-same time; there is a Crawler module, a selector module called Sieve and a
+same time; there is a Crawler module, an analysis module called Sieve and a
 display called ShowOff. The modules are separate executables with their own
 life-cycles and resources. Since TCP/IP is used, the executables don't need to
 be on the same machine to communicate.
@@ -25,12 +25,11 @@ whiteboard `WB.Stories'.
 
 \subsubsection{RSS}
 
-The RSS crawler module will be fairly straightforward. There are actually quite
-a few good RSS parsers around for Java, the only thing the crawler should do is
-getting the stories from the RSS feeds along with meta-information and store it
-on the whiteboard.
+The RSS crawler module will be fairly straightforward. It fetches the RSS feed
+from a set URL and produces a Story message for every new item that appears.
+The contents of the Story message is specified in Section~\ref{sct:messages}.
 
-Although the module is called RSS, it can also handle Atom feeds, which is also
+Although the module is called RSS, it can handle Atom feeds, which is also
 quite a popular format.
 
 \begin{module}{Crawler.RSS}
@@ -67,9 +66,9 @@ DiggAPI module is created.
 \subsection{Sieve modules}
 
 All analysis modules, or sieves, will get a trigger from a new story on the
-whiteboard WB.Stories. They analyse it and if there is anything to say about
-the story, a Analysis message is sent to the whiteboard WB.Analyses containing
-its judgement on the story.
+whiteboard WB.Stories. They analyse it and if it can say anything about the
+story, an Analysis message is sent to the whiteboard WB.Analyses containing its
+judgement on the story.
 
 The contents of this message is specified in Section~\ref{sct:messages}.
 
@@ -77,8 +76,8 @@ Analysis modules may take any time they like to come to a verdict, but it is
 possible that a story has already disappeared from the visualization if the
 response is very late.
 
-Since all modules employ the same external behaviour, the Psyclone
-specification is the same for every one of them.
+Since all modules regardless of their functionality employ the same external
+behaviour, the Psyclone specification is the same for every one of them.
 
 \begin{module}{Sieve.???}
     \trigger{Story}{WB.Stories}
