@@ -14,5 +14,51 @@ which are listed in Chapter~\ref{cpt:requirements}. Using the requirements, an
 architecture is written up in Chapter~\ref{cpt:architecture}.
 
 Please note that in this document some basic knowledge of the terminology of
-Psyclone framework is assumed. For more information about Psyclone, refer to
-the documentation at \url{http://www.cmlabs.com/psyclone/manual/}.
+Psyclone framework is needed, which is given in the next section. For more
+information about Psyclone, refer to the full documentation at
+\url{http://www.cmlabs.com/psyclone/manual/}.
+
+\section{Quick introduction to Psyclone}
+
+CMLabs, the creator of Psyclone says this about their product:
+
+\begin{quote}
+  Psyclone™ is a powerful platform for building modular, distributed systems.
+  It is the middleware of choice in systems where complexity management or
+  interactivity is key.
+\end{quote}
+
+For this project, it is enough to know that there are ``modules'' and
+``whiteboards''. Via a specification file the user can decide which types of
+messages will be coming from which modules to which whiteboards and more
+importantly, which types of messages on which whiteboard will trigger an event
+in which module. There are many more possibilities with the system, but this is
+all functionality \Amber\ is using.
+
+There are two types of modules, internal and external. We are only interested
+in external modules right now.
+
+Below is an example of the specification of a module, in this case of the
+Applet module. 
+
+\begin{verbatim}
+<module name="Module.ShowOff.Applet.Anonymous">
+ <executable />
+ <description>
+  This module gets stories from the processed whiteboard and uses 
+  the story's meta-data to display the stories in a Java applet.
+ </description>
+ <spec>
+  <trigger from="WB.Stories" type="Story" />
+  <trigger from="WB.Control" type="All.*" />
+  <trigger from="WB.Analyses" type="Analysis.*" />
+ </spec>
+</module>
+\end{verbatim}
+
+It defines that it is an external module (by the \texttt{executable} tag which
+can also contain more information on how to launch the module) and that it
+requests triggers from the whiteboards WB.Stories, WB.Control and WB.Analyses,
+but only if the type of the message is Story, All.* or Analysis.* respectively.
+* matches everything, so both All.Start and All.Stop will trigger the applet.
+
