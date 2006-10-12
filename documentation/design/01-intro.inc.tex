@@ -62,3 +62,8 @@ requests triggers from the whiteboards WB.Stories, WB.Control and WB.Analyses,
 but only if the type of the message is Story, All.* or Analysis.* respectively.
 * matches everything, so both All.Start and All.Stop will trigger the applet.
 
+So now that the module is defined, we can start Psyclone and it will expect the
+module to be present. If it is, the messages are sent. If it isn't, the module
+is temporarily deactivated until it signs on and no messages are sent to the
+module.
+
