@@ -48,9 +48,11 @@ import com.cmlabs.air.Message;
 
 public abstract class Sieve extends Module {
     private String topicString;
+    final private String messageTypePrefix;
 
-    public Sieve(String moduleName, String hostname, Integer port) {
-        super("Sieve." + moduleName, hostname, port);
+    public Sieve(String name, String hostname, Integer port) {
+        super("Sieve." + name, hostname, port);
+        messageTypePrefix = name;
     }
 
     public boolean airBrushReceiveMessage(Message msg) {
@@ -59,11 +61,10 @@ public abstract class Sieve extends Module {
 
         if (msg.to.equals("WB.Stories")) {
             if (msg.type.equals("Story")) {
-                System.out.println("Story received");
                 handleIncomingStory(msg);
                 return true;
             }
-        } else if (msg.to.equals("WB.Control")) {
+        } else if (msg.to.equals(moduleName)) {
             if (msg.type.equals("Sieve.Topic")) {
                 topicString = msg.content;
                 System.out.println("Topic set to: " + topicString);
@@ -77,13 +78,17 @@ public abstract class Sieve extends Module {
 
     private void handleIncomingStory(Message msg) {
         Story s = Story.createFromYAML(msg.content);
-        Analysis a = doAnalysis(s, topicString);
+        if (s != null) {
+            Analysis a = doAnalysis(s, topicString);
 
-        if (a.isRelevant()) {
-            Message m = new Message();
-            m.to = "WB.Analyses";
-            m.content = a.toYAML();
-            airBrush.postMessage(m);
+            if (a.isRelevant()) {
+                Message m = new Message();
+                m.to = "WB.Analyses";
+                m.content = a.toYAML();
+                m.type = messageTypePrefix + ".Analysis";
+                System.out.println("Sending out analysis: " + s.getTitle());
+                airBrush.postMessage(m);
+            }
         }
     }
 }

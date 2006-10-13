@@ -44,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import amber.Crawler;
 import amber.common.Story;
@@ -71,14 +72,16 @@ public class RSS extends Crawler implements PollerObserverIF {
         if (super.airBrushReceiveMessage(msg))
             return true;
 
-        if (msg.type.equals("Feed.RSS")) {
-            try {
-                switchFeed(new URL(msg.content));
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        if (msg.to.equals(moduleName)) {
+            if (msg.type.equals("Feed.RSS")) {
+                try {
+                    switchFeed(new URL(msg.content));
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -104,40 +107,32 @@ public class RSS extends Crawler implements PollerObserverIF {
     }
 
     public void start() {
-        try {
-            // switchFeed(new URL("http://planet.gnome.org/rss20.xml"));
-            switchFeed(new URL("http://ijsland.luijten.org/feed"));
-            // switchFeed(new
-            // URL("http://gathering.tweakers.net/rss.php/list_topics/76?ReactID=22479b0629174b6996a0144e50d11bf0"));
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        super.start();
         poller.addObserver(this);
-        poller.setPeriod(10 * 60 * 1000);
+        poller.setPeriod(1 * 60 * 1000);
     }
 
     private void handleItem(ItemIF item) {
         Story s = new Story();
+        Pattern p = Pattern.compile("([^\\p{Print}]|')");
+        
         try {
-            s.setID(item.getGuid().getLocation()
-                    .replaceAll("[^\\p{Print}]", ""));
+            s.setID(p.matcher(item.getGuid().getLocation()).replaceAll(""));
         } catch (Exception e) {
             System.out.println("Something went wicked.");
         }
         try {
-            s.setAuthor(item.getCreator().replaceAll("[^\\p{Print}]", ""));
+            s.setAuthor(p.matcher(item.getCreator()).replaceAll(""));
         } catch (Exception e) {
             System.out.println("Something went wicked.");
         }
         try {
-            s.setTitle(item.getTitle().replaceAll("[^\\p{Print}]", ""));
+            s.setTitle(p.matcher(item.getTitle()).replaceAll(""));
         } catch (Exception e) {
             System.out.println("Something went wicked.");
         }
         try {
-            s.setContent(item.getDescription().replaceAll("[^\\p{Print}]", ""));
+            s.setContent(p.matcher(item.getDescription()).replaceAll(""));
         } catch (Exception e) {
             System.out.println("Something went wicked.");
         }
@@ -157,6 +152,7 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     @Override
     public void stop() {
+        super.stop();
         // TODO Auto-generated method stub
 
     }
