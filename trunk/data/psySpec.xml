@@ -62,6 +62,14 @@
         </description>
     </whiteboard>
 
+    <module name="Initializer">
+        <executable />
+        <spec>
+          <post to="WB.Control" type="Module.*" />
+          <post to="WB.Control" type="All.*" />
+        </spec>
+    </module>
+
     <module name="Module.Crawler.RSS.Anonymous">
         <executable />
         <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" />
@@ -78,6 +86,34 @@
     </module>
 
     <module name="Module.Sieve.KeywordSpotter.Anonymous">
+        <executable />
+        <description>
+            This module will analyze stories in the raw-stories whiteboard for
+            the existence of certain keywords and puts matching stories on the
+            processed-stories whiteboard, adding a category to them.
+        </description>
+        <spec>
+            <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Control" type="All.*" />
+            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
+        </spec>
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.iPod">
+        <executable />
+        <description>
+            This module will analyze stories in the raw-stories whiteboard for
+            the existence of certain keywords and puts matching stories on the
+            processed-stories whiteboard, adding a category to them.
+        </description>
+        <spec>
+            <trigger from="WB.Stories" type="Story" />
+            <trigger from="WB.Control" type="All.*" />
+            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
+        </spec>
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacBook">
         <executable />
         <description>
             This module will analyze stories in the raw-stories whiteboard for
