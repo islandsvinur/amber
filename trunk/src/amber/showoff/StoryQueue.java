@@ -38,80 +38,104 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-package amber.sieve;
+package amber.showoff;
 
-import java.util.regex.Pattern;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Queue;
 
-import com.cmlabs.air.Message;
-
-import amber.Sieve;
-import amber.common.Analysis;
 import amber.common.Story;
 
-public class KeywordSpotter extends Sieve {
+public class StoryQueue extends Observable implements Queue<Story> {
     
-    private Pattern contentPattern;
-
-    private Pattern authorPattern;
-
-    public KeywordSpotter(String name, String hostname, Integer port) {
-        super("KeywordSpotter." + name, hostname, port);
+    private LinkedList<Story> list;
+    
+    public StoryQueue(){
+        list = new LinkedList<Story>();
     }
 
-    @Override
-    public boolean airBrushReceiveMessage(Message msg) {
-        if (super.airBrushReceiveMessage(msg))
-            return true;
-
-        if (msg.to.equals(moduleName)) {
-            if (msg.type.equals("Keywords.Contents")) {
-                contentPattern = Pattern.compile(msg.content, Pattern.CASE_INSENSITIVE);
-                System.out.println("Content match string: "
-                        + msg.content);
-                return true;
-            } else if (msg.type.equals("Keywords.Author")) {
-                authorPattern = Pattern.compile(msg.content, Pattern.CASE_INSENSITIVE);
-                System.out.println("Author match string: " + msg.content);
-                return true;
-            }
-
-        }
-        return false;
+    public Story poll() {
+        return list.poll();
     }
 
-    @Override
-    public Analysis doAnalysis(Story story, String topic) {
-        Analysis a = new Analysis();
-        a.setID(story.getID());
-        a.setTopic(topic);
-
-        if (contentPattern != null) {
-            String content = story.getContent();
-            if (contentPattern.matcher(content).matches()) {
-                a.setTopicRelevance(1.0);
-            }
-        }
-
-        if (authorPattern != null) {
-            String author = story.getAuthor();
-            if (authorPattern.matcher(author).matches()) {
-                a.setAuthorRelevance(1.0);
-            }
-        }
-
-        return a;
+    public Story remove() {
+        setChanged();
+        return list.remove();
     }
 
-    @Override
-    public void start() {
-        super.start();
-        // TODO Auto-generated method stub
-
+    public Story peek() {
+        return list.peek();
     }
 
-    @Override
-    public void stop() {
-        super.stop();
-        // TODO Auto-generated method stub
+    public Story element() {
+        return list.element();
     }
+
+    public int size() {
+        return list.size();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public boolean contains(Object arg0) {
+        return list.contains(arg0);
+    }
+
+    public Iterator<Story> iterator() {
+        return list.iterator();
+    }
+
+    public Object[] toArray() {
+        return list.toArray();
+    }
+
+    public <T> T[] toArray(T[] arg0) {
+        return list.toArray(arg0);
+    }
+
+    public boolean add(Story arg0) {
+        setChanged();
+        notifyObservers("add");
+        return list.add(arg0);
+    }
+
+    public boolean remove(Object arg0) {
+        setChanged();
+        return list.remove(arg0);
+    }
+
+    public boolean containsAll(Collection<?> arg0) {
+        return list.containsAll(arg0);
+    }
+
+    public boolean addAll(Collection<? extends Story> arg0) {
+        setChanged();
+        notifyObservers("addAll");
+        return list.addAll(arg0);
+    }
+
+    public boolean removeAll(Collection<?> arg0) {
+        setChanged();
+        return list.removeAll(arg0);
+    }
+
+    public boolean retainAll(Collection<?> arg0) {
+        return list.retainAll(arg0);
+    }
+
+    public void clear() {
+        setChanged();
+        list.clear();
+    }
+
+    public boolean offer(Story arg0) {
+        setChanged();
+        notifyObservers("offer");
+        return list.offer(arg0);
+    }
+
 }

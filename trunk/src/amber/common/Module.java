@@ -44,7 +44,6 @@ import com.cmlabs.air.Message;
 
 public abstract class Module implements AirBrushCallable {
 
- 
     final public String moduleName;
 
     final protected AirBrush airBrush;
@@ -64,7 +63,6 @@ public abstract class Module implements AirBrushCallable {
     }
    
     public boolean airBrushReceiveMessage(Message msg) {
-        System.out.println("Receiving message of type " + msg.type);
         if (msg.to.equals("WB.Control")) {
             if (msg.type.equals("All.Start")) {
                 start();
@@ -78,8 +76,12 @@ public abstract class Module implements AirBrushCallable {
     }
 
     /* Start normal operation after initialization and configuration */
-    public abstract void start();
+    public void start() {
+    
+    }
 
     /* Stop normal operation and exit */
-    public abstract void stop();
+    public void stop() {
+        airBrush.stopListening();
+    }
 }

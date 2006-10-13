@@ -87,10 +87,10 @@ public abstract class Launcher {
             String id, hostname;
             Integer port;
 
-            id = cl.getOptionValue("identifier", "Anonymous");
+            id = cl.getOptionValue("i", "Anonymous");
 
-            hostname = cl.getOptionValue("hostname", "localhost");
-            port = Integer.valueOf(cl.getOptionValue("port", "10000"));
+            hostname = cl.getOptionValue("s", "localhost");
+            port = Integer.valueOf(cl.getOptionValue("p", "10000"));
 
             System.out.println("Going to start some module");
             

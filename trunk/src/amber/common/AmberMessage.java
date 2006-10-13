@@ -41,6 +41,8 @@
 package amber.common;
 
 import java.util.Hashtable;
+
+import org.jvyaml.ParserException;
 import org.jvyaml.YAML;
 
 public abstract class AmberMessage {
@@ -78,6 +80,11 @@ public abstract class AmberMessage {
      */
     @SuppressWarnings("unchecked")
     public void fromYAML(String in) {
-        storage = (Hashtable<String, Object>) YAML.load(in);
+        try {
+            storage = (Hashtable<String, Object>) YAML.load(in);
+        } catch (ParserException e) {
+            System.err.println("There is a problem with this string:");
+            System.err.println(in);
+        }
     }
 }

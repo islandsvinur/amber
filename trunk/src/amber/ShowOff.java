@@ -40,19 +40,19 @@
 
 package amber;
 
-import java.util.LinkedList;
 import com.cmlabs.air.Message;
 
 import amber.common.Module;
 import amber.common.Story;
+import amber.showoff.StoryQueue;
 
 public abstract class ShowOff extends Module {
     
-    protected LinkedList<Story> storyQueue;
+    protected StoryQueue storyQueue;
     
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
-        storyQueue = new LinkedList<Story>();
+        storyQueue = new StoryQueue();
     }
     
     public boolean airBrushReceiveMessage(Message msg) {

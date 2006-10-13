@@ -54,7 +54,7 @@ import amber.ShowOff;
 
 public class FullScreen extends ShowOff {
     final private EarthView earthView;
-
+    
     public FullScreen(String moduleName, String hostname, Integer port) {
         super("FullScreen." + moduleName, hostname, port);
         
@@ -82,10 +82,10 @@ public class FullScreen extends ShowOff {
             };
         });
 
-        earthView = new EarthView();
+        earthView = new EarthView(storyQueue.iterator());
         earthView.setVisible(true);
-        earthView.setStoryQueue(storyQueue);
-
+        storyQueue.addObserver(earthView);
+        
         list.add(earthView);
         list.add(b);
 

@@ -44,6 +44,7 @@ import com.cmlabs.air.*;
 
 public class AirBrush implements Runnable {
     private JavaAIRPlug plug = null;
+
     private Thread thread;
 
     private AirBrushCallable callback;
@@ -52,20 +53,25 @@ public class AirBrush implements Runnable {
     // private Message outMsg;
 
     private void checkConnection() throws Exception {
-        if (plug == null) { throw new Exception("No connection with Psyclone."); }
-        if (callback == null) { throw new Exception("No Callback object given."); }
+        if (plug == null) {
+            throw new Exception("No connection with Psyclone.");
+        }
+        if (callback == null) {
+            throw new Exception("No Callback object given.");
+        }
     }
-    
+
     public AirBrush() {
-        
+
     }
-    
+
     public AirBrush(String plugname, String hostname, Integer port) {
         connect(plugname, hostname, port);
     }
-    
+
     public void connect(String plugname, String hostname, Integer port) {
-        System.out.println("Creating connection with Psyclone at " + hostname + ":" + port + " with service name " + plugname);
+        System.out.println("Creating connection with Psyclone at " + hostname
+                + ":" + port + " with service name " + plugname);
         plug = new JavaAIRPlug(plugname, hostname, port);
     }
 
@@ -78,6 +84,7 @@ public class AirBrush implements Runnable {
         }
         return true;
     }
+
     public void connectAndOpenWhiteboard(String wb) throws Exception {
         // Connect to Psyclone
         connect();
@@ -91,7 +98,7 @@ public class AirBrush implements Runnable {
         // Start listening for messages coming onto the whiteboard
         startListening();
     }
-    
+
     public void startListening() throws Exception {
         if (thread != null) {
             throw new Exception("Already running!");
@@ -99,9 +106,11 @@ public class AirBrush implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
-    
+
     public void stopListening() {
         thread = null;
+        plug.disconnectNetworkConnections();
+        plug.destroy();
     }
 
     public boolean openWhiteboard(String wb) throws Exception {
@@ -112,7 +121,7 @@ public class AirBrush implements Runnable {
         }
         return true;
     }
-    
+
     public void postMessage(Message msg) {
         plug.postOutputMessage(msg);
     }
@@ -123,11 +132,13 @@ public class AirBrush implements Runnable {
 
     public void run() {
         Message message;
+        Thread current = Thread.currentThread();
 
-        while (Thread.currentThread() == thread) {
+        while (current == thread) {
             if ((message = plug.waitForNewMessage(100)) != null) {
                 if (!callback.airBrushReceiveMessage(message)) {
-                    System.out.println("Note: Unhandled callback for: " + message.type + " to: " + message.to);
+                    System.out.println("Note: Unhandled callback for: "
+                            + message.type + " to: " + message.to);
                 }
             }
         }

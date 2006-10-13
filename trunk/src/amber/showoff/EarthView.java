@@ -46,15 +46,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
-
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JPanel;
 import javax.vecmath.Point2d;
 
 import amber.common.Story;
 import amber.showoff.Particle.ParticleException;
 
-public class EarthView extends JPanel implements Runnable {
+public class EarthView extends JPanel implements Runnable, Observer {
 
     private static final long serialVersionUID = -3882808552754900513L;
 
@@ -74,101 +74,113 @@ public class EarthView extends JPanel implements Runnable {
 
     private LinkedList<Particle> particles;
 
-    private Queue<Story> storyQueue;
+    private Iterator<Story> storyIterator;
+
+    public EarthView(Iterator<Story> it) {
+        storyIterator = it;
+    }
 
     public void start() {
-	setBackground(Color.black);
-	setForeground(Color.white);
-	particles = new LinkedList<Particle>();
-	animator = new Thread(this);
-	animator.start();
+        setBackground(Color.black);
+        setForeground(Color.white);
+        particles = new LinkedList<Particle>();
+        animator = new Thread(this);
+        animator.start();
     }
 
     public void paintComponent(Graphics g) {
-	int earthRadius = 50;
-	int orbitRadius = 100;
-	Dimension d = getSize();
+        int earthRadius = 50;
+        int orbitRadius = 100;
+        Dimension d = getSize();
 
-	g.setColor(getBackground());
-	g.fillRect(0, 0, d.width, d.height);
+        g.setColor(getBackground());
+        g.fillRect(0, 0, d.width, d.height);
 
-	g.setColor(getForeground());
-	g.fillOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
-		earthRadius, earthRadius);
+        g.setColor(getForeground());
+        g.fillOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
+                earthRadius, earthRadius);
 
-	if (particles != null) {
-	    Iterator<Particle> i = particles.iterator();
-	    while (i.hasNext()) {
-		drawParticle(g, i.next());
-	    }
-	}
+        if (particles != null) {
+            Iterator<Particle> i = particles.iterator();
+            while (i.hasNext()) {
+                drawParticle(g, i.next());
+            }
+        }
 
-	g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius
-		* Math.sin(((float) frame) / 25.)),
-		(int) ((d.height - earthRadius) / 2 + orbitRadius
-			* Math.cos(((float) frame) / 25.)), 10, 10);
+        g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius
+                * Math.sin(((float) frame) / 25.)),
+                (int) ((d.height - earthRadius) / 2 + orbitRadius
+                        * Math.cos(((float) frame) / 25.)), 10, 10);
 
-	g.drawString("Frame " + frame, 30, 30);
+        g.drawString("Frame " + frame, 30, 30);
     }
 
     public void drawParticle(Graphics g, Particle p) {
-	int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) * scalingFactor);
-	Point2d loc = (Point2d) p.getLocation().clone();
-	loc.scale(scalingFactor);
+        int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) * scalingFactor);
+        Point2d loc = (Point2d) p.getLocation().clone();
+        loc.scale(scalingFactor);
 
-	g.fillOval((int) (loc.x - diameter / 2), (int) (loc.y - diameter / 2),
-		diameter, diameter);
+        g.fillOval((int) (loc.x - diameter / 2), (int) (loc.y - diameter / 2),
+                diameter, diameter);
     }
 
     public void run() {
-	long tm = System.currentTimeMillis();
-	while (Thread.currentThread() == animator) {
-	    repaint();
+        long tm = System.currentTimeMillis();
+        while (Thread.currentThread() == animator) {
+            repaint();
 
-	    try {
-		Particle p;
-		tm += frameDelay;
-		Iterator<Particle> i = particles.iterator();
-		while (i.hasNext()) {
-		    p = i.next();
-		    p.setNewValuesAfter((double) (frameDelay) / 1000.0);
-		    if (p.crashed()) {
-			particles.remove(p);
-		    }
-		}
-		if (!storyQueue.isEmpty()) {
-		    Story s = storyQueue.remove();
-		    p = new Particle(s);
-		    calculateLaunchParameters(p, s);
-		    p.launch();
-		    particles.add(p);
-		}
+            try {
+                Particle p;
+                tm += frameDelay;
+                Iterator<Particle> i = particles.iterator();
+                while (i.hasNext()) {
+                    p = i.next();
+                    p.setNewValuesAfter((double) (frameDelay) / 1000.0);
+                    if (p.crashed()) {
+                        particles.remove(p);
+                    }
+                }
 
-		Thread.sleep(Math.max(0, tm - System.currentTimeMillis()));
-	    } catch (InterruptedException e) {
-		break;
-	    }
-	    frame++;
-	}
+                Thread.sleep(Math.max(0, tm - System.currentTimeMillis()));
+            } catch (InterruptedException e) {
+                break;
+            }
+            frame++;
+        }
 
     }
 
     private void calculateLaunchParameters(Particle p, Story s) {
-	// TODO Auto-generated method stub
-	try {
-	    p.setLocation(10.0, 10.0);
-	    p.setVelocity(20.0, 20.0);
-	    p.setAccelleration(1.0, 1.0);
-	} catch (ParticleException pe) {
+        try {
+            p.setLocation(10.0, 10.0);
+            p.setVelocity(20.0, 20.0);
+            p.setAccelleration(1.0, 1.0);
+        } catch (ParticleException pe) {
 
-	}
+        }
     }
 
-    public void setParticleCollection(LinkedList<Particle> pc) {
-	particles = pc;
+    public void getNewStories() {
+        Story s;
+        Particle p;
+        
+        while (storyIterator.hasNext()) {
+            s = storyIterator.next();
+            p = new Particle(s);
+            calculateLaunchParameters(p, s);
+            p.launch();
+            particles.add(p);
+        }
     }
 
-    public void setStoryQueue(Queue<Story> sq) {
-	storyQueue = sq;
+    public void update(Observable updater, Object message) {
+        if (updater instanceof StoryQueue) {
+            if (message.equals("offer") || message.equals("add")
+                    || message.equals("addAll")) {
+                // There is a new story added to the list, get all newest
+                // stories
+                getNewStories();
+            }
+        }
     }
 }
