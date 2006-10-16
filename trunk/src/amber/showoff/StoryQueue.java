@@ -41,36 +41,21 @@
 package amber.showoff;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
-import java.util.Queue;
 
 import amber.common.Story;
 
-public class StoryQueue extends Observable implements Queue<Story> {
+public class StoryQueue extends Observable implements List<Story> {
     
-    private LinkedList<Story> list;
+    private List<Story> list;
     
     public StoryQueue(){
-        list = new LinkedList<Story>();
-    }
-
-    public Story poll() {
-        return list.poll();
-    }
-
-    public Story remove() {
-        setChanged();
-        return list.remove();
-    }
-
-    public Story peek() {
-        return list.peek();
-    }
-
-    public Story element() {
-        return list.element();
+        list = Collections.synchronizedList(new LinkedList<Story>());
     }
 
     public int size() {
@@ -132,10 +117,49 @@ public class StoryQueue extends Observable implements Queue<Story> {
         list.clear();
     }
 
-    public boolean offer(Story arg0) {
+    public boolean addAll(int arg0, Collection<? extends Story> arg1) {
+        return list.addAll(arg0, arg1);
+    }
+
+    public Story get(int arg0) {
+        return list.get(arg0);
+    }
+
+    public Story set(int arg0, Story arg1) {
+        return list.set(arg0, arg1);
+    }
+
+    public void add(int arg0, Story arg1) {
+        list.add(arg0, arg1);
         setChanged();
-        notifyObservers("offer");
-        return list.offer(arg0);
+        notifyObservers("add");
+    }
+
+    public Story remove(int arg0) {
+        Story s = list.remove(arg0);
+        setChanged();
+        notifyObservers("remove");
+        return s;
+    }
+
+    public int indexOf(Object arg0) {
+        return list.indexOf(arg0);
+    }
+
+    public int lastIndexOf(Object arg0) {
+        return list.lastIndexOf(arg0);
+    }
+
+    public ListIterator<Story> listIterator() {
+        return list.listIterator();
+    }
+
+    public ListIterator<Story> listIterator(int arg0) {
+        return list.listIterator(arg0);
+    }
+
+    public List<Story> subList(int arg0, int arg1) {
+        return list.subList(arg0, arg1);
     }
 
 }

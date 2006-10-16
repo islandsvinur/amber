@@ -40,6 +40,9 @@
 
 package amber;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.cmlabs.air.Message;
 
 import amber.common.Module;
@@ -62,18 +65,15 @@ public abstract class ShowOff extends Module {
         System.out.println("Receiving " + msg.type + " from AirBrush.");
 
         if (msg.type.equals("Story")) {
-            System.out.println("Story content: " + msg.content);
-
             Story story;
             // Parse the XML into the Story object
             story = Story.createFromYAML(msg.content);
 
             // Print some information
             System.out.println("Received story written by " + story.getAuthor()
-                    + " on " + story.getPublicationDate() + ": "
-                    + story.getContent());
+                    + " on " + story.getPublicationDate());
             // Now add this story to the queue
-            storyQueue.offer(story);
+            storyQueue.add(story);
             return true;
         }
         return false;

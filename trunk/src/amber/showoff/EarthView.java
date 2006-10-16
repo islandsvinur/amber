@@ -44,8 +44,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
@@ -72,18 +75,19 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private int frame = 0;
 
-    private LinkedList<Particle> particles;
+    private List<Particle> particles;
 
     private Iterator<Story> storyIterator;
 
     public EarthView(Iterator<Story> it) {
         storyIterator = it;
+        start();
     }
 
     public void start() {
         setBackground(Color.black);
         setForeground(Color.white);
-        particles = new LinkedList<Particle>();
+        particles = Collections.synchronizedList(new LinkedList<Particle>());
         animator = new Thread(this);
         animator.start();
     }
@@ -97,7 +101,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
         g.fillRect(0, 0, d.width, d.height);
 
         g.setColor(getForeground());
-        g.fillOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
+        g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
                 earthRadius, earthRadius);
 
         if (particles != null) {
@@ -107,21 +111,26 @@ public class EarthView extends JPanel implements Runnable, Observer {
             }
         }
 
-        g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius
-                * Math.sin(((float) frame) / 25.)),
-                (int) ((d.height - earthRadius) / 2 + orbitRadius
-                        * Math.cos(((float) frame) / 25.)), 10, 10);
+        /*
+         * g.fillOval((int) ((d.width - earthRadius) / 2 + orbitRadius
+         * Math.sin(((float) frame) / 25.)), (int) ((d.height - earthRadius) / 2 +
+         * orbitRadius Math.cos(((float) frame) / 25.)), 10, 10);
+         */
 
         g.drawString("Frame " + frame, 30, 30);
     }
 
     public void drawParticle(Graphics g, Particle p) {
-        int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) * scalingFactor);
-        Point2d loc = (Point2d) p.getLocation().clone();
-        loc.scale(scalingFactor);
+        // int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) *
+        // scalingFactor);
+        int diameter = 10;
+        Dimension d = getSize();
+        Point2d loc = p.getLocation();
+        loc.scale(scalingFactor * 100.0);
 
-        g.fillOval((int) (loc.x - diameter / 2), (int) (loc.y - diameter / 2),
-                diameter, diameter);
+        g.fillOval((int) (loc.x - diameter / 2) + (d.width / 2),
+                (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
+                diameter);
     }
 
     public void run() {
@@ -135,7 +144,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
                 Iterator<Particle> i = particles.iterator();
                 while (i.hasNext()) {
                     p = i.next();
-                    p.setNewValuesAfter((double) (frameDelay) / 1000.0);
+                    p.calculate((double) (frameDelay) / 1000.0);
                     if (p.crashed()) {
                         particles.remove(p);
                     }
@@ -146,30 +155,29 @@ public class EarthView extends JPanel implements Runnable, Observer {
                 break;
             }
             frame++;
+
+            if ((frame % 50) == 0) {
+                getNewStories();
+            }
         }
 
-    }
-
-    private void calculateLaunchParameters(Particle p, Story s) {
-        try {
-            p.setLocation(10.0, 10.0);
-            p.setVelocity(20.0, 20.0);
-            p.setAccelleration(1.0, 1.0);
-        } catch (ParticleException pe) {
-
-        }
     }
 
     public void getNewStories() {
         Story s;
         Particle p;
-        
+        System.out.println("Getting new stories");
+
         while (storyIterator.hasNext()) {
-            s = storyIterator.next();
-            p = new Particle(s);
-            calculateLaunchParameters(p, s);
-            p.launch();
-            particles.add(p);
+            try {
+                s = storyIterator.next();
+            } catch (ConcurrentModificationException e) {
+                break;
+            } finally {
+                p = new Particle(null);
+                p.launch();
+                particles.add(p);
+            }
         }
     }
 

@@ -57,32 +57,41 @@ public class Particle {
 
     }
 
-    private Vector2d accel = null;
-
-    private boolean launched = false;
+    private Vector2d accel = null, velocity = null;
 
     private Point2d location = null;
 
-    private Double mass = null;
+    private int state = STATE_NEW;
 
-    private Double density = null;
+    private Double mass = 0.0, density = 0.0;
 
     private Story story;
 
-    private Vector2d velocity = null;
-
     private Double timeSinceCreation = 0.0;
+    
+    private final static Double DAMPING_FACTOR = 0.999;
+    
+    private final static Double ORBITAL_HEIGHT = 2.0;
+   
+    private final static int STATE_NEW = 0;
+    private final static int STATE_LAUNCH = 1;
+    private final static int STATE_ORBITING = 2;
+    private final static int STATE_BOOSTED = 3;
+    private final static int STATE_CRASHED = 4;
 
     public Particle(Story s) {
         story = s;
+        location = new Point2d(2 * Math.random() * Math.PI,0);
+        velocity = new Vector2d(0,0);
+        accel = new Vector2d(1,1);
     }
 
     public void boost(Double f) {
-        velocity.scale(f);
+        //velocity.scale(f);
     }
 
     private void checkLaunched() throws ParticleAlreadyLaunchedException {
-        if (launched) {
+        if (isLaunched()) {
             throw new ParticleAlreadyLaunchedException();
         }
     }
@@ -101,7 +110,10 @@ public class Particle {
     }
 
     public Point2d getLocation() {
-        return location;
+        Point2d loc = new Point2d();
+        loc.x = location.y * Math.cos(location.x);
+        loc.y = location.y * Math.sin(location.x);
+        return loc;
     }
 
     public Double getMass() {
@@ -117,53 +129,61 @@ public class Particle {
     }
 
     public boolean isLaunched() {
-        return launched;
+        return state >= STATE_LAUNCH;
     }
 
+    
     public void launch() {
-        launched = true;
-    }
-
-    public void setAccelleration(Double x, Double y) throws ParticleException {
-        setAccelleration(new Vector2d(x, y));
-    }
-
-    private void setAccelleration(Vector2d a) throws ParticleException {
-        checkLaunched();
-        accel = a;
-    }
-
-    public void setLocation(Double x, Double y) throws ParticleException {
-        setLocation(new Point2d(x, y));
-    }
-
-    private void setLocation(Point2d l) throws ParticleException {
-        checkLaunched();
-        location = l;
+        accel.x = 2;
+        accel.y = 1;
+        state = STATE_LAUNCH;
     }
 
     public void setMass(Double m) {
         mass = m;
     }
+    
+    public void calculate(Double time) {
+        switch (state) {
+            case STATE_LAUNCH:
+                // Bring particle to speed and altitude
+                location.x = location.x + velocity.x * time + accel.x * time * time;
+                location.y = location.y + velocity.y * time + accel.y * time * time;
+                
+                velocity.x = velocity.x + accel.x * time;
+                velocity.y = velocity.y + accel.y * time;
+                
+                accel.x = accel.x * DAMPING_FACTOR;
+                accel.y = accel.y * DAMPING_FACTOR;
+                
+                if (location.y > ORBITAL_HEIGHT) {
+                    state = STATE_ORBITING;
+                    accel.y = 0;
+                    velocity.y = 0;
+                }
+                break;
+            case STATE_ORBITING: 
+                // Keep particle in orbit, very slowly slowing and falling down
+                location.x = location.x + velocity.x * time;
+                location.y = location.y * DAMPING_FACTOR;
+                velocity.x = velocity.x * DAMPING_FACTOR;
+                
+                if (location.y < ORBITAL_HEIGHT / 4) {
+                    System.out.println("Particle crashed! " + location.x + ", " + location.y);
+                    state = STATE_CRASHED;
+                }
+                break;
+            case STATE_BOOSTED:
+                // Particle must be boosted into higher orbit
+                break;
+            default: break;
+        }
+    }
 
     public void setNewValuesAfter(Double time) {
         timeSinceCreation += time;
 
-        location.x = Math.sin(timeSinceCreation);
-        location.y = Math.cos(timeSinceCreation);
-        velocity.x = -1 * Math.cos(timeSinceCreation);
-        velocity.y = Math.sin(timeSinceCreation);
-        accel.x = -1 * Math.sin(timeSinceCreation);
-        accel.y = -1 * Math.cos(timeSinceCreation);
-    }
 
-    public void setVelocity(Double x, Double y) throws ParticleException {
-        setVelocity(new Vector2d(x, y));
-    }
-
-    private void setVelocity(Vector2d v) throws ParticleException {
-        checkLaunched();
-        velocity = v;
     }
 
     public boolean crashed() {
