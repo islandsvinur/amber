@@ -89,20 +89,29 @@
     {Gets the velocity}
   \method{Vector2d}{getAcceleration}{}
     {Gets the acceleration}
-  \method{\void}{setMass}{double s}
-    {Sets the mass of the particle to s}
-  \method{\void}{setLocation}{Point2d v}
-    {Sets the location to v}
-  \method{\void}{setVelocity}{Vector2d v}
-    {Sets the velocity to v}
-  \method{\void}{setAcceleration}{Vector2d v}
-    {Sets the acceleration to v}
-  \method{\void}{setNewValuesAfter}{double t}
+  \method{\void}{calculate}{double t}
     {Calculates and sets new values using the current values after a period of
       time t}
 \end{interface}
 
+The Particles' location is represented by polar coordinates, with ``earth''
+being the origin (0, 0).
 
+A particle can be in one of five states: new, launch, orbit, boost or crashed.
+Every particle will obviously start in the ``new'' state, after which it is
+launched and gets into ``launch'' state. In this state, the $r$ component will
+grow until it reaches a set height above the surface of earth, while $\theta$
+also accellerates to a set speed. When these values are reached, the particle
+will be in orbit and thus in state ``orbit''.
+
+In orbit, a particle slows down and slowly falls back to the earth until it
+reaches some lower bound when it is considered ``crashed''. While a particle is
+in orbit, it can get a speed increase, it will get in ``boost'' state. During
+this period, the height and speed are increased, hereby keeping the particle
+orbiting earth for a prolonged time.
+
+While in orbit, a particle can also be attracted by certain attractors that are
+located outside the orbits, dependent on the topic of the story it represents.
 
 \classname{Applet}
 
