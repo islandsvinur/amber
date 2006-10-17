@@ -72,6 +72,7 @@ public class Particle {
     private final static Double DAMPING_FACTOR = 0.999;
     
     private final static Double ORBITAL_HEIGHT = 2.0;
+    private final static Double CRASH_HEIGHT = 0.3;
    
     private final static int STATE_NEW = 0;
     private final static int STATE_LAUNCH = 1;
@@ -134,7 +135,7 @@ public class Particle {
 
     
     public void launch() {
-        accel.x = 2;
+        accel.x = 1;
         accel.y = 1;
         state = STATE_LAUNCH;
     }
@@ -166,10 +167,10 @@ public class Particle {
                 // Keep particle in orbit, very slowly slowing and falling down
                 location.x = location.x + velocity.x * time;
                 location.y = location.y * DAMPING_FACTOR;
-                velocity.x = velocity.x * DAMPING_FACTOR;
+                velocity.x = velocity.x / DAMPING_FACTOR;
                 
-                if (location.y < ORBITAL_HEIGHT / 4) {
-                    System.out.println("Particle crashed! " + location.x + ", " + location.y);
+                if (location.y < CRASH_HEIGHT) {
+                    System.out.println("Particle crashed! Location (" + location.x + ", " + location.y + "), velocity (" + velocity.x + ", " + velocity.y + ")");
                     state = STATE_CRASHED;
                 }
                 break;
