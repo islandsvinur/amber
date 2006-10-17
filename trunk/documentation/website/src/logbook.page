@@ -141,7 +141,7 @@ p(plan). Continue detailed design and code for visualization.
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 16.10|First day of visualization and already are particles flying around|
-(table-row-even). |Tue 17.10| |
+(table-row-even). |Tue 17.10|First working prototype applet, added to <a href="{relocatable:amber/screenshots.page}">screenshots page</a>|
 (table-row-odd). |Wed 18.10| |
 (table-row-even). |Thu 19.10| |
 (table-row-odd). |Fri 20.10| |
