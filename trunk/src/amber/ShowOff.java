@@ -40,14 +40,11 @@
 
 package amber;
 
-import java.util.Collections;
-import java.util.List;
-
-import com.cmlabs.air.Message;
-
 import amber.common.Module;
 import amber.common.Story;
 import amber.showoff.StoryQueue;
+
+import com.cmlabs.air.Message;
 
 public abstract class ShowOff extends Module {
     

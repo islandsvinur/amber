@@ -60,11 +60,9 @@ public class FullScreen extends ShowOff {
         
         JFrame main = new JFrame();
         main.setSize(500, 500);
-        /*
-         * main = new JWindow();
-         * GraphicsEnvironment.getLocalGraphicsEnvironment()
-         * .getDefaultScreenDevice().setFullScreenWindow(main);
-         */
+        /* JWindow main = new JWindow();
+        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main); */
+        
 
         Container mainpane = main.getContentPane();
 
@@ -82,9 +80,8 @@ public class FullScreen extends ShowOff {
             };
         });
 
-        earthView = new EarthView(storyQueue.iterator());
+        earthView = new EarthView(storyQueue);
         earthView.setVisible(true);
-        storyQueue.addObserver(earthView);
         
         list.add(earthView);
         list.add(b);
