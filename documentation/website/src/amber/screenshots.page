@@ -5,4 +5,5 @@ orderInfo: 40
 ---
 h2. Screenshots
 
-Sorry, no screenshots just yet!
+<applet archive="prototypes/20061017.jar" code="amber.showoff.Demonstrator" width="500" height="500">
+</applet>

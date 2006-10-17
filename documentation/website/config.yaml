@@ -5,4 +5,5 @@ CopyFileHandler:
         - **/*.png
         - **/*.gif
         - **/*.pdf
+        - amber/prototypes/*.jar
         - amber/amber.dtd
