@@ -41,38 +41,25 @@
 package amber.showoff;
 
 import javax.vecmath.Point2d;
-import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
+import amber.common.Polar2d;
 import amber.common.Story;
 
 public class Particle {
-    @SuppressWarnings("serial")
-    public class ParticleAlreadyLaunchedException extends ParticleException {
 
-    }
-
-    @SuppressWarnings("serial")
-    public class ParticleException extends Exception {
-
-    }
-
-    private Vector2d accel = null, velocity = null;
-
-    private Point2d location = null;
+    private Polar2d accel = null, velocity = null, location = null;
 
     private int state = STATE_NEW;
 
-    private Double mass = 0.0, density = 0.0;
+    private Double mass = 0.0;
 
     private Story story;
 
-    private Double timeSinceCreation = 0.0;
+    private final static Double DAMPING_FACTOR = 0.99975;
     
-    private final static Double DAMPING_FACTOR = 0.999;
-    
-    private final static Double ORBITAL_HEIGHT = 2.0;
-    private final static Double CRASH_HEIGHT = 0.3;
+    private final static Double ORBITAL_HEIGHT = 200.0;
+    private final static Double CRASH_HEIGHT = 20.0;
    
     private final static int STATE_NEW = 0;
     private final static int STATE_LAUNCH = 1;
@@ -82,39 +69,19 @@ public class Particle {
 
     public Particle(Story s) {
         story = s;
-        location = new Point2d(2 * Math.random() * Math.PI,0);
-        velocity = new Vector2d(0,0);
-        accel = new Vector2d(1,1);
+        location = new Polar2d(0, 2 * Math.random() * Math.PI);
+        velocity = new Polar2d(0, 0);
+        accel = new Polar2d(0, 0);
     }
 
     public void boost(Double f) {
-        //velocity.scale(f);
-    }
-
-    private void checkLaunched() throws ParticleAlreadyLaunchedException {
-        if (isLaunched()) {
-            throw new ParticleAlreadyLaunchedException();
-        }
-    }
-
-    public Double getDensity() {
-        return density;
-    }
-
-    public void setDensity(Double d) throws ParticleException {
-        checkLaunched();
-        density = d;
-    }
-
-    public Tuple2d getAccelleration() {
-        return accel;
+        state = STATE_BOOSTED;
+        accel.r = f;
     }
 
     public Point2d getLocation() {
-        Point2d loc = new Point2d();
-        loc.x = location.y * Math.cos(location.x);
-        loc.y = location.y * Math.sin(location.x);
-        return loc;
+        // TODO: displacement calculation here
+        return location.toCartesianPoint();
     }
 
     public Double getMass() {
@@ -124,19 +91,21 @@ public class Particle {
     public Story getStory() {
         return story;
     }
-
-    public Vector2d getVelocity() {
-        return velocity;
+    
+    public void setStory(EarthViewStory s) {
+        story = s;
     }
 
     public boolean isLaunched() {
         return state >= STATE_LAUNCH;
     }
-
     
     public void launch() {
-        accel.x = 1;
-        accel.y = 1;
+        velocity.theta = -3.0;
+        velocity.r = 100.0;
+        
+        accel.theta = 1.25;
+        accel.r = -20.0;
         state = STATE_LAUNCH;
     }
 
@@ -145,51 +114,64 @@ public class Particle {
     }
     
     public void calculate(Double time) {
+        
         switch (state) {
             case STATE_LAUNCH:
                 // Bring particle to speed and altitude
-                location.x = location.x + velocity.x * time + accel.x * time * time;
-                location.y = location.y + velocity.y * time + accel.y * time * time;
+                location.r = location.r + velocity.r * time + accel.r * time * time;
+                location.theta = location.theta + velocity.theta * time + accel.theta * time * time;
                 
-                velocity.x = velocity.x + accel.x * time;
-                velocity.y = velocity.y + accel.y * time;
+                velocity.r = velocity.r + accel.r * time;
+                velocity.theta = velocity.theta + accel.theta * time;
+
+                accel.r = accel.r * DAMPING_FACTOR;
+                accel.theta = accel.theta * DAMPING_FACTOR;
                 
-                accel.x = accel.x * DAMPING_FACTOR;
-                accel.y = accel.y * DAMPING_FACTOR;
-                
-                if (location.y > ORBITAL_HEIGHT) {
+                if (location.r > ORBITAL_HEIGHT) {
                     state = STATE_ORBITING;
-                    accel.y = 0;
-                    velocity.y = 0;
-                }
-                break;
-            case STATE_ORBITING: 
-                // Keep particle in orbit, very slowly slowing and falling down
-                location.x = location.x + velocity.x * time;
-                location.y = location.y * DAMPING_FACTOR;
-                velocity.x = velocity.x / DAMPING_FACTOR;
-                
-                if (location.y < CRASH_HEIGHT) {
-                    System.out.println("Particle crashed! Location (" + location.x + ", " + location.y + "), velocity (" + velocity.x + ", " + velocity.y + ")");
-                    state = STATE_CRASHED;
+                    accel.r = 0;
+                    velocity.r = 0;
                 }
                 break;
             case STATE_BOOSTED:
                 // Particle must be boosted into higher orbit
+                accel.r = accel.r * 0.75 * DAMPING_FACTOR;
+                
+                if (accel.r < 0.005) {
+                    accel.r = 0;
+                    velocity.r = 0;
+                    state = STATE_ORBITING;
+                }
+                // No break here: Only acceleration is set now, also do others
+            case STATE_ORBITING:
+                // Keep particle in orbit, very slowly slowing and falling down
+                location.theta = location.theta + velocity.theta * time + accel.theta * time * time;
+                location.r = (location.r + velocity.r * time + accel.r * time * time) * DAMPING_FACTOR;
+                
+                velocity.theta = (1 / Math.sqrt(location.r * location.r * location.r)) * 500.0;
+                velocity.r = velocity.r + accel.r * time;
+                
+                if (location.r < CRASH_HEIGHT) {
+                    // System.out.println("Particle crashed! Location (" + location.r + ", " + location.theta + "), velocity (" + velocity.r + ", " + velocity.theta + ")");
+                    state = STATE_CRASHED;
+                    location.r = 0; location.theta = 0;
+                }
                 break;
             default: break;
         }
-    }
-
-    public void setNewValuesAfter(Double time) {
-        timeSinceCreation += time;
-
-
+        
+        if (Math.abs(accel.theta) < 0.01) accel.theta = 0;
+        if (Math.abs(accel.r) < 0.01) accel.r = 0;
+        if (Math.abs(velocity.theta) < 0.01) velocity.theta = 0;
+        if (Math.abs(velocity.r) < 0.01) velocity.r = 0;
     }
 
     public boolean crashed() {
-        // TODO Auto-generated method stub
-        return false;
+        return (state == STATE_CRASHED);
+    }
+
+    public Vector2d getVelocity() {
+        return velocity.toCartesianVector();
     }
 
 }

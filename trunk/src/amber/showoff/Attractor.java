@@ -40,62 +40,12 @@
 
 package amber.showoff;
 
-import java.awt.Color;
-import java.awt.Container;
-
-import javax.swing.JApplet;
-
 import amber.common.Polar2d;
-import amber.common.Story;
 
-public class Demonstrator extends JApplet implements Runnable {
-
-    private static final long serialVersionUID = -6492789321739444369L;
-    static StoryQueue storyQueue;
-    static Thread thread;
+public class Attractor {
     
-    public Demonstrator() {
-        Container mainpane = getContentPane();
-
-        mainpane.setBackground(Color.black);
-        
-        storyQueue = new StoryQueue();
-        
-        EarthView earthView = new EarthView(storyQueue);
-        earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(0.125*Math.PI, 3.0), 10.0, "ijsland");
-        earthView.addAttractor(new Polar2d(0.375*Math.PI, 3.0), 10.0, "nederland");
-        earthView.addAttractor(new Polar2d(0.625*Math.PI, 3.0), 10.0, "denemarken");
-        earthView.addAttractor(new Polar2d(0.875*Math.PI, 3.0), 10.0, "groenland");
-
-        mainpane.add(earthView);
-        setVisible(true);
-        
-        thread = new Thread(this);
-        thread.start();
-    }
-    
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        new Demonstrator();
-    }
-
-    public void run() {
-        
-        while (Thread.currentThread() == thread) {
-            Story s = new Story();
-            storyQueue.add(s);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
-    }
+    public Polar2d location;
+    public Double force;
+    public String topic;
 
 }
