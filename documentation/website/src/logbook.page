@@ -136,19 +136,23 @@ table(log).
 
 h3. Week 42
 
-p(plan). Continue detailed design and code for visualization.
+p(plan). Continue detailed design and code for visualization. By the end of the
+week, the EarthView widget should be finished so that in the next week the
+communication with Psyclone can be created.
 
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 16.10|First day of visualization and already are particles flying around|
 (table-row-even). |Tue 17.10|First working prototype applet, added to <a href="{relocatable:amber/screenshots.page}">screenshots page</a>|
-(table-row-odd). |Wed 18.10| |
-(table-row-even). |Thu 19.10| |
-(table-row-odd). |Fri 20.10| |
+(table-row-odd). |Wed 18.10|Improved prototype applet,<br />Explore possibilities of current model|
+(table-row-even). |Thu 19.10|Thoughts about implementation of attractors,<br/>Started implementation of them|
+(table-row-odd). |Fri 20.10|Full implementation of attractors,<br/>Check completeness of EarthView interface|
 
 h3. Week 43
 
-p(plan). Continue detailed design and code for visualization.
+p(plan). Continue detailed design and code for visualization. Enable
+communication of visualizer with Psyclone. By the end of the week, the applet
+should respond on new stories and incoming analyses.
 
 <div class="invisible">
 
