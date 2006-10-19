@@ -40,62 +40,75 @@
 
 package amber.showoff;
 
-import java.awt.Color;
-import java.awt.Container;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
-import javax.swing.JApplet;
-
-import amber.common.Polar2d;
+import amber.common.Analysis;
 import amber.common.Story;
 
-public class Demonstrator extends JApplet implements Runnable {
+public class EarthViewStory extends Story {
 
-    private static final long serialVersionUID = -6492789321739444369L;
-    static StoryQueue storyQueue;
-    static Thread thread;
-    
-    public Demonstrator() {
-        Container mainpane = getContentPane();
+    private List<Analysis> analyses;
+    private Hashtable<String, Double> weights;
 
-        mainpane.setBackground(Color.black);
-        
-        storyQueue = new StoryQueue();
-        
-        EarthView earthView = new EarthView(storyQueue);
-        earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(0.125*Math.PI, 3.0), 10.0, "ijsland");
-        earthView.addAttractor(new Polar2d(0.375*Math.PI, 3.0), 10.0, "nederland");
-        earthView.addAttractor(new Polar2d(0.625*Math.PI, 3.0), 10.0, "denemarken");
-        earthView.addAttractor(new Polar2d(0.875*Math.PI, 3.0), 10.0, "groenland");
+    private Particle particle;
 
-        mainpane.add(earthView);
-        setVisible(true);
-        
-        thread = new Thread(this);
-        thread.start();
-    }
-    
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        new Demonstrator();
+    private void init() {
+        analyses = Collections.synchronizedList(new LinkedList<Analysis>());
+        weights = new Hashtable<String, Double>();
     }
 
-    public void run() {
-        
-        while (Thread.currentThread() == thread) {
-            Story s = new Story();
-            storyQueue.add(s);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+    public EarthViewStory() {
+        super();
+        init();
+        // TODO Auto-generated constructor stub
+    }
+
+    public EarthViewStory(String identifier) {
+        super(identifier);
+        init();
+        // TODO Auto-generated constructor stub
+    }
+
+    public void addAnalysis(Analysis a) {
+        // TODO: Check whether analysis is indeed for this story
+        analyses.add(a);
+        calculateWeights();
+
+        // TODO: Boost the particle (get nice value for this)
+        particle.boost(1.0);
+    }
+
+    public void calculateWeights() {
+        if (particle != null) {
+            synchronized(analyses) {
+                ListIterator<Analysis> i = analyses.listIterator();
+                Hashtable<String, Integer> topicCount = new Hashtable<String, Integer>();
+                while (i.hasNext()) {
+                    // FIXME: look at this again
+                    Analysis a = i.next();
+                    String topic = a.getTopic();
+                    Integer count = topicCount.get(topic);
+                    
+                    Double value = a.getTopicRelevance();
+                    Double oldValue = weights.get(topic);
+                    
+                    weights.put(topic, (oldValue * count + value) / (count + 1));
+                }
             }
+            // set findings in particle
         }
-        
     }
 
+    public void setParticle(Particle p) {
+        // It is assumed that the particle isn't already coupled to another
+        // story! Values in the particle are overwritten every time an analysis
+        // is added...
+        particle = p;
+        p.setStory(this);
+        calculateWeights();
+    }
 }

@@ -38,64 +38,55 @@
 //_/_/
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-package amber.showoff;
+package amber.common;
 
-import java.awt.Color;
-import java.awt.Container;
+import javax.vecmath.Point2d;
+import javax.vecmath.Tuple2d;
+import javax.vecmath.Vector2d;
 
-import javax.swing.JApplet;
+public class Polar2d {
 
-import amber.common.Polar2d;
-import amber.common.Story;
+    public double theta = 0.0;
 
-public class Demonstrator extends JApplet implements Runnable {
+    public double r = 0.0;
 
-    private static final long serialVersionUID = -6492789321739444369L;
-    static StoryQueue storyQueue;
-    static Thread thread;
-    
-    public Demonstrator() {
-        Container mainpane = getContentPane();
+    public Polar2d(double r, double theta) {
+        this.r = r;
+        this.theta = theta;
+    }
 
-        mainpane.setBackground(Color.black);
-        
-        storyQueue = new StoryQueue();
-        
-        EarthView earthView = new EarthView(storyQueue);
-        earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(0.125*Math.PI, 3.0), 10.0, "ijsland");
-        earthView.addAttractor(new Polar2d(0.375*Math.PI, 3.0), 10.0, "nederland");
-        earthView.addAttractor(new Polar2d(0.625*Math.PI, 3.0), 10.0, "denemarken");
-        earthView.addAttractor(new Polar2d(0.875*Math.PI, 3.0), 10.0, "groenland");
+    public Polar2d(double[] v) {
+        r = v[0];
+        theta = v[1];
+    }
 
-        mainpane.add(earthView);
-        setVisible(true);
-        
-        thread = new Thread(this);
-        thread.start();
+    public Polar2d() {
+
     }
     
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        new Demonstrator();
+    public void scale(double f) {
+        r = r * f;
     }
 
-    public void run() {
-        
-        while (Thread.currentThread() == thread) {
-            Story s = new Story();
-            storyQueue.add(s);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
+    static public Polar2d fromCartesianTuple(Tuple2d t) {
+        return new Polar2d(Math.atan2(t.y, t.x), Math.sqrt(t.x * t.x + t.y
+                * t.y));
     }
 
+    private void toCartesian(Tuple2d t) {
+        t.x = r * Math.cos(theta);
+        t.y = r * Math.sin(theta);
+    }
+
+    public Point2d toCartesianPoint() {
+        Point2d p = new Point2d();
+        toCartesian(p);
+        return p;
+    }
+
+    public Vector2d toCartesianVector() {
+        Vector2d v = new Vector2d();
+        toCartesian(v);
+        return v;
+    }
 }

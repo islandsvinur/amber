@@ -45,7 +45,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +55,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 import javax.vecmath.Point2d;
 
+import amber.common.Polar2d;
 import amber.common.Story;
 
 public class EarthView extends JPanel implements Runnable, Observer {
@@ -63,7 +64,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     Graphics offGraphics;
 
-    Image offImage;
+    Image previousImage;
 
     Dimension offDimension;
 
@@ -76,11 +77,15 @@ public class EarthView extends JPanel implements Runnable, Observer {
     private int frame = 0;
 
     private List<Particle> particles;
+    
+    private Hashtable<String, Attractor> attractors;
 
     private StoryQueue storyQueue;
 
     public EarthView(StoryQueue sq) {
         storyQueue = sq;
+        particles = Collections.synchronizedList(new LinkedList<Particle>());
+        attractors = new Hashtable<String, Attractor>(); 
         sq.addObserver(this);
         start();
     }
@@ -88,7 +93,6 @@ public class EarthView extends JPanel implements Runnable, Observer {
     public void start() {
         setBackground(Color.black);
         setForeground(Color.white);
-        particles = Collections.synchronizedList(new LinkedList<Particle>());
         animator = new Thread(this);
         animator.start();
     }
@@ -103,15 +107,30 @@ public class EarthView extends JPanel implements Runnable, Observer {
         g.setColor(getForeground());
         g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
                 earthRadius, earthRadius);
+        
+        
+        g.drawOval(100, 100, 10, 10);
+        g.drawOval(100, d.width - 100, 10, 10);
+        g.drawOval(d.height - 100, d.width - 100, 10, 10);
+        g.drawOval(d.height - 100, 100, 10, 10);
+        /* for (int i = earthRadius * 2; i < d.width; i += 50) {
+            g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
+        } */
 
         if (particles != null) {
-            Iterator<Particle> i = particles.iterator();
-            while (i.hasNext()) {
-                drawParticle(g, i.next());
+            synchronized (particles) {
+                Iterator<Particle> i = particles.iterator();
+                while (i.hasNext()) {
+                    Particle p = i.next();
+                    if (!p.crashed())
+                        drawParticle(g, p);
+                }
             }
         }
 
-        g.drawString("Frame " + frame, 30, 30);
+        g.setColor(Color.white);
+        g.drawString("Number of particles: " + particles.size(), 15, 15);
+        g.drawString("Frame: " + frame, 15, 30);
     }
 
     public void drawParticle(Graphics g, Particle p) {
@@ -120,13 +139,18 @@ public class EarthView extends JPanel implements Runnable, Observer {
         int diameter = 10;
         Dimension d = getSize();
         Point2d loc = p.getLocation();
-        loc.scale(scalingFactor * 100.0);
+        loc.scale(scalingFactor);
 
         if (!p.crashed()) {
-            g.setColor(new Color(Color.HSBtoRGB((float) ((p.getVelocity().x) / 14.0), 1, 1)));
+            g.setColor(new Color(Color.HSBtoRGB(
+                    (float) ((p.getVelocity().x) / 14.0), 1, 1)));
             g.fillOval((int) (loc.x - diameter / 2) + (d.width / 2),
                     (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
                     diameter);
+        }
+        if (1000 * Math.random() < 1) {
+            // System.out.println("Boost particle");
+            p.boost(100.0);
         }
     }
 
@@ -136,14 +160,16 @@ public class EarthView extends JPanel implements Runnable, Observer {
             repaint();
 
             try {
-                Particle p;
                 tm += frameDelay;
-                Iterator<Particle> i = particles.iterator();
-                while (i.hasNext()) {
-                    p = i.next();
-                    p.calculate((double) (frameDelay) / 1000.0);
-                    if (p.crashed()) {
-                        particles.remove(p);
+                Particle p;
+                synchronized (particles) {
+                    Iterator<Particle> i = particles.iterator();
+                    while (i.hasNext()) {
+                        p = i.next();
+                        p.calculate((double) (frameDelay) / 1000.0);
+                        if (p.crashed()) {
+                            i.remove();
+                        }
                     }
                 }
 
@@ -163,19 +189,17 @@ public class EarthView extends JPanel implements Runnable, Observer {
     public void getNewStories() {
         Story s;
         Particle p;
-        Iterator<Story> storyIterator = storyQueue.listIterator();
 
-        while (storyIterator.hasNext()) {
-            s = null;
-            try {
+        synchronized (storyQueue) {
+            Iterator<Story> storyIterator = storyQueue.listIterator();
+            while (storyIterator.hasNext()) {
                 s = storyIterator.next();
                 storyIterator.remove();
-            } catch (ConcurrentModificationException e) {
-                break;
-            } finally {
+
                 p = new Particle(s);
                 p.launch();
                 particles.add(p);
+
             }
         }
     }
@@ -190,4 +214,14 @@ public class EarthView extends JPanel implements Runnable, Observer {
             }
         }
     }
+    
+    public Attractor addAttractor(Polar2d location, Double force, String topic) {
+        Attractor a = new Attractor();
+        a.location = location;
+        a.force = force;
+        a.topic = topic;
+        attractors.put(topic, a);
+        return a;
+    }
+    
 }
