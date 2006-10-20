@@ -41,18 +41,18 @@
 package amber;
 
 import amber.common.Module;
-import amber.common.Story;
-import amber.showoff.StoryQueue;
+import amber.showoff.EarthViewStory;
+import amber.showoff.ObservableList;
 
 import com.cmlabs.air.Message;
 
 public abstract class ShowOff extends Module {
     
-    protected StoryQueue storyQueue;
+    protected ObservableList<EarthViewStory> storyQueue;
     
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
-        storyQueue = new StoryQueue();
+        storyQueue = new ObservableList<EarthViewStory>();
     }
     
     public boolean airBrushReceiveMessage(Message msg) {
@@ -62,9 +62,9 @@ public abstract class ShowOff extends Module {
         System.out.println("Receiving " + msg.type + " from AirBrush.");
 
         if (msg.type.equals("Story")) {
-            Story story;
+            EarthViewStory story;
             // Parse the XML into the Story object
-            story = Story.createFromYAML(msg.content);
+            story = EarthViewStory.createFromYAML(msg.content);
 
             // Print some information
             System.out.println("Received story written by " + story.getAuthor()
