@@ -46,12 +46,11 @@ import java.awt.Container;
 import javax.swing.JApplet;
 
 import amber.common.Polar2d;
-import amber.common.Story;
 
 public class Demonstrator extends JApplet implements Runnable {
 
     private static final long serialVersionUID = -6492789321739444369L;
-    static StoryQueue storyQueue;
+    static ObservableList<EarthViewStory> storyQueue;
     static Thread thread;
     
     public Demonstrator() {
@@ -59,7 +58,7 @@ public class Demonstrator extends JApplet implements Runnable {
 
         mainpane.setBackground(Color.black);
         
-        storyQueue = new StoryQueue();
+        storyQueue = new ObservableList<EarthViewStory>();
         
         EarthView earthView = new EarthView(storyQueue);
         earthView.setVisible(true);
@@ -85,11 +84,11 @@ public class Demonstrator extends JApplet implements Runnable {
     public void run() {
         
         while (Thread.currentThread() == thread) {
-            Story s = new Story();
+            EarthViewStory s = new EarthViewStory();
             storyQueue.add(s);
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

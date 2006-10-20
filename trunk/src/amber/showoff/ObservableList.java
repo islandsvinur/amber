@@ -48,14 +48,12 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 
-import amber.common.Story;
-
-public class StoryQueue extends Observable implements List<Story> {
+public class ObservableList<T> extends Observable implements List<T> {
     
-    private List<Story> list;
+    private List<T> list;
     
-    public StoryQueue(){
-        list = Collections.synchronizedList(new LinkedList<Story>());
+    public ObservableList(){
+        list = Collections.synchronizedList(new LinkedList<T>());
     }
 
     public int size() {
@@ -70,7 +68,7 @@ public class StoryQueue extends Observable implements List<Story> {
         return list.contains(arg0);
     }
 
-    public Iterator<Story> iterator() {
+    public Iterator<T> iterator() {
         return list.iterator();
     }
 
@@ -78,11 +76,7 @@ public class StoryQueue extends Observable implements List<Story> {
         return list.toArray();
     }
 
-    public <T> T[] toArray(T[] arg0) {
-        return list.toArray(arg0);
-    }
-
-    public boolean add(Story arg0) {
+    public boolean add(T arg0) {
         setChanged();
         notifyObservers("add");
         return list.add(arg0);
@@ -97,7 +91,7 @@ public class StoryQueue extends Observable implements List<Story> {
         return list.containsAll(arg0);
     }
 
-    public boolean addAll(Collection<? extends Story> arg0) {
+    public boolean addAll(Collection<? extends T> arg0) {
         setChanged();
         notifyObservers("addAll");
         return list.addAll(arg0);
@@ -117,26 +111,26 @@ public class StoryQueue extends Observable implements List<Story> {
         list.clear();
     }
 
-    public boolean addAll(int arg0, Collection<? extends Story> arg1) {
+    public boolean addAll(int arg0, Collection<? extends T> arg1) {
         return list.addAll(arg0, arg1);
     }
 
-    public Story get(int arg0) {
+    public T get(int arg0) {
         return list.get(arg0);
     }
 
-    public Story set(int arg0, Story arg1) {
+    public T set(int arg0, T arg1) {
         return list.set(arg0, arg1);
     }
 
-    public void add(int arg0, Story arg1) {
+    public void add(int arg0, T arg1) {
         list.add(arg0, arg1);
         setChanged();
         notifyObservers("add");
     }
 
-    public Story remove(int arg0) {
-        Story s = list.remove(arg0);
+    public T remove(int arg0) {
+        T s = list.remove(arg0);
         setChanged();
         notifyObservers("remove");
         return s;
@@ -150,16 +144,21 @@ public class StoryQueue extends Observable implements List<Story> {
         return list.lastIndexOf(arg0);
     }
 
-    public ListIterator<Story> listIterator() {
+    public ListIterator<T> listIterator() {
         return list.listIterator();
     }
 
-    public ListIterator<Story> listIterator(int arg0) {
+    public ListIterator<T> listIterator(int arg0) {
         return list.listIterator(arg0);
     }
 
-    public List<Story> subList(int arg0, int arg1) {
+    public List<T> subList(int arg0, int arg1) {
         return list.subList(arg0, arg1);
+    }
+
+    @SuppressWarnings("hiding")
+    public <T> T[] toArray(T[] arg0) {
+        return list.toArray(arg0);
     }
 
 }

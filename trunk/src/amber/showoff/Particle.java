@@ -40,6 +40,10 @@
 
 package amber.showoff;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
@@ -54,20 +58,25 @@ public class Particle {
 
     private Double mass = 0.0;
 
-    private Story story;
+    private EarthViewStory story;
 
     private final static Double DAMPING_FACTOR = 0.99975;
-    
+
     private final static Double ORBITAL_HEIGHT = 200.0;
+
     private final static Double CRASH_HEIGHT = 20.0;
-   
+
     private final static int STATE_NEW = 0;
+
     private final static int STATE_LAUNCH = 1;
+
     private final static int STATE_ORBITING = 2;
+
     private final static int STATE_BOOSTED = 3;
+
     private final static int STATE_CRASHED = 4;
 
-    public Particle(Story s) {
+    public Particle(EarthViewStory s) {
         story = s;
         location = new Polar2d(0, 2 * Math.random() * Math.PI);
         velocity = new Polar2d(0, 0);
@@ -80,8 +89,29 @@ public class Particle {
     }
 
     public Point2d getLocation() {
-        // TODO: displacement calculation here
         return location.toCartesianPoint();
+    }
+
+    private Polar2d displaceParticle() {
+        Set<Entry<String, Attractor>> attr = EarthView.attractors.entrySet();
+        Iterator<Entry<String, Attractor>> i = attr.iterator();
+        Polar2d p = location.clone();
+
+        while (i.hasNext()) {
+            Entry<String, Attractor> e = i.next();
+            String topic = e.getKey();
+            Attractor a = e.getValue();
+            Double w = story.getWeight(topic);
+
+            if (w != null) {
+                Vector2d v1 = a.location.toCartesianVector();
+                Vector2d v2 = location.toCartesianVector();
+                Vector2d v = new Vector2d();
+                v.scaleAdd(w, v1, v2);
+                p.addCartesianVector(v);
+            }
+        }
+        return p;
     }
 
     public Double getMass() {
@@ -91,7 +121,7 @@ public class Particle {
     public Story getStory() {
         return story;
     }
-    
+
     public void setStory(EarthViewStory s) {
         story = s;
     }
@@ -99,11 +129,11 @@ public class Particle {
     public boolean isLaunched() {
         return state >= STATE_LAUNCH;
     }
-    
+
     public void launch() {
         velocity.theta = -3.0;
         velocity.r = 100.0;
-        
+
         accel.theta = 1.25;
         accel.r = -20.0;
         state = STATE_LAUNCH;
@@ -112,58 +142,73 @@ public class Particle {
     public void setMass(Double m) {
         mass = m;
     }
-    
-    public void calculate(Double time) {
-        
-        switch (state) {
-            case STATE_LAUNCH:
-                // Bring particle to speed and altitude
-                location.r = location.r + velocity.r * time + accel.r * time * time;
-                location.theta = location.theta + velocity.theta * time + accel.theta * time * time;
-                
-                velocity.r = velocity.r + accel.r * time;
-                velocity.theta = velocity.theta + accel.theta * time;
 
-                accel.r = accel.r * DAMPING_FACTOR;
-                accel.theta = accel.theta * DAMPING_FACTOR;
-                
-                if (location.r > ORBITAL_HEIGHT) {
-                    state = STATE_ORBITING;
-                    accel.r = 0;
-                    velocity.r = 0;
-                }
-                break;
-            case STATE_BOOSTED:
-                // Particle must be boosted into higher orbit
-                accel.r = accel.r * 0.75 * DAMPING_FACTOR;
-                
-                if (accel.r < 0.005) {
-                    accel.r = 0;
-                    velocity.r = 0;
-                    state = STATE_ORBITING;
-                }
-                // No break here: Only acceleration is set now, also do others
-            case STATE_ORBITING:
-                // Keep particle in orbit, very slowly slowing and falling down
-                location.theta = location.theta + velocity.theta * time + accel.theta * time * time;
-                location.r = (location.r + velocity.r * time + accel.r * time * time) * DAMPING_FACTOR;
-                
-                velocity.theta = (1 / Math.sqrt(location.r * location.r * location.r)) * 500.0;
-                velocity.r = velocity.r + accel.r * time;
-                
-                if (location.r < CRASH_HEIGHT) {
-                    // System.out.println("Particle crashed! Location (" + location.r + ", " + location.theta + "), velocity (" + velocity.r + ", " + velocity.theta + ")");
-                    state = STATE_CRASHED;
-                    location.r = 0; location.theta = 0;
-                }
-                break;
-            default: break;
+    public void calculate(Double time) {
+
+        switch (state) {
+        case STATE_LAUNCH:
+            // Bring particle to speed and altitude
+            location.r = location.r + velocity.r * time + accel.r * time * time;
+            location.theta = location.theta + velocity.theta * time
+                    + accel.theta * time * time;
+
+            velocity.r = velocity.r + accel.r * time;
+            velocity.theta = velocity.theta + accel.theta * time;
+
+            accel.r = accel.r * DAMPING_FACTOR;
+            accel.theta = accel.theta * DAMPING_FACTOR;
+
+            if (location.r > ORBITAL_HEIGHT) {
+                state = STATE_ORBITING;
+                accel.r = 0;
+                velocity.r = 0;
+            }
+            break;
+        case STATE_BOOSTED:
+            // Particle must be boosted into higher orbit
+            accel.r = accel.r * 0.75 * DAMPING_FACTOR;
+
+            if (accel.r < 0.005) {
+                accel.r = 0;
+                velocity.r = 0;
+                state = STATE_ORBITING;
+            }
+        // No break here: Only acceleration is set now, also do others
+        case STATE_ORBITING:
+            // Keep particle in orbit, very slowly slowing and falling down
+            location.theta = location.theta + velocity.theta * time
+                    + accel.theta * time * time;
+            location.r = (location.r + velocity.r * time + accel.r * time
+                    * time)
+                    * DAMPING_FACTOR;
+
+            velocity.theta = (1 / Math.sqrt(location.r * location.r
+                    * location.r)) * 500.0;
+            velocity.r = velocity.r + accel.r * time;
+
+            if (location.r < CRASH_HEIGHT) {
+                // System.out.println("Particle crashed! Location (" +
+                // location.r + ", " + location.theta + "), velocity (" +
+                // velocity.r + ", " + velocity.theta + ")");
+                state = STATE_CRASHED;
+                location.r = 0;
+                location.theta = 0;
+            }
+            break;
+        default:
+            break;
         }
-        
-        if (Math.abs(accel.theta) < 0.01) accel.theta = 0;
-        if (Math.abs(accel.r) < 0.01) accel.r = 0;
-        if (Math.abs(velocity.theta) < 0.01) velocity.theta = 0;
-        if (Math.abs(velocity.r) < 0.01) velocity.r = 0;
+
+        if (Math.abs(accel.theta) < 0.01)
+            accel.theta = 0;
+        if (Math.abs(accel.r) < 0.01)
+            accel.r = 0;
+        if (Math.abs(velocity.theta) < 0.01)
+            velocity.theta = 0;
+        if (Math.abs(velocity.r) < 0.01)
+            velocity.r = 0;
+
+        displaceParticle();
     }
 
     public boolean crashed() {

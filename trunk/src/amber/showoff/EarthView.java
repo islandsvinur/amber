@@ -49,14 +49,16 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 import javax.vecmath.Point2d;
 
+import amber.common.Analysis;
 import amber.common.Polar2d;
-import amber.common.Story;
 
 public class EarthView extends JPanel implements Runnable, Observer {
 
@@ -76,16 +78,21 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private int frame = 0;
 
-    private List<Particle> particles;
-    
-    private Hashtable<String, Attractor> attractors;
+    static Hashtable<String, Attractor> attractors;
+    static Hashtable<String, EarthViewStory> stories;
+    static Hashtable<String, Particle> particles;
 
-    private StoryQueue storyQueue;
+    private ObservableList<EarthViewStory> storyQueue;
 
-    public EarthView(StoryQueue sq) {
+    private ObservableList<Analysis> analysisQueue;
+
+    public EarthView(ObservableList<EarthViewStory> sq) {
         storyQueue = sq;
-        particles = Collections.synchronizedList(new LinkedList<Particle>());
-        attractors = new Hashtable<String, Attractor>(); 
+        analysisQueue = new ObservableList<Analysis>();
+        // particles = Collections.synchronizedList(new LinkedList<Particle>());
+        attractors = new Hashtable<String, Attractor>();
+        particles = new Hashtable<String, Particle>();
+        stories = new Hashtable<String, EarthViewStory>();
         sq.addObserver(this);
         start();
     }
@@ -107,25 +114,32 @@ public class EarthView extends JPanel implements Runnable, Observer {
         g.setColor(getForeground());
         g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
                 earthRadius, earthRadius);
-        
-        
+
         g.drawOval(100, 100, 10, 10);
         g.drawOval(100, d.width - 100, 10, 10);
         g.drawOval(d.height - 100, d.width - 100, 10, 10);
         g.drawOval(d.height - 100, 100, 10, 10);
-        /* for (int i = earthRadius * 2; i < d.width; i += 50) {
-            g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
-        } */
+        /*
+         * for (int i = earthRadius * 2; i < d.width; i += 50) {
+         * g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i); }
+         */
 
-        if (particles != null) {
-            synchronized (particles) {
-                Iterator<Particle> i = particles.iterator();
-                while (i.hasNext()) {
-                    Particle p = i.next();
-                    if (!p.crashed())
-                        drawParticle(g, p);
-                }
+        synchronized (particles) {
+            Iterator<Entry<String, Particle>> i = particles.entrySet().iterator();
+            while (i.hasNext()) {
+                Entry<String, Particle> e = i.next();
+                Particle p = e.getValue();
+                if (!p.crashed())
+                    drawParticle(g, p);
             }
+        }
+        Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
+        while (j.hasNext()) {
+            Entry<String, Attractor> e = j.next();
+            Point2d p = e.getValue().location.toCartesianPoint();
+            p.add(new Point2d(d.width / 2, d.height / 2));
+            g.drawString(e.getKey(), new Double(p.x).intValue(),
+                    new Double(p.y).intValue());
         }
 
         g.setColor(Color.white);
@@ -148,7 +162,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
                     (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
                     diameter);
         }
-        if (1000 * Math.random() < 1) {
+        if (10000 * Math.random() < 1) {
             // System.out.println("Boost particle");
             p.boost(100.0);
         }
@@ -163,9 +177,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
                 tm += frameDelay;
                 Particle p;
                 synchronized (particles) {
-                    Iterator<Particle> i = particles.iterator();
+                    Iterator<Entry<String, Particle>> i = particles.entrySet().iterator();
                     while (i.hasNext()) {
-                        p = i.next();
+                        Entry<String, Particle> e = i.next();
+                        p = e.getValue();
                         p.calculate((double) (frameDelay) / 1000.0);
                         if (p.crashed()) {
                             i.remove();
@@ -187,34 +202,50 @@ public class EarthView extends JPanel implements Runnable, Observer {
     }
 
     public void getNewStories() {
-        Story s;
+        EarthViewStory s;
         Particle p;
 
         synchronized (storyQueue) {
-            Iterator<Story> storyIterator = storyQueue.listIterator();
+            Iterator<EarthViewStory> storyIterator = storyQueue.listIterator();
             while (storyIterator.hasNext()) {
                 s = storyIterator.next();
-                storyIterator.remove();
 
-                p = new Particle(s);
-                p.launch();
-                particles.add(p);
-
+                if (!s.hasParticle()) {
+                    p = new Particle(s);
+                    p.launch();
+                    particles.put(s.getID(), p);
+                }
             }
         }
     }
 
+    private void getNewAnalyses() {
+        Analysis a;
+
+        synchronized (analysisQueue) {
+            ListIterator<Analysis> ai = analysisQueue.listIterator();
+            while (ai.hasNext()) {
+                a = ai.next();
+                ai.remove();
+
+                a.getID();
+            }
+        }
+
+    }
+
     public void update(Observable updater, Object message) {
-        if (updater instanceof StoryQueue) {
+        if (updater instanceof ObservableList<?>) {
             if (message.equals("offer") || message.equals("add")
                     || message.equals("addAll")) {
                 // There is a new story added to the list, get all newest
                 // stories
                 getNewStories();
+                getNewAnalyses();
             }
         }
     }
-    
+
     public Attractor addAttractor(Polar2d location, Double force, String topic) {
         Attractor a = new Attractor();
         a.location = location;
@@ -223,5 +254,5 @@ public class EarthView extends JPanel implements Runnable, Observer {
         attractors.put(topic, a);
         return a;
     }
-    
+
 }

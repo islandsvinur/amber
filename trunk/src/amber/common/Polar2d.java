@@ -89,4 +89,32 @@ public class Polar2d {
         toCartesian(v);
         return v;
     }
+    
+    public Polar2d add(Polar2d p2) {
+        Polar2d p1 = new Polar2d();
+        
+        p1.theta = theta + p2.theta;
+        p2.r = r + p2.r;
+        
+        return p1;
+    }
+    
+    public Polar2d minus(Polar2d p2) {
+        Polar2d p1 = new Polar2d();
+        
+        p1.theta = theta - p2.theta;
+        p2.r = r - p2.r;
+        
+        return p1;
+    }
+    
+    public Polar2d clone() {
+        return new Polar2d(theta, r);
+    }
+
+    public void addCartesianVector(Vector2d v) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

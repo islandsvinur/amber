@@ -60,7 +60,13 @@ public class EarthViewStory extends Story {
         analyses = Collections.synchronizedList(new LinkedList<Analysis>());
         weights = new Hashtable<String, Double>();
     }
-
+    
+    public static EarthViewStory createFromYAML(String in) {
+        EarthViewStory story = new EarthViewStory();
+        story.fromYAML(in);
+        return story;
+    }
+    
     public EarthViewStory() {
         super();
         init();
@@ -80,6 +86,10 @@ public class EarthViewStory extends Story {
 
         // TODO: Boost the particle (get nice value for this)
         particle.boost(1.0);
+    }
+    
+    public Double getWeight(String topic) {
+        return weights.get(topic);
     }
 
     public void calculateWeights() {
@@ -110,5 +120,9 @@ public class EarthViewStory extends Story {
         particle = p;
         p.setStory(this);
         calculateWeights();
+    }
+    
+    public boolean hasParticle() {
+        return (particle != null);
     }
 }
