@@ -40,6 +40,7 @@
 
 package amber;
 
+import amber.common.Analysis;
 import amber.common.Module;
 import amber.showoff.EarthViewStory;
 import amber.showoff.ObservableList;
@@ -49,10 +50,12 @@ import com.cmlabs.air.Message;
 public abstract class ShowOff extends Module {
     
     protected ObservableList<EarthViewStory> storyQueue;
+    protected ObservableList<Analysis> analysisQueue;
     
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
         storyQueue = new ObservableList<EarthViewStory>();
+        analysisQueue = new ObservableList<Analysis>();
     }
     
     public boolean airBrushReceiveMessage(Message msg) {
