@@ -45,35 +45,47 @@ import java.awt.Container;
 
 import javax.swing.JApplet;
 
+import amber.common.Analysis;
 import amber.common.Polar2d;
 
 public class Demonstrator extends JApplet implements Runnable {
 
     private static final long serialVersionUID = -6492789321739444369L;
+
     static ObservableList<EarthViewStory> storyQueue;
+
+    static ObservableList<Analysis> analysisQueue;
+
     static Thread thread;
-    
+
+    int storyCounter = 0;
+
     public Demonstrator() {
         Container mainpane = getContentPane();
 
         mainpane.setBackground(Color.black);
-        
+
         storyQueue = new ObservableList<EarthViewStory>();
-        
-        EarthView earthView = new EarthView(storyQueue);
+        analysisQueue = new ObservableList<Analysis>();
+
+        EarthView earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(0.125*Math.PI, 3.0), 10.0, "ijsland");
-        earthView.addAttractor(new Polar2d(0.375*Math.PI, 3.0), 10.0, "nederland");
-        earthView.addAttractor(new Polar2d(0.625*Math.PI, 3.0), 10.0, "denemarken");
-        earthView.addAttractor(new Polar2d(0.875*Math.PI, 3.0), 10.0, "groenland");
+        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 10.0,
+                "ijsland");
+        earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 10.0,
+                "nederland");
+        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 10.0,
+                "denemarken");
+        earthView.addAttractor(new Polar2d(250.0, 1.75 * Math.PI), 10.0,
+                "groenland");
 
         mainpane.add(earthView);
         setVisible(true);
-        
+
         thread = new Thread(this);
         thread.start();
     }
-    
+
     /**
      * @param args
      */
@@ -82,19 +94,47 @@ public class Demonstrator extends JApplet implements Runnable {
     }
 
     public void run() {
-        
+
         while (Thread.currentThread() == thread) {
             EarthViewStory s = new EarthViewStory();
+            s.setID("story-" + storyCounter++);
             storyQueue.add(s);
+
+            // Generate analyses at random
+            if (Math.random() * 5 < 1) {
+                Analysis a = new Analysis();
+                a.setID("story-" + (storyCounter - 10));
+                switch ((int) (Math.random() * 4)) {
+                case 0:
+                    a.setTopic("ijsland");
+                    break;
+                case 1:
+                    a.setTopic("nederland");
+                    break;
+                case 2:
+                    a.setTopic("denemarken");
+                    break;
+                case 3:
+                    a.setTopic("groenland");
+                    break;
+                }
+                a.setTopicRelevance(1.0);
+                analysisQueue.add(a);
+
+            }
             
+            if (storyCounter == 500) {
+                thread = null;
+            }
+
             try {
-                Thread.sleep(5000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        
+
     }
 
 }

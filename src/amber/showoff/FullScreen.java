@@ -80,7 +80,7 @@ public class FullScreen extends ShowOff {
             };
         });
 
-        earthView = new EarthView(storyQueue);
+        earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
         
         list.add(earthView);

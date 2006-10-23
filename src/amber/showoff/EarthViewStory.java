@@ -85,7 +85,7 @@ public class EarthViewStory extends Story {
         calculateWeights();
 
         // TODO: Boost the particle (get nice value for this)
-        particle.boost(1.0);
+        particle.boost(100.0);
     }
     
     public Double getWeight(String topic) {
@@ -105,8 +105,14 @@ public class EarthViewStory extends Story {
                     
                     Double value = a.getTopicRelevance();
                     Double oldValue = weights.get(topic);
-                    
-                    weights.put(topic, (oldValue * count + value) / (count + 1));
+
+                    if (oldValue == null || count == null) {
+                        weights.put(topic, value);
+                        topicCount.put(topic, 1);
+                    } else {
+                        weights.put(topic, (oldValue * count + value) / (count + 1));
+                        topicCount.put(topic, count + 1);
+                    }
                 }
             }
             // set findings in particle

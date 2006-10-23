@@ -109,7 +109,7 @@ public class Polar2d {
     }
     
     public Polar2d clone() {
-        return new Polar2d(theta, r);
+        return new Polar2d(r, theta);
     }
 
     public void addCartesianVector(Vector2d v) {

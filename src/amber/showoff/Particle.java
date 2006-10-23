@@ -53,6 +53,8 @@ import amber.common.Story;
 public class Particle {
 
     private Polar2d accel = null, velocity = null, location = null;
+    
+    private Point2d locationCartesian = null;
 
     private int state = STATE_NEW;
 
@@ -62,7 +64,7 @@ public class Particle {
 
     private final static Double DAMPING_FACTOR = 0.99975;
 
-    private final static Double ORBITAL_HEIGHT = 200.0;
+    private final static Double ORBITAL_HEIGHT = 100.0;
 
     private final static Double CRASH_HEIGHT = 20.0;
 
@@ -78,9 +80,12 @@ public class Particle {
 
     public Particle(EarthViewStory s) {
         story = s;
+        locationCartesian = new Point2d(0, 0);
         location = new Polar2d(0, 2 * Math.random() * Math.PI);
         velocity = new Polar2d(0, 0);
         accel = new Polar2d(0, 0);
+        
+        s.setParticle(this);
     }
 
     public void boost(Double f) {
@@ -89,14 +94,15 @@ public class Particle {
     }
 
     public Point2d getLocation() {
-        return location.toCartesianPoint();
+        return locationCartesian;
+        // return location.toCartesianPoint();
     }
 
-    private Polar2d displaceParticle() {
+    private Point2d displaceParticle() {
         Set<Entry<String, Attractor>> attr = EarthView.attractors.entrySet();
         Iterator<Entry<String, Attractor>> i = attr.iterator();
-        Polar2d p = location.clone();
-
+        Polar2d v1 = location.clone();
+                
         while (i.hasNext()) {
             Entry<String, Attractor> e = i.next();
             String topic = e.getKey();
@@ -104,14 +110,17 @@ public class Particle {
             Double w = story.getWeight(topic);
 
             if (w != null) {
-                Vector2d v1 = a.location.toCartesianVector();
-                Vector2d v2 = location.toCartesianVector();
-                Vector2d v = new Vector2d();
-                v.scaleAdd(w, v1, v2);
-                p.addCartesianVector(v);
+                Polar2d v2 = a.location;
+                
+                Double f = Math.pow(Math.cos(v1.theta - v2.theta) / 2 + 0.5, 10);
+                
+                v1.r = (1 - f) * v1.r + f * v2.r; 
             }
         }
-        return p;
+        
+        velocity.theta = keplerRotation(v1.r);
+        
+        return v1.toCartesianPoint();
     }
 
     public Double getMass() {
@@ -141,6 +150,10 @@ public class Particle {
 
     public void setMass(Double m) {
         mass = m;
+    }
+    
+    private Double keplerRotation(Double r) {
+        return (1 / Math.sqrt(r * r * r)) * 1000.0;
     }
 
     public void calculate(Double time) {
@@ -182,8 +195,7 @@ public class Particle {
                     * time)
                     * DAMPING_FACTOR;
 
-            velocity.theta = (1 / Math.sqrt(location.r * location.r
-                    * location.r)) * 500.0;
+            velocity.theta = keplerRotation(location.r);
             velocity.r = velocity.r + accel.r * time;
 
             if (location.r < CRASH_HEIGHT) {
@@ -208,7 +220,7 @@ public class Particle {
         if (Math.abs(velocity.r) < 0.01)
             velocity.r = 0;
 
-        displaceParticle();
+        locationCartesian = displaceParticle();
     }
 
     public boolean crashed() {
