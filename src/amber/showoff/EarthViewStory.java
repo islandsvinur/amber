@@ -84,8 +84,7 @@ public class EarthViewStory extends Story {
         analyses.add(a);
         calculateWeights();
 
-        // TODO: Boost the particle (get nice value for this)
-        particle.boost(100.0);
+        particle.bind();
     }
     
     public Double getWeight(String topic) {

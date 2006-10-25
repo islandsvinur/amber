@@ -40,6 +40,7 @@
 
 package amber.showoff;
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -53,7 +54,7 @@ import amber.common.Story;
 public class Particle {
 
     private Polar2d accel = null, velocity = null, location = null;
-    
+
     private Point2d locationCartesian = null;
 
     private int state = STATE_NEW;
@@ -62,11 +63,13 @@ public class Particle {
 
     private EarthViewStory story;
 
-    private final static Double DAMPING_FACTOR = 0.99975;
+    Color color;
 
-    private final static Double ORBITAL_HEIGHT = 100.0;
+    private boolean bound = false;
 
-    private final static Double CRASH_HEIGHT = 20.0;
+    private final static Double CRASH_HEIGHT = 30.0;
+
+    private final static int MAXIMUM_ORBITS = 50;
 
     private final static int STATE_NEW = 0;
 
@@ -74,7 +77,7 @@ public class Particle {
 
     private final static int STATE_ORBITING = 2;
 
-    private final static int STATE_BOOSTED = 3;
+    private final static int STATE_CRASHING = 3;
 
     private final static int STATE_CRASHED = 4;
 
@@ -84,13 +87,14 @@ public class Particle {
         location = new Polar2d(0, 2 * Math.random() * Math.PI);
         velocity = new Polar2d(0, 0);
         accel = new Polar2d(0, 0);
-        
+        color = new Color(64, 64, 64);
+
         s.setParticle(this);
     }
 
-    public void boost(Double f) {
-        state = STATE_BOOSTED;
-        accel.r = f;
+    public void bind() {
+        bound = true;
+        color = new Color(255, 255, 255);
     }
 
     public Point2d getLocation() {
@@ -99,27 +103,33 @@ public class Particle {
     }
 
     private Point2d displaceParticle() {
-        Set<Entry<String, Attractor>> attr = EarthView.attractors.entrySet();
-        Iterator<Entry<String, Attractor>> i = attr.iterator();
         Polar2d v1 = location.clone();
-                
-        while (i.hasNext()) {
-            Entry<String, Attractor> e = i.next();
-            String topic = e.getKey();
-            Attractor a = e.getValue();
-            Double w = story.getWeight(topic);
+        if (bound) {
+            Set<Entry<String, Attractor>> attr = EarthView.attractors
+                    .entrySet();
+            Iterator<Entry<String, Attractor>> i = attr.iterator();
 
-            if (w != null) {
-                Polar2d v2 = a.location;
-                
-                Double f = Math.pow(Math.cos(v1.theta - v2.theta) / 2 + 0.5, 10);
-                
-                v1.r = (1 - f) * v1.r + f * v2.r; 
+            while (i.hasNext()) {
+                Entry<String, Attractor> e = i.next();
+                String topic = e.getKey();
+                Attractor a = e.getValue();
+                Double w = story.getWeight(topic);
+                Double f = a.force;
+
+                if (w != null) {
+                    Polar2d v2 = a.location;
+
+                    Double t = Math.pow(Math.max(0, Math.cos(v1.theta
+                            - v2.theta)), 10)
+                            * w * f;
+
+                    v1.r = (1 - t) * v1.r + t * v2.r;
+                }
+
             }
+            velocity.theta = keplerRotation(v1.r);
         }
-        
-        velocity.theta = keplerRotation(v1.r);
-        
+
         return v1.toCartesianPoint();
     }
 
@@ -140,87 +150,76 @@ public class Particle {
     }
 
     public void launch() {
-        velocity.theta = -3.0;
-        velocity.r = 100.0;
+        velocity.theta = -2.0;
+        velocity.r = 40.0 + Math.random();
 
-        accel.theta = 1.25;
-        accel.r = -20.0;
+        accel.theta = 0.5;
+        accel.r = -7.5 - Math.random();
+
         state = STATE_LAUNCH;
     }
 
     public void setMass(Double m) {
         mass = m;
     }
-    
+
     private Double keplerRotation(Double r) {
         return (1 / Math.sqrt(r * r * r)) * 1000.0;
     }
 
     public void calculate(Double time) {
 
-        switch (state) {
-        case STATE_LAUNCH:
-            // Bring particle to speed and altitude
-            location.r = location.r + velocity.r * time + accel.r * time * time;
-            location.theta = location.theta + velocity.theta * time
-                    + accel.theta * time * time;
+        location.r = location.r + velocity.r * time + accel.r * time * time;
+        location.theta = location.theta + velocity.theta * time + accel.theta
+                * time * time;
 
-            velocity.r = velocity.r + accel.r * time;
+        velocity.r = velocity.r + accel.r * time;
+
+        if (state == STATE_LAUNCH)
             velocity.theta = velocity.theta + accel.theta * time;
-
-            accel.r = accel.r * DAMPING_FACTOR;
-            accel.theta = accel.theta * DAMPING_FACTOR;
-
-            if (location.r > ORBITAL_HEIGHT) {
-                state = STATE_ORBITING;
-                accel.r = 0;
-                velocity.r = 0;
-            }
-            break;
-        case STATE_BOOSTED:
-            // Particle must be boosted into higher orbit
-            accel.r = accel.r * 0.75 * DAMPING_FACTOR;
-
-            if (accel.r < 0.005) {
-                accel.r = 0;
-                velocity.r = 0;
-                state = STATE_ORBITING;
-            }
-        // No break here: Only acceleration is set now, also do others
-        case STATE_ORBITING:
-            // Keep particle in orbit, very slowly slowing and falling down
-            location.theta = location.theta + velocity.theta * time
-                    + accel.theta * time * time;
-            location.r = (location.r + velocity.r * time + accel.r * time
-                    * time)
-                    * DAMPING_FACTOR;
-
+        else
             velocity.theta = keplerRotation(location.r);
-            velocity.r = velocity.r + accel.r * time;
 
-            if (location.r < CRASH_HEIGHT) {
-                // System.out.println("Particle crashed! Location (" +
-                // location.r + ", " + location.theta + "), velocity (" +
-                // velocity.r + ", " + velocity.theta + ")");
-                state = STATE_CRASHED;
-                location.r = 0;
-                location.theta = 0;
-            }
-            break;
-        default:
-            break;
+        if (state == STATE_LAUNCH && velocity.r < 0.1) {
+            state = STATE_ORBITING;
+            accel.r = 0;
+            accel.theta = 0;
+            velocity.r = 0;
         }
 
-        if (Math.abs(accel.theta) < 0.01)
-            accel.theta = 0;
-        if (Math.abs(accel.r) < 0.01)
-            accel.r = 0;
-        if (Math.abs(velocity.theta) < 0.01)
-            velocity.theta = 0;
-        if (Math.abs(velocity.r) < 0.01)
-            velocity.r = 0;
+        if (state == STATE_ORBITING) {
+            if (location.theta > MAXIMUM_ORBITS * 2 * Math.PI + Math.random()
+                    * Math.PI) {
+                accel.r = -5.0;
+                state = STATE_CRASHING;
+            }
+        }
 
-        locationCartesian = displaceParticle();
+        if (state == STATE_CRASHING) {
+            // Here, fade-out can be implemented instead of falling down
+            if (location.r < CRASH_HEIGHT) {
+                location.r = 0;
+                location.theta = 0;
+                state = STATE_CRASHED;
+            }
+        }
+
+        if (state > STATE_LAUNCH) {
+            if (Math.abs(accel.theta) < 0.1)
+                accel.theta = 0;
+            if (Math.abs(accel.r) < 0.1)
+                accel.r = 0;
+            if (Math.abs(velocity.theta) < 0.1)
+                velocity.theta = 0;
+            if (Math.abs(velocity.r) < 0.1)
+                velocity.r = 0;
+        }
+
+        if (state == STATE_ORBITING)
+            locationCartesian = displaceParticle();
+        else
+            locationCartesian = location.toCartesianPoint();
+
     }
 
     public boolean crashed() {

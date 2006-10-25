@@ -48,11 +48,11 @@ import com.cmlabs.air.Message;
 
 public abstract class Sieve extends Module {
     private String topicString;
-    final private String messageTypePrefix;
+    final private String messageTypeSuffix;
 
     public Sieve(String name, String hostname, Integer port) {
         super("Sieve." + name, hostname, port);
-        messageTypePrefix = name;
+        messageTypeSuffix = name;
     }
 
     public boolean airBrushReceiveMessage(Message msg) {
@@ -85,7 +85,7 @@ public abstract class Sieve extends Module {
                 Message m = new Message();
                 m.to = "WB.Analyses";
                 m.content = a.toYAML();
-                m.type = messageTypePrefix + ".Analysis";
+                m.type = "Analysis." + messageTypeSuffix;
                 System.out.println("Sending out analysis: " + s.getTitle());
                 airBrush.postMessage(m);
             }

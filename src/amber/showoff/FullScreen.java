@@ -51,6 +51,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import amber.ShowOff;
+import amber.common.Polar2d;
 
 public class FullScreen extends ShowOff {
     final private EarthView earthView;
@@ -82,6 +83,9 @@ public class FullScreen extends ShowOff {
 
         earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
+        
+        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 10.0, "macbook");
+        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 10.0, "ipod");
         
         list.add(earthView);
         list.add(b);

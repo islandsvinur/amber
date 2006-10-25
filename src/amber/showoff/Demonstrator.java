@@ -70,17 +70,25 @@ public class Demonstrator extends JApplet implements Runnable {
 
         EarthView earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 10.0,
+        earthView.addAttractor(new Polar2d(250.0, 1.75 * Math.PI), 0.75,
+                "spitsbergen");
+        earthView.addAttractor(new Polar2d(250.0, 1.5 * Math.PI), 0.75,
                 "ijsland");
-        earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 10.0,
-                "nederland");
-        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 10.0,
-                "denemarken");
-        earthView.addAttractor(new Polar2d(250.0, 1.75 * Math.PI), 10.0,
+        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 0.75,
                 "groenland");
+        earthView.addAttractor(new Polar2d(250.0, 1.0 * Math.PI), 0.75,
+                "faeröer");
+        earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 0.75,
+                "ierland");
+        earthView.addAttractor(new Polar2d(250.0, 0.5 * Math.PI), 0.75,
+                "nederland");
+        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 0.75,
+                "denemarken");
+        earthView.addAttractor(new Polar2d(250.0, 0.0 * Math.PI), 0.75,
+                "noorwegen");
 
-        mainpane.add(earthView);
         setVisible(true);
+        mainpane.add(earthView);
 
         thread = new Thread(this);
         thread.start();
@@ -101,10 +109,11 @@ public class Demonstrator extends JApplet implements Runnable {
             storyQueue.add(s);
 
             // Generate analyses at random
-            if (Math.random() * 5 < 1) {
+            // if (Math.random() * 3 < 1) {
+            if (true) {
                 Analysis a = new Analysis();
-                a.setID("story-" + (storyCounter - 10));
-                switch ((int) (Math.random() * 4)) {
+                a.setID("story-" + (storyCounter - 2));
+                switch ((int) (Math.random() * 8)) {
                 case 0:
                     a.setTopic("ijsland");
                     break;
@@ -117,18 +126,30 @@ public class Demonstrator extends JApplet implements Runnable {
                 case 3:
                     a.setTopic("groenland");
                     break;
+                case 4:
+                    a.setTopic("noorwegen");
+                    break;
+                case 5:
+                    a.setTopic("faeröer");
+                    break;
+                case 6:
+                    a.setTopic("ierland");
+                    break;
+                case 7:
+                    a.setTopic("spitsbergen");
+                    break;
                 }
-                a.setTopicRelevance(1.0);
+                a.setTopicRelevance(Math.random());
                 analysisQueue.add(a);
 
             }
-            
-            if (storyCounter == 500) {
+
+            if (storyCounter == 1000) {
                 thread = null;
             }
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
