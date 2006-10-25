@@ -69,8 +69,6 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private int frameDelay = 40;
 
-    private Double scalingFactor = 1.0;
-
     private Thread animator;
 
     private int frame = 0;
@@ -108,16 +106,17 @@ public class EarthView extends JPanel implements Runnable, Observer {
         int earthRadius = 50;
         Dimension d = getSize();
 
-        g.setColor(getBackground());
+        g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0, (float) 0.01));
+        // g.setColor(Color.black);
         g.fillRect(0, 0, d.width, d.height);
 
         g.setColor(getForeground());
         g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
                 earthRadius, earthRadius);
 
-        for (int i = earthRadius * 2; i < d.width; i += 25) {
+        /* for (int i = earthRadius * 2; i < d.width; i += 25) {
             g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
-        }
+        } */
 
         synchronized (particles) {
             Iterator<Entry<String, Particle>> i = particles.entrySet()
@@ -130,7 +129,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
             }
         }
         Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
-        g.setColor(Color.white);
+        g.setColor(getForeground());
         
         while (j.hasNext()) {
             Entry<String, Attractor> e = j.next();
@@ -149,14 +148,13 @@ public class EarthView extends JPanel implements Runnable, Observer {
     public void drawParticle(Graphics g, Particle p) {
         // int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) *
         // scalingFactor);
-        int diameter = 10;
+        int diameter = 5;
         Dimension d = getSize();
         Point2d loc = p.getLocation();
         // loc.scale(scalingFactor);
 
         if (!p.crashed()) {
-            g.setColor(new Color(Color.HSBtoRGB(
-                    (float) ((p.getVelocity().x) / 14.0), 1, 1)));
+            g.setColor(p.color);
             g.fillOval((int) (loc.x - diameter / 2) + (d.width / 2),
                     (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
                     diameter);
@@ -233,9 +231,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
                 a.getID();
                 EarthViewStory s = stories.get(a.getID());
-                System.out.println("New analysis incoming: " + a.getID());
+                // System.out.println("New analysis incoming: " + a.getID());
                 if (s != null) {
-                    System.out.println("Adding analysis");
+                    // System.out.println("Adding analysis");
                     s.addAnalysis(a);
                 }
             }

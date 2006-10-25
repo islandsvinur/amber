@@ -87,7 +87,11 @@ public class KeywordSpotter extends Sieve {
 
         if (contentPattern != null) {
             String content = story.getContent();
+            String title = story.getTitle();
             if (contentPattern.matcher(content).matches()) {
+                a.setTopicRelevance(1.0);
+            }
+            if (contentPattern.matcher(title).matches()) {
                 a.setTopicRelevance(1.0);
             }
         }

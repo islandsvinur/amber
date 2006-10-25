@@ -47,5 +47,6 @@ public class Attractor {
     public Polar2d location;
     public Double force;
     public String topic;
+    
 
 }

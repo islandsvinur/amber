@@ -71,9 +71,15 @@ public abstract class ShowOff extends Module {
 
             // Print some information
             System.out.println("Received story written by " + story.getAuthor()
-                    + " on " + story.getPublicationDate());
+                    + " on " + story.getPublicationDate() + ", with id: " + story.getID());
             // Now add this story to the queue
             storyQueue.add(story);
+            return true;
+        } else if (msg.type.matches("Analysis.*")) {
+            Analysis a;
+            a = Analysis.createFromYAML(msg.content);
+            System.out.println("Received analysis for story " + a.getID() + " topic: " + a.getTopic());
+            analysisQueue.add(a);
             return true;
         }
         return false;
