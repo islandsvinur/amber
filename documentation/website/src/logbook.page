@@ -154,17 +154,13 @@ p(plan). Continue detailed design and code for visualization. Enable
 communication of visualizer with Psyclone. By the end of the week, the applet
 should respond on new stories and incoming analyses.
 
-<div class="invisible">
-
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 23.10| |
-(table-row-even). |Tue 24.10| |
-(table-row-odd). |Wed 25.10| |
+(table-row-odd). |Mon 23.10|Attractors fully implemented|
+(table-row-even). |Tue 24.10|Psyclone communication completed|
+(table-row-odd). |Wed 25.10|Particle trails,<br />These are far too slow, thinking about porting to OpenGL|
 (table-row-even). |Thu 26.10| |
 (table-row-odd). |Fri 27.10| |
-
-</div>
 
 h3. Week 44
 
