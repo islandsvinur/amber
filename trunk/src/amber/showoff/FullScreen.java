@@ -82,12 +82,12 @@ public class FullScreen extends ShowOff {
         });
 
         earthView = new EarthView(storyQueue, analysisQueue);
-        earthView.setVisible(true);
+        earthView.panel.setVisible(true);
         
         earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 10.0, "macbook");
         earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 10.0, "ipod");
         
-        list.add(earthView);
+        list.add(earthView.panel);
         list.add(b);
 
         mainpane.add(list);
