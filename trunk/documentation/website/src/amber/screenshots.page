@@ -5,5 +5,5 @@ orderInfo: 40
 ---
 h2. Screenshots
 
-<applet archive="prototypes/20061017.jar" code="amber.showoff.Demonstrator" width="500" height="500">
+<applet archive="prototypes/20061026.jar,prototypes/lib/jvyaml.jar,prototypes/lib/vecmath.jar" code="amber.showoff.Demonstrator" width="500" height="350">
 </applet>
