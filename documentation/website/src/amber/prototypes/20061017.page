@@ -1,0 +1,9 @@
+---
+title: 17 Oct 2006
+inMenu: true
+orderInfo: 51
+---
+h2. Prototype 17 October
+
+<applet archive="20061017.jar,lib/jvyaml.jar,lib/vecmath.jar" code="amber.showoff.Demonstrator" width="500" height="500">
+</applet>
