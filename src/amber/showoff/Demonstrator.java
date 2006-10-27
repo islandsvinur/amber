@@ -70,25 +70,25 @@ public class Demonstrator extends JApplet implements Runnable {
 
         EarthView earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(250.0, 1.75 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 1.75 * Math.PI), 0.75,
                 "spitsbergen");
-        earthView.addAttractor(new Polar2d(250.0, 1.5 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 1.5 * Math.PI), 0.75,
                 "ijsland");
-        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 1.25 * Math.PI), 0.75,
                 "groenland");
-        earthView.addAttractor(new Polar2d(250.0, 1.0 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 1.0 * Math.PI), 0.75,
                 "faeröer");
-        earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 0.75 * Math.PI), 0.75,
                 "ierland");
-        earthView.addAttractor(new Polar2d(250.0, 0.5 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 0.5 * Math.PI), 0.75,
                 "nederland");
-        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 0.25 * Math.PI), 0.75,
                 "denemarken");
-        earthView.addAttractor(new Polar2d(250.0, 0.0 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(0.9, 0.0 * Math.PI), 0.75,
                 "noorwegen");
 
         setVisible(true);
-        mainpane.add(earthView);
+        mainpane.add(earthView.panel);
 
         thread = new Thread(this);
         thread.start();
@@ -149,7 +149,7 @@ public class Demonstrator extends JApplet implements Runnable {
             }
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
