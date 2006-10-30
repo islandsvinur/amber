@@ -159,12 +159,13 @@ table(log).
 (table-row-odd). |Mon 23.10|Attractors fully implemented|
 (table-row-even). |Tue 24.10|Psyclone communication completed|
 (table-row-odd). |Wed 25.10|Particle trails,<br />These are far too slow, thinking about porting to OpenGL|
-(table-row-even). |Thu 26.10| |
-(table-row-odd). |Fri 27.10| |
+(table-row-even). |Thu 26.10|Ported visualization to OpenGL,<br/>Workstation can now no longer render it in real time, but laptop can|
+(table-row-odd). |Fri 27.10|Only small fixes, half work day because of science trip to "Marorka":http://www.marorka.is/ |
 
 h3. Week 44
 
-p(plan). Continue detailed design and code for visualization.
+p(plan). Complete work at OpenGL visualization, return to crawler and sieves to
+use parameter framework of Psyclone instead of own implementation.
 
 <div class="invisible">
 
@@ -196,7 +197,8 @@ table(log).
 
 h3. Week 46
 
-p(plan). Fine-tune visualization parameters.
+p(plan). Fine-tune crawling, analysis and visualization parameters. Create
+final distribution files. Test those on various platforms.
 
 <div class="invisible">
 
@@ -212,7 +214,7 @@ table(log).
 
 h3. Week 47
 
-p(plan). Finish everything up, write demonstration scenarios.
+p(plan). Finish everything up. *No more coding this week!*
 
 <div class="invisible">
 
