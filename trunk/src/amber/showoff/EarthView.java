@@ -51,18 +51,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Map.Entry;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLEventListener;
+import javax.swing.JPanel;
 import javax.vecmath.Point2d;
-
-import com.sun.opengl.util.Animator;
 
 import amber.common.Analysis;
 import amber.common.Polar2d;
 
-public class EarthView implements Runnable, Observer, GLEventListener {
+public class EarthView extends JPanel implements Runnable, Observer {
 
     private static final long serialVersionUID = -3882808552754900513L;
 
@@ -74,7 +69,7 @@ public class EarthView implements Runnable, Observer, GLEventListener {
 
     private int frameDelay = 40;
 
-    private Thread thread;
+    private Thread animator;
 
     private int frame = 0;
 
@@ -87,50 +82,93 @@ public class EarthView implements Runnable, Observer, GLEventListener {
     private ObservableList<EarthViewStory> storyQueue;
 
     private ObservableList<Analysis> analysisQueue;
-    
-    final public GLCanvas panel;
 
     public EarthView(ObservableList<EarthViewStory> sq,
             ObservableList<Analysis> aq) {
         storyQueue = sq;
         analysisQueue = aq;
+        // particles = Collections.synchronizedList(new LinkedList<Particle>());
         attractors = new Hashtable<String, Attractor>();
         particles = new Hashtable<String, Particle>();
         stories = new Hashtable<String, EarthViewStory>();
-        panel = new GLCanvas();
-        panel.addGLEventListener(this);
         sq.addObserver(this);
-        
         start();
     }
 
     public void start() {
-        panel.setBackground(Color.black);
-        panel.setForeground(Color.white);
-        
-        final Animator animator = new Animator(panel);
+        setBackground(Color.black);
+        setForeground(Color.white);
+        animator = new Thread(this);
         animator.start();
-        
-        thread = new Thread(this);
-        thread.start();
     }
 
-    public void drawParticle(GLAutoDrawable drawable, Particle p) {
-        double diameter = 0.01;
-        Point2d loc = p.getLocation();
+    public void paintComponent(Graphics g) {
+        int earthRadius = 50;
+        Dimension d = getSize();
+
+        g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0, (float) 0.01));
+        // g.setColor(Color.black);
+        g.fillRect(0, 0, d.width, d.height);
+
+        g.setColor(getForeground());
+        g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
+                earthRadius, earthRadius);
+
+        /* for (int i = earthRadius * 2; i < d.width; i += 25) {
+            g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
+        } */
+
+        synchronized (particles) {
+            Iterator<Entry<String, Particle>> i = particles.entrySet()
+                    .iterator();
+            while (i.hasNext()) {
+                Entry<String, Particle> e = i.next();
+                Particle p = e.getValue();
+                if (!p.crashed())
+                    drawParticle(g, p);
+            }
+        }
+        Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
+        g.setColor(getForeground());
         
-        GL gl = drawable.getGL();
+        while (j.hasNext()) {
+            Entry<String, Attractor> e = j.next();
+            Point2d p = e.getValue().location.toCartesianPoint();
+            p.add(new Point2d(d.width / 2, d.height / 2));
+            int x = new Double(p.x).intValue();
+            int y = new Double(p.y).intValue();
+            g.drawOval(x - 5, y - 5, 10, 10);
+            g.drawString(e.getKey(), x + 15, y);
+        }
+
+        g.drawString("Number of particles: " + particles.size(), 15, 15);
+        g.drawString("Frame: " + frame, 15, 30);
+    }
+
+    public void drawParticle(Graphics g, Particle p) {
+        // int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) *
+        // scalingFactor);
+        int diameter = 5;
+        Dimension d = getSize();
+        Point2d loc = p.getLocation();
+        // loc.scale(scalingFactor);
 
         if (!p.crashed()) {
-            gl.glBegin(GL.GL_POLYGON);
-            drawCircle(drawable, loc.x, loc.y, diameter, 6);
-            gl.glEnd();
+            g.setColor(p.color);
+            g.fillOval((int) (loc.x - diameter / 2) + (d.width / 2),
+                    (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
+                    diameter);
         }
+        /*
+         * if (10000 * Math.random() < 1) { // System.out.println("Boost
+         * particle"); p.boost(100.0); }
+         */
     }
 
     public void run() {
         long tm = System.currentTimeMillis();
-        while (Thread.currentThread() == thread) {
+        while (Thread.currentThread() == animator) {
+            repaint();
 
             try {
                 tm += frameDelay;
@@ -200,6 +238,7 @@ public class EarthView implements Runnable, Observer, GLEventListener {
                 }
             }
         }
+
     }
 
     public void update(Observable updater, Object message) {
@@ -221,88 +260,6 @@ public class EarthView implements Runnable, Observer, GLEventListener {
         a.topic = topic;
         attractors.put(topic, a);
         return a;
-    }
-
-    public void init(GLAutoDrawable drawable) {
-        // TODO Auto-generated method stub
-    }
-    
-    public void drawCircle(GLAutoDrawable drawable, double x, double y, double radius, int granularity)
-    {
-       GL gl = drawable.getGL();
-       for (int i=0; i < 360; i += 360 / granularity)
-       {
-          double degInRad = i*(Math.PI/180);
-          gl.glVertex2d(x + Math.cos(degInRad)*radius, y + Math.sin(degInRad)*radius);
-       }
-    }
-    
-    public void display(GLAutoDrawable drawable) {
-        // TODO Auto-generated method stub
-        GL gl = drawable.getGL();
-
-        double earthRadius = 0.05;
-        
-        gl.glLoadIdentity();
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);        
-        
-        /* gl.glBegin(GL.GL_QUADS);
-        gl.glColor4f(0F, 0F, 0F, 0.1F);
-        gl.glVertex2d(-1, 1);
-        gl.glVertex2d(-1, -1);
-        gl.glVertex2d(1, -1);
-        gl.glVertex2d(1, 1);
-        gl.glEnd(); */
-
-        // Draw "Earth"
-        gl.glColor3f(1F, 1F, 1F);
-        gl.glBegin(GL.GL_LINE_LOOP);
-        drawCircle(drawable, 0D, 0D, earthRadius, 30);
-        gl.glEnd();
-
-        /* for (int i = earthRadius * 2; i < d.width; i += 25) {
-            g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
-        } */
-
-        synchronized (particles) {
-            Iterator<Entry<String, Particle>> i = particles.entrySet()
-                    .iterator();
-            while (i.hasNext()) {
-                Entry<String, Particle> e = i.next();
-                Particle p = e.getValue();
-                if (!p.crashed())
-                    drawParticle(drawable, p);
-            }
-        }
-
-        Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
-        
-        gl.glColor3f(1F, 1F, 1F);
-        while (j.hasNext()) {
-            Entry<String, Attractor> e = j.next();
-            Point2d p = e.getValue().location.toCartesianPoint();
-            
-            gl.glBegin(GL.GL_LINE_LOOP);
-            drawCircle(drawable, p.x, p.y, 0.01, 12);
-            gl.glEnd();
-        }
-
-        // g.drawString("Number of particles: " + particles.size(), 15, 15);
-        // g.drawString("Frame: " + frame, 15, 30);
-    }
-
-    public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void displayChanged(GLAutoDrawable arg0, boolean arg1, boolean arg2) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setVisible(boolean b) {
-        panel.setVisible(b);
     }
 
 }
