@@ -83,21 +83,21 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private ObservableList<Analysis> analysisQueue;
 
+    private boolean firstFrame = true;
+
     public EarthView(ObservableList<EarthViewStory> sq,
             ObservableList<Analysis> aq) {
         storyQueue = sq;
         analysisQueue = aq;
-        // particles = Collections.synchronizedList(new LinkedList<Particle>());
         attractors = new Hashtable<String, Attractor>();
         particles = new Hashtable<String, Particle>();
         stories = new Hashtable<String, EarthViewStory>();
         sq.addObserver(this);
-        start();
     }
 
     public void start() {
-        setBackground(Color.black);
         setForeground(Color.white);
+        setBackground(Color.black);
         animator = new Thread(this);
         animator.start();
     }
@@ -106,7 +106,14 @@ public class EarthView extends JPanel implements Runnable, Observer {
         int earthRadius = 50;
         Dimension d = getSize();
 
-        g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0, (float) 0.01));
+        if (firstFrame) {
+            firstFrame = false;
+            g.setColor(getBackground());
+            g.fillRect(0, 0, d.width, d.height);
+        }
+
+        g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0,
+                (float) 0.01));
         // g.setColor(Color.black);
         g.fillRect(0, 0, d.width, d.height);
 
@@ -114,9 +121,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
         g.drawOval((d.width - earthRadius) / 2, (d.height - earthRadius) / 2,
                 earthRadius, earthRadius);
 
-        /* for (int i = earthRadius * 2; i < d.width; i += 25) {
-            g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i);
-        } */
+        /*
+         * for (int i = earthRadius * 2; i < d.width; i += 25) {
+         * g.drawOval((d.width - i) / 2, (d.height - i) / 2, i, i); }
+         */
 
         synchronized (particles) {
             Iterator<Entry<String, Particle>> i = particles.entrySet()
@@ -130,7 +138,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
         Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
         g.setColor(getForeground());
-        
+
         while (j.hasNext()) {
             Entry<String, Attractor> e = j.next();
             Point2d p = e.getValue().location.toCartesianPoint();
@@ -141,13 +149,14 @@ public class EarthView extends JPanel implements Runnable, Observer {
             g.drawString(e.getKey(), x + 15, y);
         }
 
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 200, 45);
+        g.setColor(getForeground());
         g.drawString("Number of particles: " + particles.size(), 15, 15);
         g.drawString("Frame: " + frame, 15, 30);
     }
 
     public void drawParticle(Graphics g, Particle p) {
-        // int diameter = (int) (Math.cbrt(p.getMass() / p.getDensity()) *
-        // scalingFactor);
         int diameter = 5;
         Dimension d = getSize();
         Point2d loc = p.getLocation();
@@ -159,10 +168,6 @@ public class EarthView extends JPanel implements Runnable, Observer {
                     (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
                     diameter);
         }
-        /*
-         * if (10000 * Math.random() < 1) { // System.out.println("Boost
-         * particle"); p.boost(100.0); }
-         */
     }
 
     public void run() {
