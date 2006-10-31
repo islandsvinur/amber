@@ -67,7 +67,7 @@ public class Particle {
 
     private boolean bound = false;
 
-    private final static Double CRASH_HEIGHT = 0.0030;
+    private final static Double CRASH_HEIGHT = 30.0;
 
     private final static int MAXIMUM_ORBITS = 50;
 
@@ -151,10 +151,10 @@ public class Particle {
 
     public void launch() {
         velocity.theta = -2.0;
-        velocity.r = 0.30 + 0.01 * Math.random();
+        velocity.r = 40.0 + Math.random();
 
-        accel.theta = 1.0;
-        accel.r = -0.1 - 0.01 * Math.random();
+        accel.theta = 0.5;
+        accel.r = -7.5 - Math.random();
 
         state = STATE_LAUNCH;
     }
@@ -164,7 +164,7 @@ public class Particle {
     }
 
     private Double keplerRotation(Double r) {
-        return 1 / (Math.sqrt(r * r * r) * 10);
+        return (1 / Math.sqrt(r * r * r)) * 1000.0;
     }
 
     public void calculate(Double time) {
@@ -180,7 +180,7 @@ public class Particle {
         else
             velocity.theta = keplerRotation(location.r);
 
-        if (state == STATE_LAUNCH && velocity.r < 0.0001) {
+        if (state == STATE_LAUNCH && velocity.r < 0.1) {
             state = STATE_ORBITING;
             accel.r = 0;
             accel.theta = 0;
@@ -190,7 +190,7 @@ public class Particle {
         if (state == STATE_ORBITING) {
             if (location.theta > MAXIMUM_ORBITS * 2 * Math.PI + Math.random()
                     * Math.PI) {
-                accel.r = -0.005;
+                accel.r = -5.0;
                 state = STATE_CRASHING;
             }
         }
@@ -205,13 +205,13 @@ public class Particle {
         }
 
         if (state > STATE_LAUNCH) {
-            if (Math.abs(accel.theta) < 0.0001)
+            if (Math.abs(accel.theta) < 0.1)
                 accel.theta = 0;
-            if (Math.abs(accel.r) < 0.0001)
+            if (Math.abs(accel.r) < 0.1)
                 accel.r = 0;
-            if (Math.abs(velocity.theta) < 0.0001)
+            if (Math.abs(velocity.theta) < 0.1)
                 velocity.theta = 0;
-            if (Math.abs(velocity.r) < 0.0001)
+            if (Math.abs(velocity.r) < 0.1)
                 velocity.r = 0;
         }
 
