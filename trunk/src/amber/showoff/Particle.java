@@ -94,7 +94,7 @@ public class Particle {
 
     public void bind() {
         bound = true;
-        color = new Color(255, 255, 255);
+        color = new Color(255, 255, 127);
     }
 
     public Point2d getLocation() {
@@ -150,10 +150,10 @@ public class Particle {
     }
 
     public void launch() {
+        velocity.r = 30.0 + Math.random();
         velocity.theta = -2.0;
-        velocity.r = 40.0 + Math.random();
 
-        accel.theta = 0.5;
+        accel.theta = 0.75;
         accel.r = -7.5 - Math.random();
 
         state = STATE_LAUNCH;
@@ -164,7 +164,8 @@ public class Particle {
     }
 
     private Double keplerRotation(Double r) {
-        return (1 / Math.sqrt(r * r * r)) * 1000.0;
+        Double r2 = r * 1.5;
+        return (1 / Math.sqrt(r2 * r2 * r2)) * 1000.0;
     }
 
     public void calculate(Double time) {

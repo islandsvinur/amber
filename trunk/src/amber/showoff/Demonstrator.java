@@ -77,7 +77,7 @@ public class Demonstrator extends JApplet implements Runnable {
         earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 0.75,
                 "groenland");
         earthView.addAttractor(new Polar2d(250.0, 1.0 * Math.PI), 0.75,
-                "faer√∂er");
+                "faeröer");
         earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 0.75,
                 "ierland");
         earthView.addAttractor(new Polar2d(250.0, 0.5 * Math.PI), 0.75,
@@ -87,6 +87,8 @@ public class Demonstrator extends JApplet implements Runnable {
         earthView.addAttractor(new Polar2d(250.0, 0.0 * Math.PI), 0.75,
                 "noorwegen");
 
+        earthView.start();
+        
         setVisible(true);
         mainpane.add(earthView);
 
