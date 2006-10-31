@@ -167,17 +167,13 @@ h3. Week 44
 p(plan). Complete work at OpenGL visualization, return to crawler and sieves to
 use parameter framework of Psyclone instead of own implementation.
 
-<div class="invisible">
-
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 30.10| |
-(table-row-even). |Tue 31.10| |
+(table-row-odd). |Mon 30.10|Tried to implement textures for fading|
+(table-row-even). |Tue 31.10|Gave up on OpenGL, removed everything and continued on the JPanel implementation|
 (table-row-odd). |Wed 1.11| |
 (table-row-even). |Thu 2.11| |
 (table-row-odd). |Fri 3.11| |
-
-</div>
 
 h3. Week 45
 
