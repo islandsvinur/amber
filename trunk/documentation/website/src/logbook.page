@@ -171,7 +171,7 @@ table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 30.10|Tried to implement textures for fading|
 (table-row-even). |Tue 31.10|Gave up on OpenGL, removed everything and continued on the JPanel implementation|
-(table-row-odd). |Wed 1.11| |
+(table-row-odd). |Wed 1.11|Different way of configuring the modules, by making use of the parameter framework in Psyclone,<br />Small problem left, fix tomorrow|
 (table-row-even). |Thu 2.11| |
 (table-row-odd). |Fri 3.11| |
 
