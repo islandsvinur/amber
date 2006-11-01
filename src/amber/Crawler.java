@@ -42,8 +42,17 @@ package amber;
 
 import amber.common.Module;
 
+/**
+ * @author christian
+ *
+ */
 public abstract class Crawler extends Module {
 
+    /**
+     * @param moduleName
+     * @param hostname
+     * @param port
+     */
     public Crawler(String moduleName, String hostname, Integer port) {
         super("Crawler." + moduleName, hostname, port);
     }

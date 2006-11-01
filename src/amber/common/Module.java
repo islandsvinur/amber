@@ -42,18 +42,27 @@ package amber.common;
 
 import com.cmlabs.air.Message;
 
+/**
+ * @author christian
+ * 
+ */
 public abstract class Module implements AirBrushCallable {
 
     final public String moduleName;
 
     final protected AirBrush airBrush;
 
+    /**
+     * @param name
+     * @param hostname
+     * @param port
+     */
     public Module(String name, String hostname, Integer port) {
         moduleName = "Module." + name;
-        
+
         airBrush = new AirBrush(moduleName, hostname, port);
         airBrush.setCallbackObject(this);
-        
+
         try {
             airBrush.startListening();
         } catch (Exception e) {
@@ -61,7 +70,12 @@ public abstract class Module implements AirBrushCallable {
             e.printStackTrace();
         }
     }
-   
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see amber.common.AirBrushCallable#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
     public boolean airBrushReceiveMessage(Message msg) {
         if (msg.to.equals("WB.Control")) {
             if (msg.type.equals("All.Start")) {
@@ -75,12 +89,12 @@ public abstract class Module implements AirBrushCallable {
         return false;
     }
 
-    /* Start normal operation after initialization and configuration */
+    /** Start normal operation after initialization and configuration */
     public void start() {
-    
+
     }
 
-    /* Stop normal operation and exit */
+    /** Stop normal operation and exit */
     public void stop() {
         airBrush.stopListening();
     }

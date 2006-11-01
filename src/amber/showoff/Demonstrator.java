@@ -48,6 +48,10 @@ import javax.swing.JApplet;
 import amber.common.Analysis;
 import amber.common.Polar2d;
 
+/**
+ * @author christian
+ *
+ */
 public class Demonstrator extends JApplet implements Runnable {
 
     private static final long serialVersionUID = -6492789321739444369L;
@@ -60,6 +64,9 @@ public class Demonstrator extends JApplet implements Runnable {
 
     int storyCounter = 0;
 
+    /**
+     * 
+     */
     public Demonstrator() {
         Container mainpane = getContentPane();
 
@@ -103,6 +110,9 @@ public class Demonstrator extends JApplet implements Runnable {
         new Demonstrator();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
 
         while (Thread.currentThread() == thread) {

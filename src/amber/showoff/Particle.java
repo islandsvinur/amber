@@ -51,6 +51,10 @@ import javax.vecmath.Vector2d;
 import amber.common.Polar2d;
 import amber.common.Story;
 
+/**
+ * @author christian
+ *
+ */
 public class Particle {
 
     private Polar2d accel = null, velocity = null, location = null;
@@ -81,6 +85,9 @@ public class Particle {
 
     private final static int STATE_CRASHED = 4;
 
+    /**
+     * @param s
+     */
     public Particle(EarthViewStory s) {
         story = s;
         locationCartesian = new Point2d(0, 0);
@@ -92,16 +99,25 @@ public class Particle {
         s.setParticle(this);
     }
 
+    /**
+     * 
+     */
     public void bind() {
         bound = true;
         color = new Color(255, 255, 127);
     }
 
+    /**
+     * @return
+     */
     public Point2d getLocation() {
         return locationCartesian;
         // return location.toCartesianPoint();
     }
 
+    /**
+     * @return
+     */
     private Point2d displaceParticle() {
         Polar2d v1 = location.clone();
         if (bound) {
@@ -141,14 +157,23 @@ public class Particle {
         return story;
     }
 
+    /**
+     * @param s
+     */
     public void setStory(EarthViewStory s) {
         story = s;
     }
 
+    /**
+     * @return
+     */
     public boolean isLaunched() {
         return state >= STATE_LAUNCH;
     }
 
+    /**
+     * 
+     */
     public void launch() {
         velocity.r = 30.0 + Math.random();
         velocity.theta = -2.0;
@@ -159,15 +184,25 @@ public class Particle {
         state = STATE_LAUNCH;
     }
 
+    /**
+     * @param m
+     */
     public void setMass(Double m) {
         mass = m;
     }
 
+    /**
+     * @param r
+     * @return
+     */
     private Double keplerRotation(Double r) {
         Double r2 = r * 1.5;
         return (1 / Math.sqrt(r2 * r2 * r2)) * 1000.0;
     }
 
+    /**
+     * @param time
+     */
     public void calculate(Double time) {
 
         location.r = location.r + velocity.r * time + accel.r * time * time;
@@ -223,10 +258,16 @@ public class Particle {
 
     }
 
+    /**
+     * @return true when the particle has crashed, false otherwise
+     */
     public boolean crashed() {
         return (state == STATE_CRASHED);
     }
 
+    /**
+     * @return
+     */
     public Vector2d getVelocity() {
         return velocity.toCartesianVector();
     }

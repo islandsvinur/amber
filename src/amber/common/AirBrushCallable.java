@@ -42,6 +42,14 @@ package amber.common;
 
 import com.cmlabs.air.Message;
 
+/**
+ * @author christian
+ *
+ */
 public interface AirBrushCallable {
+    /**
+     * @param msg
+     * @return true if the message was handled, false if it wasn't
+     */
     public boolean airBrushReceiveMessage(Message msg);
 }

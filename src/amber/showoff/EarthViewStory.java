@@ -49,6 +49,10 @@ import java.util.ListIterator;
 import amber.common.Analysis;
 import amber.common.Story;
 
+/**
+ * @author christian
+ *
+ */
 public class EarthViewStory extends Story {
 
     private List<Analysis> analyses;
@@ -56,29 +60,45 @@ public class EarthViewStory extends Story {
 
     private Particle particle;
 
+    /**
+     * 
+     */
     private void init() {
         analyses = Collections.synchronizedList(new LinkedList<Analysis>());
         weights = new Hashtable<String, Double>();
     }
     
+    /**
+     * @param in
+     * @return
+     */
     public static EarthViewStory createFromYAML(String in) {
         EarthViewStory story = new EarthViewStory();
         story.fromYAML(in);
         return story;
     }
     
+    /**
+     * 
+     */
     public EarthViewStory() {
         super();
         init();
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * @param identifier
+     */
     public EarthViewStory(String identifier) {
         super(identifier);
         init();
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * @param a
+     */
     public void addAnalysis(Analysis a) {
         // TODO: Check whether analysis is indeed for this story
         analyses.add(a);
@@ -87,10 +107,17 @@ public class EarthViewStory extends Story {
         particle.bind();
     }
     
+    /**
+     * @param topic
+     * @return
+     */
     public Double getWeight(String topic) {
         return weights.get(topic);
     }
 
+    /**
+     * 
+     */
     public void calculateWeights() {
         if (particle != null) {
             synchronized(analyses) {
@@ -118,6 +145,9 @@ public class EarthViewStory extends Story {
         }
     }
 
+    /**
+     * @param p
+     */
     public void setParticle(Particle p) {
         // It is assumed that the particle isn't already coupled to another
         // story! Values in the particle are overwritten every time an analysis
@@ -127,6 +157,9 @@ public class EarthViewStory extends Story {
         calculateWeights();
     }
     
+    /**
+     * @return
+     */
     public boolean hasParticle() {
         return (particle != null);
     }

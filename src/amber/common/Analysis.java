@@ -40,6 +40,10 @@
 
 package amber.common;
 
+/**
+ * @author christian
+ *
+ */
 public class Analysis extends AmberMessage {
 
     final static private String keyIdentifier = "URI";
@@ -52,21 +56,34 @@ public class Analysis extends AmberMessage {
 
     private boolean relevant = false;
 
+    /**
+     * 
+     */
     public Analysis() {
         super();
     }
 
+    /**
+     * @param identifier
+     */
     public Analysis(String identifier) {
         this();
         setProperty(keyIdentifier, identifier);
     }
 
+    /**
+     * @param in
+     * @return
+     */
     public static Analysis createFromYAML(String in) {
         Analysis a = new Analysis();
         a.fromYAML(in);
         return a;
     }
 
+    /**
+     * @return
+     */
     public boolean isRelevant() {
         return relevant;
     }
@@ -87,7 +104,11 @@ public class Analysis extends AmberMessage {
         return getStringProperty(keyTopic);
     }
 
-    public void setRelevance(String key, Double value) {
+    /**
+     * @param key
+     * @param value
+     */
+    protected void setRelevance(String key, Double value) {
         Double curr = getDoubleProperty(key);
         if (curr != null) {
             setProperty(key, Math.max(curr, value));
@@ -97,18 +118,30 @@ public class Analysis extends AmberMessage {
         relevant = true;
     }
 
+    /**
+     * @param value
+     */
     public void setTopicRelevance(Double value) {
         setRelevance(keyTopicRelevance, value);
     }
 
+    /**
+     * @param value
+     */
     public void setAuthorRelevance(Double value) {
         setRelevance(keyAuthorRelevance, value);
     }
 
+    /**
+     * @param value
+     */
     public void setID(String value) {
         setProperty(keyIdentifier, value);
     }
 
+    /**
+     * @param value
+     */
     public void setTopic(String value) {
         setProperty(keyTopic, value);
     }

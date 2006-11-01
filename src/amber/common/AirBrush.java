@@ -42,6 +42,10 @@ package amber.common;
 
 import com.cmlabs.air.*;
 
+/**
+ * @author christian
+ *
+ */
 public class AirBrush implements Runnable {
     private JavaAIRPlug plug = null;
 
@@ -49,9 +53,9 @@ public class AirBrush implements Runnable {
 
     private AirBrushCallable callback;
 
-    // private Message inMsg;
-    // private Message outMsg;
-
+    /**
+     * @throws Exception
+     */
     private void checkConnection() throws Exception {
         if (plug == null) {
             throw new Exception("No connection with Psyclone.");
@@ -61,20 +65,30 @@ public class AirBrush implements Runnable {
         }
     }
 
-    public AirBrush() {
-
-    }
-
+    /**
+     * @param plugname
+     * @param hostname
+     * @param port
+     */
     public AirBrush(String plugname, String hostname, Integer port) {
         connect(plugname, hostname, port);
     }
 
+    /**
+     * @param plugname
+     * @param hostname
+     * @param port
+     */
     public void connect(String plugname, String hostname, Integer port) {
         System.out.println("Creating connection with Psyclone at " + hostname
                 + ":" + port + " with service name " + plugname);
         plug = new JavaAIRPlug(plugname, hostname, port);
     }
 
+    /**
+     * @return
+     * @throws Exception
+     */
     public boolean connect() throws Exception {
         checkConnection();
 
@@ -85,6 +99,10 @@ public class AirBrush implements Runnable {
         return true;
     }
 
+    /**
+     * @param wb
+     * @throws Exception
+     */
     public void connectAndOpenWhiteboard(String wb) throws Exception {
         // Connect to Psyclone
         connect();
@@ -99,6 +117,9 @@ public class AirBrush implements Runnable {
         startListening();
     }
 
+    /**
+     * @throws Exception
+     */
     public void startListening() throws Exception {
         if (thread != null) {
             throw new Exception("Already running!");
@@ -107,12 +128,20 @@ public class AirBrush implements Runnable {
         thread.start();
     }
 
+    /**
+     * 
+     */
     public void stopListening() {
         thread = null;
         plug.disconnectNetworkConnections();
         plug.destroy();
     }
 
+    /**
+     * @param wb
+     * @return
+     * @throws Exception
+     */
     public boolean openWhiteboard(String wb) throws Exception {
         checkConnection();
 
@@ -122,14 +151,71 @@ public class AirBrush implements Runnable {
         return true;
     }
 
+    /**
+     * @param msg
+     */
     public void postMessage(Message msg) {
         plug.postOutputMessage(msg);
     }
 
+    /**
+     * @param cb
+     */
     public void setCallbackObject(AirBrushCallable cb) {
         callback = cb;
     }
+    
+    /**
+     * @param key
+     * @param value
+     */
+    public void setParameter(String key, String value) {
+        plug.setParameterString(key, value);
+    }
+    
+    /**
+     * @param key
+     * @return
+     */
+    public String getParameterString(String key) {
+        return plug.getParameterString(key);
+    }
+    
+    /**
+     * @param key
+     * @param value
+     */
+    public void setParameter(String key, Integer value) {
+        plug.setParameterInteger(key, value);
+    }
+    
+    /**
+     * @param key
+     * @return
+     */
+    public Integer getParameterInteger(String key) {
+        return plug.getParameterInteger(key);
+    }
+    
+    /**
+     * @param key
+     * @param value
+     */
+    public void setParameter(String key, Double value) {
+        plug.setParameterDouble(key, value);
+    }
 
+    /**
+     * @param key
+     * @return
+     */
+    public Double getParameterDouble(String key) {
+        return plug.getParameterDouble(key);
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         Message message;
         Thread current = Thread.currentThread();

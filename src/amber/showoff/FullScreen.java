@@ -53,9 +53,18 @@ import javax.swing.JPanel;
 import amber.ShowOff;
 import amber.common.Polar2d;
 
+/**
+ * @author christian
+ *
+ */
 public class FullScreen extends ShowOff {
     final private EarthView earthView;
     
+    /**
+     * @param moduleName
+     * @param hostname
+     * @param port
+     */
     public FullScreen(String moduleName, String hostname, Integer port) {
         super("FullScreen." + moduleName, hostname, port);
         

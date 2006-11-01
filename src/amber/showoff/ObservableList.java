@@ -48,11 +48,23 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 
+/**
+ * @author christian
+ * 
+ * @param <T>
+ */
 public class ObservableList<T> extends Observable implements List<T> {
-    
+
     private List<T> list;
-    
-    public ObservableList(){
+
+    /**
+     * ObservableList<T> is an implementation of List<T> and extends
+     * Observable. On top of that, it is also synchronized.
+     * 
+     * @see Collections.synchronizedList
+     * 
+     */
+    public ObservableList() {
         list = Collections.synchronizedList(new LinkedList<T>());
     }
 

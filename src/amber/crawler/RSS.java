@@ -42,8 +42,6 @@ package amber.crawler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import amber.Crawler;
@@ -58,60 +56,89 @@ import de.nava.informa.parsers.FeedParser;
 import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
+/**
+ * @author christian
+ *
+ */
 public class RSS extends Crawler implements PollerObserverIF {
     private ChannelIF channel = null;
 
     private Poller poller;
 
-    public RSS(String name, String hostname, Integer port) {
+    /**
+     * @param name
+     * @param hostname
+     * @param port
+     * @throws MalformedURLException
+     */
+    public RSS(String name, String hostname, Integer port) throws MalformedURLException {
         super("RSS." + name, hostname, port);
         poller = new Poller(1);
     }
-
-    public boolean airBrushReceiveMessage(Message msg) {
-        if (super.airBrushReceiveMessage(msg))
-            return true;
-
-        if (msg.to.equals(moduleName)) {
-            if (msg.type.equals("Feed.RSS")) {
-                try {
-                    switchFeed(new URL(msg.content));
-                } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                return true;
-            }
+    
+    /**
+     * @return
+     * @throws MalformedURLException
+     */
+    private URL getURL() throws MalformedURLException {
+        String urlstring = airBrush.getParameterString("QueryString");
+        URL ret = null;
+        try {
+            ret = new URL(urlstring);
+        } catch (MalformedURLException e) {
+            throw new MalformedURLException("The QueryString parameter is not well formed (" + urlstring + ").");
         }
-        return false;
+        return ret;
     }
 
-    private void switchFeed(URL url) {
-        System.out.println("Switching feed to: " + url.toExternalForm());
+    /* (non-Javadoc)
+     * @see amber.common.Module#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
+    public boolean airBrushReceiveMessage(Message msg) {
+        return super.airBrushReceiveMessage(msg);
+    }
+
+    /**
+     * 
+     */
+    private void switchFeed() {
+        try {
+            System.out.println("Switching feed to: " + getURL().toExternalForm());
+        } catch (MalformedURLException e1) {
+            System.err.println("Cannot switch to feed: " + e1);
+            e1.printStackTrace();
+        }
 
         if (channel != null) {
             poller.unregisterChannel(channel);
         }
 
         try {
-            channel = FeedParser.parse(new ChannelBuilder(), url);
+            channel = FeedParser.parse(new ChannelBuilder(), getURL());
         } catch (Exception e) {
             System.err.println("Fout!");
         }
-        Collection items = channel.getItems();
+        /* Collection items = channel.getItems();
         for (Iterator it = items.iterator(); it.hasNext();) {
             itemFound((ItemIF) it.next(), channel);
-        }
+        } */
 
         poller.registerChannel(channel);
     }
 
+    /* (non-Javadoc)
+     * @see amber.common.Module#start()
+     */
     public void start() {
         super.start();
+        switchFeed();
         poller.addObserver(this);
         poller.setPeriod(1 * 60 * 1000);
     }
 
+    /**
+     * @param item
+     */
     private void handleItem(ItemIF item) {
         Story s = new Story();
         Pattern p = Pattern.compile("([^\\p{Print}]|')");
@@ -150,6 +177,9 @@ public class RSS extends Crawler implements PollerObserverIF {
         airBrush.postMessage(msg);
     }
 
+    /* (non-Javadoc)
+     * @see amber.common.Module#stop()
+     */
     @Override
     public void stop() {
         super.stop();
@@ -157,25 +187,40 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     }
 
+    /* (non-Javadoc)
+     * @see de.nava.informa.utils.poller.PollerObserverIF#channelChanged(de.nava.informa.core.ChannelIF)
+     */
     public void channelChanged(ChannelIF arg0) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see de.nava.informa.utils.poller.PollerObserverIF#channelErrored(de.nava.informa.core.ChannelIF, java.lang.Exception)
+     */
     public void channelErrored(ChannelIF arg0, Exception arg1) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see de.nava.informa.utils.poller.PollerObserverIF#itemFound(de.nava.informa.core.ItemIF, de.nava.informa.core.ChannelIF)
+     */
     public void itemFound(ItemIF item, ChannelIF channel) {
         System.out.println("Found item: " + item.getTitle());
         handleItem(item);
     }
 
+    /* (non-Javadoc)
+     * @see de.nava.informa.utils.poller.PollerObserverIF#pollFinished(de.nava.informa.core.ChannelIF)
+     */
     public void pollFinished(ChannelIF arg0) {
         System.out.println("Polling ended.");
     }
 
+    /* (non-Javadoc)
+     * @see de.nava.informa.utils.poller.PollerObserverIF#pollStarted(de.nava.informa.core.ChannelIF)
+     */
     public void pollStarted(ChannelIF arg0) {
         System.out.println("Polling started.");
     }

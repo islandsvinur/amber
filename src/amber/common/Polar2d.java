@@ -44,17 +44,28 @@ import javax.vecmath.Point2d;
 import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
+/**
+ * @author christian
+ *
+ */
 public class Polar2d {
 
     public double theta = 0.0;
 
     public double r = 0.0;
 
+    /**
+     * @param r
+     * @param theta
+     */
     public Polar2d(double r, double theta) {
         this.r = r;
         this.theta = theta;
     }
 
+    /**
+     * @param v
+     */
     public Polar2d(double[] v) {
         r = v[0];
         theta = v[1];
@@ -64,32 +75,52 @@ public class Polar2d {
 
     }
     
+    /**
+     * @param f
+     */
     public void scale(double f) {
         r = r * f;
     }
 
+    /**
+     * @param t
+     * @return
+     */
     static public Polar2d fromCartesianTuple(Tuple2d t) {
         return new Polar2d(Math.atan2(t.y, t.x), Math.sqrt(t.x * t.x + t.y
                 * t.y));
     }
 
+    /**
+     * @param t
+     */
     private void toCartesian(Tuple2d t) {
         t.x = r * Math.cos(theta);
         t.y = r * Math.sin(theta);
     }
 
+    /**
+     * @return
+     */
     public Point2d toCartesianPoint() {
         Point2d p = new Point2d();
         toCartesian(p);
         return p;
     }
 
+    /**
+     * @return
+     */
     public Vector2d toCartesianVector() {
         Vector2d v = new Vector2d();
         toCartesian(v);
         return v;
     }
     
+    /**
+     * @param p2
+     * @return
+     */
     public Polar2d add(Polar2d p2) {
         Polar2d p1 = new Polar2d();
         
@@ -99,6 +130,10 @@ public class Polar2d {
         return p1;
     }
     
+    /**
+     * @param p2
+     * @return
+     */
     public Polar2d minus(Polar2d p2) {
         Polar2d p1 = new Polar2d();
         
@@ -108,6 +143,9 @@ public class Polar2d {
         return p1;
     }
     
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     public Polar2d clone() {
         return new Polar2d(r, theta);
     }

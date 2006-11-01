@@ -46,15 +46,29 @@ import amber.common.Story;
 
 import com.cmlabs.air.Message;
 
+/**
+ * @author christian
+ *
+ */
 public abstract class Sieve extends Module {
-    private String topicString;
+    protected String topicString;
     final private String messageTypeSuffix;
 
+    /**
+     * @param name
+     * @param hostname
+     * @param port
+     */
     public Sieve(String name, String hostname, Integer port) {
         super("Sieve." + name, hostname, port);
         messageTypeSuffix = name;
+        topicString = airBrush.getParameterString("Topic");
+        System.out.println("Topic set to: " + topicString);
     }
 
+    /* (non-Javadoc)
+     * @see amber.common.Module#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
     public boolean airBrushReceiveMessage(Message msg) {
         if (super.airBrushReceiveMessage(msg))
             return true;
@@ -74,12 +88,19 @@ public abstract class Sieve extends Module {
         return false;
     }
 
-    public abstract Analysis doAnalysis(Story story, String topic);
+    /**
+     * @param story
+     * @return
+     */
+    public abstract Analysis doAnalysis(Story story);
 
+    /**
+     * @param msg
+     */
     private void handleIncomingStory(Message msg) {
         Story s = Story.createFromYAML(msg.content);
         if (s != null) {
-            Analysis a = doAnalysis(s, topicString);
+            Analysis a = doAnalysis(s);
 
             if (a.isRelevant()) {
                 Message m = new Message();
