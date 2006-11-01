@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 
   Ambient Earth
@@ -36,7 +37,6 @@
   POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<?xml version="1.0"?>
 <psySpec name="Ambient Earth" version="1.20">  
     
     <global>
@@ -56,33 +56,41 @@
         </description>
     </whiteboard>
 
-    <whiteboard name="WB.Control">
-        <description>
-            Control messages go here.
-        </description>
-    </whiteboard>
-
-    <module name="Initializer">
-        <executable />
-        <spec>
-          <post to="WB.Control" type="Module.*" />
-          <post to="WB.Control" type="All.*" />
-        </spec>
-    </module>
-
     <module name="Module.Crawler.RSS.Anonymous">
         <executable />
-        <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" default="Bla" />
-        <parameter name="RefreshTime" type="Integer" min="1" max="180" value="60" />
-        <parameter name="SomeValue" type="Double" value="1.20321" />
+        <parameter name="FeedURI" type="String" value="" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
         <description>
             This module gets RSS feeds via HTTP, parses them and puts the
             stories in them on the whiteboard (along with meta-data).
         </description>
         <spec>
             <post to="WB.Stories" type="Story" />
-            <!-- <trigger from="WB.Control" type="Crawler.RSS.*" /> -->
-            <trigger from="WB.Control" type="All.*" />
+        </spec>
+    </module>
+
+    <module name="Module.Crawler.RSS.GoT">
+        <executable />
+        <parameter name="FeedURI" type="String" value="http://gathering.tweakers.net/rss.php/list_topics/76" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
+        <description>
+            This RSS module gets the RSS feed of the Gathering of Tweakers
+            subforum Apple Talk.
+        </description>
+        <spec>
+            <post to="WB.Stories" type="Story" />
+        </spec>
+    </module>
+
+    <module name="Module.Crawler.RSS.MacRumors">
+        <executable />
+        <parameter name="FeedURI" type="String" value="http://forums.macrumors.com/external.php?type=RSS2" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
+        <description>
+            This RSS module gets the RSS feed of the MacRumors forums.
+        </description>
+        <spec>
+            <post to="WB.Stories" type="Story" />
         </spec>
     </module>
 
@@ -96,7 +104,6 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="All.*" />
             <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
@@ -112,7 +119,6 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="All.*" />
             <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
@@ -128,13 +134,13 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="All.*" />
             <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
     <module name="Module.ShowOff.FullScreen.Anonymous">
         <executable />
+        <parameter name="Attractors" type="String" value="---" />
         <description>
             This module gets stories from the processed whiteboard and uses the
             story's meta-data to display the stories in a certain way that is
@@ -142,7 +148,6 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="All.*" />
             <trigger from="WB.Analyses" type="Analysis.*" />
         </spec>
     </module>
@@ -155,7 +160,6 @@
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Control" type="All.*" />
             <trigger from="WB.Analyses" type="Analysis.*" />
         </spec>
     </module>

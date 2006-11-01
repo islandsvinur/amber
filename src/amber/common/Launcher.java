@@ -116,15 +116,20 @@ public abstract class Launcher {
             if (cl.hasOption("m")) {
                 String modName = cl.getOptionValue("m");
 
+                Module app = null;
                 if (modName.equals("RSS")) {
-                    new amber.crawler.RSS(id, hostname, port);
+                    app = new amber.crawler.RSS(id, hostname, port);
                 } else if (modName.equals("KeywordSpotter")) {
-                    new amber.sieve.KeywordSpotter(id, hostname, port);
+                    app = new amber.sieve.KeywordSpotter(id, hostname, port);
                 } else if (modName.equals("FullScreen")) {
-                    new amber.showoff.FullScreen(id, hostname, port);
+                    app = new amber.showoff.FullScreen(id, hostname, port);
                 } else if (modName.equals("Applet")) {
-                    new amber.showoff.Applet(id, hostname, port);
+                    app = new amber.showoff.Applet(id, hostname, port);
                 }
+
+                if (app != null)
+                    app.start();
+
             }
 
             System.out.println("Module started");
