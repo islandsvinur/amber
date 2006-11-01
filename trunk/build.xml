@@ -28,7 +28,6 @@
     <pathelement location="/home/christian/.java/deployment/ext/informa-0.6.5/lib/odmg.jar"/>
     <pathelement location="/usr/share/java/commons-cli.jar"/>
     <pathelement location="/usr/share/java/commons-cli-1.0.jar"/>
-    <pathelement location="/home/christian/Source/Amber/lib/jogl.jar"/>
   </path>
   <target name="init">
     <mkdir dir="build"/>
@@ -68,7 +67,31 @@
       <classpath refid="project.classpath"/>
     </java>
   </target>
-  <target name="Sieve (iPod)">
+  <target name="Demonstrator">
+    <java fork="yes" classname="sun.applet.AppletViewer" failonerror="true" dir="/home/christian/Source/Amber">
+      <arg value="Demonstrator.html"/>
+      <classpath refid="project.classpath"/>
+    </java>
+  </target>
+  <target name="Crawl Gathering of Tweakers">
+    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
+      <arg value="-m"/>
+      <arg value="RSS"/>
+      <arg value="-i"/>
+      <arg value="GoT"/>
+      <classpath refid="project.classpath"/>
+    </java>
+  </target>
+  <target name="Crawl MacRumors">
+    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
+      <arg value="-m"/>
+      <arg value="RSS"/>
+      <arg value="-i"/>
+      <arg value="MacRumors"/>
+      <classpath refid="project.classpath"/>
+    </java>
+  </target>
+  <target name="Sieve iPod">
     <java fork="yes" classname="amber.common.Launcher" failonerror="true">
       <arg value="-m"/>
       <arg value="KeywordSpotter"/>
@@ -77,18 +100,12 @@
       <classpath refid="project.classpath"/>
     </java>
   </target>
-  <target name="Sieve (MacBook)">
+  <target name="Sieve MacBook">
     <java fork="yes" classname="amber.common.Launcher" failonerror="true">
       <arg value="-m"/>
       <arg value="KeywordSpotter"/>
       <arg value="-i"/>
       <arg value="MacBook"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Demonstrator">
-    <java fork="yes" classname="sun.applet.AppletViewer" failonerror="true" dir="/home/christian/Source/Amber">
-      <arg value="Demonstrator.html"/>
       <classpath refid="project.classpath"/>
     </java>
   </target>

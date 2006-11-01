@@ -72,7 +72,6 @@ public class FullScreen extends ShowOff {
         main.setSize(500, 500);
         /* JWindow main = new JWindow();
         GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main); */
-        
 
         Container mainpane = main.getContentPane();
 
@@ -93,8 +92,10 @@ public class FullScreen extends ShowOff {
         earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
         
-        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 10.0, "macbook");
-        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 10.0, "ipod");
+        if (airBrush.hasParameter("Attractors")) {
+            earthView.addAttractor(new Polar2d(150.0, 0.25 * Math.PI), 10.0, "MacBook");
+            earthView.addAttractor(new Polar2d(150.0, 1.25 * Math.PI), 10.0, "iPod");
+        }
         
         list.add(earthView);
         list.add(b);
@@ -105,12 +106,7 @@ public class FullScreen extends ShowOff {
 
     public void start() {
         earthView.start();
-    }
-
-    @Override
-    public void stop() {
-        // TODO Auto-generated method stub
-        
+        super.start();
     }
 
 }

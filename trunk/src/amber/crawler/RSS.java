@@ -42,6 +42,8 @@ package amber.crawler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import amber.Crawler;
@@ -74,6 +76,7 @@ public class RSS extends Crawler implements PollerObserverIF {
     public RSS(String name, String hostname, Integer port)
             throws MalformedURLException {
         super("RSS." + name, hostname, port);
+        System.out.println("Creating Poller.");
         poller = new Poller(1);
         switchFeed();
     }
@@ -90,9 +93,8 @@ public class RSS extends Crawler implements PollerObserverIF {
             try {
                 ret = new URL(urlstring);
             } catch (MalformedURLException e) {
-                throw new MalformedURLException(
-                        "The " + paramname + " parameter is not well formed ("
-                                + urlstring + ").");
+                throw new MalformedURLException("The " + paramname
+                        + " parameter is not well formed (" + urlstring + ").");
             }
             return ret;
         } else {
@@ -113,11 +115,12 @@ public class RSS extends Crawler implements PollerObserverIF {
      * 
      */
     private void switchFeed() {
+        URL url;
         try {
-            System.out.println("Switching feed to: "
-                    + getURL().toExternalForm());
+            url = getURL();
+            System.out.println("Switching feed to: " + url.toExternalForm());
         } catch (MalformedURLException e1) {
-            System.err.println("Cannot switch to feed: " + e1);
+            System.err.println("Cannot switch to feed: " + e1.getMessage());
             e1.printStackTrace();
         }
 
@@ -128,13 +131,12 @@ public class RSS extends Crawler implements PollerObserverIF {
         try {
             channel = FeedParser.parse(new ChannelBuilder(), getURL());
         } catch (Exception e) {
-            System.err.println("Fout!");
+            System.err.println("Error parsing feed: " + e.getMessage());
         }
-        /*
-         * Collection items = channel.getItems(); for (Iterator it =
-         * items.iterator(); it.hasNext();) { itemFound((ItemIF) it.next(),
-         * channel); }
-         */
+        Collection items = channel.getItems();
+        for (Iterator it = items.iterator(); it.hasNext();) {
+            itemFound((ItemIF) it.next(), channel);
+        }
 
         poller.registerChannel(channel);
     }
@@ -145,10 +147,19 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @see amber.common.Module#start()
      */
     public void start() {
+        Integer refresh;
         super.start();
-        switchFeed();
+
+        System.out.println("Starting poller.");
         poller.addObserver(this);
-        poller.setPeriod(1 * 60 * 1000);
+
+        if (airBrush.hasParameter("RefreshTime"))
+            refresh = airBrush.getParameterInteger("RefreshTime");
+        else
+            refresh = 60;
+
+        System.out.println("Setting refresh time to " + refresh + "s.");
+        poller.setPeriod(refresh * 1000);
     }
 
     /**
@@ -234,6 +245,7 @@ public class RSS extends Crawler implements PollerObserverIF {
     public void itemFound(ItemIF item, ChannelIF channel) {
         System.out.println("Found item: " + item.getTitle());
         handleItem(item);
+        channel.addItem(item);
     }
 
     /*

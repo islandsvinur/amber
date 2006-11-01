@@ -44,7 +44,7 @@ import com.cmlabs.air.*;
 
 /**
  * @author christian
- *
+ * 
  */
 public class AirBrush implements Runnable {
     private JavaAIRPlug plug = null;
@@ -52,72 +52,21 @@ public class AirBrush implements Runnable {
     private Thread thread;
 
     private AirBrushCallable callback;
-    
+
     private String moduleName;
 
     /**
-     * @throws Exception
-     */
-    private void checkConnection() throws Exception {
-        if (plug == null) {
-            throw new Exception("No connection with Psyclone.");
-        }
-        if (callback == null) {
-            throw new Exception("No Callback object given.");
-        }
-    }
-
-    /**
      * @param plugname
      * @param hostname
      * @param port
      */
-    public AirBrush(String moduleName, String hostname, Integer port) {
-        connect(moduleName, hostname, port);
-        this.moduleName = moduleName;
-    }
-
-    /**
-     * @param plugname
-     * @param hostname
-     * @param port
-     */
-    public void connect(String plugname, String hostname, Integer port) {
-        System.out.println("Creating connection with Psyclone at " + hostname
-                + ":" + port + " with service name " + plugname);
-        plug = new JavaAIRPlug(plugname, hostname, port);
-    }
-
-    /**
-     * @return
-     * @throws Exception
-     */
-    public boolean connect() throws Exception {
-        checkConnection();
-
-        if (!plug.init()) {
-            System.out.println("Could not connect to the Server ...");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @param wb
-     * @throws Exception
-     */
-    public void connectAndOpenWhiteboard(String wb) throws Exception {
-        // Connect to Psyclone
-        connect();
-        // Try to open the whiteboard
-        if (!openWhiteboard(wb)) {
-            System.err
-                    .println("Could not open callback connection to whiteboard.");
-        } else {
-            System.out.println("Connected to whiteboard.");
-        }
-        // Start listening for messages coming onto the whiteboard
-        startListening();
+    public AirBrush(String module, String hostname, Integer port) {
+        moduleName = module;
+        plug = new JavaAIRPlug(moduleName, hostname, port);
+        plug.init();
+        System.out.println("Creating connection with Psyclone: " + hostname
+                + ":" + port);
+        System.out.println("Module name: " + moduleName);
     }
 
     /**
@@ -143,15 +92,9 @@ public class AirBrush implements Runnable {
     /**
      * @param wb
      * @return
-     * @throws Exception
      */
-    public boolean openWhiteboard(String wb) throws Exception {
-        checkConnection();
-
-        if (!plug.openTwoWayConnectionTo(wb)) {
-            return false;
-        }
-        return true;
+    public boolean openWhiteboard(String wb) {
+        return plug.openTwoWayConnectionTo(wb);
     }
 
     /**
@@ -167,7 +110,7 @@ public class AirBrush implements Runnable {
     public void setCallbackObject(AirBrushCallable cb) {
         callback = cb;
     }
-    
+
     /**
      * @param key
      * @param value
@@ -175,7 +118,7 @@ public class AirBrush implements Runnable {
     public void setParameter(String key, String value) {
         plug.setParameterString(key, value);
     }
-    
+
     /**
      * @param key
      * @return
@@ -183,16 +126,15 @@ public class AirBrush implements Runnable {
     public boolean hasParameter(String key) {
         return plug.hasParameter(key);
     }
-    
+
     /**
      * @param key
      * @return
      */
     public String getParameterString(String key) {
-        System.err.println("Getting parameter " + moduleName + ":" + key);
-        return plug.getParameterString(moduleName, key);
+        return plug.getParameterString(key);
     }
-    
+
     /**
      * @param key
      * @param value
@@ -200,7 +142,7 @@ public class AirBrush implements Runnable {
     public void setParameter(String key, Integer value) {
         plug.setParameterInteger(key, value);
     }
-    
+
     /**
      * @param key
      * @return
@@ -208,7 +150,7 @@ public class AirBrush implements Runnable {
     public Integer getParameterInteger(String key) {
         return plug.getParameterInteger(key);
     }
-    
+
     /**
      * @param key
      * @param value
@@ -224,8 +166,10 @@ public class AirBrush implements Runnable {
     public Double getParameterDouble(String key) {
         return plug.getParameterDouble(key);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     public void run() {
@@ -234,6 +178,7 @@ public class AirBrush implements Runnable {
 
         while (current == thread) {
             if ((message = plug.waitForNewMessage(100)) != null) {
+                System.out.println("Waiting");
                 if (!callback.airBrushReceiveMessage(message)) {
                     System.out.println("Note: Unhandled callback for: "
                             + message.type + " to: " + message.to);

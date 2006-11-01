@@ -70,6 +70,8 @@ public abstract class ShowOff extends Module {
      */
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
+        airBrush.openWhiteboard("WB.Stories");
+        airBrush.openWhiteboard("WB.Analyses");
         storyQueue = new ObservableList<EarthViewStory>();
         analysisQueue = new ObservableList<Analysis>();
     }
