@@ -45,7 +45,12 @@ import com.cmlabs.air.Message;
 import amber.common.AirBrush;
 import amber.common.AirBrushCallable;
 
+/**
+ * @author christian
+ * 
+ */
 public class Initializer implements AirBrushCallable {
+
     private AirBrush ab;
 
     /**
@@ -63,75 +68,36 @@ public class Initializer implements AirBrushCallable {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see amber.common.AirBrushCallable#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
     public boolean airBrushReceiveMessage(Message msg) {
         return false;
     }
 
+    /**
+     * 
+     */
     private void sendMessages() {
-        Message msg;
-
-        /* msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Sieve.KeywordSpotter.Anonymous";
-        msg.type = "Keywords.Author";
-        msg.content = "Christian";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Sieve.KeywordSpotter (2)"); */
-        
-        msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Sieve.KeywordSpotter.MacBook";
-        msg.type = "Sieve.Topic";
-        msg.content = "macbook";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Sieve.KeywordSpotter (MacBook)");
-
-        msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Sieve.KeywordSpotter.MacBook";
-        msg.type = "Keywords.Contents";
-        msg.content = ".*macbook.*";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Sieve.KeywordSpotter (MacBook)");
-        
-        msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Sieve.KeywordSpotter.iPod";
-        msg.type = "Sieve.Topic";
-        msg.content = "ipod";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Sieve.KeywordSpotter (iPod)");
-
-        msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Sieve.KeywordSpotter.iPod";
-        msg.type = "Keywords.Contents";
-        msg.content = ".*ipod.*";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Sieve.KeywordSpotter (iPod)");
-        
-        msg = new Message();
-        msg.to = "WB.Control";
-        msg.cc = "Module.Crawler.RSS.Anonymous";
-        msg.type = "Feed.RSS";
-        msg.content = "http://gathering.tweakers.net/rss.php/list_topics/76";
-        // msg.content = "http://forum.macosx.nl/rss/";
-        ab.postMessage(msg);
-        System.out.println(" Initializing Crawler.RSS");
-
-        msg = new Message();
+        Message msg = new Message();
         msg.to = "WB.Control";
         msg.type = "All.Start";
         ab.postMessage(msg);
         System.out.println(" Sending start signal!");
-
     }
-    
+
+    /**
+     * 
+     */
     public void stop() {
         ab.stopListening();
     }
-    
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("Starting up...");
         Initializer i = new Initializer(args);
@@ -141,5 +107,4 @@ public class Initializer implements AirBrushCallable {
         i.stop();
         System.out.println("Done!");
     }
-
 }

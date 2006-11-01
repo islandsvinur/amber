@@ -47,21 +47,42 @@ import amber.showoff.ObservableList;
 
 import com.cmlabs.air.Message;
 
+/**
+ * @author christian
+ * 
+ */
 public abstract class ShowOff extends Module {
-    
+
+    /**
+     * In this list incoming stories are stored before they are handled.
+     */
     protected ObservableList<EarthViewStory> storyQueue;
+
+    /**
+     * In this list incoming analyses are stored before they are handled.
+     */
     protected ObservableList<Analysis> analysisQueue;
-    
+
+    /**
+     * @param moduleName
+     * @param hostname
+     * @param port
+     */
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
         storyQueue = new ObservableList<EarthViewStory>();
         analysisQueue = new ObservableList<Analysis>();
     }
-    
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see amber.common.Module#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
     public boolean airBrushReceiveMessage(Message msg) {
         if (super.airBrushReceiveMessage(msg))
             return true;
-        
+
         System.out.println("Receiving " + msg.type + " from AirBrush.");
 
         if (msg.type.equals("Story")) {
@@ -71,14 +92,16 @@ public abstract class ShowOff extends Module {
 
             // Print some information
             System.out.println("Received story written by " + story.getAuthor()
-                    + " on " + story.getPublicationDate() + ", with id: " + story.getID());
+                    + " on " + story.getPublicationDate() + ", with id: "
+                    + story.getID());
             // Now add this story to the queue
             storyQueue.add(story);
             return true;
         } else if (msg.type.matches("Analysis.*")) {
             Analysis a;
             a = Analysis.createFromYAML(msg.content);
-            System.out.println("Received analysis for story " + a.getID() + " topic: " + a.getTopic());
+            System.out.println("Received analysis for story " + a.getID()
+                    + " topic: " + a.getTopic());
             analysisQueue.add(a);
             return true;
         }

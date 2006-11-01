@@ -42,6 +42,10 @@ package amber.common;
 
 import java.util.Date;
 
+/**
+ * @author christian
+ *
+ */
 public class Story extends AmberMessage {
 
     final static private String keyIdentifier = "URI";
@@ -54,15 +58,25 @@ public class Story extends AmberMessage {
 
     final static private String keyPublicationDate = "Publication-Date";
 
+    /**
+     * 
+     */
     public Story() {
         super();
     }
 
+    /**
+     * @param identifier
+     */
     public Story(String identifier) {
         this();
         setProperty(keyIdentifier, identifier);
     }
 
+    /**
+     * @param in
+     * @return
+     */
     public static Story createFromYAML(String in) {
         Story story = new Story();
         story.fromYAML(in);
@@ -89,22 +103,37 @@ public class Story extends AmberMessage {
         return (Date) getProperty(keyPublicationDate);
     }
 
+    /**
+     * @param value
+     */
     public void setID(String value) {
         setProperty(keyIdentifier, value);
     }
 
+    /**
+     * @param value
+     */
     public void setTitle(String value) {
         setProperty(keyTitle, value);
     }
 
+    /**
+     * @param value
+     */
     public void setContent(String value) {
         setProperty(keyContent, value);
     }
 
+    /**
+     * @param value
+     */
     public void setAuthor(String value) {
         setProperty(keyAuthor, value);
     }
 
+    /**
+     * @param value
+     */
     public void setPublicationDate(Date value) {
         setProperty(keyPublicationDate, value);
     }

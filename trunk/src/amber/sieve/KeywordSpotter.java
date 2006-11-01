@@ -48,16 +48,32 @@ import amber.Sieve;
 import amber.common.Analysis;
 import amber.common.Story;
 
+/**
+ * @author christian
+ *
+ */
 public class KeywordSpotter extends Sieve {
     
     private Pattern contentPattern;
 
     private Pattern authorPattern;
 
+    /**
+     * @param name
+     * @param hostname
+     * @param port
+     */
     public KeywordSpotter(String name, String hostname, Integer port) {
         super("KeywordSpotter." + name, hostname, port);
+        contentPattern = Pattern.compile(airBrush.getParameterString("QueryString.Content"));
+        System.out.println("Content pattern set to: " + contentPattern);
+        authorPattern = Pattern.compile(airBrush.getParameterString("QueryString.Author"));
+        System.out.println("Author pattern set to: " + authorPattern);
     }
 
+    /* (non-Javadoc)
+     * @see amber.Sieve#airBrushReceiveMessage(com.cmlabs.air.Message)
+     */
     @Override
     public boolean airBrushReceiveMessage(Message msg) {
         if (super.airBrushReceiveMessage(msg))
@@ -79,11 +95,14 @@ public class KeywordSpotter extends Sieve {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see amber.Sieve#doAnalysis(amber.common.Story)
+     */
     @Override
-    public Analysis doAnalysis(Story story, String topic) {
+    public Analysis doAnalysis(Story story) {
         Analysis a = new Analysis();
         a.setID(story.getID());
-        a.setTopic(topic);
+        a.setTopic(topicString);
 
         if (contentPattern != null) {
             String content = story.getContent();
@@ -106,6 +125,9 @@ public class KeywordSpotter extends Sieve {
         return a;
     }
 
+    /* (non-Javadoc)
+     * @see amber.common.Module#start()
+     */
     @Override
     public void start() {
         super.start();
@@ -113,6 +135,9 @@ public class KeywordSpotter extends Sieve {
 
     }
 
+    /* (non-Javadoc)
+     * @see amber.common.Module#stop()
+     */
     @Override
     public void stop() {
         super.stop();

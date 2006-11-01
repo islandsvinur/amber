@@ -46,8 +46,17 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+/**
+ * @author christian
+ * 
+ */
 public abstract class Launcher {
 
+    /**
+     * @param args
+     * @return
+     * @throws ParseException
+     */
     private static CommandLine parseCommandLine(String[] args)
             throws ParseException {
         Options o = new Options();
@@ -72,6 +81,10 @@ public abstract class Launcher {
         return cl;
     }
 
+    /**
+     * @param o
+     * @param cl
+     */
     private static void printHelp(Options o, CommandLine cl) {
         if (cl.hasOption('h')) {
             HelpFormatter f = new HelpFormatter();
@@ -79,7 +92,13 @@ public abstract class Launcher {
         }
     }
 
-    /* Launch method */
+    /**
+     * Launch method
+     * 
+     * @param args
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static void main(String args[]) throws InstantiationException,
             IllegalAccessException {
         try {
@@ -93,7 +112,7 @@ public abstract class Launcher {
             port = Integer.valueOf(cl.getOptionValue("p", "10000"));
 
             System.out.println("Going to start some module");
-            
+
             if (cl.hasOption("m")) {
                 String modName = cl.getOptionValue("m");
 
@@ -107,10 +126,10 @@ public abstract class Launcher {
                     new amber.showoff.Applet(id, hostname, port);
                 }
             }
-            
+
             System.out.println("Module started");
 
-        } catch (ParseException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

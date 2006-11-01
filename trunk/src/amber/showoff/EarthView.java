@@ -57,6 +57,10 @@ import javax.vecmath.Point2d;
 import amber.common.Analysis;
 import amber.common.Polar2d;
 
+/**
+ * @author christian
+ *
+ */
 public class EarthView extends JPanel implements Runnable, Observer {
 
     private static final long serialVersionUID = -3882808552754900513L;
@@ -85,6 +89,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private boolean firstFrame = true;
 
+    /**
+     * @param sq
+     * @param aq
+     */
     public EarthView(ObservableList<EarthViewStory> sq,
             ObservableList<Analysis> aq) {
         storyQueue = sq;
@@ -95,6 +103,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         sq.addObserver(this);
     }
 
+    /**
+     * 
+     */
     public void start() {
         setForeground(Color.white);
         setBackground(Color.black);
@@ -102,6 +113,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         animator.start();
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+     */
     public void paintComponent(Graphics g) {
         int earthRadius = 50;
         Dimension d = getSize();
@@ -156,7 +170,11 @@ public class EarthView extends JPanel implements Runnable, Observer {
         g.drawString("Frame: " + frame, 15, 30);
     }
 
-    public void drawParticle(Graphics g, Particle p) {
+    /**
+     * @param g
+     * @param p
+     */
+    private void drawParticle(Graphics g, Particle p) {
         int diameter = 5;
         Dimension d = getSize();
         Point2d loc = p.getLocation();
@@ -170,6 +188,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         long tm = System.currentTimeMillis();
         while (Thread.currentThread() == animator) {
@@ -204,7 +225,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     }
 
-    public void getNewStories() {
+    /**
+     * 
+     */
+    private void getNewStories() {
         EarthViewStory s;
         Particle p;
 
@@ -225,6 +249,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
     }
 
+    /**
+     * 
+     */
     private void getNewAnalyses() {
         Analysis a;
 
@@ -246,6 +273,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
     public void update(Observable updater, Object message) {
         if (updater instanceof ObservableList<?>) {
             if (message.equals("offer") || message.equals("add")
@@ -258,6 +288,12 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
     }
 
+    /**
+     * @param location
+     * @param force
+     * @param topic
+     * @return
+     */
     public Attractor addAttractor(Polar2d location, Double force, String topic) {
         Attractor a = new Attractor();
         a.location = location;
