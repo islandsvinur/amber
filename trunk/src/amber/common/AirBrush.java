@@ -52,6 +52,8 @@ public class AirBrush implements Runnable {
     private Thread thread;
 
     private AirBrushCallable callback;
+    
+    private String moduleName;
 
     /**
      * @throws Exception
@@ -70,8 +72,9 @@ public class AirBrush implements Runnable {
      * @param hostname
      * @param port
      */
-    public AirBrush(String plugname, String hostname, Integer port) {
-        connect(plugname, hostname, port);
+    public AirBrush(String moduleName, String hostname, Integer port) {
+        connect(moduleName, hostname, port);
+        this.moduleName = moduleName;
     }
 
     /**
@@ -177,8 +180,17 @@ public class AirBrush implements Runnable {
      * @param key
      * @return
      */
+    public boolean hasParameter(String key) {
+        return plug.hasParameter(key);
+    }
+    
+    /**
+     * @param key
+     * @return
+     */
     public String getParameterString(String key) {
-        return plug.getParameterString(key);
+        System.err.println("Getting parameter " + moduleName + ":" + key);
+        return plug.getParameterString(moduleName, key);
     }
     
     /**

@@ -72,8 +72,9 @@
 
     <module name="Module.Crawler.RSS.Anonymous">
         <executable />
-        <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" />
+        <parameter name="FeedURI" type="String" value="http://ijsland.luijten.org/feed" default="Bla" />
         <parameter name="RefreshTime" type="Integer" min="1" max="180" value="60" />
+        <parameter name="SomeValue" type="Double" value="1.20321" />
         <description>
             This module gets RSS feeds via HTTP, parses them and puts the
             stories in them on the whiteboard (along with meta-data).
@@ -96,7 +97,7 @@
         <spec>
             <trigger from="WB.Stories" type="Story" />
             <trigger from="WB.Control" type="All.*" />
-            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
+            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
@@ -112,7 +113,7 @@
         <spec>
             <trigger from="WB.Stories" type="Story" />
             <trigger from="WB.Control" type="All.*" />
-            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
+            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
@@ -128,7 +129,7 @@
         <spec>
             <trigger from="WB.Stories" type="Story" />
             <trigger from="WB.Control" type="All.*" />
-            <post to="WB.Analysis" type="Analysis.KeywordSpotter" />
+            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
         </spec>
     </module>
 
@@ -142,7 +143,7 @@
         <spec>
             <trigger from="WB.Stories" type="Story" />
             <trigger from="WB.Control" type="All.*" />
-            <trigger from="WB.Analysis" type="Analysis.*" />
+            <trigger from="WB.Analyses" type="Analysis.*" />
         </spec>
     </module>
 
@@ -155,7 +156,7 @@
         <spec>
             <trigger from="WB.Stories" type="Story" />
             <trigger from="WB.Control" type="All.*" />
-            <trigger from="WB.Analysis" type="Analysis.*" />
+            <trigger from="WB.Analyses" type="Analysis.*" />
         </spec>
     </module>
 
