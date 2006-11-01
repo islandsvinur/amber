@@ -9,8 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jvyaml.jar"/>
-	<classpathentry kind="lib" path="lib/jogl.jar"/>
-	<classpathentry kind="lib" path="lib/jogl-natives-linux-i586.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Informa RSS Library"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jakarta Commons CLI"/>
 	<classpathentry kind="output" path="build"/>
