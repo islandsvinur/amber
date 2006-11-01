@@ -87,10 +87,11 @@
 
     <module name="Module.Sieve.KeywordSpotter.Anonymous">
         <executable />
+        <parameter name="QueryString.Content" type="String" value="" />
+        <parameter name="QueryString.Author" type="String" value="" />
+        <parameter name="Topic" type="String" value="" />
         <description>
-            This module will analyze stories in the raw-stories whiteboard for
-            the existence of certain keywords and puts matching stories on the
-            processed-stories whiteboard, adding a category to them.
+            This module is a placeholder for a KeywordSpotter.
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
@@ -101,10 +102,12 @@
 
     <module name="Module.Sieve.KeywordSpotter.iPod">
         <executable />
+        <parameter name="QueryString.Content" type="String" value=".*ipod.*" />
+        <parameter name="Topic" type="String" value="iPod" />
         <description>
             This module will analyze stories in the raw-stories whiteboard for
-            the existence of certain keywords and puts matching stories on the
-            processed-stories whiteboard, adding a category to them.
+            the existence of the keyword .*ipod.* and puts matching stories on
+            the processed-stories whiteboard, adding the topic 'ipod' to them.
         </description>
         <spec>
             <trigger from="WB.Stories" type="Story" />
@@ -115,6 +118,8 @@
 
     <module name="Module.Sieve.KeywordSpotter.MacBook">
         <executable />
+        <parameter name="QueryString.Content" type="String" value=".*macbook.*" />
+        <parameter name="Topic" type="String" value="MacBook" />
         <description>
             This module will analyze stories in the raw-stories whiteboard for
             the existence of certain keywords and puts matching stories on the
