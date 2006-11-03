@@ -93,8 +93,12 @@ public class FullScreen extends ShowOff {
         earthView.setVisible(true);
         
         if (airBrush.hasParameter("Attractors")) {
-            earthView.addAttractor(new Polar2d(150.0, 0.25 * Math.PI), 10.0, "MacBook");
-            earthView.addAttractor(new Polar2d(150.0, 1.25 * Math.PI), 10.0, "iPod");
+            airBrush.getParameterString("Attractors");
+            earthView.addAttractor(new Polar2d(150.0, 0.25 * Math.PI), 0.75, "MacBook");
+            earthView.addAttractor(new Polar2d(150.0, 1.25 * Math.PI), 0.75, "iPod");
+            earthView.addAttractor(new Polar2d(150.0, 0.75 * Math.PI), 0.75, "iTunes");
+            earthView.addAttractor(new Polar2d(150.0, 1.75 * Math.PI), 0.75, "Zune");
+
         }
         
         list.add(earthView);
@@ -105,8 +109,8 @@ public class FullScreen extends ShowOff {
     }
 
     public void start() {
-        earthView.start();
         super.start();
+        earthView.start();
     }
 
 }

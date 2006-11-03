@@ -107,7 +107,6 @@ public abstract class Sieve extends Module {
                 m.to = "WB.Analyses";
                 m.content = a.toYAML();
                 m.type = "Analysis." + messageTypeSuffix;
-                System.out.println("Sending out analysis: " + s.getTitle());
                 airBrush.postMessage(m);
             }
         }

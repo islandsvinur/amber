@@ -50,10 +50,10 @@ import amber.common.Story;
 
 /**
  * @author christian
- *
+ * 
  */
 public class KeywordSpotter extends Sieve {
-    
+
     private Pattern contentPattern;
 
     private Pattern authorPattern;
@@ -65,37 +65,27 @@ public class KeywordSpotter extends Sieve {
      */
     public KeywordSpotter(String name, String hostname, Integer port) {
         super("KeywordSpotter." + name, hostname, port);
-        contentPattern = Pattern.compile(airBrush.getParameterString("QueryString.Content"));
+        contentPattern = Pattern.compile(airBrush
+                .getParameterString("QueryString.Content"), Pattern.CASE_INSENSITIVE);
         System.out.println("Content pattern set to: " + contentPattern);
-        authorPattern = Pattern.compile(airBrush.getParameterString("QueryString.Author"));
+        authorPattern = Pattern.compile(airBrush
+                .getParameterString("QueryString.Author"), Pattern.CASE_INSENSITIVE);
         System.out.println("Author pattern set to: " + authorPattern);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see amber.Sieve#airBrushReceiveMessage(com.cmlabs.air.Message)
      */
     @Override
     public boolean airBrushReceiveMessage(Message msg) {
-        if (super.airBrushReceiveMessage(msg))
-            return true;
-
-        if (msg.to.equals(moduleName)) {
-            if (msg.type.equals("Keywords.Contents")) {
-                contentPattern = Pattern.compile(msg.content, Pattern.CASE_INSENSITIVE);
-                System.out.println("Content match string: "
-                        + msg.content);
-                return true;
-            } else if (msg.type.equals("Keywords.Author")) {
-                authorPattern = Pattern.compile(msg.content, Pattern.CASE_INSENSITIVE);
-                System.out.println("Author match string: " + msg.content);
-                return true;
-            }
-
-        }
-        return false;
+        return super.airBrushReceiveMessage(msg);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see amber.Sieve#doAnalysis(amber.common.Story)
      */
     @Override
@@ -107,40 +97,46 @@ public class KeywordSpotter extends Sieve {
         if (contentPattern != null) {
             String content = story.getContent();
             String title = story.getTitle();
+            Double relevance = 0.0;
             if (contentPattern.matcher(content).matches()) {
-                a.setTopicRelevance(1.0);
+                relevance += Math.random() * 0.5;
             }
             if (contentPattern.matcher(title).matches()) {
-                a.setTopicRelevance(1.0);
+                relevance += Math.random() * 0.5;
+            }
+            if (relevance > 0) {
+                a.setTopicRelevance(relevance);
+                System.out.println("Analysed story (" + relevance + "): " + story.getTitle());
             }
         }
 
         if (authorPattern != null) {
             String author = story.getAuthor();
             if (authorPattern.matcher(author).matches()) {
-                a.setAuthorRelevance(1.0);
+                a.setAuthorRelevance(Math.random() * 0.5 + 0.5);
             }
         }
 
         return a;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see amber.common.Module#start()
      */
     @Override
     public void start() {
         super.start();
-        // TODO Auto-generated method stub
-
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see amber.common.Module#stop()
      */
     @Override
     public void stop() {
         super.stop();
-        // TODO Auto-generated method stub
     }
 }

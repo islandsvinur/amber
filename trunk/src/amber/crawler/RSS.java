@@ -67,6 +67,7 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     private Poller poller;
 
+
     /**
      * @param name
      * @param hostname
@@ -120,7 +121,7 @@ public class RSS extends Crawler implements PollerObserverIF {
             url = getURL();
             System.out.println("Switching feed to: " + url.toExternalForm());
         } catch (MalformedURLException e1) {
-            System.err.println("Cannot switch to feed: " + e1.getMessage());
+            System.err.println("Could not switch to feed: " + e1.getMessage());
             e1.printStackTrace();
         }
 
@@ -133,9 +134,13 @@ public class RSS extends Crawler implements PollerObserverIF {
         } catch (Exception e) {
             System.err.println("Error parsing feed: " + e.getMessage());
         }
-        Collection items = channel.getItems();
-        for (Iterator it = items.iterator(); it.hasNext();) {
-            itemFound((ItemIF) it.next(), channel);
+        if (channel != null) {
+            Collection items = channel.getItems();
+            System.out.println("Found " + items.size() + " items in initial feed.");
+            for (Iterator it = items.iterator(); it.hasNext();) {
+                handleItem((ItemIF) it.next());
+                it.remove();
+            }
         }
 
         poller.registerChannel(channel);
@@ -160,40 +165,33 @@ public class RSS extends Crawler implements PollerObserverIF {
 
         System.out.println("Setting refresh time to " + refresh + "s.");
         poller.setPeriod(refresh * 1000);
+
+    }
+
+    private String convertToPrintable(String input) {
+        final Pattern p = Pattern.compile("([^\\p{Print}]|')");
+        if (input != null)
+            return p.matcher(input).replaceAll("");
+        else
+            return "-";
     }
 
     /**
+     * Creates a Story object with the contents of the item and posts it to Psyclone
+     * 
      * @param item
      */
     private void handleItem(ItemIF item) {
         Story s = new Story();
-        Pattern p = Pattern.compile("([^\\p{Print}]|')");
 
-        try {
-            s.setID(p.matcher(item.getGuid().getLocation()).replaceAll(""));
-        } catch (Exception e) {
-            System.out.println("Something went wicked.");
-        }
-        try {
-            s.setAuthor(p.matcher(item.getCreator()).replaceAll(""));
-        } catch (Exception e) {
-            System.out.println("Something went wicked.");
-        }
-        try {
-            s.setTitle(p.matcher(item.getTitle()).replaceAll(""));
-        } catch (Exception e) {
-            System.out.println("Something went wicked.");
-        }
-        try {
-            s.setContent(p.matcher(item.getDescription()).replaceAll(""));
-        } catch (Exception e) {
-            System.out.println("Something went wicked.");
-        }
-        try {
-            s.setPublicationDate(item.getDate());
-        } catch (Exception e) {
-            System.out.println("Something went wicked.");
-        }
+        // Optional
+        s.setAuthor(convertToPrintable(item.getCreator()));
+        s.setTitle(convertToPrintable(item.getTitle()));
+        s.setContent(convertToPrintable(item.getDescription()));
+
+        // Required
+        s.setID(convertToPrintable(item.getGuid().getLocation()));
+        s.setPublicationDate(item.getDate());
 
         Message msg = new Message();
         msg.to = "WB.Stories";
@@ -211,7 +209,6 @@ public class RSS extends Crawler implements PollerObserverIF {
     @Override
     public void stop() {
         super.stop();
-        // TODO Auto-generated method stub
 
     }
 
@@ -221,7 +218,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @see de.nava.informa.utils.poller.PollerObserverIF#channelChanged(de.nava.informa.core.ChannelIF)
      */
     public void channelChanged(ChannelIF arg0) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -232,7 +228,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      *      java.lang.Exception)
      */
     public void channelErrored(ChannelIF arg0, Exception arg1) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -243,7 +238,7 @@ public class RSS extends Crawler implements PollerObserverIF {
      *      de.nava.informa.core.ChannelIF)
      */
     public void itemFound(ItemIF item, ChannelIF channel) {
-        System.out.println("Found item: " + item.getTitle());
+        System.out.println("New item: " + item.getTitle());
         handleItem(item);
         channel.addItem(item);
     }
@@ -254,7 +249,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @see de.nava.informa.utils.poller.PollerObserverIF#pollFinished(de.nava.informa.core.ChannelIF)
      */
     public void pollFinished(ChannelIF arg0) {
-        System.out.println("Polling ended.");
     }
 
     /*
@@ -263,7 +257,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @see de.nava.informa.utils.poller.PollerObserverIF#pollStarted(de.nava.informa.core.ChannelIF)
      */
     public void pollStarted(ChannelIF arg0) {
-        System.out.println("Polling started.");
     }
 
 }

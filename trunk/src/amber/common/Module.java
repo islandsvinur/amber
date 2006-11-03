@@ -62,13 +62,7 @@ public abstract class Module implements AirBrushCallable {
 
         airBrush = new AirBrush(moduleName, hostname, port);
         airBrush.setCallbackObject(this);
-
-        try {
-            airBrush.startListening();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
     }
 
     /*
@@ -91,7 +85,7 @@ public abstract class Module implements AirBrushCallable {
 
     /** Start normal operation after initialization and configuration */
     public void start() {
-
+        airBrush.startListening();
     }
 
     /** Stop normal operation and exit */

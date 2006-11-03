@@ -47,7 +47,7 @@ import com.cmlabs.air.*;
  * 
  */
 public class AirBrush implements Runnable {
-    private JavaAIRPlug plug = null;
+    final private JavaAIRPlug plug;
 
     private Thread thread;
 
@@ -63,21 +63,23 @@ public class AirBrush implements Runnable {
     public AirBrush(String module, String hostname, Integer port) {
         moduleName = module;
         plug = new JavaAIRPlug(moduleName, hostname, port);
-        plug.init();
-        System.out.println("Creating connection with Psyclone: " + hostname
-                + ":" + port);
-        System.out.println("Module name: " + moduleName);
+        if (plug.init()) {
+            System.out.println("Successfully connected to Psyclone: " + hostname
+                    + ":" + port);
+            System.out.println("  module name: " + moduleName);
+        } else {
+            System.err.println("Could not connect to Psyclone!");
+        }
     }
 
     /**
      * @throws Exception
      */
-    public void startListening() throws Exception {
-        if (thread != null) {
-            throw new Exception("Already running!");
+    public void startListening() {
+        if (thread == null) {
+            thread = new Thread(this);
+            thread.start();
         }
-        thread = new Thread(this);
-        thread.start();
     }
 
     /**
@@ -178,7 +180,6 @@ public class AirBrush implements Runnable {
 
         while (current == thread) {
             if ((message = plug.waitForNewMessage(100)) != null) {
-                System.out.println("Waiting");
                 if (!callback.airBrushReceiveMessage(message)) {
                     System.out.println("Note: Unhandled callback for: "
                             + message.type + " to: " + message.to);
