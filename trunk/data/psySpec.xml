@@ -59,39 +59,67 @@
     <module name="Module.Crawler.RSS.Anonymous">
         <executable />
         <parameter name="FeedURI" type="String" value="" />
-        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="60" />
         <description>
             This module gets RSS feeds via HTTP, parses them and puts the
             stories in them on the whiteboard (along with meta-data).
         </description>
-        <spec>
-            <post to="WB.Stories" type="Story" />
-        </spec>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Crawler.RSS.Digg">
+        <executable />
+        <parameter name="FeedURI" type="String" value="http://digg.com/rss/indexgadgets.xml" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="60" />
+        <description>
+            This RSS module gets the RSS feed of Digg.com.
+        </description>
+        <post to="WB.Stories" type="Story" />
     </module>
 
     <module name="Module.Crawler.RSS.GoT">
         <executable />
         <parameter name="FeedURI" type="String" value="http://gathering.tweakers.net/rss.php/list_topics/76" />
-        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="60" />
         <description>
             This RSS module gets the RSS feed of the Gathering of Tweakers
             subforum Apple Talk.
         </description>
-        <spec>
-            <post to="WB.Stories" type="Story" />
-        </spec>
+        <post to="WB.Stories" type="Story" />
     </module>
 
     <module name="Module.Crawler.RSS.MacRumors">
         <executable />
         <parameter name="FeedURI" type="String" value="http://forums.macrumors.com/external.php?type=RSS2" />
-        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="10" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="60" />
         <description>
             This RSS module gets the RSS feed of the MacRumors forums.
         </description>
-        <spec>
-            <post to="WB.Stories" type="Story" />
-        </spec>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.iTunes">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*itunes.*" />
+        <parameter name="QueryString.Author" type="String" value="" />
+        <parameter name="Topic" type="String" value="iTunes" />
+        <description>
+            This module is a placeholder for a KeywordSpotter.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.Zune">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*zune.*" />
+        <parameter name="QueryString.Author" type="String" value="" />
+        <parameter name="Topic" type="String" value="" />
+        <description>
+            This module is a placeholder for a KeywordSpotter.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
     <module name="Module.Sieve.KeywordSpotter.Anonymous">
@@ -102,10 +130,8 @@
         <description>
             This module is a placeholder for a KeywordSpotter.
         </description>
-        <spec>
-            <trigger from="WB.Stories" type="Story" />
-            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
-        </spec>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
     <module name="Module.Sieve.KeywordSpotter.iPod">
@@ -113,14 +139,12 @@
         <parameter name="QueryString.Content" type="String" value=".*ipod.*" />
         <parameter name="Topic" type="String" value="iPod" />
         <description>
-            This module will analyze stories in the raw-stories whiteboard for
-            the existence of the keyword .*ipod.* and puts matching stories on
-            the processed-stories whiteboard, adding the topic 'ipod' to them.
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
         </description>
-        <spec>
-            <trigger from="WB.Stories" type="Story" />
-            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
-        </spec>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
     <module name="Module.Sieve.KeywordSpotter.MacBook">
@@ -132,10 +156,8 @@
             the existence of certain keywords and puts matching stories on the
             processed-stories whiteboard, adding a category to them.
         </description>
-        <spec>
-            <trigger from="WB.Stories" type="Story" />
-            <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
-        </spec>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
     <module name="Module.ShowOff.FullScreen.Anonymous">
@@ -143,25 +165,21 @@
         <parameter name="Attractors" type="String" value="---" />
         <description>
             This module gets stories from the processed whiteboard and uses the
-            story's meta-data to display the stories in a certain way that is
+            story s meta-data to display the stories in a certain way that is
             ambient in its interaction.
         </description>
-        <spec>
-            <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Analyses" type="Analysis.*" />
-        </spec>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
     </module>
 
     <module name="Module.ShowOff.Applet.Anonymous">
         <executable />
         <description>
             This module gets stories from the processed whiteboard and uses the
-            story's meta-data to display the stories in a Java applet.
+            story s meta-data to display the stories in a Java applet.
         </description>
-        <spec>
-            <trigger from="WB.Stories" type="Story" />
-            <trigger from="WB.Analyses" type="Analysis.*" />
-        </spec>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
     </module>
 
 </psySpec> 
