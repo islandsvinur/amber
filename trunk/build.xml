@@ -42,70 +42,9 @@
       <classpath refid="project.classpath"/>
     </javac>
   </target>
-  <target name="Crawler">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="RSS"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="FullScreen">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="FullScreen"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Launcher">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-h"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Initializer">
-    <java fork="yes" classname="amber.Initializer" failonerror="true">
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
   <target name="Demonstrator">
     <java fork="yes" classname="sun.applet.AppletViewer" failonerror="true" dir="/home/christian/Source/Amber">
       <arg value="Demonstrator.html"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Crawl Gathering of Tweakers">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="RSS"/>
-      <arg value="-i"/>
-      <arg value="GoT"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Crawl MacRumors">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="RSS"/>
-      <arg value="-i"/>
-      <arg value="MacRumors"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Sieve iPod">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="KeywordSpotter"/>
-      <arg value="-i"/>
-      <arg value="iPod"/>
-      <classpath refid="project.classpath"/>
-    </java>
-  </target>
-  <target name="Sieve MacBook">
-    <java fork="yes" classname="amber.common.Launcher" failonerror="true">
-      <arg value="-m"/>
-      <arg value="KeywordSpotter"/>
-      <arg value="-i"/>
-      <arg value="MacBook"/>
       <classpath refid="project.classpath"/>
     </java>
   </target>
