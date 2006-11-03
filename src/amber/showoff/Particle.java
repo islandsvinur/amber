@@ -73,7 +73,9 @@ public class Particle {
 
     private final static Double CRASH_HEIGHT = 30.0;
 
-    private final static int MAXIMUM_ORBITS = 50;
+    private final static int MAXIMUM_ORBITS_UNBOUND = 25;
+    
+    private final static int MAXIMUM_ORBITS_BOUND = 200;
 
     private final static int STATE_NEW = 0;
 
@@ -224,7 +226,7 @@ public class Particle {
         }
 
         if (state == STATE_ORBITING) {
-            if (location.theta > MAXIMUM_ORBITS * 2 * Math.PI + Math.random()
+            if (location.theta > (bound ? MAXIMUM_ORBITS_BOUND : MAXIMUM_ORBITS_UNBOUND) * 2 * Math.PI + Math.random()
                     * Math.PI) {
                 accel.r = -5.0;
                 state = STATE_CRASHING;
