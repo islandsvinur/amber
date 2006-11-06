@@ -123,7 +123,17 @@ in the code base.
 
 \section{Sequences}
 
-This section describes the main courses of events
+This section describes the main courses of events.
+
+The former three subsections describe the three types of main modules. They are
+all launched via the Launcher class which parses the command line and decides
+upon the command line switches which module will be loaded.
+
+There are currently four modules: RSS, KeywordSpotter, FullScreen and Applet,
+which launch a Crawler, Sieve, ShowOff and ShowOff module, respectively.
+
+The latter three subsections describe the life cycles of data elements in the
+system.
 
 \input{05/sequences/01-crawler-lifecycle.inc}
 
