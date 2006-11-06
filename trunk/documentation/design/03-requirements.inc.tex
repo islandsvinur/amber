@@ -9,12 +9,12 @@ made between functional and extra-functional (or non-functional) requirements.
   \item The system must make use of the Psyclone framework for communication.
   \item The system will be implemented in the Java programming language.
   \item The display module with the Java Applet must be able to run on any
-        machine with a properly installed Java Virtual Machine (i.e. not only
-        on the machine running the rest of the system).
+    machine with a properly installed and recent Java Virtual Machine (i.e.
+    not only on the machine running the rest of the system).
   \item It must be possible to add modules with similar functionality to
-        operate in parallel with modules already there. For example when the
-        Java Applet is running, it should also be possible to have the full
-        screen module running at the same time. 
+    operate in parallel with modules already there. For example when the Java
+    Applet is running, it should also be possible to have the full screen
+    module running at the same time. 
 \end{enumerate}
 
 \section{Functional requirements}
@@ -33,12 +33,12 @@ there are two separate sections on \emph{story analysis} and
   \item The system will use the configuration to get information from the
         internet from the specified sources.
   \item Configuration of the system goes via Psyclone using module parameters.
-  \item The display may have a set of controls to navigate through the history
-        of a feed.
+  % \item The display may have a set of controls to navigate through the
+  % history of a feed.
   \item Parts of the system must accept triggers from Psyclone whiteboards.
-  \item Sources must be \ac{RSS} feeds. The system should however be prepared
-        to support other source types as well (i.e. it should be easily
-        expandable).
+  \item Sources must be \ac{RSS} feeds, possibly aggregated via an \ac{OPML}
+    file. The system should however be prepared to support other source types
+    as well (i.e. it should be easily expandable).
   \item The Applet display is non-interactive (no input).
 \end{enumerate}
 
@@ -74,7 +74,7 @@ to be added to the system itself.
 \begin{enumerate}
   \item When stories come in, they are analysed by analysis modules.
   \item Every module adds some meta-information to the story depending on the
-        module analysis.
+    module analysis.
 \end{enumerate}
 
 \subsection{Visualization}
@@ -86,23 +86,11 @@ viewer.
   \item A story is represented as a dot.
   \item In the center of the display is Earth (with picture?).
   \item Dots are launched into orbit around Earth.
-  \item The orbits follow Kepler's laws of planetary motion.
-  \item The launch velocity is dependent on how ``big'' the story is (like from
-        an important author or if it has many references) at the time of
-        writing, but is always smaller than the escape velocity.
-  \item Stories get velocity boosts by getting replies/comments or
-        references (``trackbacks'') in order to keep them around longer.
-  \item Stories which don't get reactions will just orbit Earth for a while and
-        eventually fall back down \mbox{(i.e. launch velocity $<$ escape
-        velocity)}.
-  \item Only the meta-information added to the stories by the Sieve modules is
-        used to determine launch variables.
-  \item There are some small, heavy bodies in geostationary orbit around Earth
-        representing values of an enumeration of meta-information (for instance
-        story subjects). They attract the stories depending on how much they
-        match the story's subject. It is possible for a story to get into orbit
-        with such a heavy body if it is really strongly connected to the
-        subject.
+  \item FIXME: The orbits follow Kepler's laws of planetary motion.
+  \item There are some small, heavy bodies in ``geostationary'' orbit around
+    Earth representing values of an enumeration of meta-information (for
+    instance story subjects). They attract the stories depending on how much
+    they match the story's subject. 
 \end{enumerate}
 
 There will be two different views, a static and a dynamic one. Which one is
@@ -120,7 +108,7 @@ view the stories are a given constant.
 
 \begin{enumerate}
   \item The applet display will in practice be considerably smaller than the
-        standalone viewer. Therefore, the applet is less detailed and some
-        physical laws might need to be bend a bit.
+    standalone viewer. Therefore, the applet is less detailed and some physical
+    laws might need to be bend a bit.
 \end{enumerate}
 

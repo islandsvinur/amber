@@ -96,14 +96,22 @@ Crawler with the analyses from the Sieve modules.
 
 \subsubsection{Full screen}
 
-The full screen application will display a lot of information and is there to
-be looked - not glanced - at. It should be possible to let it do its job
-autonomously, just showing a pretty picture, or to be interactive.
+The full screen application shows the particles orbiting the earth, being
+attracted to various attractors hanging around it, depending on their topics.
+
+In future versions it is possible to get extra information about stories by
+hovering over the particles (i.e. it should not be impossible to implement this
+within the current architecture).
 
 \subsubsection{Ambient applet}
 
 The ambient applet will display a very easy to understand image (a glance at it
 should be enough) of the status of the page it is on. I.e. if the page is a
 weblog, it should display subject information on that weblog, if it is on the
-page of a thread of a forum, it displays the flow of the discussion.
+page of a thread of a forum, it displays the flow of the
+discussion\footnote{Because currently there is no way to track discussions due
+to lack of meta-information about how comments relate to eachother, this part
+won't be implemented}.
 
+The applet has no high priority, and it would be enough to convert the full
+screen application to an applet.
