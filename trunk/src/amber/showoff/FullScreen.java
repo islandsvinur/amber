@@ -55,11 +55,11 @@ import amber.common.Polar2d;
 
 /**
  * @author christian
- *
+ * 
  */
 public class FullScreen extends ShowOff {
     final private EarthView earthView;
-    
+
     /**
      * @param moduleName
      * @param hostname
@@ -67,11 +67,13 @@ public class FullScreen extends ShowOff {
      */
     public FullScreen(String moduleName, String hostname, Integer port) {
         super("FullScreen." + moduleName, hostname, port);
-        
+
         JFrame main = new JFrame();
         main.setSize(500, 500);
-        /* JWindow main = new JWindow();
-        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main); */
+        /*
+         * JWindow main = new JWindow();
+         * GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main);
+         */
 
         Container mainpane = main.getContentPane();
 
@@ -91,16 +93,22 @@ public class FullScreen extends ShowOff {
 
         earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
-        
-        if (airBrush.hasParameter("Attractors")) {
-            airBrush.getParameterString("Attractors");
-            earthView.addAttractor(new Polar2d(150.0, 0.25 * Math.PI), 0.75, "MacBook");
-            earthView.addAttractor(new Polar2d(150.0, 1.25 * Math.PI), 0.75, "iPod");
-            earthView.addAttractor(new Polar2d(150.0, 0.75 * Math.PI), 0.75, "iTunes");
-            earthView.addAttractor(new Polar2d(150.0, 1.75 * Math.PI), 0.75, "Zune");
 
+        if (airBrush.hasParameter("Attractors")) {
+            String att = airBrush.getParameterString("Attractors");
+            String[] attr = att.split(",");
+            int attrCount = attr.length;
+            for (Integer i = 0; i < attrCount; i++) {
+                String[] keyVal = attr[i].split(":");
+                earthView.addAttractor(new Polar2d(150.0, 2
+                        * (i.doubleValue() / attrCount) * Math.PI), Double
+                        .parseDouble(keyVal[1]), keyVal[0]);
+            }
+
+        } else {
+            System.err.println("No attractors defined! Are you sure this is what you wanted?");
         }
-        
+
         list.add(earthView);
         list.add(b);
 

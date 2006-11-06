@@ -123,9 +123,9 @@ public abstract class Launcher {
                     app = new amber.sieve.KeywordSpotter(id, hostname, port);
                 } else if (modName.equals("FullScreen")) {
                     app = new amber.showoff.FullScreen(id, hostname, port);
-                } else if (modName.equals("Applet")) {
+                } /* else if (modName.equals("Applet")) {
                     app = new amber.showoff.Applet(id, hostname, port);
-                }
+                } */
 
                 if (app != null)
                     app.start();

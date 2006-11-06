@@ -1,33 +1,26 @@
 package amber.showoff;
 
-import amber.ShowOff;
+import javax.swing.JApplet;
 
 /**
  * @author christian
  *
  */
-public class Applet extends ShowOff {
+public class Applet extends JApplet {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7090111642724235796L;
 
     /**
      * @param moduleName
      * @param hostname
      * @param port
      */
-    public Applet(String moduleName, String hostname, Integer port) {
-        super("Applet." + moduleName, hostname, port);
-        // TODO Auto-generated constructor stub
-    }
-
-    @Override
-    public void start() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void stop() {
-        // TODO Auto-generated method stub
-
+    public Applet() {
+        FullScreen mod = new FullScreen("Applet", "localhost", 10000);
+        mod.start();
     }
 
 }
