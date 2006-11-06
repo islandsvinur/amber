@@ -66,10 +66,12 @@ public class KeywordSpotter extends Sieve {
     public KeywordSpotter(String name, String hostname, Integer port) {
         super("KeywordSpotter." + name, hostname, port);
         contentPattern = Pattern.compile(airBrush
-                .getParameterString("QueryString.Content"), Pattern.CASE_INSENSITIVE);
+                .getParameterString("QueryString.Content"),
+                Pattern.CASE_INSENSITIVE);
         System.out.println("Content pattern set to: " + contentPattern);
         authorPattern = Pattern.compile(airBrush
-                .getParameterString("QueryString.Author"), Pattern.CASE_INSENSITIVE);
+                .getParameterString("QueryString.Author"),
+                Pattern.CASE_INSENSITIVE);
         System.out.println("Author pattern set to: " + authorPattern);
     }
 
@@ -94,27 +96,33 @@ public class KeywordSpotter extends Sieve {
         a.setID(story.getID());
         a.setTopic(topicString);
 
-        if (contentPattern != null) {
-            String content = story.getContent();
-            String title = story.getTitle();
-            Double relevance = 0.0;
-            if (contentPattern.matcher(content).matches()) {
-                relevance += Math.random() * 0.5;
+        try {
+            if (contentPattern != null) {
+                String content = story.getContent();
+                String title = story.getTitle();
+                Double relevance = 0.0;
+                if (contentPattern.matcher(content).matches()) {
+                    relevance += Math.random() * 0.5;
+                }
+                if (contentPattern.matcher(title).matches()) {
+                    relevance += Math.random() * 0.5;
+                }
+                if (relevance > 0) {
+                    a.setTopicRelevance(relevance);
+                    System.out.println("Analysed story (" + relevance + "): "
+                            + story.getTitle());
+                }
             }
-            if (contentPattern.matcher(title).matches()) {
-                relevance += Math.random() * 0.5;
-            }
-            if (relevance > 0) {
-                a.setTopicRelevance(relevance);
-                System.out.println("Analysed story (" + relevance + "): " + story.getTitle());
-            }
-        }
 
-        if (authorPattern != null) {
-            String author = story.getAuthor();
-            if (authorPattern.matcher(author).matches()) {
-                a.setAuthorRelevance(Math.random() * 0.5 + 0.5);
+            if (authorPattern != null) {
+                String author = story.getAuthor();
+                if (authorPattern.matcher(author).matches()) {
+                    a.setAuthorRelevance(Math.random() * 0.5 + 0.5);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("There was an error while analysing: "
+                    + e.getMessage());
         }
 
         return a;

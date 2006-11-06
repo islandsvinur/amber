@@ -41,6 +41,7 @@
 package amber.showoff;
 
 import java.awt.Color;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -53,7 +54,7 @@ import amber.common.Story;
 
 /**
  * @author christian
- *
+ * 
  */
 public class Particle {
 
@@ -74,7 +75,7 @@ public class Particle {
     private final static Double CRASH_HEIGHT = 30.0;
 
     private final static int MAXIMUM_ORBITS_UNBOUND = 25;
-    
+
     private final static int MAXIMUM_ORBITS_BOUND = 200;
 
     private final static int STATE_NEW = 0;
@@ -86,6 +87,8 @@ public class Particle {
     private final static int STATE_CRASHING = 3;
 
     private final static int STATE_CRASHED = 4;
+
+    private Date crashTime;
 
     /**
      * @param s
@@ -99,6 +102,8 @@ public class Particle {
         color = new Color(64, 64, 64);
 
         s.setParticle(this);
+        crashTime = new Date();
+
     }
 
     /**
@@ -184,6 +189,13 @@ public class Particle {
         accel.r = -7.5 - Math.random();
 
         state = STATE_LAUNCH;
+
+        // particle should crash 24 hours after publication of its story
+        if (story.getPublicationDate() != null) {
+            crashTime.setTime(story.getPublicationDate().getTime() + 24 * 60
+                    * 60 * 1000);
+        }
+
     }
 
     /**
@@ -226,8 +238,7 @@ public class Particle {
         }
 
         if (state == STATE_ORBITING) {
-            if (location.theta > (bound ? MAXIMUM_ORBITS_BOUND : MAXIMUM_ORBITS_UNBOUND) * 2 * Math.PI + Math.random()
-                    * Math.PI) {
+            if ((!bound && location.theta > MAXIMUM_ORBITS_UNBOUND) || crashTime.before(new Date())) {
                 accel.r = -5.0;
                 state = STATE_CRASHING;
             }
