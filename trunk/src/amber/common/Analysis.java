@@ -72,8 +72,8 @@ public class Analysis extends AmberMessage {
     }
 
     /**
-     * @param in
-     * @return
+     * @param in a YAML string representing the contents of an Analysis object
+     * @return a newly created Analysis object, initialized with the contents of the YAML string
      */
     public static Analysis createFromYAML(String in) {
         Analysis a = new Analysis();
@@ -82,7 +82,7 @@ public class Analysis extends AmberMessage {
     }
 
     /**
-     * @return
+     * @return true if the analysis finds itself relevant
      */
     public boolean isRelevant() {
         return relevant;

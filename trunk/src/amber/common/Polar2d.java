@@ -46,7 +46,7 @@ import javax.vecmath.Vector2d;
 
 /**
  * @author christian
- *
+ * 
  */
 public class Polar2d {
 
@@ -56,7 +56,10 @@ public class Polar2d {
 
     /**
      * @param r
+     *            distance from origin
      * @param theta
+     *            angle between the horizontal r axis extending to the right and
+     *            the point
      */
     public Polar2d(double r, double theta) {
         this.r = r;
@@ -65,6 +68,7 @@ public class Polar2d {
 
     /**
      * @param v
+     *            array of at least two elements.
      */
     public Polar2d(double[] v) {
         r = v[0];
@@ -74,8 +78,10 @@ public class Polar2d {
     public Polar2d() {
 
     }
-    
+
     /**
+     * Scale the distance from the origin
+     * 
      * @param f
      */
     public void scale(double f) {
@@ -83,8 +89,10 @@ public class Polar2d {
     }
 
     /**
+     * Create polar coordinates out of a cartesian coordinates tuple.
+     * 
      * @param t
-     * @return
+     * @return the polar coordinates equal to the input tuple
      */
     static public Polar2d fromCartesianTuple(Tuple2d t) {
         return new Polar2d(Math.atan2(t.y, t.x), Math.sqrt(t.x * t.x + t.y
@@ -92,6 +100,10 @@ public class Polar2d {
     }
 
     /**
+     * Internal method to convert polar to cartesian coordinates. Because of
+     * difference between Point2d and Vector2d, this can't be done in one
+     * function.
+     * 
      * @param t
      */
     private void toCartesian(Tuple2d t) {
@@ -100,7 +112,9 @@ public class Polar2d {
     }
 
     /**
-     * @return
+     * Returns the polar coordinates in Point2d cartesian coordinates.
+     * 
+     * @return the cartesian coordinates equivalent to the cartesian coordinates of the current object
      */
     public Point2d toCartesianPoint() {
         Point2d p = new Point2d();
@@ -109,50 +123,22 @@ public class Polar2d {
     }
 
     /**
-     * @return
+     * 
+     * @return the polar coordinates in Vector2d cartesian coordinates.
      */
     public Vector2d toCartesianVector() {
         Vector2d v = new Vector2d();
         toCartesian(v);
         return v;
     }
-    
-    /**
-     * @param p2
-     * @return
-     */
-    public Polar2d add(Polar2d p2) {
-        Polar2d p1 = new Polar2d();
-        
-        p1.theta = theta + p2.theta;
-        p2.r = r + p2.r;
-        
-        return p1;
-    }
-    
-    /**
-     * @param p2
-     * @return
-     */
-    public Polar2d minus(Polar2d p2) {
-        Polar2d p1 = new Polar2d();
-        
-        p1.theta = theta - p2.theta;
-        p2.r = r - p2.r;
-        
-        return p1;
-    }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#clone()
      */
     public Polar2d clone() {
         return new Polar2d(r, theta);
-    }
-
-    public void addCartesianVector(Vector2d v) {
-        // TODO Auto-generated method stub
-        
     }
 
 }

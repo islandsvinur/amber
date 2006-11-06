@@ -74,8 +74,8 @@ public class Story extends AmberMessage {
     }
 
     /**
-     * @param in
-     * @return
+     * @param in a YAML string containing the contents of a Story object
+     * @return a newly created Story object, initialized with the information in the YAML document
      */
     public static Story createFromYAML(String in) {
         Story story = new Story();

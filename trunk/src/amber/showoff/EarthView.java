@@ -292,7 +292,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
      * @param location
      * @param force
      * @param topic
-     * @return
+     * @return the newly created attractor
      */
     public Attractor addAttractor(Polar2d location, Double force, String topic) {
         Attractor a = new Attractor();

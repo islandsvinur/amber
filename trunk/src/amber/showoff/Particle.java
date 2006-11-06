@@ -76,8 +76,6 @@ public class Particle {
 
     private final static int MAXIMUM_ORBITS_UNBOUND = 25;
 
-    private final static int MAXIMUM_ORBITS_BOUND = 200;
-
     private final static int STATE_NEW = 0;
 
     private final static int STATE_LAUNCH = 1;
@@ -115,7 +113,7 @@ public class Particle {
     }
 
     /**
-     * @return
+     * @return the cartesian location of the particle
      */
     public Point2d getLocation() {
         return locationCartesian;
@@ -123,7 +121,8 @@ public class Particle {
     }
 
     /**
-     * @return
+     * @return the cartesian coordinate point containing the actual location of
+     *         a particle (after displacement by attractors)
      */
     private Point2d displaceParticle() {
         Polar2d v1 = location.clone();
@@ -172,7 +171,7 @@ public class Particle {
     }
 
     /**
-     * @return
+     * @return true if the particle has been launched
      */
     public boolean isLaunched() {
         return state >= STATE_LAUNCH;
@@ -207,7 +206,9 @@ public class Particle {
 
     /**
      * @param r
-     * @return
+     * @return the velocity according to Kepler's second law ("A line joining a
+     *         planet and its star sweeps out equal areas during equal intervals
+     *         of time")
      */
     private Double keplerRotation(Double r) {
         Double r2 = r * 1.5;
@@ -238,7 +239,8 @@ public class Particle {
         }
 
         if (state == STATE_ORBITING) {
-            if ((!bound && location.theta > MAXIMUM_ORBITS_UNBOUND) || crashTime.before(new Date())) {
+            if ((!bound && location.theta > MAXIMUM_ORBITS_UNBOUND)
+                    || crashTime.before(new Date())) {
                 accel.r = -5.0;
                 state = STATE_CRASHING;
             }
@@ -279,7 +281,7 @@ public class Particle {
     }
 
     /**
-     * @return
+     * @return the cartesian velocity of the particle
      */
     public Vector2d getVelocity() {
         return velocity.toCartesianVector();

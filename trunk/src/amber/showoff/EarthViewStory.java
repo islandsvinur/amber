@@ -69,8 +69,8 @@ public class EarthViewStory extends Story {
     }
     
     /**
-     * @param in
-     * @return
+     * @param in a YAML string representing the contents of a Story object
+     * @return a newly created EarthViewStory, initialized with the information in the input
      */
     public static EarthViewStory createFromYAML(String in) {
         EarthViewStory story = new EarthViewStory();
@@ -109,7 +109,7 @@ public class EarthViewStory extends Story {
     
     /**
      * @param topic
-     * @return
+     * @return the weight of the story
      */
     public Double getWeight(String topic) {
         return weights.get(topic);
@@ -158,7 +158,7 @@ public class EarthViewStory extends Story {
     }
     
     /**
-     * @return
+     * @return true if the story is associated with a particle
      */
     public boolean hasParticle() {
         return (particle != null);

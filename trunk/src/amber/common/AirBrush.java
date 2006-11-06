@@ -56,7 +56,7 @@ public class AirBrush implements Runnable {
     private String moduleName;
 
     /**
-     * @param plugname
+     * @param module
      * @param hostname
      * @param port
      */
@@ -93,7 +93,7 @@ public class AirBrush implements Runnable {
 
     /**
      * @param wb
-     * @return
+     * @return true if the whiteboard was succesfully opened
      */
     public boolean openWhiteboard(String wb) {
         return plug.openTwoWayConnectionTo(wb);
@@ -123,7 +123,7 @@ public class AirBrush implements Runnable {
 
     /**
      * @param key
-     * @return
+     * @return true when the parameter named key is present
      */
     public boolean hasParameter(String key) {
         return plug.hasParameter(key);
@@ -131,7 +131,7 @@ public class AirBrush implements Runnable {
 
     /**
      * @param key
-     * @return
+     * @return the parameter stored under key
      */
     public String getParameterString(String key) {
         return plug.getParameterString(key);
@@ -147,7 +147,7 @@ public class AirBrush implements Runnable {
 
     /**
      * @param key
-     * @return
+     * @return the parameter stored under key
      */
     public Integer getParameterInteger(String key) {
         return plug.getParameterInteger(key);
@@ -163,7 +163,7 @@ public class AirBrush implements Runnable {
 
     /**
      * @param key
-     * @return
+     * @return the parameter stored under key
      */
     public Double getParameterDouble(String key) {
         return plug.getParameterDouble(key);
