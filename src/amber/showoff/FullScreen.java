@@ -50,15 +50,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import amber.ShowOff;
-import amber.common.Polar2d;
-
 /**
  * @author christian
  * 
  */
-public class FullScreen extends ShowOff {
-    final private EarthView earthView;
+public class FullScreen extends EarthViewWrapper {
+
+    private JPanel list;
 
     /**
      * @param moduleName
@@ -67,19 +65,14 @@ public class FullScreen extends ShowOff {
      */
     public FullScreen(String moduleName, String hostname, Integer port) {
         super("FullScreen." + moduleName, hostname, port);
-
         JFrame main = new JFrame();
         main.setSize(500, 500);
         /*
          * JWindow main = new JWindow();
          * GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main);
          */
-
-        Container mainpane = main.getContentPane();
-
-        mainpane.setBackground(Color.black);
-
-        JPanel list = new JPanel();
+        
+        list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         list.setBackground(Color.black);
 
@@ -91,34 +84,20 @@ public class FullScreen extends ShowOff {
             };
         });
 
-        earthView = new EarthView(storyQueue, analysisQueue);
-        earthView.setVisible(true);
+        Container mainpane = main.getContentPane();
 
-        if (airBrush.hasParameter("Attractors")) {
-            String att = airBrush.getParameterString("Attractors");
-            String[] attr = att.split(",");
-            int attrCount = attr.length;
-            for (Integer i = 0; i < attrCount; i++) {
-                String[] keyVal = attr[i].split(":");
-                earthView.addAttractor(new Polar2d(150.0, 2
-                        * (i.doubleValue() / attrCount) * Math.PI), Double
-                        .parseDouble(keyVal[1]), keyVal[0]);
-            }
-
-        } else {
-            System.err.println("No attractors defined! Are you sure this is what you wanted?");
-        }
-
-        list.add(earthView);
-        list.add(b);
+        mainpane.setBackground(Color.black);
 
         mainpane.add(list);
         main.setVisible(true);
+
+        list.add(earthView);
+        list.add(b);
+        
     }
 
     public void start() {
         super.start();
-        earthView.start();
     }
 
 }

@@ -1,5 +1,8 @@
 package amber.showoff;
 
+import java.awt.Color;
+import java.awt.Container;
+
 import javax.swing.JApplet;
 
 /**
@@ -19,8 +22,15 @@ public class Applet extends JApplet {
      * @param port
      */
     public Applet() {
-        FullScreen mod = new FullScreen("Applet", "localhost", 10000);
-        mod.start();
+        EarthViewWrapper evw = new EarthViewWrapper("Applet", "localhost", 10000);
+
+        Container mainpane = this.getContentPane();
+
+        mainpane.setBackground(Color.black);
+
+        mainpane.add(evw.earthView);
+        this.setVisible(true);
+        evw.start();
     }
 
 }
