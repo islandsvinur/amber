@@ -170,6 +170,18 @@
         <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
+    <module name="Module.ShowOff.Applet">
+        <executable />
+        <parameter name="Attractors" type="String" value="MacBook:0.75,iPod:0.75,iTunes:0.75,Zune:0.75,Mac Pro:0.75,iMac:0.75,Mac mini:0.75" />
+        <description>
+            This module gets stories from the processed whiteboard and uses the
+            story s meta-data to display the stories in a certain way that is
+            ambient in its interaction.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
+    </module>
+
     <module name="Module.ShowOff.FullScreen.Anonymous">
         <executable />
         <parameter name="Attractors" type="String" value="MacBook:0.75,iPod:0.75,iTunes:0.75,Zune:0.75,Mac Pro:0.75,iMac:0.75,Mac mini:0.75" />
