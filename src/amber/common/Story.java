@@ -84,7 +84,10 @@ public class Story extends AmberMessage {
     }
 
     public String getID() {
-        return (String) getProperty(keyIdentifier);
+        if (getProperty(keyIdentifier) != null)
+            return (String) getProperty(keyIdentifier);
+        else
+            return "null";
     }
 
     public String getTitle() {

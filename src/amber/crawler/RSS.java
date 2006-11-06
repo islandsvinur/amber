@@ -40,6 +40,7 @@
 
 package amber.crawler;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
@@ -52,9 +53,12 @@ import amber.common.Story;
 import com.cmlabs.air.Message;
 
 import de.nava.informa.core.ChannelIF;
+import de.nava.informa.core.FeedIF;
 import de.nava.informa.core.ItemIF;
+import de.nava.informa.core.ParseException;
 import de.nava.informa.impl.basic.ChannelBuilder;
 import de.nava.informa.parsers.FeedParser;
+import de.nava.informa.parsers.OPMLParser;
 import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
@@ -67,7 +71,6 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     private Poller poller;
 
-
     /**
      * @param name
      * @param hostname
@@ -78,7 +81,7 @@ public class RSS extends Crawler implements PollerObserverIF {
             throws MalformedURLException {
         super("RSS." + name, hostname, port);
         System.out.println("Creating Poller.");
-        poller = new Poller(1);
+        poller = new Poller(10);
         switchFeed();
     }
 
@@ -112,38 +115,76 @@ public class RSS extends Crawler implements PollerObserverIF {
         return super.airBrushReceiveMessage(msg);
     }
 
-    /**
-     * 
-     */
-    private void switchFeed() {
-        URL url;
-        try {
-            url = getURL();
-            System.out.println("Switching feed to: " + url.toExternalForm());
-        } catch (MalformedURLException e1) {
-            System.err.println("Could not switch to feed: " + e1.getMessage());
-            e1.printStackTrace();
-        }
+    private void switchFeedRSS() throws MalformedURLException {
+        URL url = getURL();
+        System.out.println("Switching feed to: " + url.toExternalForm());
 
         if (channel != null) {
             poller.unregisterChannel(channel);
         }
-
+        
+        registerChannel(getURL());
+    }
+    
+    private void registerChannel(URL url) {
+        ChannelIF c;
         try {
-            channel = FeedParser.parse(new ChannelBuilder(), getURL());
+            c = FeedParser.parse(new ChannelBuilder(), url);
+            readAllItemsIn(c);
+            poller.registerChannel(c);
         } catch (Exception e) {
             System.err.println("Error parsing feed: " + e.getMessage());
         }
-        if (channel != null) {
-            Collection items = channel.getItems();
-            System.out.println("Found " + items.size() + " items in initial feed.");
+    }
+    
+    private void readAllItemsIn(ChannelIF c) {
+        if (c != null) {
+            Collection items = c.getItems();
+            System.out.println("Found " + items.size()
+                    + " items in initial feed.");
             for (Iterator it = items.iterator(); it.hasNext();) {
                 handleItem((ItemIF) it.next());
                 it.remove();
             }
         }
+        
+    }
 
-        poller.registerChannel(channel);
+    private void switchFeedOPML() throws MalformedURLException {
+        URL url;
+        url = new URL(airBrush.getParameterString("OPML"));
+        try {
+            Collection feeds = OPMLParser.parse(url);
+            for (Iterator i = feeds.iterator(); i.hasNext(); ) {
+                FeedIF f = (FeedIF) i.next();
+                System.out.println("Creating feed for " + f.getLocation());
+                registerChannel(f.getLocation());
+            }
+            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 
+     */
+    private void switchFeed() {
+        try {
+            if (airBrush.hasParameter("OPML")) {
+                switchFeedOPML();
+            } else if (airBrush.hasParameter("FeedURI")) {
+                switchFeedRSS();
+            }
+        } catch (MalformedURLException e) {
+            System.err.println("Could not switch to feed: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -177,7 +218,8 @@ public class RSS extends Crawler implements PollerObserverIF {
     }
 
     /**
-     * Creates a Story object with the contents of the item and posts it to Psyclone
+     * Creates a Story object with the contents of the item and posts it to
+     * Psyclone
      * 
      * @param item
      */
