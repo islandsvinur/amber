@@ -14,14 +14,14 @@ some preparation work and introduction at the university. Since in those two
 weeks the "intensive Icelandic language course":http://hi.is/page/ilpc was
 still going on, those two weeks were only half working days.
 
-h3. Week 33
+h3. Week 33 (0)
 
 table(log).
 (table-header). |_(day). Day|_(act). Activity|
 (table-row-even). |Thu 22.08|Introduction at the university with other exchange students|
 (table-row-odd). |Fri 23.08|Introduction to the School of Computer Science and Engineering, talk with Yngvi Björnsson|
 
-h3. Week 34
+h3. Week 34 (1)
 
 table(log).
 (table-header). |_(day). Day|_(act). Activity|
@@ -31,7 +31,7 @@ table(log).
 (table-row-even). |Thu 25.08|Bits and pieces of documentation and first code file structure|
 (table-row-odd). |Fri 26.08| |
 
-h3. Week 35
+h3. Week 35 (2)
 
 table(log).
 (table-header). |_(day). Day|_(act). Activity|
@@ -41,7 +41,7 @@ table(log).
 (table-row-even log-special-day). |Thu 31.08|Moving to Þverholt|
 (table-row-odd). |Fri  1.09|Chat with Kristinn about psySpec|
 
-h3. Week 36
+h3. Week 36 (3)
 
 p(plan). Having a global design of the modules and a first bit of object model,
 meanwhile playing around with posting and retrieving messages with Psyclone.
@@ -56,7 +56,7 @@ table(log).
 
 [CDM]http://www1.cs.columbia.edu/~smaskey/papers/AI_summer_vol_2.pdf
 
-h3. Week 37
+h3. Week 37 (4)
 
 p(plan). Finish global design, Think about visualization issues
 
@@ -70,7 +70,7 @@ table(log).
 
 [AppleKB304308]http://docs.info.apple.com/article.html?artnum=304308
 
-h3. Week 38
+h3. Week 38 (5)
 
 p(plan). Create detailed design, code along, starting with basic visualization
 
@@ -85,7 +85,7 @@ table(log).
 The weekend was spent on trips to Stykkisholmur (on Snæfellsnes) and Vík
 (southernmost point of Iceland).
 
-h3. Week 39
+h3. Week 39 (6)
 
 p(plan). Create detailed design and code for crawler module. Enjoy the trip to
 Vatnajökull, Jökulsárlon, Svartifoss etc.
@@ -106,7 +106,7 @@ table(log).
 
 Module not completed this week, will become early next week.
 
-h3. Week 40
+h3. Week 40 (7)
 
 p(plan). Create detailed design and code for analysis modules.
 
@@ -122,7 +122,7 @@ table(log).
 (table-row-even). |Thu 5.10|More code cleanup,<br/>Working crawler with simple analysis module behind it:<br/>WB.Analyses received first messages|
 (table-row-odd). |Fri 6.10|Work on the design document, <br/>Created UML diagrams following advise of Huub|
 
-h3. Week 41
+h3. Week 41 (8)
 
 p(plan). Continue detailed design and code for analysis modules.
 
@@ -134,7 +134,7 @@ table(log).
 (table-row-even). |Thu 12.10|Documentation updates|
 (table-row-odd). |Fri 13.10|Everything finished on KeywordSpotter,<br />Started on visualization part|
 
-h3. Week 42
+h3. Week 42 (9)
 
 p(plan). Continue detailed design and code for visualization. By the end of the
 week, the EarthView widget should be finished so that in the next week the
@@ -148,7 +148,7 @@ table(log).
 (table-row-even). |Thu 19.10|Thoughts about implementation of attractors,<br/>Started implementation of them|
 (table-row-odd). |Fri 20.10|Full implementation of attractors,<br/>Check completeness of EarthView interface|
 
-h3. Week 43
+h3. Week 43 (10)
 
 p(plan). Continue detailed design and code for visualization. Enable
 communication of visualizer with Psyclone. By the end of the week, the applet
@@ -162,7 +162,7 @@ table(log).
 (table-row-even). |Thu 26.10|Ported visualization to OpenGL,<br/>Workstation can now no longer render it in real time, but laptop can|
 (table-row-odd). |Fri 27.10|Only small fixes, half work day because of science trip to "Marorka":http://www.marorka.is/ |
 
-h3. Week 44
+h3. Week 44 (11)
 
 p(plan). Complete work at OpenGL visualization, return to crawler and sieves to
 use parameter framework of Psyclone instead of own implementation.
@@ -172,26 +172,22 @@ table(log).
 (table-row-odd). |Mon 30.10|Tried to implement textures for fading|
 (table-row-even). |Tue 31.10|Gave up on OpenGL, removed everything and continued on the JPanel implementation|
 (table-row-odd). |Wed 1.11|Different way of configuring the modules, by making use of the parameter framework in Psyclone,<br />Small problem left, fix tomorrow|
-(table-row-even). |Thu 2.11| |
-(table-row-odd). |Fri 3.11| |
+(table-row-even). |Thu 2.11|Fully make use of parameters, except for attractors|
+(table-row-odd). |Fri 3.11|OPML file parsing, a module can now be started for more than one RSS feed via OPML|
 
-h3. Week 45
+h3. Week 45 (12)
 
-p(plan). Refactoring
-
-<div class="invisible">
+p(plan). Refactoring, fixing bugs, completing Javadoc code documentation.
 
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 6.11| |
+(table-row-odd). |Mon 6.11|Attractors defined by parameter now,<br/>Visualization can be started as an applet|
 (table-row-even). |Tue 7.11| |
 (table-row-odd). |Wed 8.11| |
 (table-row-even). |Thu 9.11| |
 (table-row-odd). |Fri 10.11| |
 
-</div>
-
-h3. Week 46
+h3. Week 46 (13)
 
 p(plan). Fine-tune crawling, analysis and visualization parameters. Create
 final distribution files. Test those on various platforms.
@@ -208,9 +204,10 @@ table(log).
 
 </div>
 
-h3. Week 47
+h3. Week 47 (14)
 
-p(plan). Finish everything up. *No more coding this week!*
+p(plan). Finish everything up. *No more coding this week!* Reserved for
+"Goodbyes"
 
 <div class="invisible">
 
@@ -225,7 +222,7 @@ table(log).
 
 </div>
 
-h3. Week 48 (back in Eindhoven)
+h3. Week 48 (15) (back in Eindhoven)
 
 p(plan). Finish internship report.
 
