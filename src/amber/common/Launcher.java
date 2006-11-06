@@ -54,7 +54,7 @@ public abstract class Launcher {
 
     /**
      * @param args
-     * @return
+     * @return an CommandLine object containing the parsed command line string
      * @throws ParseException
      */
     private static CommandLine parseCommandLine(String[] args)

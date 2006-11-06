@@ -86,7 +86,7 @@ public class RSS extends Crawler implements PollerObserverIF {
     }
 
     /**
-     * @return
+     * @return the URL as stored in the Psyclone parameter
      * @throws MalformedURLException
      */
     private URL getURL() throws MalformedURLException {

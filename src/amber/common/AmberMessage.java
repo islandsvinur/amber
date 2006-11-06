@@ -66,7 +66,7 @@ public abstract class AmberMessage {
 
     /**
      * @param key
-     * @return
+     * @return the value of the property stored under key
      */
     public Object getProperty(String key) {
         return storage.get(key);
@@ -74,7 +74,7 @@ public abstract class AmberMessage {
 
     /**
      * @param key
-     * @return
+     * @return the value of the property stored under key
      */
     public Double getDoubleProperty(String key) {
         return (Double) getProperty(key);
@@ -82,7 +82,7 @@ public abstract class AmberMessage {
 
     /**
      * @param key
-     * @return
+     * @return the value of the property stored under key
      */
     public String getStringProperty(String key) {
         return (String) getProperty(key);

@@ -89,15 +89,15 @@ public abstract class Sieve extends Module {
     }
 
     /**
-     * @param story
-     * @return
+     * @param story the story to be analysed
+     * @return a newly created Analysis object which contains information about the story
      */
-    public abstract Analysis doAnalysis(Story story);
+    protected abstract Analysis doAnalysis(Story story);
 
     /**
      * @param msg
      */
-    private void handleIncomingStory(Message msg) {
+    protected void handleIncomingStory(Message msg) {
         Story s = Story.createFromYAML(msg.content);
         if (s != null) {
             Analysis a = doAnalysis(s);
