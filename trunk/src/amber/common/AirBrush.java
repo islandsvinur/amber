@@ -50,18 +50,35 @@ import com.cmlabs.air.*;
  * 
  */
 public class AirBrush implements Runnable {
+    /**
+     * the connection object
+     */
     final private JavaAIRPlug plug;
 
+    /**
+     * thread handling incoming messages
+     */
     private Thread thread;
 
+    /**
+     * the callback object
+     */
     private AirBrushCallable callback;
 
+    /**
+     * the string containing the name of the running module
+     */
     private String moduleName;
 
     /**
+     * Creates and initializes AirBrush and connects to the Psyclone server.
+     * 
      * @param module
+     *            the name of the module to connect
      * @param hostname
+     *            hostname of the Psyclone server
      * @param port
+     *            port number of the Psyclone server
      */
     public AirBrush(String module, String hostname, Integer port) {
         moduleName = module;
@@ -76,7 +93,7 @@ public class AirBrush implements Runnable {
     }
 
     /**
-     * 
+     * Start listening for incoming messages
      */
     public void startListening() {
         if (thread == null) {
@@ -87,7 +104,7 @@ public class AirBrush implements Runnable {
     }
 
     /**
-     * 
+     * Stop listening and disconnect from Psyclone
      */
     public void stopListening() {
         thread = null;
@@ -96,7 +113,10 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Open connection a two-way connection with the whiteboard
+     * 
      * @param wb
+     *            name of the whiteboard to connect with
      * @return true if the whiteboard was succesfully opened
      */
     public boolean openWhiteboard(String wb) {
@@ -104,6 +124,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Post a message to Psyclone
+     * 
      * @param msg
      */
     public void postMessage(Message msg) {
@@ -111,13 +133,18 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Set the callback object for handling incoming messages
+     * 
      * @param cb
+     *            the callback object
      */
     public void setCallbackObject(AirBrushCallable cb) {
         callback = cb;
     }
 
     /**
+     * Set a parameter in Psyclone for the current module
+     * 
      * @param key
      * @param value
      */
@@ -134,6 +161,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Get the parameter with type String
+     * 
      * @param key
      * @return the parameter stored under key
      */
@@ -142,6 +171,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Set a parameter in Psyclone for the current module
+     * 
      * @param key
      * @param value
      */
@@ -150,6 +181,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Get the parameter with type Integer
+     * 
      * @param key
      * @return the parameter stored under key
      */
@@ -158,6 +191,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Set a parameter in Psyclone for the current module
+     * 
      * @param key
      * @param value
      */
@@ -166,6 +201,8 @@ public class AirBrush implements Runnable {
     }
 
     /**
+     * Get the parameter with type Double
+     * 
      * @param key
      * @return the parameter stored under key
      */

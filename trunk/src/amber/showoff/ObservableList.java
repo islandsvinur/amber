@@ -62,9 +62,6 @@ public class ObservableList<T> extends Observable implements List<T> {
     /**
      * ObservableList<T> is an implementation of List<T> and extends
      * Observable. On top of that, it is also synchronized.
-     * 
-     * @see Collections.synchronizedList
-     * 
      */
     public ObservableList() {
         list = Collections.synchronizedList(new LinkedList<T>());

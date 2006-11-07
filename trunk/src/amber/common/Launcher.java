@@ -60,8 +60,7 @@ public abstract class Launcher {
      * @return an CommandLine object containing the parsed command line string
      * @throws ParseException
      */
-    private static CommandLine parseCommandLine(String[] args)
-            throws ParseException {
+    private static CommandLine parseCommandLine(String[] args) {
         Options o = new Options();
 
         o.addOption("m", "module", true, "The module to be launched.");
@@ -77,22 +76,29 @@ public abstract class Launcher {
                                 + " Allows controlling applications to send direct messages.");
 
         BasicParser parser = new BasicParser();
-        CommandLine cl = parser.parse(o, args);
+        CommandLine cl;
+        try {
+            cl = parser.parse(o, args);
+            if (cl.hasOption('h')) {
+                printHelp(o);
+            }
+            return cl;
+        } catch (ParseException e) {
+            printHelp(o);
+        }
 
-        printHelp(o, cl);
-
-        return cl;
+        return null;
     }
 
     /**
+     * Prints help about the valid command line switches and options
+     * 
      * @param o
-     * @param cl
+     *            the options object
      */
-    private static void printHelp(Options o, CommandLine cl) {
-        if (cl.hasOption('h')) {
-            HelpFormatter f = new HelpFormatter();
-            f.printHelp("Launcher", o);
-        }
+    private static void printHelp(Options o) {
+        HelpFormatter f = new HelpFormatter();
+        f.printHelp("Launcher", o);
     }
 
     /**
@@ -102,41 +108,40 @@ public abstract class Launcher {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static void main(String args[]) throws InstantiationException,
-            IllegalAccessException {
-        try {
-            CommandLine cl = parseCommandLine(args);
-            String id, hostname;
-            Integer port;
+    public static void main(String args[]) {
+        CommandLine cl;
+        cl = parseCommandLine(args);
+        if (cl == null) {
+            System.exit(-1);
+        }
+        String id, hostname;
+        Integer port;
 
-            id = cl.getOptionValue("i", "Anonymous");
+        id = cl.getOptionValue("i", "Anonymous");
 
-            hostname = cl.getOptionValue("s", "localhost");
-            port = Integer.valueOf(cl.getOptionValue("p", "10000"));
+        hostname = cl.getOptionValue("s", "localhost");
+        port = Integer.valueOf(cl.getOptionValue("p", "10000"));
 
-            System.out.println("Going to start some module");
+        System.out.println("Going to start some module");
 
-            if (cl.hasOption("m")) {
-                String modName = cl.getOptionValue("m");
+        if (cl.hasOption("m")) {
+            String modName = cl.getOptionValue("m");
 
-                Module app = null;
-                if (modName.equals("RSS")) {
-                    app = new amber.crawler.RSS(id, hostname, port);
-                } else if (modName.equals("KeywordSpotter")) {
-                    app = new amber.sieve.KeywordSpotter(id, hostname, port);
-                } else if (modName.equals("FullScreen")) {
-                    app = new amber.showoff.FullScreen(id, hostname, port);
-                }
-
-                if (app != null)
-                    app.start();
-
+            Module app = null;
+            if (modName.equals("RSS")) {
+                app = new amber.crawler.RSS(id, hostname, port);
+            } else if (modName.equals("KeywordSpotter")) {
+                app = new amber.sieve.KeywordSpotter(id, hostname, port);
+            } else if (modName.equals("FullScreen")) {
+                app = new amber.showoff.FullScreen(id, hostname, port);
             }
 
-            System.out.println("Module started");
+            if (app != null)
+                app.start();
 
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        System.out.println("Module started");
+
     }
 }

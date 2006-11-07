@@ -54,14 +54,23 @@ import com.cmlabs.air.Message;
  * 
  */
 public abstract class Sieve extends Module {
+    /**
+     * topic this Sieve creates Analyses for
+     */
     protected String topicString;
 
+    /**
+     * the suffix of messages to be sent to the whiteboard
+     */
     final private String messageTypeSuffix;
 
     /**
      * @param name
+     *            the name of the module to start
      * @param hostname
+     *            hostname of the psyclone server
      * @param port
+     *            port of the psyclone server
      */
     public Sieve(String name, String hostname, Integer port) {
         super("Sieve." + name, hostname, port);
@@ -103,6 +112,9 @@ public abstract class Sieve extends Module {
     protected abstract Analysis doAnalysis(Story story);
 
     /**
+     * an incoming message gets analysed, if it is deemed relevant the analysis
+     * immediately sent on
+     * 
      * @param msg
      */
     protected void handleIncomingStory(Message msg) {

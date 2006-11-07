@@ -105,9 +105,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
         sq.addObserver(this);
     }
 
-    /**
-     * 
-     */
+    /** Start the animator */
     public void start() {
         setForeground(Color.white);
         setBackground(Color.black);
@@ -176,7 +174,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     /**
      * @param g
+     *            the graphics object to be drawn upon
      * @param p
+     *            the particle object to be drawn
      */
     private void drawParticle(Graphics g, Particle p) {
         int diameter = 5;
@@ -231,9 +231,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     }
 
-    /**
-     * 
-     */
+    /** Get all new stories from the story queue. */
     private void getNewStories() {
         EarthViewStory s;
         Particle p;
@@ -255,9 +253,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
     }
 
-    /**
-     * 
-     */
+    /** Get all new analyses from the analysis queue */
     private void getNewAnalyses() {
         Analysis a;
 
@@ -297,9 +293,14 @@ public class EarthView extends JPanel implements Runnable, Observer {
     }
 
     /**
+     * Add an attractor
+     * 
      * @param location
+     *            the location of the attractor in polar coordinates
      * @param force
+     *            the force of the attractor
      * @param topic
+     *            the topic the attractor represents
      * @return the newly created attractor
      */
     public Attractor addAttractor(Polar2d location, Double force, String topic) {

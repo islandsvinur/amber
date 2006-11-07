@@ -53,6 +53,9 @@ import org.jvyaml.YAML;
  */
 public abstract class AmberMessage {
 
+    /**
+     * storage of the properties
+     */
     private Hashtable<String, Object> storage;
 
     public AmberMessage() {
