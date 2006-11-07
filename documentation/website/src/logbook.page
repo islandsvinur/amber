@@ -182,7 +182,7 @@ p(plan). Refactoring, fixing bugs, completing Javadoc code documentation.
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 6.11|Attractors defined by parameter now,<br/>Visualization can be started as an applet|
-(table-row-even). |Tue 7.11| |
+(table-row-even). |Tue 7.11|Mainly work on documenting source code, included Javadoc in design document|
 (table-row-odd). |Wed 8.11| |
 (table-row-even). |Thu 9.11| |
 (table-row-odd). |Fri 10.11| |
