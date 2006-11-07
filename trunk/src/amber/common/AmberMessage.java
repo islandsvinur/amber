@@ -45,6 +45,9 @@ import java.util.Hashtable;
 import org.jvyaml.YAML;
 
 /**
+ * Superclass of all messages that are serialized and sent over to Psyclone:
+ * Story and Analysis. Messages are serialized in YAML format.
+ * 
  * @author christian
  * 
  */
@@ -106,7 +109,8 @@ public abstract class AmberMessage {
         try {
             storage = (Hashtable<String, Object>) YAML.load(in);
         } catch (Exception e) {
-            System.err.println("There is a problem with the message: " + e.getMessage());
+            System.err.println("There is a problem with the message: "
+                    + e.getMessage());
         }
     }
 }

@@ -43,6 +43,9 @@ package amber.common;
 import com.cmlabs.air.Message;
 
 /**
+ * Parent class of all Amber modules. Responsible for connectivity with Psyclone
+ * via AirBrush.
+ * 
  * @author christian
  * 
  */
@@ -62,7 +65,7 @@ public abstract class Module implements AirBrushCallable {
 
         airBrush = new AirBrush(moduleName, hostname, port);
         airBrush.setCallbackObject(this);
-        
+
     }
 
     /*

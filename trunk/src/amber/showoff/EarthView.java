@@ -58,8 +58,10 @@ import amber.common.Analysis;
 import amber.common.Polar2d;
 
 /**
+ * A Swing component displaying the main Amber visualization.
+ * 
  * @author christian
- *
+ * 
  */
 public class EarthView extends JPanel implements Runnable, Observer {
 
@@ -113,7 +115,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         animator.start();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
      */
     public void paintComponent(Graphics g) {
@@ -188,7 +192,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     public void run() {
@@ -273,7 +279,9 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
      */
     public void update(Observable updater, Object message) {

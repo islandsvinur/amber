@@ -43,8 +43,10 @@ package amber.common;
 import java.util.Date;
 
 /**
+ * Holds all (meta-)information directly connected to a crawled story.
+ * 
  * @author christian
- *
+ * 
  */
 public class Story extends AmberMessage {
 
@@ -74,8 +76,10 @@ public class Story extends AmberMessage {
     }
 
     /**
-     * @param in a YAML string containing the contents of a Story object
-     * @return a newly created Story object, initialized with the information in the YAML document
+     * @param in
+     *            a YAML string containing the contents of a Story object
+     * @return a newly created Story object, initialized with the information in
+     *         the YAML document
      */
     public static Story createFromYAML(String in) {
         Story story = new Story();

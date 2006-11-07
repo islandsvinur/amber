@@ -51,6 +51,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
+ * Displays the EarthView component in a full screen window.
+ * 
  * @author christian
  * 
  */
@@ -71,7 +73,7 @@ public class FullScreen extends EarthViewWrapper {
          * JWindow main = new JWindow();
          * GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main);
          */
-        
+
         list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         list.setBackground(Color.black);
@@ -93,7 +95,7 @@ public class FullScreen extends EarthViewWrapper {
 
         list.add(earthView);
         list.add(b);
-        
+
     }
 
     public void start() {

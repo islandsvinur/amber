@@ -49,8 +49,12 @@ import amber.common.Analysis;
 import amber.common.Polar2d;
 
 /**
+ * Demonstrates the visual aspect of Amber. Generates stories and analyses about
+ * eight different countries and displays it. Implemented as an applet, so can
+ * be used on a website for demonstrations.
+ * 
  * @author christian
- *
+ * 
  */
 public class Demonstrator extends JApplet implements Runnable {
 
@@ -95,7 +99,7 @@ public class Demonstrator extends JApplet implements Runnable {
                 "noorwegen");
 
         earthView.start();
-        
+
         setVisible(true);
         mainpane.add(earthView);
 
@@ -110,7 +114,9 @@ public class Demonstrator extends JApplet implements Runnable {
         new Demonstrator();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     public void run() {

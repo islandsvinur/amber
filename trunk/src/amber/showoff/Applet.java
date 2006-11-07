@@ -6,8 +6,11 @@ import java.awt.Container;
 import javax.swing.JApplet;
 
 /**
+ * Implements an applet (!) containing the visualization module. Can thus be
+ * used to display on a website.
+ * 
  * @author christian
- *
+ * 
  */
 public class Applet extends JApplet {
 
@@ -22,7 +25,8 @@ public class Applet extends JApplet {
      * @param port
      */
     public Applet() {
-        EarthViewWrapper evw = new EarthViewWrapper("Applet", "localhost", 10000);
+        EarthViewWrapper evw = new EarthViewWrapper("Applet", "localhost",
+                10000);
 
         Container mainpane = this.getContentPane();
 

@@ -43,11 +43,17 @@ package amber.common;
 import com.cmlabs.air.Message;
 
 /**
+ * Specificies the callback functions for communication with AirBrush, the
+ * interface to JavaOpenAIR.
+ * 
  * @author christian
- *
+ * 
  */
 public interface AirBrushCallable {
     /**
+     * When a message comes in, this method is called on the set implementer of
+     * this interface.
+     * 
      * @param msg
      * @return true if the message was handled, false if it wasn't
      */

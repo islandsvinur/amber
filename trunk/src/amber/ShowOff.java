@@ -48,6 +48,10 @@ import amber.showoff.ObservableList;
 import com.cmlabs.air.Message;
 
 /**
+ * Displays the information available in the whiteboards. They combine Story
+ * messages with Analysis messages. It is dependent on the type of visualization
+ * one wants to accomplish what will be displayed and in what manner.
+ * 
  * @author christian
  * 
  */
@@ -70,17 +74,19 @@ public abstract class ShowOff extends Module {
      */
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
-        
+
         if (!airBrush.openWhiteboard("WB.Stories"))
-            System.err.println("Couldn't open two-way connection to whiteboard WB.Stories");
+            System.err
+                    .println("Couldn't open two-way connection to whiteboard WB.Stories");
         else
             System.err.println("Successfully opened WB.Stories");
-        
+
         if (!airBrush.openWhiteboard("WB.Analyses"))
-            System.err.println("Couldn't open two-way connection to whiteboard WB.Analyses");
+            System.err
+                    .println("Couldn't open two-way connection to whiteboard WB.Analyses");
         else
             System.err.println("Successfully opened WB.Analyses");
-        
+
         storyQueue = new ObservableList<EarthViewStory>();
         analysisQueue = new ObservableList<Analysis>();
     }
@@ -102,17 +108,21 @@ public abstract class ShowOff extends Module {
             story = EarthViewStory.createFromYAML(msg.content);
 
             // Print some information
-            /* System.out.println("Received story written by " + story.getAuthor()
-                    + " on " + story.getPublicationDate() + ", with id: "
-                    + story.getID()); */
+            /*
+             * System.out.println("Received story written by " +
+             * story.getAuthor() + " on " + story.getPublicationDate() + ", with
+             * id: " + story.getID());
+             */
             // Now add this story to the queue
             storyQueue.add(story);
             return true;
         } else if (msg.type.matches("Analysis.*")) {
             Analysis a;
             a = Analysis.createFromYAML(msg.content);
-            /* System.out.println("Received analysis for story " + a.getID()
-                    + " topic: " + a.getTopic()); */
+            /*
+             * System.out.println("Received analysis for story " + a.getID() + "
+             * topic: " + a.getTopic());
+             */
             analysisQueue.add(a);
             return true;
         }

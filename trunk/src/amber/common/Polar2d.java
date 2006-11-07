@@ -45,6 +45,9 @@ import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
 /**
+ * Represents polar coordinates: Angle and distance from origin. Roughly same
+ * function as Point2d and Vector2d, but without the calculations.
+ * 
  * @author christian
  * 
  */
@@ -114,7 +117,8 @@ public class Polar2d {
     /**
      * Returns the polar coordinates in Point2d cartesian coordinates.
      * 
-     * @return the cartesian coordinates equivalent to the cartesian coordinates of the current object
+     * @return the cartesian coordinates equivalent to the cartesian coordinates
+     *         of the current object
      */
     public Point2d toCartesianPoint() {
         Point2d p = new Point2d();

@@ -49,6 +49,10 @@ import amber.common.Analysis;
 import amber.common.Story;
 
 /**
+ * Sieve module which matches a Story with a regular expression (@see Pattern
+ * class). If it matches, an Analysis object is created and a relevancy value is
+ * set and it is sent to the Psyclone whiteboard.
+ * 
  * @author christian
  * 
  */
