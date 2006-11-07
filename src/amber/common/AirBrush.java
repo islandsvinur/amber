@@ -43,6 +43,9 @@ package amber.common;
 import com.cmlabs.air.*;
 
 /**
+ * A small layer between JavaOpenAIR and Amber which holds state information
+ * about the connection with the Psyclone server and such.
+ * 
  * @author christian
  * 
  */
@@ -64,8 +67,8 @@ public class AirBrush implements Runnable {
         moduleName = module;
         plug = new JavaAIRPlug(moduleName, hostname, port);
         if (plug.init()) {
-            System.out.println("Successfully connected to Psyclone: " + hostname
-                    + ":" + port);
+            System.out.println("Successfully connected to Psyclone: "
+                    + hostname + ":" + port);
             System.out.println("  module name: " + moduleName);
         } else {
             System.err.println("Could not connect to Psyclone!");
@@ -73,13 +76,14 @@ public class AirBrush implements Runnable {
     }
 
     /**
-     * @throws Exception
+     * 
      */
     public void startListening() {
         if (thread == null) {
             thread = new Thread(this);
             thread.start();
-        }
+        } else
+            System.err.println("Thread already started.");
     }
 
     /**

@@ -41,8 +41,12 @@
 package amber.common;
 
 /**
+ * Holds information about a single Story object. Currently it is mainly focused
+ * on the relevance of a story within a certain topic, but it can be easily
+ * extended.
+ * 
  * @author christian
- *
+ * 
  */
 public class Analysis extends AmberMessage {
 
@@ -72,8 +76,10 @@ public class Analysis extends AmberMessage {
     }
 
     /**
-     * @param in a YAML string representing the contents of an Analysis object
-     * @return a newly created Analysis object, initialized with the contents of the YAML string
+     * @param in
+     *            a YAML string representing the contents of an Analysis object
+     * @return a newly created Analysis object, initialized with the contents of
+     *         the YAML string
      */
     public static Analysis createFromYAML(String in) {
         Analysis a = new Analysis();

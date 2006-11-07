@@ -47,11 +47,15 @@ import amber.common.Story;
 import com.cmlabs.air.Message;
 
 /**
+ * Provides a means of adding meaning to a story. When a Story message comes in,
+ * the Sieve module will generate an Analysis based on it.
+ * 
  * @author christian
- *
+ * 
  */
 public abstract class Sieve extends Module {
     protected String topicString;
+
     final private String messageTypeSuffix;
 
     /**
@@ -66,7 +70,9 @@ public abstract class Sieve extends Module {
         System.out.println("Topic set to: " + topicString);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see amber.common.Module#airBrushReceiveMessage(com.cmlabs.air.Message)
      */
     public boolean airBrushReceiveMessage(Message msg) {
@@ -89,8 +95,10 @@ public abstract class Sieve extends Module {
     }
 
     /**
-     * @param story the story to be analysed
-     * @return a newly created Analysis object which contains information about the story
+     * @param story
+     *            the story to be analysed
+     * @return a newly created Analysis object which contains information about
+     *         the story
      */
     protected abstract Analysis doAnalysis(Story story);
 

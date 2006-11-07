@@ -53,6 +53,17 @@ import amber.common.Polar2d;
 import amber.common.Story;
 
 /**
+ * Representation of a Story in the EarthView visualization. When initialized,
+ * the particle will get some parameters to be launched. Upon launch, the
+ * particle will move according to the equations of motion (v = v + a * t, s =
+ * 1/2 a * t^2 etc.).
+ * 
+ * If the story gets an analysis, the particle will be attracted to at least one
+ * of the attractors around the center. If it doesn't get an analysis, the
+ * particle will quickly fall down, crash and disappear. Relevant particles
+ * (i.e. the ones with analysis) will stay around for about 2 days (which is a
+ * constant to be chosen freely).
+ * 
  * @author christian
  * 
  */
@@ -62,7 +73,7 @@ public class Particle {
 
     private Point2d locationCartesian = null;
 
-    private int state = STATE_NEW;
+    private State state = State.NEW;
 
     private Double mass = 0.0;
 
@@ -76,15 +87,12 @@ public class Particle {
 
     private final static int MAXIMUM_ORBITS_UNBOUND = 25;
 
-    private final static int STATE_NEW = 0;
+    /** Particles of relevant stories should crash 48 hours after launch */
+    private final static int LIFE_LENGTH_IN_MS = 48 * 60 * 60 * 1000;
 
-    private final static int STATE_LAUNCH = 1;
-
-    private final static int STATE_ORBITING = 2;
-
-    private final static int STATE_CRASHING = 3;
-
-    private final static int STATE_CRASHED = 4;
+    public enum State {
+        NEW, LAUNCH, ORBITING, CRASHING, CRASHED
+    };
 
     private Date crashTime;
 
@@ -174,7 +182,7 @@ public class Particle {
      * @return true if the particle has been launched
      */
     public boolean isLaunched() {
-        return state >= STATE_LAUNCH;
+        return state.compareTo(State.LAUNCH) > 0;
     }
 
     /**
@@ -187,12 +195,13 @@ public class Particle {
         accel.theta = 0.75;
         accel.r = -7.5 - Math.random();
 
-        state = STATE_LAUNCH;
+        state = State.LAUNCH;
 
-        // particle should crash 24 hours after publication of its story
+        // particle should crash some certain amount time after publication of
+        // its story
         if (story.getPublicationDate() != null) {
-            crashTime.setTime(story.getPublicationDate().getTime() + 24 * 60
-                    * 60 * 1000);
+            crashTime.setTime(story.getPublicationDate().getTime()
+                    + LIFE_LENGTH_IN_MS);
         }
 
     }
@@ -226,36 +235,36 @@ public class Particle {
 
         velocity.r = velocity.r + accel.r * time;
 
-        if (state == STATE_LAUNCH)
+        if (state == State.LAUNCH)
             velocity.theta = velocity.theta + accel.theta * time;
         else
             velocity.theta = keplerRotation(location.r);
 
-        if (state == STATE_LAUNCH && velocity.r < 0.1) {
-            state = STATE_ORBITING;
+        if (state == State.LAUNCH && velocity.r < 0.1) {
+            state = State.ORBITING;
             accel.r = 0;
             accel.theta = 0;
             velocity.r = 0;
         }
 
-        if (state == STATE_ORBITING) {
+        if (state == State.ORBITING) {
             if ((!bound && location.theta > MAXIMUM_ORBITS_UNBOUND)
                     || crashTime.before(new Date())) {
                 accel.r = -5.0;
-                state = STATE_CRASHING;
+                state = State.CRASHING;
             }
         }
 
-        if (state == STATE_CRASHING) {
+        if (state == State.CRASHING) {
             // Here, fade-out can be implemented instead of falling down
             if (location.r < CRASH_HEIGHT) {
                 location.r = 0;
                 location.theta = 0;
-                state = STATE_CRASHED;
+                state = State.CRASHED;
             }
         }
 
-        if (state > STATE_LAUNCH) {
+        if (state.compareTo(State.LAUNCH) > 0) {
             if (Math.abs(accel.theta) < 0.1)
                 accel.theta = 0;
             if (Math.abs(accel.r) < 0.1)
@@ -266,7 +275,7 @@ public class Particle {
                 velocity.r = 0;
         }
 
-        if (state == STATE_ORBITING)
+        if (state == State.ORBITING)
             locationCartesian = displaceParticle();
         else
             locationCartesian = location.toCartesianPoint();
@@ -277,7 +286,7 @@ public class Particle {
      * @return true when the particle has crashed, false otherwise
      */
     public boolean crashed() {
-        return (state == STATE_CRASHED);
+        return (state == State.CRASHED);
     }
 
     /**

@@ -63,6 +63,10 @@ import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
 /**
+ * Crawler module that can register with a RSS feed and will post Story objects
+ * whenever new stories come in. It also has a means of registering with more
+ * than one feed at a time, through the use of OPML.
+ * 
  * @author christian
  * 
  */
@@ -122,10 +126,10 @@ public class RSS extends Crawler implements PollerObserverIF {
         if (channel != null) {
             poller.unregisterChannel(channel);
         }
-        
+
         registerChannel(getURL());
     }
-    
+
     private void registerChannel(URL url) {
         ChannelIF c;
         try {
@@ -136,7 +140,7 @@ public class RSS extends Crawler implements PollerObserverIF {
             System.err.println("Error parsing feed: " + e.getMessage());
         }
     }
-    
+
     private void readAllItemsIn(ChannelIF c) {
         if (c != null) {
             Collection items = c.getItems();
@@ -147,7 +151,7 @@ public class RSS extends Crawler implements PollerObserverIF {
                 it.remove();
             }
         }
-        
+
     }
 
     private void switchFeedOPML() throws MalformedURLException {
@@ -155,12 +159,12 @@ public class RSS extends Crawler implements PollerObserverIF {
         url = new URL(airBrush.getParameterString("OPML"));
         try {
             Collection feeds = OPMLParser.parse(url);
-            for (Iterator i = feeds.iterator(); i.hasNext(); ) {
+            for (Iterator i = feeds.iterator(); i.hasNext();) {
                 FeedIF f = (FeedIF) i.next();
                 System.out.println("Creating feed for " + f.getLocation());
                 registerChannel(f.getLocation());
             }
-            
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

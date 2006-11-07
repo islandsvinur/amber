@@ -47,6 +47,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
+ * To be called directly from the commandline and is in fact the preferred way
+ * to start any Amber module. Start with -h command line switch to get help.
+ * 
  * @author christian
  * 
  */
@@ -123,9 +126,7 @@ public abstract class Launcher {
                     app = new amber.sieve.KeywordSpotter(id, hostname, port);
                 } else if (modName.equals("FullScreen")) {
                     app = new amber.showoff.FullScreen(id, hostname, port);
-                } /* else if (modName.equals("Applet")) {
-                    app = new amber.showoff.Applet(id, hostname, port);
-                } */
+                }
 
                 if (app != null)
                     app.start();
@@ -135,7 +136,6 @@ public abstract class Launcher {
             System.out.println("Module started");
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

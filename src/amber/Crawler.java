@@ -43,8 +43,11 @@ package amber;
 import amber.common.Module;
 
 /**
+ * Gathers information, be it from the internet or from another information
+ * system. They post Story messages to a Psyclone whiteboard.
+ * 
  * @author christian
- *
+ * 
  */
 public abstract class Crawler extends Module {
 

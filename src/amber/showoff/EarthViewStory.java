@@ -50,12 +50,16 @@ import amber.common.Analysis;
 import amber.common.Story;
 
 /**
+ * Holds both EarthView specific information like analyses and particles that
+ * belong to a story.
+ * 
  * @author christian
- *
+ * 
  */
 public class EarthViewStory extends Story {
 
     private List<Analysis> analyses;
+
     private Hashtable<String, Double> weights;
 
     private Particle particle;
@@ -67,17 +71,19 @@ public class EarthViewStory extends Story {
         analyses = Collections.synchronizedList(new LinkedList<Analysis>());
         weights = new Hashtable<String, Double>();
     }
-    
+
     /**
-     * @param in a YAML string representing the contents of a Story object
-     * @return a newly created EarthViewStory, initialized with the information in the input
+     * @param in
+     *            a YAML string representing the contents of a Story object
+     * @return a newly created EarthViewStory, initialized with the information
+     *         in the input
      */
     public static EarthViewStory createFromYAML(String in) {
         EarthViewStory story = new EarthViewStory();
         story.fromYAML(in);
         return story;
     }
-    
+
     /**
      * 
      */
@@ -106,7 +112,7 @@ public class EarthViewStory extends Story {
 
         particle.bind();
     }
-    
+
     /**
      * @param topic
      * @return the weight of the story
@@ -120,7 +126,7 @@ public class EarthViewStory extends Story {
      */
     public void calculateWeights() {
         if (particle != null) {
-            synchronized(analyses) {
+            synchronized (analyses) {
                 ListIterator<Analysis> i = analyses.listIterator();
                 Hashtable<String, Integer> topicCount = new Hashtable<String, Integer>();
                 while (i.hasNext()) {
@@ -128,7 +134,7 @@ public class EarthViewStory extends Story {
                     Analysis a = i.next();
                     String topic = a.getTopic();
                     Integer count = topicCount.get(topic);
-                    
+
                     Double value = a.getTopicRelevance();
                     Double oldValue = weights.get(topic);
 
@@ -136,7 +142,8 @@ public class EarthViewStory extends Story {
                         weights.put(topic, value);
                         topicCount.put(topic, 1);
                     } else {
-                        weights.put(topic, (oldValue * count + value) / (count + 1));
+                        weights.put(topic, (oldValue * count + value)
+                                / (count + 1));
                         topicCount.put(topic, count + 1);
                     }
                 }
@@ -156,7 +163,7 @@ public class EarthViewStory extends Story {
         p.setStory(this);
         calculateWeights();
     }
-    
+
     /**
      * @return true if the story is associated with a particle
      */

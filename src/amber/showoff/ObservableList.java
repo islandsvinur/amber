@@ -49,6 +49,8 @@ import java.util.ListIterator;
 import java.util.Observable;
 
 /**
+ * Enables the user to get a notification when there are changes in the list.
+ * 
  * @author christian
  * 
  * @param <T>
