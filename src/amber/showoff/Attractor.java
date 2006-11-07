@@ -42,11 +42,20 @@ package amber.showoff;
 
 import amber.common.Polar2d;
 
+/**
+ * Data object without functionality.
+ * 
+ * @author christian
+ */
 public class Attractor {
-    
+
+    /** The location of the attractor relative to the origin */
     public Polar2d location;
+
+    /** The force the attractor excites */
     public Double force;
+
+    /** The topic the attractor represents */
     public String topic;
-    
 
 }

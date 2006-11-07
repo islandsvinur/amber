@@ -69,8 +69,11 @@ public abstract class ShowOff extends Module {
 
     /**
      * @param moduleName
+     *            the name of the module to start
      * @param hostname
+     *            hostname of the psyclone server
      * @param port
+     *            port of the psyclone server
      */
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);

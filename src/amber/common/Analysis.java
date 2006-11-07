@@ -60,15 +60,13 @@ public class Analysis extends AmberMessage {
 
     private boolean relevant = false;
 
-    /**
-     * 
-     */
     public Analysis() {
         super();
     }
 
     /**
      * @param identifier
+     *            story identifier (for instance a URI)
      */
     public Analysis(String identifier) {
         this();
@@ -76,6 +74,9 @@ public class Analysis extends AmberMessage {
     }
 
     /**
+     * Creates a Analysis object from a YAML string. Used for instance when
+     * handling an incoming Analysis message to recreate the Analysis object.
+     * 
      * @param in
      *            a YAML string representing the contents of an Analysis object
      * @return a newly created Analysis object, initialized with the contents of
@@ -111,6 +112,8 @@ public class Analysis extends AmberMessage {
     }
 
     /**
+     * Generalized version of the relevance setters
+     * 
      * @param key
      * @param value
      */

@@ -53,8 +53,11 @@ public abstract class Crawler extends Module {
 
     /**
      * @param moduleName
+     *            the name of the module to start
      * @param hostname
+     *            hostname of the psyclone server
      * @param port
+     *            port of the psyclone server
      */
     public Crawler(String moduleName, String hostname, Integer port) {
         super("Crawler." + moduleName, hostname, port);

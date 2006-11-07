@@ -98,6 +98,7 @@ public class Particle {
 
     /**
      * @param s
+     *            the story which the particle should visualize
      */
     public Particle(EarthViewStory s) {
         story = s;
@@ -112,9 +113,7 @@ public class Particle {
 
     }
 
-    /**
-     * 
-     */
+    /** Indicate that a particle is bound to at least one analysis */
     public void bind() {
         bound = true;
         color = new Color(255, 255, 127);
@@ -129,6 +128,9 @@ public class Particle {
     }
 
     /**
+     * Particles get displaced by the attractors. This method calculates the
+     * exact displacement.
+     * 
      * @return the cartesian coordinate point containing the actual location of
      *         a particle (after displacement by attractors)
      */
@@ -178,16 +180,14 @@ public class Particle {
         story = s;
     }
 
-    /**
+    /** Method to check whether the particle has been launched
      * @return true if the particle has been launched
      */
     public boolean isLaunched() {
         return state.compareTo(State.LAUNCH) > 0;
     }
 
-    /**
-     * 
-     */
+    /** Launch the particle */
     public void launch() {
         velocity.r = 30.0 + Math.random();
         velocity.theta = -2.0;

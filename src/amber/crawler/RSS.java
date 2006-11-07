@@ -81,8 +81,7 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @param port
      * @throws MalformedURLException
      */
-    public RSS(String name, String hostname, Integer port)
-            throws MalformedURLException {
+    public RSS(String name, String hostname, Integer port) {
         super("RSS." + name, hostname, port);
         System.out.println("Creating Poller.");
         poller = new Poller(10);
@@ -119,6 +118,11 @@ public class RSS extends Crawler implements PollerObserverIF {
         return super.airBrushReceiveMessage(msg);
     }
 
+    /**
+     * Switch the feed (only works when in RSS mode, not in OPML)
+     * 
+     * @throws MalformedURLException
+     */
     private void switchFeedRSS() throws MalformedURLException {
         URL url = getURL();
         System.out.println("Switching feed to: " + url.toExternalForm());
@@ -130,6 +134,12 @@ public class RSS extends Crawler implements PollerObserverIF {
         registerChannel(getURL());
     }
 
+    /**
+     * Parse, read all items and register the channel in the poller to be
+     * updated.
+     * 
+     * @param url
+     */
     private void registerChannel(URL url) {
         ChannelIF c;
         try {
@@ -141,6 +151,11 @@ public class RSS extends Crawler implements PollerObserverIF {
         }
     }
 
+    /**
+     * Read all items in the channel and push them onto the whiteboard
+     * 
+     * @param c
+     */
     private void readAllItemsIn(ChannelIF c) {
         if (c != null) {
             Collection items = c.getItems();
@@ -154,6 +169,11 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     }
 
+    /**
+     * Switch the all feeds for the ones in new OPML file
+     * 
+     * @throws MalformedURLException
+     */
     private void switchFeedOPML() throws MalformedURLException {
         URL url;
         url = new URL(airBrush.getParameterString("OPML"));
@@ -176,7 +196,8 @@ public class RSS extends Crawler implements PollerObserverIF {
     }
 
     /**
-     * 
+     * If the Psyclone parameter OPML exists, it will use that one for getting
+     * the feeds, otherwise it reads FeedURI
      */
     private void switchFeed() {
         try {
@@ -213,6 +234,14 @@ public class RSS extends Crawler implements PollerObserverIF {
 
     }
 
+    /**
+     * Removes any unprintable characters. This is very rude (also removes all
+     * higher ASCII characters), but solves a lot of issues with serializing to
+     * YAML which isn't yet fully Unicode aware.
+     * 
+     * @param input
+     * @return a safe string with only printable ASCII characters
+     */
     private String convertToPrintable(String input) {
         final Pattern p = Pattern.compile("([^\\p{Print}]|')");
         if (input != null)

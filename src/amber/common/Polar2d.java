@@ -53,8 +53,10 @@ import javax.vecmath.Vector2d;
  */
 public class Polar2d {
 
+    /** value of the angle */
     public double theta = 0.0;
 
+    /** value of the distance from the origin */
     public double r = 0.0;
 
     /**
