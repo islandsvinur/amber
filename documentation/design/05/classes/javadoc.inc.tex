@@ -16,11 +16,6 @@ Gathers information, be it from the internet or from another information system.
 \\ {\bf extends} amber.common.Module
 \refdefined{amber.common.Module}}
 \subsubsection{All known subclasses}{RSS\small{\refdefined{amber.crawler.RSS}}}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Crawler(String, String, Integer)} \\
-\end{verse}
-}
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
@@ -36,11 +31,11 @@ Gathers information, be it from the internet or from another information system.
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt moduleName} -- }
+{\tt moduleName} -- the name of the module to start}
    \item{
-{\tt hostname} -- }
+{\tt hostname} -- hostname of the psyclone server}
    \item{
-{\tt port} -- }
+{\tt port} -- port of the psyclone server}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -56,22 +51,6 @@ Displays the information available in the whiteboards. They combine Story messag
 \\ {\bf extends} amber.common.Module
 \refdefined{amber.common.Module}}
 \subsubsection{All known subclasses}{EarthViewWrapper\small{\refdefined{amber.showoff.EarthViewWrapper}}, FullScreen\small{\refdefined{amber.showoff.FullScreen}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf analysisQueue} In this list incoming analyses are stored before they are handled.\\
-{\bf storyQueue} In this list incoming stories are stored before they are handled.\\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf ShowOff(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -105,11 +84,11 @@ In this list incoming analyses are stored before they are handled.}
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt moduleName} -- }
+{\tt moduleName} -- the name of the module to start}
    \item{
-{\tt hostname} -- }
+{\tt hostname} -- hostname of the psyclone server}
    \item{
-{\tt port} -- }
+{\tt port} -- port of the psyclone server}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -153,32 +132,22 @@ Provides a means of adding meaning to a story. When a Story message comes in, th
 \\ {\bf extends} amber.common.Module
 \refdefined{amber.common.Module}}
 \subsubsection{All known subclasses}{KeywordSpotter\small{\refdefined{amber.sieve.KeywordSpotter}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf messageTypeSuffix} \\
-{\bf topicString} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Sieve(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} \\
-{\bf doAnalysis(Story)} \\
-{\bf handleIncomingStory(Message)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{topicString}
-\label{amber.Sieve.topicString}protected java.lang.String {\bf topicString}}
+\label{amber.Sieve.topicString}protected java.lang.String {\bf topicString}\begin{itemize}
+\item{\vskip -.9ex 
+topic this Sieve creates Analyses for}
+\end{itemize}
+}
 \item{
 \index{messageTypeSuffix}
-\label{amber.Sieve.messageTypeSuffix}private final java.lang.String {\bf messageTypeSuffix}}
+\label{amber.Sieve.messageTypeSuffix}private final java.lang.String {\bf messageTypeSuffix}\begin{itemize}
+\item{\vskip -.9ex 
+the suffix of messages to be sent to the whiteboard}
+\end{itemize}
+}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -196,11 +165,11 @@ Provides a means of adding meaning to a story. When a Story message comes in, th
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt name} -- }
+{\tt name} -- the name of the module to start}
    \item{
-{\tt hostname} -- }
+{\tt hostname} -- hostname of the psyclone server}
    \item{
-{\tt port} -- }
+{\tt port} -- port of the psyclone server}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -258,6 +227,11 @@ a newly created Analysis object which contains information about the story
 \label{amber.Sieve.handleIncomingStory(com.cmlabs.air.Message)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+an incoming message gets analysed, if it is deemed relevant the analysis immediately sent on
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
@@ -294,11 +268,6 @@ Specificies the callback functions for communication with AirBrush, the interfac
 }
 \subsubsection{All known subinterfaces}{Sieve\small{\refdefined{amber.Sieve}}, ShowOff\small{\refdefined{amber.ShowOff}}, Crawler\small{\refdefined{amber.Crawler}}, Module\small{\refdefined{amber.common.Module}}, RSS\small{\refdefined{amber.crawler.RSS}}, EarthViewWrapper\small{\refdefined{amber.showoff.EarthViewWrapper}}, FullScreen\small{\refdefined{amber.showoff.FullScreen}}, KeywordSpotter\small{\refdefined{amber.sieve.KeywordSpotter}}}
 \subsubsection{All classes known to implement interface}{Module\small{\refdefined{amber.common.Module}}}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} When a message comes in, this method is called on the set implementer of this interface.\\
-\end{verse}
-}
 \subsubsection{Methods}{
 \vskip -2em
 \begin{itemize}
@@ -336,50 +305,36 @@ A small layer between JavaOpenAIR and Amber which holds state information about 
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}\\ {\bf implements} 
 java.lang.Runnable}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf callback} \\
-{\bf moduleName} \\
-{\bf plug} \\
-{\bf thread} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf AirBrush(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf getParameterDouble(String)} \\
-{\bf getParameterInteger(String)} \\
-{\bf getParameterString(String)} \\
-{\bf hasParameter(String)} \\
-{\bf openWhiteboard(String)} \\
-{\bf postMessage(Message)} \\
-{\bf run()} \\
-{\bf setCallbackObject(AirBrushCallable)} \\
-{\bf setParameter(String, Double)} \\
-{\bf setParameter(String, Integer)} \\
-{\bf setParameter(String, String)} \\
-{\bf startListening()} \\
-{\bf stopListening()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{plug}
-\label{amber.common.AirBrush.plug}private final com.cmlabs.air.JavaAIRPlug {\bf plug}}
+\label{amber.common.AirBrush.plug}private final com.cmlabs.air.JavaAIRPlug {\bf plug}\begin{itemize}
+\item{\vskip -.9ex 
+the connection object}
+\end{itemize}
+}
 \item{
 \index{thread}
-\label{amber.common.AirBrush.thread}private java.lang.Thread {\bf thread}}
+\label{amber.common.AirBrush.thread}private java.lang.Thread {\bf thread}\begin{itemize}
+\item{\vskip -.9ex 
+thread handling incoming messages}
+\end{itemize}
+}
 \item{
 \index{callback}
-\label{amber.common.AirBrush.callback}private AirBrushCallable {\bf callback}}
+\label{amber.common.AirBrush.callback}private AirBrushCallable {\bf callback}\begin{itemize}
+\item{\vskip -.9ex 
+the callback object}
+\end{itemize}
+}
 \item{
 \index{moduleName}
-\label{amber.common.AirBrush.moduleName}private java.lang.String {\bf moduleName}}
+\label{amber.common.AirBrush.moduleName}private java.lang.String {\bf moduleName}\begin{itemize}
+\item{\vskip -.9ex 
+the string containing the name of the running module}
+\end{itemize}
+}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -394,14 +349,19 @@ java.lang.Runnable}
 \label{amber.common.AirBrush(java.lang.String, java.lang.String, java.lang.Integer)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Creates and initializes AirBrush and connects to the Psyclone server.
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt module} -- }
+{\tt module} -- the name of the module to connect}
    \item{
-{\tt hostname} -- }
+{\tt hostname} -- hostname of the Psyclone server}
    \item{
-{\tt port} -- }
+{\tt port} -- port number of the Psyclone server}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -417,6 +377,11 @@ java.lang.Runnable}
 {\tt public java.lang.Double\ {\bf getParameterDouble}( {\tt java.lang.String} {\bf key} )
 \label{amber.common.AirBrush.getParameterDouble(java.lang.String)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Get the parameter with type Double
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
@@ -436,6 +401,11 @@ the parameter stored under key
 \label{amber.common.AirBrush.getParameterInteger(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Get the parameter with type Integer
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
@@ -453,6 +423,11 @@ the parameter stored under key
 {\tt public java.lang.String\ {\bf getParameterString}( {\tt java.lang.String} {\bf key} )
 \label{amber.common.AirBrush.getParameterString(java.lang.String)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Get the parameter with type String
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
@@ -490,10 +465,15 @@ true when the parameter named key is present
 \label{amber.common.AirBrush.openWhiteboard(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Open connection a two-way connection with the whiteboard
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt wb} -- }
+{\tt wb} -- name of the whiteboard to connect with}
   \end{itemize}
 }%end item
 \item{{\bf Returns} -- 
@@ -507,6 +487,11 @@ true if the whiteboard was succesfully opened
 {\tt public void\ {\bf postMessage}( {\tt com.cmlabs.air.Message} {\bf msg} )
 \label{amber.common.AirBrush.postMessage(com.cmlabs.air.Message)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Post a message to Psyclone
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
@@ -529,10 +514,15 @@ true if the whiteboard was succesfully opened
 \label{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Set the callback object for handling incoming messages
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt cb} -- }
+{\tt cb} -- the callback object}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -544,6 +534,11 @@ true if the whiteboard was succesfully opened
 {\tt java.lang.Double} {\bf value} )
 \label{amber.common.AirBrush.setParameter(java.lang.String, java.lang.Double)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Set a parameter in Psyclone for the current module
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
@@ -563,6 +558,11 @@ true if the whiteboard was succesfully opened
 \label{amber.common.AirBrush.setParameter(java.lang.String, java.lang.Integer)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Set a parameter in Psyclone for the current module
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
@@ -581,6 +581,11 @@ true if the whiteboard was succesfully opened
 \label{amber.common.AirBrush.setParameter(java.lang.String, java.lang.String)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Set a parameter in Psyclone for the current module
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
@@ -596,12 +601,26 @@ true if the whiteboard was succesfully opened
 {\bf startListening}\\
 {\tt public void\ {\bf startListening}(  )
 \label{amber.common.AirBrush.startListening()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Start listening for incoming messages
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{stopListening()}
 {\bf stopListening}\\
 {\tt public void\ {\bf stopListening}(  )
 \label{amber.common.AirBrush.stopListening()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Stop listening and disconnect from Psyclone
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -614,31 +633,15 @@ Superclass of all messages that are serialized and sent over to Psyclone: Story 
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
 \subsubsection{All known subclasses}{Story\small{\refdefined{amber.common.Story}}, Analysis\small{\refdefined{amber.common.Analysis}}, EarthViewStory\small{\refdefined{amber.showoff.EarthViewStory}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf storage} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf AmberMessage()} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf fromYAML(String)} Converts a String generated by toYAML() to the correct contents of the object\\
-{\bf getDoubleProperty(String)} \\
-{\bf getProperty(String)} \\
-{\bf getStringProperty(String)} \\
-{\bf setProperty(String, Object)} \\
-{\bf toYAML()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{storage}
-\label{amber.common.AmberMessage.storage}private java.util.Hashtable {\bf storage}}
+\label{amber.common.AmberMessage.storage}private java.util.Hashtable {\bf storage}\begin{itemize}
+\item{\vskip -.9ex 
+storage of the properties}
+\end{itemize}
+}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -768,36 +771,6 @@ Holds information about a single Story object. Currently it is mainly focused on
 \small public class Analysis
 \\ {\bf extends} amber.common.AmberMessage
 \refdefined{amber.common.AmberMessage}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf keyAuthorRelevance} \\
-{\bf keyIdentifier} \\
-{\bf keyTopic} \\
-{\bf keyTopicRelevance} \\
-{\bf relevant} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Analysis()} \\
-{\bf Analysis(String)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf createFromYAML(String)} \\
-{\bf getAuthorRelevance()} \\
-{\bf getID()} \\
-{\bf getTopic()} \\
-{\bf getTopicRelevance()} \\
-{\bf isRelevant()} \\
-{\bf setAuthorRelevance(Double)} \\
-{\bf setID(String)} \\
-{\bf setRelevance(String, Double)} \\
-{\bf setTopic(String)} \\
-{\bf setTopicRelevance(Double)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -836,7 +809,7 @@ Holds information about a single Story object. Currently it is mainly focused on
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt identifier} -- }
+{\tt identifier} -- story identifier (for instance a URI)}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -852,6 +825,11 @@ Holds information about a single Story object. Currently it is mainly focused on
 {\tt public static Analysis\ {\bf createFromYAML}( {\tt java.lang.String} {\bf in} )
 \label{amber.common.Analysis.createFromYAML(java.lang.String)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Creates a Analysis object from a YAML string. Used for instance when handling an incoming Analysis message to recreate the Analysis object.
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
@@ -937,6 +915,11 @@ true if the analysis finds itself relevant
 \label{amber.common.Analysis.setRelevance(java.lang.String, java.lang.Double)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Generalized version of the relevance setters
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
@@ -987,18 +970,6 @@ To be called directly from the commandline and is in fact the preferred way to s
 \small public abstract class Launcher
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Launcher()} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf main(String\lbrack \rbrack )} Launch method\\
-{\bf parseCommandLine(String\lbrack \rbrack )} \\
-{\bf printHelp(Options, CommandLine)} \\
-\end{verse}
-}
 \subsubsection{Constructors}{
 \vskip -2em
 \begin{itemize}
@@ -1016,7 +987,7 @@ To be called directly from the commandline and is in fact the preferred way to s
  \item{ 
 \index{main(String\lbrack \rbrack )}
 {\bf main}\\
-{\tt public static void\ {\bf main}( {\tt java.lang.String\lbrack \rbrack } {\bf args} ) throws java.lang.InstantiationException, java.lang.IllegalAccessException
+{\tt public static void\ {\bf main}( {\tt java.lang.String\lbrack \rbrack } {\bf args} )
 \label{amber.common.Launcher.main(java.lang.String[])}}%end signature
 \begin{itemize}
 \item{
@@ -1042,7 +1013,7 @@ Launch method
  \item{ 
 \index{parseCommandLine(String\lbrack \rbrack )}
 {\bf parseCommandLine}\\
-{\tt private static org.apache.commons.cli.CommandLine\ {\bf parseCommandLine}( {\tt java.lang.String\lbrack \rbrack } {\bf args} ) throws org.apache.commons.cli.ParseException
+{\tt private static org.apache.commons.cli.CommandLine\ {\bf parseCommandLine}( {\tt java.lang.String\lbrack \rbrack } {\bf args} )
 \label{amber.common.Launcher.parseCommandLine(java.lang.String[])}}%end signature
 \begin{itemize}
 \item{
@@ -1063,19 +1034,21 @@ an CommandLine object containing the parsed command line string
 \end{itemize}
 }%end item
  \item{ 
-\index{printHelp(Options, CommandLine)}
+\index{printHelp(Options)}
 {\bf printHelp}\\
-{\tt private static void\ {\bf printHelp}( {\tt org.apache.commons.cli.Options} {\bf o},
-{\tt org.apache.commons.cli.CommandLine} {\bf cl} )
-\label{amber.common.Launcher.printHelp(org.apache.commons.cli.Options, org.apache.commons.cli.CommandLine)}}%end signature
+{\tt private static void\ {\bf printHelp}( {\tt org.apache.commons.cli.Options} {\bf o} )
+\label{amber.common.Launcher.printHelp(org.apache.commons.cli.Options)}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Prints help about the valid command line switches and options
+}
 \item{
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt o} -- }
-   \item{
-{\tt cl} -- }
+{\tt o} -- the options object}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -1092,24 +1065,6 @@ Parent class of all Amber modules. Responsible for connectivity with Psyclone vi
 \refdefined{java.lang.Object}\\ {\bf implements} 
 AirBrushCallable}
 \subsubsection{All known subclasses}{Sieve\small{\refdefined{amber.Sieve}}, ShowOff\small{\refdefined{amber.ShowOff}}, Crawler\small{\refdefined{amber.Crawler}}, RSS\small{\refdefined{amber.crawler.RSS}}, EarthViewWrapper\small{\refdefined{amber.showoff.EarthViewWrapper}}, FullScreen\small{\refdefined{amber.showoff.FullScreen}}, KeywordSpotter\small{\refdefined{amber.sieve.KeywordSpotter}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf airBrush} \\
-{\bf moduleName} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Module(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} \\
-{\bf start()} Start normal operation after initialization and configuration\\
-{\bf stop()} Stop normal operation and exit\\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -1208,37 +1163,22 @@ Represents polar coordinates: Angle and distance from origin. Roughly same funct
 \small public class Polar2d
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf r} \\
-{\bf theta} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Polar2d()} \\
-{\bf Polar2d(double\lbrack \rbrack )} \\
-{\bf Polar2d(double, double)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf clone()} \\
-{\bf fromCartesianTuple(Tuple2d)} Create polar coordinates out of a cartesian coordinates tuple.\\
-{\bf scale(double)} Scale the distance from the origin\\
-{\bf toCartesian(Tuple2d)} Internal method to convert polar to cartesian coordinates.\\
-{\bf toCartesianPoint()} Returns the polar coordinates in Point2d cartesian coordinates.\\
-{\bf toCartesianVector()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{theta}
-\label{amber.common.Polar2d.theta}public double {\bf theta}}
+\label{amber.common.Polar2d.theta}public double {\bf theta}\begin{itemize}
+\item{\vskip -.9ex 
+value of the angle}
+\end{itemize}
+}
 \item{
 \index{r}
-\label{amber.common.Polar2d.r}public double {\bf r}}
+\label{amber.common.Polar2d.r}public double {\bf r}\begin{itemize}
+\item{\vskip -.9ex 
+value of the distance from the origin}
+\end{itemize}
+}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -1395,36 +1335,6 @@ Holds all (meta-)information directly connected to a crawled story.\vskip .1in
 \\ {\bf extends} amber.common.AmberMessage
 \refdefined{amber.common.AmberMessage}}
 \subsubsection{All known subclasses}{EarthViewStory\small{\refdefined{amber.showoff.EarthViewStory}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf keyAuthor} \\
-{\bf keyContent} \\
-{\bf keyIdentifier} \\
-{\bf keyPublicationDate} \\
-{\bf keyTitle} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Story()} \\
-{\bf Story(String)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf createFromYAML(String)} \\
-{\bf getAuthor()} \\
-{\bf getContent()} \\
-{\bf getID()} \\
-{\bf getPublicationDate()} \\
-{\bf getTitle()} \\
-{\bf setAuthor(String)} \\
-{\bf setContent(String)} \\
-{\bf setID(String)} \\
-{\bf setPublicationDate(Date)} \\
-{\bf setTitle(String)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -1615,37 +1525,6 @@ Crawler module that can register with a RSS feed and will post Story objects whe
 \\ {\bf extends} amber.Crawler
 \refdefined{amber.Crawler}\\ {\bf implements} 
 de.nava.informa.utils.poller.PollerObserverIF}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf channel} \\
-{\bf poller} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf RSS(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} \\
-{\bf channelChanged(ChannelIF)} \\
-{\bf channelErrored(ChannelIF, Exception)} \\
-{\bf convertToPrintable(String)} \\
-{\bf getURL()} \\
-{\bf handleItem(ItemIF)} Creates a Story object with the contents of the item and posts it to Psyclone\\
-{\bf itemFound(ItemIF, ChannelIF)} \\
-{\bf pollFinished(ChannelIF)} \\
-{\bf pollStarted(ChannelIF)} \\
-{\bf readAllItemsIn(ChannelIF)} \\
-{\bf registerChannel(URL)} \\
-{\bf start()} \\
-{\bf stop()} \\
-{\bf switchFeed()} \\
-{\bf switchFeedOPML()} \\
-{\bf switchFeedRSS()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -1664,7 +1543,7 @@ de.nava.informa.utils.poller.PollerObserverIF}
 {\bf RSS}\\
 {\tt public\ {\bf RSS}( {\tt java.lang.String} {\bf name},
 {\tt java.lang.String} {\bf hostname},
-{\tt java.lang.Integer} {\bf port} ) throws java.net.MalformedURLException
+{\tt java.lang.Integer} {\bf port} )
 \label{amber.crawler.RSS(java.lang.String, java.lang.String, java.lang.Integer)}}%end signature
 \begin{itemize}
 \item{
@@ -1731,6 +1610,23 @@ true if the message was handled, false if it wasn't
 {\bf convertToPrintable}\\
 {\tt private java.lang.String\ {\bf convertToPrintable}( {\tt java.lang.String} {\bf input} )
 \label{amber.crawler.RSS.convertToPrintable(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Removes any unprintable characters. This is very rude (also removes all higher ASCII characters), but solves a lot of issues with serializing to YAML which isn't yet fully Unicode aware.
+}
+\item{
+{\bf Parameters}
+  \begin{itemize}
+   \item{
+{\tt input} -- }
+  \end{itemize}
+}%end item
+\item{{\bf Returns} -- 
+a safe string with only printable ASCII characters 
+}%end item
+\end{itemize}
 }%end item
  \item{ 
 \index{getURL()}
@@ -1792,12 +1688,40 @@ Creates a Story object with the contents of the item and posts it to Psyclone
 {\bf readAllItemsIn}\\
 {\tt private void\ {\bf readAllItemsIn}( {\tt de.nava.informa.core.ChannelIF} {\bf c} )
 \label{amber.crawler.RSS.readAllItemsIn(de.nava.informa.core.ChannelIF)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Read all items in the channel and push them onto the whiteboard
+}
+\item{
+{\bf Parameters}
+  \begin{itemize}
+   \item{
+{\tt c} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
  \item{ 
 \index{registerChannel(URL)}
 {\bf registerChannel}\\
 {\tt private void\ {\bf registerChannel}( {\tt java.net.URL} {\bf url} )
 \label{amber.crawler.RSS.registerChannel(java.net.URL)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Parse, read all items and register the channel in the poller to be updated.
+}
+\item{
+{\bf Parameters}
+  \begin{itemize}
+   \item{
+{\tt url} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
  \item{ 
 \index{start()}
@@ -1830,18 +1754,49 @@ Stop normal operation and exit
 {\bf switchFeed}\\
 {\tt private void\ {\bf switchFeed}(  )
 \label{amber.crawler.RSS.switchFeed()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+If the Psyclone parameter OPML exists, it will use that one for getting the feeds, otherwise it reads FeedURI
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{switchFeedOPML()}
 {\bf switchFeedOPML}\\
 {\tt private void\ {\bf switchFeedOPML}(  ) throws java.net.MalformedURLException
 \label{amber.crawler.RSS.switchFeedOPML()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Switch the all feeds for the ones in new OPML file
+}
+\item{{\bf Throws}
+  \begin{itemize}
+   \item{\vskip -.6ex{\tt java.net.MalformedURLException} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
  \item{ 
 \index{switchFeedRSS()}
 {\bf switchFeedRSS}\\
 {\tt private void\ {\bf switchFeedRSS}(  ) throws java.net.MalformedURLException
 \label{amber.crawler.RSS.switchFeedRSS()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Switch the feed (only works when in RSS mode, not in OPML)
+}
+\item{{\bf Throws}
+  \begin{itemize}
+   \item{\vskip -.6ex{\tt java.net.MalformedURLException} -- }
+  \end{itemize}
+}%end item
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -1852,7 +1807,7 @@ Stop normal operation and exit
 \vskip .13in
 \hbox{\bf Classes}
 \entityintro{Applet}{amber.showoff.Applet}{Implements an applet (!) containing the visualization module.}
-\entityintro{Attractor}{amber.showoff.Attractor}{}
+\entityintro{Attractor}{amber.showoff.Attractor}{Data object without functionality.}
 \entityintro{Demonstrator}{amber.showoff.Demonstrator}{Demonstrates the visual aspect of Amber.}
 \entityintro{EarthView}{amber.showoff.EarthView}{A Swing component displaying the main Amber visualization.}
 \entityintro{EarthViewStory}{amber.showoff.EarthViewStory}{Holds both EarthView specific information like analyses and particles that belong to a story.}
@@ -1870,16 +1825,6 @@ Implements an applet (!) containing the visualization module. Can thus be used t
 \small public class Applet
 \\ {\bf extends} javax.swing.JApplet
 \refdefined{javax.swing.JApplet}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf serialVersionUID} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Applet()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -1901,33 +1846,34 @@ Implements an applet (!) containing the visualization module. Can thus be used t
 }
 \subsubsection{\label{amber.showoff.Attractor}\index{Attractor}Class Attractor}{
 \vskip .1in 
+Data object without functionality.\vskip .1in 
 \subsubsection{Declaration}{
 \small public class Attractor
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf force} \\
-{\bf location} \\
-{\bf topic} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Attractor()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{location}
-\label{amber.showoff.Attractor.location}public amber.common.Polar2d {\bf location}}
+\label{amber.showoff.Attractor.location}public amber.common.Polar2d {\bf location}\begin{itemize}
+\item{\vskip -.9ex 
+The location of the attractor relative to the origin}
+\end{itemize}
+}
 \item{
 \index{force}
-\label{amber.showoff.Attractor.force}public java.lang.Double {\bf force}}
+\label{amber.showoff.Attractor.force}public java.lang.Double {\bf force}\begin{itemize}
+\item{\vskip -.9ex 
+The force the attractor excites}
+\end{itemize}
+}
 \item{
 \index{topic}
-\label{amber.showoff.Attractor.topic}public java.lang.String {\bf topic}}
+\label{amber.showoff.Attractor.topic}public java.lang.String {\bf topic}\begin{itemize}
+\item{\vskip -.9ex 
+The topic the attractor represents}
+\end{itemize}
+}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -1950,26 +1896,6 @@ Demonstrates the visual aspect of Amber. Generates stories and analyses about ei
 \\ {\bf extends} javax.swing.JApplet
 \refdefined{javax.swing.JApplet}\\ {\bf implements} 
 java.lang.Runnable}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf analysisQueue} \\
-{\bf serialVersionUID} \\
-{\bf storyCounter} \\
-{\bf storyQueue} \\
-{\bf thread} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Demonstrator()} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf main(String\lbrack \rbrack )} \\
-{\bf run()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2035,40 +1961,6 @@ A Swing component displaying the main Amber visualization.\vskip .1in
 \\ {\bf extends} javax.swing.JPanel
 \refdefined{javax.swing.JPanel}\\ {\bf implements} 
 java.lang.Runnable, java.util.Observer}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf analysisQueue} \\
-{\bf animator} \\
-{\bf attractors} \\
-{\bf firstFrame} \\
-{\bf frame} \\
-{\bf frameDelay} \\
-{\bf offDimension} \\
-{\bf offGraphics} \\
-{\bf particles} \\
-{\bf previousImage} \\
-{\bf serialVersionUID} \\
-{\bf stories} \\
-{\bf storyQueue} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf EarthView(ObservableList, ObservableList)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf addAttractor(Polar2d, Double, String)} \\
-{\bf drawParticle(Graphics, Particle)} \\
-{\bf getNewAnalyses()} \\
-{\bf getNewStories()} \\
-{\bf paintComponent(Graphics)} \\
-{\bf run()} \\
-{\bf start()} \\
-{\bf update(Observable, Object)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2147,14 +2039,19 @@ java.lang.Runnable, java.util.Observer}
 \label{amber.showoff.EarthView.addAttractor(amber.common.Polar2d, java.lang.Double, java.lang.String)}}%end signature
 \begin{itemize}
 \item{
+{\bf Description}
+
+Add an attractor
+}
+\item{
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt location} -- }
+{\tt location} -- the location of the attractor in polar coordinates}
    \item{
-{\tt force} -- }
+{\tt force} -- the force of the attractor}
    \item{
-{\tt topic} -- }
+{\tt topic} -- the topic the attractor represents}
   \end{itemize}
 }%end item
 \item{{\bf Returns} -- 
@@ -2173,9 +2070,9 @@ the newly created attractor
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt g} -- }
+{\tt g} -- the graphics object to be drawn upon}
    \item{
-{\tt p} -- }
+{\tt p} -- the particle object to be drawn}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2185,12 +2082,26 @@ the newly created attractor
 {\bf getNewAnalyses}\\
 {\tt private void\ {\bf getNewAnalyses}(  )
 \label{amber.showoff.EarthView.getNewAnalyses()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Get all new analyses from the analysis queue
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{getNewStories()}
 {\bf getNewStories}\\
 {\tt private void\ {\bf getNewStories}(  )
 \label{amber.showoff.EarthView.getNewStories()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Get all new stories from the story queue.
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{paintComponent(Graphics)}
@@ -2209,6 +2120,13 @@ the newly created attractor
 {\bf start}\\
 {\tt public void\ {\bf start}(  )
 \label{amber.showoff.EarthView.start()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Start the animator
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{update(Observable, Object)}
@@ -2227,30 +2145,6 @@ Holds both EarthView specific information like analyses and particles that belon
 \small public class EarthViewStory
 \\ {\bf extends} amber.common.Story
 \refdefined{amber.common.Story}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf analyses} \\
-{\bf particle} \\
-{\bf weights} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf EarthViewStory()} \\
-{\bf EarthViewStory(String)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf addAnalysis(Analysis)} \\
-{\bf calculateWeights()} \\
-{\bf createFromYAML(String)} \\
-{\bf getWeight(String)} \\
-{\bf hasParticle()} \\
-{\bf init()} \\
-{\bf setParticle(Particle)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2393,21 +2287,6 @@ ShowOff module which creates the EarthView object and widgets to be used in stan
 \\ {\bf extends} amber.ShowOff
 \refdefined{amber.ShowOff}}
 \subsubsection{All known subclasses}{FullScreen\small{\refdefined{amber.showoff.FullScreen}}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf earthView} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf EarthViewWrapper(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf start()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2467,21 +2346,6 @@ Displays the EarthView component in a full screen window.\vskip .1in
 \small public class FullScreen
 \\ {\bf extends} amber.showoff.EarthViewWrapper
 \refdefined{amber.showoff.EarthViewWrapper}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf list} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf FullScreen(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf start()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2542,43 +2406,6 @@ Enables the user to get a notification when there are changes in the list.\vskip
 \\ {\bf extends} java.util.Observable
 \refdefined{java.util.Observable}\\ {\bf implements} 
 java.util.List}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf list} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf ObservableList()} ObservableList is an implementation of List and extends Observable.\\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf add(int, T)} \\
-{\bf add(T)} \\
-{\bf addAll(Collection)} \\
-{\bf addAll(int, Collection)} \\
-{\bf clear()} \\
-{\bf contains(Object)} \\
-{\bf containsAll(Collection)} \\
-{\bf get(int)} \\
-{\bf indexOf(Object)} \\
-{\bf isEmpty()} \\
-{\bf iterator()} \\
-{\bf lastIndexOf(Object)} \\
-{\bf listIterator()} \\
-{\bf listIterator(int)} \\
-{\bf remove(int)} \\
-{\bf remove(Object)} \\
-{\bf removeAll(Collection)} \\
-{\bf retainAll(Collection)} \\
-{\bf set(int, T)} \\
-{\bf size()} \\
-{\bf subList(int, int)} \\
-{\bf toArray()} \\
-{\bf toArray(T\lbrack \rbrack )} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2759,45 +2586,6 @@ Representation of a Story in the EarthView visualization. When initialized, the 
 \small public class Particle
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf accel} \\
-{\bf bound} \\
-{\bf color} \\
-{\bf CRASH\_HEIGHT} \\
-{\bf crashTime} \\
-{\bf LIFE\_LENGTH\_IN\_MS} Particles of relevant stories should crash 48 hours after launch\\
-{\bf location} \\
-{\bf locationCartesian} \\
-{\bf mass} \\
-{\bf MAXIMUM\_ORBITS\_UNBOUND} \\
-{\bf state} \\
-{\bf story} \\
-{\bf velocity} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Particle(EarthViewStory)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf bind()} \\
-{\bf calculate(Double)} \\
-{\bf crashed()} \\
-{\bf displaceParticle()} \\
-{\bf getLocation()} \\
-{\bf getMass()} \\
-{\bf getStory()} \\
-{\bf getVelocity()} \\
-{\bf isLaunched()} \\
-{\bf keplerRotation(Double)} \\
-{\bf launch()} \\
-{\bf setMass(Double)} \\
-{\bf setStory(EarthViewStory)} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -2858,7 +2646,7 @@ Particles of relevant stories should crash 48 hours after launch}
 {\bf Parameters}
   \begin{itemize}
    \item{
-{\tt s} -- }
+{\tt s} -- the story which the particle should visualize}
   \end{itemize}
 }%end item
 \end{itemize}
@@ -2873,6 +2661,13 @@ Particles of relevant stories should crash 48 hours after launch}
 {\bf bind}\\
 {\tt public void\ {\bf bind}(  )
 \label{amber.showoff.Particle.bind()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Indicate that a particle is bound to at least one analysis
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{calculate(Double)}
@@ -2906,6 +2701,11 @@ true when the particle has crashed, false otherwise
 {\tt private javax.vecmath.Point2d\ {\bf displaceParticle}(  )
 \label{amber.showoff.Particle.displaceParticle()}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Particles get displaced by the attractors. This method calculates the exact displacement.
+}
 \item{{\bf Returns} -- 
 the cartesian coordinate point containing the actual location of a particle (after displacement by attractors) 
 }%end item
@@ -2951,6 +2751,11 @@ the cartesian velocity of the particle
 {\tt public boolean\ {\bf isLaunched}(  )
 \label{amber.showoff.Particle.isLaunched()}}%end signature
 \begin{itemize}
+\item{
+{\bf Description}
+
+Method to check whether the particle has been launched
+}
 \item{{\bf Returns} -- 
 true if the particle has been launched 
 }%end item
@@ -2979,6 +2784,13 @@ the velocity according to Kepler's second law ("A line joining a planet and its 
 {\bf launch}\\
 {\tt public void\ {\bf launch}(  )
 \label{amber.showoff.Particle.launch()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Launch the particle
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{setMass(Double)}
@@ -3019,26 +2831,6 @@ the velocity according to Kepler's second law ("A line joining a planet and its 
 \small public static final class Particle.State
 \\ {\bf extends} java.lang.Enum
 \refdefined{java.lang.Enum}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf CRASHED} \\
-{\bf CRASHING} \\
-{\bf LAUNCH} \\
-{\bf NEW} \\
-{\bf ORBITING} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf Particle.State()} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf valueOf(String)} \\
-{\bf values()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -3092,35 +2884,23 @@ the velocity according to Kepler's second law ("A line joining a planet and its 
 \label{amber.sieve}\hbox to \hsize{\it Package Contents\hfil Page}
 \vskip .13in
 \hbox{\bf Classes}
-\entityintro{KeywordSpotter}{amber.sieve.KeywordSpotter}{Sieve module which matches a Story with a regular expression (@see Pattern class).}
+\entityintro{KeywordSpotter}{amber.sieve.KeywordSpotter}{Sieve module which matches a Story with a regular expression.}
 \vskip .1in
 \vskip .1in
 \subsubsection{\label{amber.sieve.KeywordSpotter}\index{KeywordSpotter}Class KeywordSpotter}{
 \vskip .1in 
-Sieve module which matches a Story with a regular expression (@see Pattern class). If it matches, an Analysis object is created and a relevancy value is set and it is sent to the Psyclone whiteboard.\vskip .1in 
+Sieve module which matches a Story with a regular expression. If it matches, an Analysis object is created and a relevancy value is set and it is sent to the Psyclone whiteboard.\vskip .1in 
+\subsubsection{See also}{}
+
+  \begin{list}{-- }{\setlength{\itemsep}{0cm}\setlength{\parsep}{0cm}}
+\item{ {\tt java.util.regex.Pattern} {\small 
+\refdefined{java.util.regex.Pattern}}%end
+} 
+  \end{list}
 \subsubsection{Declaration}{
 \small public class KeywordSpotter
 \\ {\bf extends} amber.Sieve
 \refdefined{amber.Sieve}}
-\subsubsection{Field summary}{
-\begin{verse}
-{\bf authorPattern} \\
-{\bf contentPattern} \\
-\end{verse}
-}
-\subsubsection{Constructor summary}{
-\begin{verse}
-{\bf KeywordSpotter(String, String, Integer)} \\
-\end{verse}
-}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf airBrushReceiveMessage(Message)} \\
-{\bf doAnalysis(Story)} \\
-{\bf start()} \\
-{\bf stop()} \\
-\end{verse}
-}
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
