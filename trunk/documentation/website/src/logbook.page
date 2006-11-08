@@ -183,7 +183,7 @@ table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 6.11|Attractors defined by parameter now,<br/>Visualization can be started as an applet|
 (table-row-even). |Tue 7.11|Mainly work on documenting source code, included Javadoc in design document|
-(table-row-odd). |Wed 8.11| |
+(table-row-odd). |Wed 8.11|Work on "internship report":report|
 (table-row-even). |Thu 9.11| |
 (table-row-odd). |Fri 10.11| |
 
@@ -224,7 +224,7 @@ table(log).
 
 h3. Week 48 (15) (back in Eindhoven)
 
-p(plan). Finish internship report.
+p(plan). Finish "internship report":report.
 
 <div class="invisible">
 
@@ -238,3 +238,4 @@ table(log).
 
 </div>
 
+[report]report.pdf
