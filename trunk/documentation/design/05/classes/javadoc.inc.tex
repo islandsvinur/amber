@@ -107,7 +107,7 @@ In this list incoming analyses are stored before they are handled.}
 \item{
 {\bf Description copied from common.AirBrushCallable{\small \refdefined{amber.common.AirBrushCallable}} }
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -118,6 +118,13 @@ When a message comes in, this method is called on the set implementer of this in
 }%end item
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
+}%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt common.AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
 }%end item
 \end{itemize}
 }%end item
@@ -188,7 +195,7 @@ the suffix of messages to be sent to the whiteboard}
 \item{
 {\bf Description copied from common.AirBrushCallable{\small \refdefined{amber.common.AirBrushCallable}} }
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -199,6 +206,13 @@ When a message comes in, this method is called on the set implementer of this in
 }%end item
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
+}%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt common.AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
 }%end item
 \end{itemize}
 }%end item
@@ -251,8 +265,8 @@ an incoming message gets analysed, if it is deemed relevant the analysis immedia
 \entityintro{AirBrushCallable}{amber.common.AirBrushCallable}{Specificies the callback functions for communication with AirBrush, the interface to JavaOpenAIR.}
 \vskip .13in
 \hbox{\bf Classes}
-\entityintro{AirBrush}{amber.common.AirBrush}{A small layer between JavaOpenAIR and Amber which holds state information about the connection with the Psyclone server and such.}
-\entityintro{AmberMessage}{amber.common.AmberMessage}{Superclass of all messages that are serialized and sent over to Psyclone: Story and Analysis.}
+\entityintro{AirBrush}{amber.common.AirBrush}{A small layer between JavaOpenAIR and Amber.}
+\entityintro{AmberMessage}{amber.common.AmberMessage}{Superclass of all messages that are serialized and sent to Psyclone.}
 \entityintro{Analysis}{amber.common.Analysis}{Holds information about a single Story object.}
 \entityintro{Launcher}{amber.common.Launcher}{To be called directly from the commandline and is in fact the preferred way to start any Amber module.}
 \entityintro{Module}{amber.common.Module}{Parent class of all Amber modules.}
@@ -280,7 +294,7 @@ Specificies the callback functions for communication with AirBrush, the interfac
 \item{
 {\bf Description}
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -292,6 +306,13 @@ When a message comes in, this method is called on the set implementer of this in
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
 }%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
+}%end item
 \end{itemize}
 }%end item
 \end{itemize}
@@ -299,7 +320,7 @@ true if the message was handled, false if it wasn't
 }
 \subsubsection{\label{amber.common.AirBrush}\index{AirBrush}Class AirBrush}{
 \vskip .1in 
-A small layer between JavaOpenAIR and Amber which holds state information about the connection with the Psyclone server and such.\vskip .1in 
+A small layer between JavaOpenAIR and Amber. It holds state information about the connection with the Psyclone server and such.\vskip .1in 
 \subsubsection{Declaration}{
 \small public class AirBrush
 \\ {\bf extends} java.lang.Object
@@ -525,6 +546,13 @@ Set the callback object for handling incoming messages
 {\tt cb} -- the callback object}
   \end{itemize}
 }%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt AirBrushCallable} {\small 
+\refdefined{amber.common.AirBrushCallable}}%end
+}
+  \end{itemize}
+}%end item
 \end{itemize}
 }%end item
  \item{ 
@@ -627,7 +655,7 @@ Stop listening and disconnect from Psyclone
 }
 \subsubsection{\label{amber.common.AmberMessage}\index{AmberMessage}Class AmberMessage}{
 \vskip .1in 
-Superclass of all messages that are serialized and sent over to Psyclone: Story and Analysis. Messages are serialized in YAML format.\vskip .1in 
+Superclass of all messages that are serialized and sent to Psyclone. Messages are serialized in YAML format.\vskip .1in 
 \subsubsection{Declaration}{
 \small public abstract class AmberMessage
 \\ {\bf extends} java.lang.Object
@@ -1113,7 +1141,7 @@ AirBrushCallable}
 \item{
 {\bf Description copied from AirBrushCallable{\small \refdefined{amber.common.AirBrushCallable}} }
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -1124,6 +1152,13 @@ When a message comes in, this method is called on the set implementer of this in
 }%end item
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
+}%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
 }%end item
 \end{itemize}
 }%end item
@@ -1514,12 +1549,12 @@ a newly created Story object, initialized with the information in the YAML docum
 \label{amber.crawler}\hbox to \hsize{\it Package Contents\hfil Page}
 \vskip .13in
 \hbox{\bf Classes}
-\entityintro{RSS}{amber.crawler.RSS}{Crawler module that can register with a RSS feed and will post Story objects whenever new stories come in.}
+\entityintro{RSS}{amber.crawler.RSS}{Crawler module that can register with a RSS feed.}
 \vskip .1in
 \vskip .1in
 \subsubsection{\label{amber.crawler.RSS}\index{RSS}Class RSS}{
 \vskip .1in 
-Crawler module that can register with a RSS feed and will post Story objects whenever new stories come in. It also has a means of registering with more than one feed at a time, through the use of OPML.\vskip .1in 
+Crawler module that can register with a RSS feed. It will post Story objects when new stories come in. It also has a means of registering with more than one feed at a time, through the use of OPML.\vskip .1in 
 \subsubsection{Declaration}{
 \small public class RSS
 \\ {\bf extends} amber.Crawler
@@ -1578,7 +1613,7 @@ de.nava.informa.utils.poller.PollerObserverIF}
 \item{
 {\bf Description copied from amber.common.AirBrushCallable{\small \refdefined{amber.common.AirBrushCallable}} }
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -1589,6 +1624,13 @@ When a message comes in, this method is called on the set implementer of this in
 }%end item
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
+}%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt amber.common.AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
 }%end item
 \end{itemize}
 }%end item
@@ -2949,7 +2991,7 @@ Sieve module which matches a Story with a regular expression. If it matches, an 
 \item{
 {\bf Description copied from amber.common.AirBrushCallable{\small \refdefined{amber.common.AirBrushCallable}} }
 
-When a message comes in, this method is called on the set implementer of this interface.
+Message reception handler. It is called on the object implementing this interface which was set in AirBrush.
 }
 \item{
 {\bf Parameters}
@@ -2960,6 +3002,13 @@ When a message comes in, this method is called on the set implementer of this in
 }%end item
 \item{{\bf Returns} -- 
 true if the message was handled, false if it wasn't 
+}%end item
+\item{{\bf See also}
+  \begin{itemize}
+\item{ {\tt amber.common.AirBrush.setCallbackObject(AirBrushCallable)} {\small 
+\refdefined{amber.common.AirBrush.setCallbackObject(amber.common.AirBrushCallable)}}%end
+}
+  \end{itemize}
 }%end item
 \end{itemize}
 }%end item
