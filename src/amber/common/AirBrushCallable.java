@@ -51,9 +51,10 @@ import com.cmlabs.air.Message;
  */
 public interface AirBrushCallable {
     /**
-     * When a message comes in, this method is called on the set implementer of
-     * this interface.
+     * Message reception handler. It is called on the object implementing this
+     * interface which was set in AirBrush.
      * 
+     * @see AirBrush#setCallbackObject(AirBrushCallable)
      * @param msg
      * @return true if the message was handled, false if it wasn't
      */

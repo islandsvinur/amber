@@ -45,8 +45,8 @@ import java.util.Hashtable;
 import org.jvyaml.YAML;
 
 /**
- * Superclass of all messages that are serialized and sent over to Psyclone:
- * Story and Analysis. Messages are serialized in YAML format.
+ * Superclass of all messages that are serialized and sent to Psyclone. Messages
+ * are serialized in YAML format.
  * 
  * @author christian
  * 
