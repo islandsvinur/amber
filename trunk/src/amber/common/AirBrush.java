@@ -43,8 +43,8 @@ package amber.common;
 import com.cmlabs.air.*;
 
 /**
- * A small layer between JavaOpenAIR and Amber which holds state information
- * about the connection with the Psyclone server and such.
+ * A small layer between JavaOpenAIR and Amber. It holds state information about
+ * the connection with the Psyclone server and such.
  * 
  * @author christian
  * 
@@ -137,6 +137,7 @@ public class AirBrush implements Runnable {
      * 
      * @param cb
      *            the callback object
+     * @see AirBrushCallable
      */
     public void setCallbackObject(AirBrushCallable cb) {
         callback = cb;

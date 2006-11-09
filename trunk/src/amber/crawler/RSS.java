@@ -63,9 +63,9 @@ import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
 /**
- * Crawler module that can register with a RSS feed and will post Story objects
- * whenever new stories come in. It also has a means of registering with more
- * than one feed at a time, through the use of OPML.
+ * Crawler module that can register with a RSS feed. It will post Story objects
+ * when new stories come in. It also has a means of registering with more than
+ * one feed at a time, through the use of OPML.
  * 
  * @author christian
  * 
