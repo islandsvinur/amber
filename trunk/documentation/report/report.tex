@@ -12,6 +12,15 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{url}
+\usepackage{color}
+\usepackage[pdftex,%
+    pdfpagemode={UseOutlines},%
+    bookmarks,%
+    colorlinks,%
+    linkcolor={blue},%
+    plainpages=false,%
+    pdfpagelabels,%
+    citecolor={red}]{hyperref}
 
 \newcommand{\Rvk}{Reykjav\'\i{}k }
 
@@ -154,9 +163,9 @@
 }
 \end{adjustwidth}
 
-\include{report-preface.inc}
-
 \tableofcontents
+
+\include{report-preface.inc}
 
 \include{report-intro.inc}
 
