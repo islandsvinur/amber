@@ -46,6 +46,7 @@ import amber.showoff.EarthViewStory;
 import amber.showoff.ObservableList;
 
 import com.cmlabs.air.Message;
+import com.cmlabs.air.ObjectCollection;
 
 /**
  * Displays the information available in the whiteboards. They combine Story
@@ -94,6 +95,37 @@ public abstract class ShowOff extends Module {
         analysisQueue = new ObservableList<Analysis>();
     }
 
+    @Override
+    public void start() {
+        super.start();
+        int time = 24 * 60 * 60 * 1000;
+        if (airBrush.plug.hasParameter("StoryLifetimeInHours")) {
+            time = airBrush.plug.getParameterInteger("StoryLifetimeInHours") * 60000;
+        }
+
+        ObjectCollection stories = airBrush.plug
+                .retrieveMessages("<retrieve from=\"WB.Stories\" type=\"Story\"><lastmsec>"
+                        + time + "</lastmsec></retrieve>");
+        if (stories != null) {
+            System.out.println("Number of stories: " + stories.getCount());
+            while (stories.getCount() > 0) {
+                airBrushReceiveMessage((Message) stories.getFirst());
+                stories.remove(0);
+            }
+        }
+
+        ObjectCollection analyses = airBrush.plug
+                .retrieveMessages("<retrieve from=\"WB.Analyses\" type=\"Analysis.*\"><lastmsec>"
+                        + time + "</lastmsec></retrieve>");
+        if (analyses != null) {
+            System.out.println("Number of analyses: " + analyses.getCount());
+            while (analyses.getCount() > 0) {
+                airBrushReceiveMessage((Message) analyses.getFirst());
+                analyses.remove(0);
+            }
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -126,9 +158,11 @@ public abstract class ShowOff extends Module {
              * System.out.println("Received analysis for story " + a.getID() + "
              * topic: " + a.getTopic());
              */
+
             analysisQueue.add(a);
             return true;
         }
+
         return false;
     }
 }

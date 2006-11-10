@@ -53,7 +53,7 @@ public class AirBrush implements Runnable {
     /**
      * the connection object
      */
-    final private JavaAIRPlug plug;
+    final public JavaAIRPlug plug;
 
     /**
      * thread handling incoming messages
@@ -210,7 +210,7 @@ public class AirBrush implements Runnable {
     public Double getParameterDouble(String key) {
         return plug.getParameterDouble(key);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
