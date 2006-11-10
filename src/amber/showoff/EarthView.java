@@ -109,8 +109,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
     public void start() {
         setForeground(Color.white);
         setBackground(Color.black);
-        animator = new Thread(this);
-        animator.start();
+        if (animator == null) {
+            animator = new Thread(this);
+            animator.start();
+        }
     }
 
     /*
@@ -125,12 +127,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
         if (firstFrame) {
             firstFrame = false;
             g.setColor(getBackground());
-            g.fillRect(0, 0, d.width, d.height);
+        } else {
+            g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0,
+                    (float) 0.01));
         }
-
-        g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0,
-                (float) 0.01));
-        // g.setColor(Color.black);
         g.fillRect(0, 0, d.width, d.height);
 
         g.setColor(getForeground());
@@ -226,6 +226,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
             if ((frame % 50) == 0) {
                 getNewStories();
+                getNewAnalyses();
             }
         }
 
@@ -261,7 +262,6 @@ public class EarthView extends JPanel implements Runnable, Observer {
             ListIterator<Analysis> ai = analysisQueue.listIterator();
             while (ai.hasNext()) {
                 a = ai.next();
-                ai.remove();
 
                 a.getID();
                 EarthViewStory s = stories.get(a.getID());
@@ -269,6 +269,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
                 if (s != null) {
                     // System.out.println("Adding analysis");
                     s.addAnalysis(a);
+                    ai.remove();
                 }
             }
         }
