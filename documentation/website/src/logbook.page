@@ -184,8 +184,8 @@ table(log).
 (table-row-odd). |Mon 6.11|Attractors defined by parameter now,<br/>Visualization can be started as an applet|
 (table-row-even). |Tue 7.11|Mainly work on documenting source code, included Javadoc in design document|
 (table-row-odd). |Wed 8.11|Work on "internship report":report|
-(table-row-even). |Thu 9.11| |
-(table-row-odd). |Fri 10.11| |
+(table-row-even). |Thu 9.11|More report work|
+(table-row-odd). |Fri 10.11|Implemented display of historical data|
 
 h3. Week 46 (13)
 
