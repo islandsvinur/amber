@@ -1,0 +1,33 @@
+---
+title: 14 Nov 2006
+inMenu: true
+orderInfo: 53
+---
+h2. Prototype 14 November
+
+<applet archive="20061114.jar,lib/jvyaml.jar,lib/vecmath.jar" code="amber.showoff.Demonstrator" width="500" height="350">
+</applet>
+
+If you let this run for a while, you will clearly see differences in the
+distribution of the trails over the topics. The demonstration uses generated
+random data, so basically every topic has an equal chance to be winner for some
+time and thus I cannot exactly say what is going on here. 
+
+This one is a lot heavier to run, since it uses alpha channels to fade away the
+trails of the particles. The graphics code will be replaced by something more
+efficient, maybe using hardware accelleration. 
+
+It may not be very apparent from the applet, but in full screen, the
+visualization runs very slow on any machine. So while this code would suffice
+for applets, it wouldn't for the fullscreen system which could use hardware
+accelleration for rendering.
+
+There is another problem with this visualization prototype: It isn't instantly
+finished rendering upon load, it needs some history in order to create an
+image. By this I mean that when a user first looks at the visualization just
+after it loaded, it cannot draw any conclusion from it; it has to run for a few
+moments to become clear.
+
+PS. In case you were wondering, yes, these are the names of eight European
+countries (and oversea territories) in Dutch.
+
