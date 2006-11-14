@@ -192,17 +192,13 @@ h3. Week 46 (13)
 p(plan). Fine-tune crawling, analysis and visualization parameters. Create
 final distribution files. Test those on various platforms.
 
-<div class="invisible">
-
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 13.11| |
-(table-row-even). |Tue 14.11| |
+(table-row-odd). |Mon 13.11|Various smaller tasks, mainly bugfixing|
+(table-row-even). |Tue 14.11|Documentation|
 (table-row-odd). |Wed 15.11| |
 (table-row-even). |Thu 16.11| |
 (table-row-odd). |Fri 17.11| |
-
-</div>
 
 h3. Week 47 (14)
 
