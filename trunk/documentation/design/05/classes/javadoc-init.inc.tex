@@ -8,13 +8,6 @@
 \pdfoutput=1
 \pdftrue
 \fi
-\ifpdf \usepackage[pdftex, pdfpagemode={UseOutlines},bookmarks, colorlinks,linkcolor={blue},plainpages=false,pdfpagelabels,citecolor={red},]{hyperref}
-\usepackage[pdftex]{graphicx}
-\pdfcompresslevel=9
-\DeclareGraphicsRule{*}{mps}{*}{}
-\else
-\usepackage[dvips]{graphicx}
-\fi
 \newcommand{\entityintro}[3]{%
   \hbox to \hsize{%
     \vbox{%

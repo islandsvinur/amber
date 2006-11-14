@@ -1,0 +1,145 @@
+% ``Header'' file for design document
+
+% Used packages
+\RequirePackage[printonlyused]{acronym}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{babel}
+\RequirePackage{calc}
+\RequirePackage{chngpage}
+\RequirePackage{fancyhdr}
+\RequirePackage{tabularx}
+\RequirePackage{listings}
+\RequirePackage{url}
+
+\RequirePackage{ifthen}
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse
+\else
+\pdfoutput=1
+\pdftrue
+\fi
+
+\RequirePackage[pdftex,pdfpagemode={UseOutlines},bookmarks,colorlinks,linkcolor={blue},filecolor={green},urlcolor={blue},plainpages=false,pdfpagelabels,citecolor={green}]{hyperref} 
+\RequirePackage[pdftex]{graphicx}
+
+% Global settings.
+\setlength{\parskip}{12pt}
+\setlength{\parindent}{0pt}
+\setlength{\textheight}{22cm}
+
+% Improved title page.
+\makeatletter
+\newcommand{\institution}{\newcommand{\@institution}}
+\renewcommand\maketitle{\begin{titlepage}%
+\let\footnotesize\small
+\let\footnoterule\relax
+\let \footnote \thanks
+\null\vfil
+\vskip 60\p@
+\begin{center}%
+  {\LARGE \@title \par}%
+  \vskip 3em%
+  {\large
+   \lineskip .75em%
+    \begin{tabular}[t]{c}%
+      \@author
+    \end{tabular}\par}%
+    \vskip 1.5em%
+  {\large \@date \par}%       % Set date in \large size.
+\end{center}\par
+\@thanks
+\vfill
+{\small
+ \begin{flushright}
+  \begin{tabular}{l}\hline
+  \@institution\hline
+  \end{tabular}
+ \end{flushright}
+}
+\global\let\@institution\@empty
+\global\let\institution\relax
+\end{titlepage}
+}
+
+% Redefinition of the abstract environment so that it follows the current
+% paragraph indent style.
+\renewenvironment{abstract}%
+ {\small\begin{center}{\bfseries\abstractname}\begin{quote}}
+ {\end{quote}\end{center}}
+
+
+% Fancy header settings.
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth-1cm}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark}
+\fancyhead[RE]{\bfseries\leftmark}
+\fancypagestyle{plain}{%
+  \fancyhead{}\renewcommand{\headrulewidth}{0pt}}
+
+\newcommand{\AmbE}{Ambient~Earth}
+\newcommand{\Amber}{\textsc{Amber}}
+\newcommand{\Rvk}{Reykjav\'\i{}k}
+
+\newenvironment{module}[1]{
+    \newcommand{\post}[2]{Post to ##2 & ##1 \\ }
+    \newcommand{\trigger}[2]{Triggered by ##2 & ##1 \\ }
+    
+    \vspace{1em}
+    \textbf{Psyclone module specification for module #1:}
+
+    \tabularx{\linewidth}{l|X}
+        \textbf{Whiteboard} & \textbf{Type} \\
+        \hline
+        \hline
+}{ 
+        % FIXME: enabling this gives strange alignment error
+        % \hline
+    \endtabularx
+}
+
+\newcommand{\interfacename}[1]{\subsubsection[Interface #1]{public interface #1}}
+\newcommand{\classname}[1]{\subsubsection[Class #1]{public class #1}}
+\newcommand{\abstractclassname}[1]{\subsubsection[Class #1]{public abstract class #1}}
+
+\newcommand{\void}{\textbf{void}}
+\newcommand{\static}{\textbf{static}}
+
+\newenvironment{interface}{
+  \newcommand{\method}[4]{ & ##2: & ##4 \\}
+  \newcommand{\init}[3]{\method{x}{\textbf{new} ##1}{##2}{##3}}
+  % \newcommand{\method}[4]{##1 & ##2\-(##3) & ##4 \\ \hline}
+  % \newcommand{\init}[3]{\method{\textbf{new}}{##1}{##2}{##3}}
+
+
+  \tabularx{\linewidth}{p{.5cm}lX}
+    \multicolumn{2}{l}{\textbf{Interface:}} & \\
+    % \textbf{Name} & \textbf{Description} \\
+    % \hline \hline 
+}{
+  \endtabularx
+}
+
+\newenvironment{classmetadata}{
+  \newcommand{\metadataitem}[2]{\textbf{##1:} & ##2 \\}
+
+  \newcommand{\extends}[1]      {\metadataitem{Extends}{##1}}
+  \newcommand{\implements}[1]   {\metadataitem{Implements}{##1}}
+  \newcommand{\function}[1]     {\metadataitem{Function}{##1}}
+  \newcommand{\dependencies}[1] {\metadataitem{Dependencies}{##1}}
+  \newcommand{\references}[1]   {\metadataitem{References}{##1}}
+  \newcommand{\processing}[1]   {\metadataitem{Processing}{##1}}
+  \newcommand{\data}[1]         {\metadataitem{Data}{##1}}
+
+  \tabularx{\linewidth}{lX}
+  \metadataitem{Type}{Class}
+}{ 
+  \endtabularx
+}

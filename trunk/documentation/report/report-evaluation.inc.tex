@@ -4,11 +4,61 @@
 
 \subsection{Learning points}
 
+The approach used in the development of this project is called
+Constructionists Design Methodology, which is a form of incremental
+design. For this project, this was a good choice, because many things were
+undecided upon in the beginning and only became clear after some first
+experiments.
+
+One example would be the visualization of ``replies to a story'' which was
+initially thought of as adding a particle on a tail tied to the original
+story. The longer the tail, the more important a story would appear.
+
+However, there is no connection between a reply and a story other than a
+humanly constructed one (there is no field in RSS which specifies it). It
+was thus impossible to create this link without going far beyond the scope
+of this project.
+
+Instead, it was chosen to give all replies their own orbiting particles
+and if a story is popular, many particles appear and in this way visualize
+activity in a topic.
+
 \subsection{Points for improvement}
+
+It is very hard to create a realistic planning and to estimate one's
+capabilities right. Some details had to be simplified on the way to make
+the project fit within the available time, while other aspects which
+seemed complex were in fact solved very quickly.
 
 \section{Technical evaluation}
 
 \subsection{Unimplemented parts}
 
+It is not yet possible to ``travel through the past'' as was an initial
+idea. This feature would enable a user to set a certain time in the past
+and see the situation at that point. A very simple approach would be to
+create screenshots of the display for every day and then display the
+desired one.
+
 \subsection{Points for expansion}
 
+The nice thing about using a message and whiteboarding system like
+Psyclone is that every component can be replaced fairly easily.
+
+Currently, there is only one analysis module which can not make very
+intelligent decisions. The fact that this is a project within the AI
+department, makes it likely that someone will implement a smarter analysis
+module which can run in place or alongside the current one.
+
+It is only possible to get stories from RSS feeds, but another module
+could be created which gets information out of newsgroups. A lot of
+AI discussion is going on on Usenet, so this might also be an interesting
+expansion of the system.
+
+If the applet is to be used in a forum, it can be that a module with
+direct (read-only) database access is created.
+
+Then, finally, the visualization itself can be replaced by another one and
+one of the ideas is to make it look more like the Sun's corona, expanding
+it in those directions where much discussion is going on, shrinking it
+where discussion is quiet.
