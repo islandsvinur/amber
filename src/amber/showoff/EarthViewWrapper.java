@@ -93,5 +93,13 @@ public class EarthViewWrapper extends ShowOff {
         super.start();
         earthView.start();
     }
+    
+    /* (non-Javadoc)
+     * @see amber.common.Module#stop()
+     */
+    public void stop() {
+        super.stop();
+        earthView.stop();
+    }
 
 }
