@@ -114,6 +114,10 @@ public class EarthView extends JPanel implements Runnable, Observer {
             animator.start();
         }
     }
+    
+    public void stop() {
+        animator = null;
+    }
 
     /*
      * (non-Javadoc)
@@ -263,13 +267,16 @@ public class EarthView extends JPanel implements Runnable, Observer {
             while (ai.hasNext()) {
                 a = ai.next();
 
-                a.getID();
-                EarthViewStory s = stories.get(a.getID());
-                // System.out.println("New analysis incoming: " + a.getID());
-                if (s != null) {
-                    // System.out.println("Adding analysis");
-                    s.addAnalysis(a);
-                    ai.remove();
+                String id = a.getID();
+                if (id != null) {
+                    EarthViewStory s = stories.get(id);
+                    // System.out.println("New analysis incoming: " +
+                    // a.getID());
+                    if (s != null) {
+                        // System.out.println("Adding analysis");
+                        s.addAnalysis(a);
+                        ai.remove();
+                    }
                 }
             }
         }
