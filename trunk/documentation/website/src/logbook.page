@@ -196,7 +196,7 @@ table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 13.11|Various smaller tasks, mainly bugfixing|
 (table-row-even). |Tue 14.11|Documentation|
-(table-row-odd). |Wed 15.11| |
+(table-row-odd). |Wed 15.11|Bugfixing, some documentation|
 (table-row-even). |Thu 16.11| |
 (table-row-odd). |Fri 17.11| |
 
