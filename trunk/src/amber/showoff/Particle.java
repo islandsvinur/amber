@@ -88,7 +88,7 @@ public class Particle {
     private final static int MAXIMUM_ORBITS_UNBOUND = 25;
 
     /** Particles of relevant stories should crash 48 hours after launch */
-    private final static int LIFE_LENGTH_IN_MS = 48 * 60 * 60 * 1000;
+    private final static int LIFE_LENGTH_IN_MS = 2 * 24 * 60 * 60 * 1000;
 
     public enum State {
         NEW, LAUNCH, ORBITING, CRASHING, CRASHED
