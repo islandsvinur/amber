@@ -67,6 +67,9 @@ In this list incoming stories are stored before they are handled.}
 In this list incoming analyses are stored before they are handled.}
 \end{itemize}
 }
+\item{
+\index{STORY\_LIFETIME}
+\label{amber.ShowOff.STORY_LIFETIME}private int {\bf STORY\_LIFETIME}}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -126,6 +129,19 @@ true if the message was handled, false if it wasn't
 }
   \end{itemize}
 }%end item
+\end{itemize}
+}%end item
+ \item{ 
+\index{start()}
+{\bf start}\\
+{\tt public void\ {\bf start}(  )
+\label{amber.ShowOff.start()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description copied from common.Module{\small \refdefined{amber.common.Module}} }
+
+Start normal operation after initialization and configuration
+}
 \end{itemize}
 }%end item
 \end{itemize}
@@ -330,7 +346,7 @@ java.lang.Runnable}
 \begin{itemize}
 \item{
 \index{plug}
-\label{amber.common.AirBrush.plug}private final com.cmlabs.air.JavaAIRPlug {\bf plug}\begin{itemize}
+\label{amber.common.AirBrush.plug}public final com.cmlabs.air.JavaAIRPlug {\bf plug}\begin{itemize}
 \item{\vskip -.9ex 
 the connection object}
 \end{itemize}
@@ -1550,6 +1566,7 @@ a newly created Story object, initialized with the information in the YAML docum
 \vskip .13in
 \hbox{\bf Classes}
 \entityintro{RSS}{amber.crawler.RSS}{Crawler module that can register with a RSS feed.}
+\entityintro{RSS.Matcher}{amber.crawler.RSS.Matcher}{}
 \vskip .1in
 \vskip .1in
 \subsubsection{\label{amber.crawler.RSS}\index{RSS}Class RSS}{
@@ -1568,6 +1585,9 @@ de.nava.informa.utils.poller.PollerObserverIF}
 \item{
 \index{poller}
 \label{amber.crawler.RSS.poller}private de.nava.informa.utils.poller.Poller {\bf poller}}
+\item{
+\index{cleaner}
+\label{amber.crawler.RSS.cleaner}private de.nava.informa.utils.cleaner.Cleaner {\bf cleaner}}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -1843,6 +1863,37 @@ Switch the feed (only works when in RSS mode, not in OPML)
 \end{itemize}
 }
 }
+\subsubsection{\label{amber.crawler.RSS.Matcher}\index{RSS.Matcher}Class RSS.Matcher}{
+\vskip .1in 
+\subsubsection{Declaration}{
+\small public class RSS.Matcher
+\\ {\bf extends} java.lang.Object
+\refdefined{java.lang.Object}\\ {\bf implements} 
+de.nava.informa.utils.cleaner.CleanerMatcherIF}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{RSS.Matcher()}
+{\bf RSS.Matcher}\\
+{\tt public\ {\bf RSS.Matcher}(  )
+\label{amber.crawler.RSS.Matcher()}}%end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{isMatching(ItemIF, ChannelIF)}
+{\bf isMatching}\\
+{\tt  boolean\ {\bf isMatching}( {\tt de.nava.informa.core.ItemIF} {\bf arg0},
+{\tt de.nava.informa.core.ChannelIF} {\bf arg1} )
+\label{amber.crawler.RSS.Matcher.isMatching(de.nava.informa.core.ItemIF, de.nava.informa.core.ChannelIF)}}%end signature
+}%end item
+\end{itemize}
+}
+}
 }
 \subsection{Package amber.showoff}{
 \label{amber.showoff}\hbox to \hsize{\it Package Contents\hfil Page}
@@ -1872,6 +1923,9 @@ Implements an applet (!) containing the visualization module. Can thus be used t
 \item{
 \index{serialVersionUID}
 \label{amber.showoff.Applet.serialVersionUID}private static final long {\bf serialVersionUID}}
+\item{
+\index{evw}
+\label{amber.showoff.Applet.evw}private EarthViewWrapper {\bf evw}}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -1882,6 +1936,23 @@ Implements an applet (!) containing the visualization module. Can thus be used t
 {\bf Applet}\\
 {\tt public\ {\bf Applet}(  )
 \label{amber.showoff.Applet()}}%end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{destroy()}
+{\bf destroy}\\
+{\tt public void\ {\bf destroy}(  )
+\label{amber.showoff.Applet.destroy()}}%end signature
+}%end item
+ \item{ 
+\index{init()}
+{\bf init}\\
+{\tt public void\ {\bf init}(  )
+\label{amber.showoff.Applet.init()}}%end signature
 }%end item
 \end{itemize}
 }
@@ -2171,6 +2242,12 @@ Start the animator
 \end{itemize}
 }%end item
  \item{ 
+\index{stop()}
+{\bf stop}\\
+{\tt public void\ {\bf stop}(  )
+\label{amber.showoff.EarthView.stop()}}%end signature
+}%end item
+ \item{ 
 \index{update(Observable, Object)}
 {\bf update}\\
 {\tt  void\ {\bf update}( {\tt java.util.Observable} {\bf arg0},
@@ -2375,6 +2452,19 @@ ShowOff module which creates the EarthView object and widgets to be used in stan
 {\bf Description copied from amber.common.Module{\small \refdefined{amber.common.Module}} }
 
 Start normal operation after initialization and configuration
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{stop()}
+{\bf stop}\\
+{\tt public void\ {\bf stop}(  )
+\label{amber.showoff.EarthViewWrapper.stop()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description copied from amber.common.Module{\small \refdefined{amber.common.Module}} }
+
+Stop normal operation and exit
 }
 \end{itemize}
 }%end item
@@ -2623,7 +2713,7 @@ ObservableList is an implementation of List and extends Observable. On top of th
 }
 \subsubsection{\label{amber.showoff.Particle}\index{Particle}Class Particle}{
 \vskip .1in 
-Representation of a Story in the EarthView visualization. When initialized, the particle will get some parameters to be launched. Upon launch, the particle will move according to the equations of motion (\$v = v + a * t\$, \$s = \textbackslash frac\{a * t$\wedge$2\}\{2\}\$\ etc.). If the story gets an analysis, the particle will be attracted to at least one of the attractors around the center. If it doesn't get an analysis, the particle will quickly fall down, crash and disappear. Relevant particles (i.e. the ones with analysis) will stay around for about 2 days (which is a constant to be chosen freely).\vskip .1in 
+Representation of a Story in the EarthView visualization. When initialized, the particle will get some parameters to be launched. Upon launch, the particle will move according to the equations of motion (v = v + a * t, s = 1/2 a * t$\wedge$2 etc.). If the story gets an analysis, the particle will be attracted to at least one of the attractors around the center. If it doesn't get an analysis, the particle will quickly fall down, crash and disappear. Relevant particles (i.e. the ones with analysis) will stay around for about 2 days (which is a constant to be chosen freely).\vskip .1in 
 \subsubsection{Declaration}{
 \small public class Particle
 \\ {\bf extends} java.lang.Object
