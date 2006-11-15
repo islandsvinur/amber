@@ -15,9 +15,11 @@ import javax.swing.JApplet;
 public class Applet extends JApplet {
 
     private static final long serialVersionUID = -7090111642724235796L;
+    
+    private EarthViewWrapper evw;
 
     public Applet() {
-        EarthViewWrapper evw = new EarthViewWrapper("Applet", "localhost",
+        evw = new EarthViewWrapper("Applet", "luijten.local",
                 10000);
 
         Container mainpane = this.getContentPane();
@@ -26,7 +28,14 @@ public class Applet extends JApplet {
 
         mainpane.add(evw.earthView);
         this.setVisible(true);
+    }
+    
+    public void init() {
         evw.start();
+    }
+    
+    public void destroy() {
+        evw.stop();
     }
 
 }
