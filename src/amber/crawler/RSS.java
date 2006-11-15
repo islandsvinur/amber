@@ -114,7 +114,7 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @throws MalformedURLException
      */
     private URL getURL() throws MalformedURLException {
-        final String paramname = "FeedURI";
+        final String paramname = "RSS";
         if (airBrush.hasParameter(paramname)) {
             String urlstring = airBrush.getParameterString(paramname);
             URL ret = null;
@@ -227,7 +227,7 @@ public class RSS extends Crawler implements PollerObserverIF {
         try {
             if (airBrush.hasParameter("OPML")) {
                 switchFeedOPML();
-            } else if (airBrush.hasParameter("FeedURI")) {
+            } else if (airBrush.hasParameter("RSS")) {
                 switchFeedRSS();
             }
         } catch (MalformedURLException e) {
