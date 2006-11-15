@@ -56,6 +56,10 @@
         </description>
     </whiteboard>
 
+<!-- ##########################################################################
+                              Crawler definitions 
+########################################################################### -->
+
     <module name="Module.Crawler.RSS.Anonymous">
         <executable />
         <parameter name="FeedURI" type="String" value="" />
@@ -108,10 +112,13 @@
         <post to="WB.Stories" type="Story" />
     </module>
 
+<!-- ##########################################################################
+                               Sieve definitions 
+########################################################################### -->
+
     <module name="Module.Sieve.KeywordSpotter.iTunes">
         <executable />
         <parameter name="QueryString.Content" type="String" value=".*itunes.*" />
-        <parameter name="QueryString.Author" type="String" value="" />
         <parameter name="Topic" type="String" value="iTunes" />
         <description>
             This module is a placeholder for a KeywordSpotter.
@@ -123,8 +130,7 @@
     <module name="Module.Sieve.KeywordSpotter.Zune">
         <executable />
         <parameter name="QueryString.Content" type="String" value=".*zune.*" />
-        <parameter name="QueryString.Author" type="String" value="" />
-        <parameter name="Topic" type="String" value="" />
+        <parameter name="Topic" type="String" value="Zune" />
         <description>
             This module is a placeholder for a KeywordSpotter.
         </description>
@@ -157,10 +163,10 @@
         <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
 
-    <module name="Module.Sieve.KeywordSpotter.MacBook">
+    <module name="Module.Sieve.KeywordSpotter.MacPro">
         <executable />
-        <parameter name="QueryString.Content" type="String" value=".*macbook.*" />
-        <parameter name="Topic" type="String" value="MacBook" />
+        <parameter name="QueryString.Content" type="String" value=".*mac pro.*" />
+        <parameter name="Topic" type="String" value="Mac Pro" />
         <description>
             This module will analyze stories in the raw-stories whiteboard for
             the existence of certain keywords and puts matching stories on the
@@ -169,6 +175,49 @@
         <trigger from="WB.Stories" type="Story" />
         <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
     </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacMini">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*mac mini.*" />
+        <parameter name="Topic" type="String" value="Mac mini" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacBook">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*macbook.*" />
+        <parameter name="Topic" type="String" value="MacBook" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.iMac">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*imac.*" />
+        <parameter name="Topic" type="String" value="iMac" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+<!-- ##########################################################################
+                              ShowOff definitions 
+########################################################################### -->
 
     <module name="Module.ShowOff.Applet">
         <executable />
