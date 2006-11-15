@@ -70,14 +70,18 @@ public class KeywordSpotter extends Sieve {
      */
     public KeywordSpotter(String name, String hostname, Integer port) {
         super("KeywordSpotter." + name, hostname, port);
-        contentPattern = Pattern.compile(airBrush
-                .getParameterString("QueryString.Content"),
-                Pattern.CASE_INSENSITIVE);
-        System.out.println("Content pattern set to: " + contentPattern);
-        authorPattern = Pattern.compile(airBrush
-                .getParameterString("QueryString.Author"),
-                Pattern.CASE_INSENSITIVE);
-        System.out.println("Author pattern set to: " + authorPattern);
+        if (airBrush.hasParameter("QueryString.Content")) {
+            contentPattern = Pattern.compile(airBrush
+                    .getParameterString("QueryString.Content"),
+                    Pattern.CASE_INSENSITIVE);
+            System.out.println("Content pattern set to: " + contentPattern);
+        }
+        if (airBrush.hasParameter("QueryString.Author")) {
+            authorPattern = Pattern.compile(airBrush
+                    .getParameterString("QueryString.Author"),
+                    Pattern.CASE_INSENSITIVE);
+            System.out.println("Author pattern set to: " + authorPattern);
+        }
     }
 
     /*
@@ -106,11 +110,11 @@ public class KeywordSpotter extends Sieve {
                 String content = story.getContent();
                 String title = story.getTitle();
                 Double relevance = 0.0;
-                if (contentPattern.matcher(content).matches()) {
-                    relevance += Math.random() * 0.5;
-                }
-                if (contentPattern.matcher(title).matches()) {
-                    relevance += Math.random() * 0.5;
+                if (contentPattern.matcher(content).matches()
+                        || contentPattern.matcher(title).matches()) {
+                    // FIXME: The AI department may come up with a more
+                    // intelligent algorithm here
+                    relevance += 0.5 + Math.random() * 0.5;
                 }
                 if (relevance > 0) {
                     a.setTopicRelevance(relevance);
@@ -119,6 +123,8 @@ public class KeywordSpotter extends Sieve {
                 }
             }
 
+            // It is not entirely clear what the meaning of the author relevance
+            // would be, but at least it is stored.
             if (authorPattern != null) {
                 String author = story.getAuthor();
                 if (authorPattern.matcher(author).matches()) {

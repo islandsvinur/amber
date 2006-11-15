@@ -59,6 +59,8 @@ import de.nava.informa.core.ParseException;
 import de.nava.informa.impl.basic.ChannelBuilder;
 import de.nava.informa.parsers.FeedParser;
 import de.nava.informa.parsers.OPMLParser;
+import de.nava.informa.utils.cleaner.Cleaner;
+import de.nava.informa.utils.cleaner.CleanerMatcherIF;
 import de.nava.informa.utils.poller.Poller;
 import de.nava.informa.utils.poller.PollerObserverIF;
 
@@ -71,9 +73,27 @@ import de.nava.informa.utils.poller.PollerObserverIF;
  * 
  */
 public class RSS extends Crawler implements PollerObserverIF {
+    public class Matcher implements CleanerMatcherIF {
+
+        public Matcher() {
+            super();
+            // TODO Auto-generated constructor stub
+        }
+
+        public boolean isMatching(ItemIF item, ChannelIF channel) {
+            if (item.getUnRead())
+                return false;
+            else
+                return true;
+        }
+
+    }
+
     private ChannelIF channel = null;
 
     private Poller poller;
+
+    private Cleaner cleaner;
 
     /**
      * @param name
@@ -83,9 +103,10 @@ public class RSS extends Crawler implements PollerObserverIF {
      */
     public RSS(String name, String hostname, Integer port) {
         super("RSS." + name, hostname, port);
-        System.out.println("Creating Poller.");
-        poller = new Poller(10);
-        switchFeed();
+        System.out.println("Creating Poller and Cleaner.");
+        poller = new Poller();
+        cleaner = new Cleaner();
+
     }
 
     /**
@@ -129,6 +150,7 @@ public class RSS extends Crawler implements PollerObserverIF {
 
         if (channel != null) {
             poller.unregisterChannel(channel);
+            cleaner.unregisterChannel(channel);
         }
 
         registerChannel(getURL());
@@ -141,11 +163,12 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @param url
      */
     private void registerChannel(URL url) {
-        ChannelIF c;
+        ChannelIF c = null;
         try {
             c = FeedParser.parse(new ChannelBuilder(), url);
             readAllItemsIn(c);
-            poller.registerChannel(c);
+            poller.registerChannel(c, 5, 600000);
+            cleaner.registerChannel(c);
         } catch (Exception e) {
             System.err.println("Error parsing feed: " + e.getMessage());
         }
@@ -162,9 +185,10 @@ public class RSS extends Crawler implements PollerObserverIF {
             System.out.println("Found " + items.size()
                     + " items in initial feed.");
             for (Iterator it = items.iterator(); it.hasNext();) {
-                handleItem((ItemIF) it.next());
-                it.remove();
+                ItemIF item = (ItemIF) it.next();
+                handleItem(item);
             }
+            //cleaner.cleanChannel(c);
         }
 
     }
@@ -224,6 +248,9 @@ public class RSS extends Crawler implements PollerObserverIF {
         System.out.println("Starting poller.");
         poller.addObserver(this);
 
+        CleanerMatcherIF matcher = new RSS.Matcher();
+        cleaner.addMatcher(matcher);
+
         if (airBrush.hasParameter("RefreshTime"))
             refresh = airBrush.getParameterInteger("RefreshTime");
         else
@@ -231,6 +258,9 @@ public class RSS extends Crawler implements PollerObserverIF {
 
         System.out.println("Setting refresh time to " + refresh + "s.");
         poller.setPeriod(refresh * 1000);
+        cleaner.setPeriod(refresh * 1000);
+
+        switchFeed();
 
     }
 
@@ -257,23 +287,27 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @param item
      */
     private void handleItem(ItemIF item) {
-        Story s = new Story();
+        if (item.getUnRead()) {
 
-        // Optional
-        s.setAuthor(convertToPrintable(item.getCreator()));
-        s.setTitle(convertToPrintable(item.getTitle()));
-        s.setContent(convertToPrintable(item.getDescription()));
+            Story s = new Story();
 
-        // Required
-        s.setID(convertToPrintable(item.getGuid().getLocation()));
-        s.setPublicationDate(item.getDate());
+            // Optional
+            s.setAuthor(convertToPrintable(item.getCreator()));
+            s.setTitle(convertToPrintable(item.getTitle()));
+            s.setContent(convertToPrintable(item.getDescription()));
 
-        Message msg = new Message();
-        msg.to = "WB.Stories";
-        msg.type = "Story";
-        msg.content = s.toYAML();
+            // Required
+            s.setID(convertToPrintable(item.getGuid().getLocation()));
+            s.setPublicationDate(item.getDate());
 
-        airBrush.postMessage(msg);
+            Message msg = new Message();
+            msg.to = "WB.Stories";
+            msg.type = "Story";
+            msg.content = s.toYAML();
+
+            airBrush.postMessage(msg);
+            item.setUnRead(false);
+        }
     }
 
     /*
@@ -293,7 +327,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      * @see de.nava.informa.utils.poller.PollerObserverIF#channelChanged(de.nava.informa.core.ChannelIF)
      */
     public void channelChanged(ChannelIF arg0) {
-
     }
 
     /*
@@ -303,7 +336,6 @@ public class RSS extends Crawler implements PollerObserverIF {
      *      java.lang.Exception)
      */
     public void channelErrored(ChannelIF arg0, Exception arg1) {
-
     }
 
     /*

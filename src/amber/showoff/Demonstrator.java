@@ -42,6 +42,7 @@ package amber.showoff;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.util.Date;
 
 import javax.swing.JApplet;
 
@@ -81,21 +82,21 @@ public class Demonstrator extends JApplet implements Runnable {
 
         EarthView earthView = new EarthView(storyQueue, analysisQueue);
         earthView.setVisible(true);
-        earthView.addAttractor(new Polar2d(250.0, 1.75 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 1.75 * Math.PI), 0.75,
                 "spitsbergen");
-        earthView.addAttractor(new Polar2d(250.0, 1.5 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 1.5 * Math.PI), 0.75,
                 "ijsland");
-        earthView.addAttractor(new Polar2d(250.0, 1.25 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 1.25 * Math.PI), 0.75,
                 "groenland");
-        earthView.addAttractor(new Polar2d(250.0, 1.0 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 1.0 * Math.PI), 0.75,
                 "faerer");
-        earthView.addAttractor(new Polar2d(250.0, 0.75 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 0.75 * Math.PI), 0.75,
                 "ierland");
-        earthView.addAttractor(new Polar2d(250.0, 0.5 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 0.5 * Math.PI), 0.75,
                 "nederland");
-        earthView.addAttractor(new Polar2d(250.0, 0.25 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 0.25 * Math.PI), 0.75,
                 "denemarken");
-        earthView.addAttractor(new Polar2d(250.0, 0.0 * Math.PI), 0.75,
+        earthView.addAttractor(new Polar2d(150.0, 0.0 * Math.PI), 0.75,
                 "noorwegen");
 
         earthView.start();
@@ -124,6 +125,7 @@ public class Demonstrator extends JApplet implements Runnable {
         while (Thread.currentThread() == thread) {
             EarthViewStory s = new EarthViewStory();
             s.setID("story-" + storyCounter++);
+            s.setPublicationDate(new Date());
             storyQueue.add(s);
 
             // Generate analyses at random
@@ -162,7 +164,7 @@ public class Demonstrator extends JApplet implements Runnable {
 
             }
 
-            if (storyCounter == 1000) {
+            if (storyCounter == 30) {
                 thread = null;
             }
 

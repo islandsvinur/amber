@@ -68,6 +68,8 @@ public abstract class ShowOff extends Module {
      */
     protected ObservableList<Analysis> analysisQueue;
 
+    private int STORY_LIFETIME;
+
     /**
      * @param moduleName
      *            the name of the module to start
@@ -78,6 +80,14 @@ public abstract class ShowOff extends Module {
      */
     public ShowOff(String moduleName, String hostname, Integer port) {
         super("ShowOff." + moduleName, hostname, port);
+        
+        int time;
+        if (airBrush.plug.hasParameter("StoryLifetimeInHours")) {
+            time = airBrush.plug.getParameterInteger("StoryLifetimeInHours") * 60000;
+        } else {
+            time = 14 * 24 * 60 * 60 * 1000;
+        }
+        STORY_LIFETIME = time;
 
         if (!airBrush.openWhiteboard("WB.Stories"))
             System.err
@@ -98,14 +108,10 @@ public abstract class ShowOff extends Module {
     @Override
     public void start() {
         super.start();
-        int time = 24 * 60 * 60 * 1000;
-        if (airBrush.plug.hasParameter("StoryLifetimeInHours")) {
-            time = airBrush.plug.getParameterInteger("StoryLifetimeInHours") * 60000;
-        }
 
         ObjectCollection stories = airBrush.plug
                 .retrieveMessages("<retrieve from=\"WB.Stories\" type=\"Story\"><lastmsec>"
-                        + time + "</lastmsec></retrieve>");
+                        + STORY_LIFETIME + "</lastmsec></retrieve>");
         if (stories != null) {
             System.out.println("Number of stories: " + stories.getCount());
             while (stories.getCount() > 0) {
@@ -116,7 +122,7 @@ public abstract class ShowOff extends Module {
 
         ObjectCollection analyses = airBrush.plug
                 .retrieveMessages("<retrieve from=\"WB.Analyses\" type=\"Analysis.*\"><lastmsec>"
-                        + time + "</lastmsec></retrieve>");
+                        + STORY_LIFETIME + "</lastmsec></retrieve>");
         if (analyses != null) {
             System.out.println("Number of analyses: " + analyses.getCount());
             while (analyses.getCount() > 0) {
