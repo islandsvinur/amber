@@ -40,7 +40,6 @@
 
 package amber.showoff;
 
-import java.awt.Color;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -79,8 +78,6 @@ public class Particle {
 
     private EarthViewStory story;
 
-    Color color;
-
     private boolean bound = false;
 
     private final static Double CRASH_HEIGHT = 30.0;
@@ -106,7 +103,6 @@ public class Particle {
         location = new Polar2d(0, 2 * Math.random() * Math.PI);
         velocity = new Polar2d(0, 0);
         accel = new Polar2d(0, 0);
-        color = new Color(64, 64, 64);
 
         s.setParticle(this);
         crashTime = new Date();
@@ -116,7 +112,6 @@ public class Particle {
     /** Indicate that a particle is bound to at least one analysis */
     public void bind() {
         bound = true;
-        color = new Color(255, 255, 127);
     }
 
     /**
@@ -180,11 +175,17 @@ public class Particle {
         story = s;
     }
 
-    /** Method to check whether the particle has been launched
+    /**
+     * Method to check whether the particle has been launched
+     * 
      * @return true if the particle has been launched
      */
     public boolean isLaunched() {
         return state.compareTo(State.LAUNCH) > 0;
+    }
+
+    public boolean isBound() {
+        return bound;
     }
 
     /** Launch the particle */

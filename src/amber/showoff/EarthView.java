@@ -79,6 +79,8 @@ public class EarthView extends JPanel implements Runnable, Observer {
 
     private int frame = 0;
 
+    private Double scale = 1D;
+
     static Hashtable<String, Attractor> attractors;
 
     static Hashtable<String, EarthViewStory> stories;
@@ -114,7 +116,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
             animator.start();
         }
     }
-    
+
     public void stop() {
         animator = null;
     }
@@ -125,7 +127,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
      * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
      */
     public void paintComponent(Graphics g) {
-        int earthRadius = 50;
+        int earthRadius = (int) (50 * scale);
         Dimension d = getSize();
 
         if (firstFrame) {
@@ -133,7 +135,7 @@ public class EarthView extends JPanel implements Runnable, Observer {
             g.setColor(getBackground());
         } else {
             g.setColor(new Color((float) 0.0, (float) 0.0, (float) 0.0,
-                    (float) 0.01));
+                    (float) 0.0075));
         }
         g.fillRect(0, 0, d.width, d.height);
 
@@ -158,14 +160,16 @@ public class EarthView extends JPanel implements Runnable, Observer {
         }
         Iterator<Entry<String, Attractor>> j = attractors.entrySet().iterator();
         g.setColor(getForeground());
+        int attractorDiameter = (int) (10 * scale);
 
         while (j.hasNext()) {
             Entry<String, Attractor> e = j.next();
             Point2d p = e.getValue().location.toCartesianPoint();
+            p.scale(scale);
             p.add(new Point2d(d.width / 2, d.height / 2));
             int x = new Double(p.x).intValue();
             int y = new Double(p.y).intValue();
-            g.drawOval(x - 5, y - 5, 10, 10);
+            g.drawOval(x - 5, y - 5, attractorDiameter, attractorDiameter);
             g.drawString(e.getKey(), x + 15, y);
         }
 
@@ -183,13 +187,17 @@ public class EarthView extends JPanel implements Runnable, Observer {
      *            the particle object to be drawn
      */
     private void drawParticle(Graphics g, Particle p) {
-        int diameter = 5;
+        int diameter = (int) (5 * scale);
         Dimension d = getSize();
         Point2d loc = p.getLocation();
-        // loc.scale(scalingFactor);
+        loc.scale(scale);
 
         if (!p.crashed()) {
-            g.setColor(p.color);
+            if (p.isBound())
+                g.setColor(new Color(1.0F, 1.0F, 0.5F));
+            else
+                g.setColor(new Color(0.25f, 0.25f, 0.125f, 0.25f));
+
             g.fillOval((int) (loc.x - diameter / 2) + (d.width / 2),
                     (int) (loc.y - diameter / 2) + (d.height / 2), diameter,
                     diameter);
@@ -318,6 +326,14 @@ public class EarthView extends JPanel implements Runnable, Observer {
         a.topic = topic;
         attractors.put(topic, a);
         return a;
+    }
+
+    public Double getScale() {
+        return scale;
+    }
+
+    public void setScale(Double scale) {
+        this.scale = scale;
     }
 
 }
