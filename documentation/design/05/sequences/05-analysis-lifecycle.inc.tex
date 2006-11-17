@@ -1,1 +1,8 @@
 \subsection{Life cycle of an Analysis object}
+
+An Analysis object is created by Sieve modules. They are created based on an
+analysis of a Story object. After the analysis is done, the object is converted
+into a \ac{YAML} string and send to the WB.Analyses whiteboard.
+
+Here, it is sent out to all parties interested - ShowOff modules - which
+convert the YAML string back into a Analysis object.

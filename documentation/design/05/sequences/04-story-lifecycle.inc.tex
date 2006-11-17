@@ -1,1 +1,9 @@
-\subsection{Life cycle of a Story object}
+\subsection{Life cycle of a Story}
+
+A Story object is created by a Crawler module. It will fill it with as many
+information as is available, convert it into a \ac{YAML} string and send it to
+the WB.Stories whiteboard.
+
+Here, it is sent to all listeners - Sieve and ShowOff modules - which convert
+the YAML string back into a Story object. The object is read and eventually
+stored (e.g. in ShowOff modules).
