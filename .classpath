@@ -3,13 +3,21 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/JavaOpenAIR.jar"/>
-	<classpathentry kind="lib" path="lib/jdom.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://jdom.org/docs/apidocs/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/jvyaml.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Informa RSS Library"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jakarta Commons CLI"/>
+	<classpathentry kind="lib" path="lib/commons-cli.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/odmg.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/lucene.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/jta.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/informa.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/hibernate2.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/ehcache.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/dom4j.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/informa-0.6.5/cglib2.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
