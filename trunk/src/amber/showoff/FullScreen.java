@@ -42,13 +42,14 @@ package amber.showoff;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JWindow;
 
 /**
  * Displays the EarthView component in a full screen window.
@@ -67,13 +68,17 @@ public class FullScreen extends EarthViewWrapper {
      */
     public FullScreen(String moduleName, String hostname, Integer port) {
         super("FullScreen." + moduleName, hostname, port);
+        
+        earthView.setScale(2.4);
+        
+        /*
         JFrame main = new JFrame();
         main.setSize(500, 500);
-        /*
-         * JWindow main = new JWindow();
-         * GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main);
-         */
-
+        */
+        
+        JWindow main = new JWindow();
+        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(main); 
+        
         list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         list.setBackground(Color.black);
@@ -86,15 +91,13 @@ public class FullScreen extends EarthViewWrapper {
             };
         });
 
-        Container mainpane = main.getContentPane();
-
-        mainpane.setBackground(Color.black);
-
-        mainpane.add(list);
-        main.setVisible(true);
-
         list.add(earthView);
         list.add(b);
+        
+        Container mainpane = main.getContentPane();
+        mainpane.setBackground(Color.black);
+        mainpane.add(list);
+        main.setVisible(true);
 
     }
 
