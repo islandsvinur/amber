@@ -3,29 +3,27 @@
 # This file is a personal launcher script, it probably needs quite some
 # adaptation to also be useful for you.
 
-AMBER_HOME=/home/christian/Source/Amber
-LOCAL_JAVA_HOME=/home/christian/.java/deployment
+AMBER_HOME=$(pwd)
 
 CLASSPATH=$AMBER_HOME/build:\
 $AMBER_HOME/lib/JavaOpenAIR.jar:\
 $AMBER_HOME/lib/jdom.jar:\
 $AMBER_HOME/lib/jvyaml.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/cglib2.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/commons-beanutils.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/commons-collections.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/commons-lang.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/commons-logging.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/dom4j.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/ehcache.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/hibernate2.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/hsqldb.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/informa.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/jdom.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/jta.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/lucene.jar:\
-$LOCAL_JAVA_HOME/ext/informa-0.6.5/lib/odmg.jar:\
-/usr/share/java/commons-cli.jar:\
-/usr/share/java/commons-cli-1.0.jar
+$AMBER_HOME/lib/informa-0.6.5/cglib2.jar:\
+$AMBER_HOME/lib/informa-0.6.5/commons-beanutils.jar:\
+$AMBER_HOME/lib/informa-0.6.5/commons-collections.jar:\
+$AMBER_HOME/lib/informa-0.6.5/commons-lang.jar:\
+$AMBER_HOME/lib/informa-0.6.5/commons-logging.jar:\
+$AMBER_HOME/lib/informa-0.6.5/dom4j.jar:\
+$AMBER_HOME/lib/informa-0.6.5/ehcache.jar:\
+$AMBER_HOME/lib/informa-0.6.5/hibernate2.jar:\
+$AMBER_HOME/lib/informa-0.6.5/hsqldb.jar:\
+$AMBER_HOME/lib/informa-0.6.5/informa.jar:\
+$AMBER_HOME/lib/informa-0.6.5/jdom.jar:\
+$AMBER_HOME/lib/informa-0.6.5/jta.jar:\
+$AMBER_HOME/lib/informa-0.6.5/lucene.jar:\
+$AMBER_HOME/lib/informa-0.6.5/odmg.jar:\
+$AMBER_HOME/lib/commons-cli.jar
 
 cd $AMBER_HOME/build
 java -cp $CLASSPATH amber.common.Launcher $*
