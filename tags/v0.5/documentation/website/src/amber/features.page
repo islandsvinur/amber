@@ -1,0 +1,10 @@
+---
+title: Features
+inMenu: true
+orderInfo: 20
+---
+h2. Features
+
+Amber makes use of the Psyclone framework for communication between modules.
+This approach enables easy adaption, expansion and combination of the different
+components.

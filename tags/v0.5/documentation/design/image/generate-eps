@@ -1,0 +1,14 @@
+#!/bin/sh -x
+
+for DIAFILE in *.dia; do 
+  EPSFILE=$(basename $DIAFILE .dia).eps
+  PDFFILE=$(basename $DIAFILE .dia).pdf
+
+  if [ $EPSFILE -ot $DIAFILE ]; then
+    dia -e $EPSFILE -t eps-builtin $DIAFILE
+  fi
+  if [ $PDFFILE -ot $EPSFILE ]; then
+    rm -f $PDFFILE
+  fi
+done
+

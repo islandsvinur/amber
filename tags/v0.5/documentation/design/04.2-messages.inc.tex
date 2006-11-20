@@ -1,0 +1,68 @@
+\section{\label{sct:messages}Messages}
+
+There are a few message types in the system. Two of which must be defined
+system-wide because they are used in the communication between modules.
+
+\subsection{\label{sct:messages:story}Message type `Story'}
+
+The Story message is only posted to the whiteboard `WB.Stories' and only by
+Crawler modules.
+
+The message content is a \ac{YAML}\footnote{\url{http://www.yaml.org/}} document
+which represents the storyData field inside the Java counterpart of the
+message. It contains at least the properties `URI' (to identify the story,
+GUIDs are RSS specific and cannot be used), `Author', `Title', `Story-Content'.
+
+It may also contain `Publication-Date' (which is the date of publication in
+Internet~Message~Format\cite[Section~3.3]{RFC2822}), `Kind' and other fields.
+
+An example of a YAML document containing Story data:
+
+\begin{verbatim}
+---
+URI: http://ijsland.luijten.org/2006/09/12/skyr-wasdanou/
+Author: Christian Luijten
+Title: Skyr... Wasdanou?
+Publication-Date: Tue, 12 Sep 2006 21:03:54 +0000
+Kind: weblog-posting
+Story-Content: >
+  Een van die dingen die bij een onbekende cultuur horen zijn de
+  eetgewoonten. Elk land heeft zo z’n producten die je nergens
+  anders kan krijgen. IJslands nationale zuivelproduct heet Skyr,
+  elke oma kan het maken, al is het nogal een hoop werk. Daarom is
+  het lange tijd (lees: gedurende de jachtige periode na de tweede
+  wereldoorlog toen de Amerikanen hier de boel kwamen ophaasten)
+  in ongebruik geraakt, maar op een gegeven moment kwam de vraag
+  toch weer terug en zijn een aantal zuivelproducenten het
+  industrieel gaan produceren.
+\end{verbatim}
+
+\subsection{Message type `Analysis'}
+
+Analysis typed messages are posted on the `WB.Analyses' whiteboard only by
+Sieve modules. They contain information about stories present on the
+`WB.Stories' whiteboard.
+
+The content of these messages is also YAML format. Story messages are coupled
+with Analysis messages through their `URI' fields, so this must be present.
+
+An example of a message issued by an analysis module checking for the topic
+`Zuivel' (which means dairy products in Dutch):
+
+\begin{verbatim}
+---
+URI: http://ijsland.luijten.org/2006/09/12/skyr-wasdanou/
+Topic: Zuivel
+Relation-Strength: 1.0
+Author-Strength: 0.1
+\end{verbatim}
+
+Its `Relation-Strength' suggests high relevance of the content with the topic.
+However, the `Author-Strength' suggests that the author isn't an authority in
+the field.
+
+Every analysis module sends a message to the whiteboard if it thinks it is
+relevant. It is thus possible that the same URI will get multiple analysis
+results or nothing at all, the visualizer module must cope with this and merge
+the available information.
+

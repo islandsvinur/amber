@@ -1,0 +1,32 @@
+\chapter{\label{cpt:usage:installation}Installation}
+
+\section{Requirements}
+
+Ambient Earth, including the applet, requires Java 1.5 or higher. Most systems
+will run this version.
+
+All libraries Amber depends on are redistributed with it. They are mostly
+GPL'ed or LGPL'ed and their sources can be found on their original developer's
+websites.
+
+\section{Building the software}
+
+To build Amber from source, there is an Ant configuration file. Simply running
+ant from the top directory will compile all source files.
+
+Building Amber has been tested and found to work in Debian GNU/Linux `unstable'
+using the `sun-java5-sdk' package from the `non-free' distribution. There are a
+few issues with building under Mac~OS~X. For some unknown reason Eclipse can
+build it on Mac~OS~X.
+
+\section{Using the binary distribution}
+
+If you downloaded the binary distribution, then use the \texttt{launcher.sh}
+script to launch Amber. If you are not using a Unix shell environment, inspect
+the script for the workings; it doesn't do much more than setting the class
+path right and then start the amber.common.Launcher class.
+
+It is also possible to start the desired module by hand, without making use of
+the Launcher class. This can be useful when integrating a module in an existing
+system. Please refer to the design document for more information on starting a
+module.

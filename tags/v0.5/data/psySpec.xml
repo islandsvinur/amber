@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+
+  Ambient Earth
+  Christian Luijten <christian@luijten.org>
+
+  Copyright(c)2006 Center for Analysis and Design of Intelligent Agents
+                   Reykjavik University
+                   All rights reserved
+
+                   http://cadia.ru.is/
+
+  Redistribution and use in source and binary forms, with or without
+  modification, is permitted provided that the following conditions are met:
+
+  - Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+  - Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+  - Neither the name of its copyright holders nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<psySpec name="Ambient Earth" version="1.20">  
+    
+    <global>
+        <port>10000</port>
+        <title>Ambient Earth</title>
+    </global>
+
+    <whiteboard name="WB.Stories">
+        <description>
+            Stores all crawled stories.
+        </description>
+    </whiteboard>
+
+    <whiteboard name="WB.Analyses">
+        <description>
+            Story analyses are stored here.
+        </description>
+    </whiteboard>
+
+<!-- ##########################################################################
+                              Crawler definitions 
+########################################################################### -->
+
+    <module name="Module.Crawler.RSS.Anonymous">
+        <executable />
+        <parameter name="RSS" type="String" value="" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="600" />
+        <description>
+            This module gets RSS feeds via HTTP, parses them and puts the
+            stories in them on the whiteboard (along with meta-data).
+        </description>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Crawler.RSS.OPML">
+        <executable />
+        <parameter name="OPML" type="String" value="http://orion.luon.net/~christian/feeds.opml" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="600" />
+        <description>
+            This RSS module gets the OPML index of Christian and registers all feeds in it.
+        </description>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Crawler.RSS.Digg">
+        <executable />
+        <parameter name="RSS" type="String" value="http://digg.com/rss/indexgadgets.xml" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="600" />
+        <description>
+            This RSS module gets the RSS feed of Digg.com.
+        </description>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Crawler.RSS.GoT">
+        <executable />
+        <parameter name="RSS" type="String" value="http://gathering.tweakers.net/rss.php/list_topics/76" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="600" />
+        <description>
+            This RSS module gets the RSS feed of the Gathering of Tweakers
+            subforum Apple Talk.
+        </description>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+    <module name="Module.Crawler.RSS.MacRumors">
+        <executable />
+        <parameter name="RSS" type="String" value="http://forums.macrumors.com/external.php?type=RSS2" />
+        <parameter name="RefreshTime" type="Integer" min="1" max="3600" value="600" />
+        <description>
+            This RSS module gets the RSS feed of the MacRumors forums.
+        </description>
+        <post to="WB.Stories" type="Story" />
+    </module>
+
+<!-- ##########################################################################
+                               Sieve definitions 
+########################################################################### -->
+
+    <module name="Module.Sieve.KeywordSpotter.iTunes">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*itunes.*" />
+        <parameter name="Topic" type="String" value="iTunes" />
+        <description>
+            This module is a placeholder for a KeywordSpotter.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.Zune">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*zune.*" />
+        <parameter name="Topic" type="String" value="Zune" />
+        <description>
+            This module is a placeholder for a KeywordSpotter.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.Anonymous">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value="" />
+        <parameter name="QueryString.Author" type="String" value="" />
+        <parameter name="Topic" type="String" value="" />
+        <description>
+            This module is a placeholder for a KeywordSpotter.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.iPod">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*ipod.*" />
+        <parameter name="Topic" type="String" value="iPod" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacPro">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*mac pro.*" />
+        <parameter name="Topic" type="String" value="Mac Pro" />
+        <description>
+            This module will analyze stories in the raw-stories whiteboard for
+            the existence of certain keywords and puts matching stories on the
+            processed-stories whiteboard, adding a category to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacMini">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*mac mini.*" />
+        <parameter name="Topic" type="String" value="Mac mini" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.MacBook">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*macbook.*" />
+        <parameter name="Topic" type="String" value="MacBook" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+    <module name="Module.Sieve.KeywordSpotter.iMac">
+        <executable />
+        <parameter name="QueryString.Content" type="String" value=".*imac.*" />
+        <parameter name="Topic" type="String" value="iMac" />
+        <description>
+          This module will analyze stories in the raw-stories whiteboard for
+          the existence of the keyword ipod and puts matching stories on the
+          processed-stories whiteboard, adding the topic ipod to them.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <post to="WB.Analyses" type="Analysis.KeywordSpotter" />
+    </module>
+
+<!-- ##########################################################################
+                              ShowOff definitions 
+########################################################################### -->
+
+    <module name="Module.ShowOff.Applet">
+        <executable />
+        <parameter name="Attractors" type="String" value="MacBook:0.75,iPod:0.75,iTunes:0.75,Zune:0.75,Mac Pro:0.75,iMac:0.75,Mac mini:0.75" />
+        <description>
+            This module gets stories from the processed whiteboard and uses the
+            story s meta-data to display the stories in a certain way that is
+            ambient in its interaction.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
+    </module>
+
+    <module name="Module.ShowOff.FullScreen.Anonymous">
+        <executable />
+        <parameter name="Attractors" type="String" value="MacBook:0.75,iPod:0.75,iTunes:0.75,Zune:0.75,Mac Pro:0.75,iMac:0.75,Mac mini:0.75" />
+        <description>
+            This module gets stories from the processed whiteboard and uses the
+            story s meta-data to display the stories in a certain way that is
+            ambient in its interaction.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
+    </module>
+
+    <module name="Module.ShowOff.Applet.Anonymous">
+        <executable />
+        <description>
+            This module gets stories from the processed whiteboard and uses the
+            story s meta-data to display the stories in a Java applet.
+        </description>
+        <trigger from="WB.Stories" type="Story" />
+        <trigger from="WB.Analyses" type="Analysis.*" />
+    </module>
+
+</psySpec> 

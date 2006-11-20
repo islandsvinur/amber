@@ -1,0 +1,114 @@
+\chapter{\label{cpt:requirements}Requirements}
+
+There are various kinds of requirements to be identified. A distinction can be
+made between functional and extra-functional (or non-functional) requirements.
+
+\section{Extra-functional requirements}
+
+\begin{enumerate}
+  \item The system must make use of the Psyclone framework for communication.
+  \item The system will be implemented in the Java programming language.
+  \item The display module with the Java Applet must be able to run on any
+    machine with a properly installed and recent Java Virtual Machine (i.e.
+    not only on the machine running the rest of the system).
+  \item It must be possible to add modules with similar functionality to
+    operate in parallel with modules already there. For example when the Java
+    Applet is running, it should also be possible to have the full screen
+    module running at the same time. 
+\end{enumerate}
+
+\section{Functional requirements}
+
+These requirements describe which \emph{inputs}, \emph{outputs}, \emph{storage}
+and \emph{computations} exist in the system and how they are \emph{timed and
+synchronized}. Finally, since this is a very important part of the project,
+there are two separate sections on \emph{story analysis} and
+\emph{visualization} requirements.
+
+\subsection{Inputs}
+
+\begin{enumerate}
+  \item The system must be configurable to specify which sources will be
+        monitored.
+  \item The system will use the configuration to get information from the
+        internet from the specified sources.
+  \item Configuration of the system goes via Psyclone using module parameters.
+  % \item The display may have a set of controls to navigate through the
+  % history of a feed.
+  \item Parts of the system must accept triggers from Psyclone whiteboards.
+  \item Sources must be \ac{RSS} feeds, possibly aggregated via an \ac{OPML}
+    file. The system should however be prepared to support other source types
+    as well (i.e. it should be easily expandable).
+  \item The Applet display is non-interactive (no input).
+\end{enumerate}
+
+\subsection{Outputs}
+
+\begin{enumerate}
+  \item There is an output module which is to be used within a website,
+        i.e. a Java Applet.
+  \item There is an output module which runs standalone and in full screen
+        and displays more information than the Applet can.
+\end{enumerate}
+
+\subsection{Storage}
+
+\begin{enumerate}
+  \item The system on itself does not store anything.
+\end{enumerate}
+
+\subsection{Computations}
+
+\begin{enumerate}
+  \item The system must decide of a delivered story what its subject(s) is/are.
+  \item The system may put weights on the subjects instead of a boolean value.
+\end{enumerate}
+
+\subsection{Timing and synchronization}
+
+Synchronization between modules is handled by Psyclone, so no requirements need
+to be added to the system itself.
+
+\subsection{Story analysis}
+
+\begin{enumerate}
+  \item When stories come in, they are analysed by analysis modules.
+  \item Every module adds some meta-information to the story depending on the
+    module analysis.
+\end{enumerate}
+
+\subsection{Visualization}
+
+The following requirements are common for both the applet and the standalone
+viewer.
+
+\begin{enumerate}
+  \item A story is represented as a dot.
+  \item In the center of the display is Earth (with picture?).
+  \item Dots are launched into orbit around Earth.
+  \item The dots leave fading trails as they move.
+  \item There are some small, heavy bodies in ``geostationary'' orbit around
+    Earth representing values of an enumeration of meta-information (for
+    instance story subjects). They attract the stories depending on how much
+    they match the story's subject. 
+\end{enumerate}
+
+There will be two different views, a static and a dynamic one. Which one is
+used depends on the application. To get an idea of the activity at a certain
+moment in time, the static view is used. For a ``real-time'' view of internet
+activity, the dynamic view can be used.
+
+The term ``static'' doesn't mean the image is standing still, it will behave
+exactly the same as the dynamic view. However, some physical laws don't apply
+or are differently calibrated in order to give a constant image. In other
+words, while in dynamic view stories can appear and disappear, in the static
+view the stories are a given constant.
+
+\subsubsection{Differences between Applet and Standalone viewer}
+
+\begin{enumerate}
+  \item The applet display will in practice be considerably smaller than the
+    standalone viewer. Therefore, the applet is less detailed and some physical
+    laws might need to be bend a bit.
+\end{enumerate}
+

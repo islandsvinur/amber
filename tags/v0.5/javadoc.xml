@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Documentation: http://doclet.stefanmarx.de/ -->
+<project default="javadoc">
+  <target name="javadoc">
+    <javadoc packagenames="amber.common,amber,amber.showoff,amber.crawler,amber.sieve" sourcepath="src" classpath="/usr/share/java/commons-cli-1.0.jar:lib/jvyaml.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/odmg.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/cglib2.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/jta.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/lucene.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/hsqldb.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/commons-logging.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/commons-lang.jar:/usr/share/java/commons-cli.jar:lib/JavaOpenAIR.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/hibernate2.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/jdom.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/commons-beanutils.jar:lib/jdom.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/ehcache.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/dom4j.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/commons-collections.jar:/home/christian/.java/deployment/ext/informa-0.6.5/lib/informa.jar" access="private" additionalparam="-output /home/christian/Source/Amber/documentation/design/05/classes/javadoc.inc.tex -initoutfile /home/christian/Source/Amber/documentation/design/05/classes/javadoc-init.inc.tex -include -noinherited -nosummaries -sectionlevel subsection">
+      <doclet name="sm.texdoclet.TeXDoclet" path="/home/christian/Source/Amber/lib/TeXDoclet.jar"/>
+    </javadoc>
+  </target>
+</project>

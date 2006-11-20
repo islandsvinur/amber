@@ -1,0 +1,31 @@
+\chapter{\label{cpt:scenarios}Usage scenarios}
+
+\section{A story is posted to a weblog}
+
+When a story is posted on a weblog, it will show up in its RSS feed (this
+happens of course outside of our responsibility). If \Amber\ is monitoring this
+particular weblog, it will retrieve the story and analyze it. The story is then
+displayed on a screen using the results of the analysis.
+
+To get a more concrete idea, suppose \Amber\ is monitoring various A.I. related
+weblogs and we would like to find out what they are mainly writing about. We
+configure the analysis component in such a way that it can decide whether a
+certain subject is dealt with in a story, thereby creating a profile for every
+story. Stories with similar subjects will then show up close to eachother in
+the display, stories with orthogonal subjects will be very far apart.
+
+The result is an image with various ``clouds'' of in some way related stories.
+
+\section{A discussion is held on a web forum}
+
+Discussions on web forums can get lengthy and the main subject can change
+multiple times during their lives. To get an idea what subjects the whole
+discussion has been about, \Amber\ can show a cloud map of (part of) the
+discussion. It could even show an animation to show how the discussion
+developed over time.
+
+Using the animated view of the discussion development, a new participant in the
+discussion can decide upon whether bringing up an old discussion point is a
+good idea or not. It is also a way to locate a certain subject within a long
+list of replies.
+

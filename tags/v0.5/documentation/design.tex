@@ -1,0 +1,106 @@
+\documentclass[english,a4paper,twoside]{scrreprt}
+
+\usepackage{functions}
+\include{design/05/classes/javadoc-init.inc}
+
+\acrodef{RU}{Reykjavík University}
+\acrodef{CADIA}{Center for Analysis \& Design of Intelligent Agents}
+\acrodef{RSS}{Rich Site Summary}
+\acrodef{YAML}{YAML Ain't Markup Language}
+\acrodef{OPML}{Outline Processor Markup Language}
+
+% Document meta data.
+%FIXME: better title & remove draft suffix
+\title{Ambient Earth\\
+       {\Large \emph{Design Document --- 1$^{\text{st}}$ draft\/}}}
+\author{Christian Luijten\\\url{christian06@ru.is}\\\url{c.a.a.m.luijten@student.tue.nl}}
+\date{\today}
+\institution{
+ Center for Analysis and Design of Intelligent Agents \\
+ School of Science and Engineering \\
+ Reykjavík University, Reykjavík \\[1em]
+ \emph{Under supervision of:\/} \\
+ Kristinn R. Thorisson, Ph.D. (Reykjavík University) \\
+ dr.ir. Huub van de Wetering (Eindhoven University of Technology) \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  This document describes the design of the Ambient Earth system. Ambient Earth
+  is a software system for visualization of Internet activity.
+\end{abstract}
+
+\vfill
+
+\begin{adjustwidth}{4em}{4em}
+{\scriptsize
+  Christian Luijten (\url{christian06@ru.is})
+
+  Copyright \copyright\ 2006 Center for Analysis and Design of Intelligent
+  Agents. \\
+  Reykjavík University \\
+  All rights reserved
+
+  \url{http://cadia.ru.is/}
+
+  Redistribution and use in source and binary forms, with or without
+  modification, is permitted provided that the following conditions are met:
+
+  \begin{itemize}
+    \item Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    \item Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+
+    \item Neither the name of its copyright holders nor the names of its
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+  \end{itemize}
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+
+}
+\end{adjustwidth}
+
+\newpage
+
+\tableofcontents
+
+\include{design/01-intro.inc}
+
+\include{design/02-scenarios.inc}
+
+\include{design/03-requirements.inc}
+
+\include{design/04-architecture.inc}
+
+\include{design/05-detailed.inc}
+
+% \include{design/06-conclusion.inc}
+
+% \appendix
+
+% \chapter{Auto-generated javadoc source code documentation}
+% \include{design/design-appendix-javadoc.inc}
+
+\bibliographystyle{cadia}
+\bibliography{bibliography}
+\addcontentsline{toc}{chapter}{\refname}
+
+\end{document}

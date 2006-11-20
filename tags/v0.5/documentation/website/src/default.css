@@ -1,0 +1,131 @@
+  .invisible { display: none; }
+
+  a          { text-decoration: none; }
+  a:link     { color: #738899; }
+  a:visited  { color: #A39B7A; }
+  a:hover,
+  a:active   { text-decoration: underline; }
+
+  #content {
+     width: 52em;
+     margin: 0pt auto;
+  }
+
+  #header {
+     padding: 2pt;
+     background-color: #5A6B78;
+     border-top: thin solid #2F393F;
+     border-left: thin solid #2F393F;
+     border-right: thin solid #2F393F;
+  }
+
+  #header h1
+, #header h2 {
+     margin: 5pt;
+     color: white;
+  }
+
+  #footer { 
+     margin-top: 5pt;
+     border-top: thin solid #2F393F;
+  }
+
+  #body { 
+     text-align: justify; 
+     line-height: 1.75em;
+  }
+
+  .bar {
+     clear: both;
+     padding: 2pt;
+     text-align: center;
+     font-size: 83%;
+     background-color: #869FB3;
+     border: thin solid #2F393F;
+  }
+  .bar a:link { color: #FFFFFF; }
+  .bar a:visited { color: #FFFFFF; }
+
+  .left, .right {
+     padding: 0pt 1em;
+  }
+
+  .left {
+     float: left;
+     text-align: left;
+  }
+
+  .right {
+     float: right;
+     text-align: right;
+  }
+
+  .log { table-layout: fixed; width: 40em; }
+  .log tr.table-header .day { width: 6em; }
+  .log td { vertical-align: top; }
+
+  .plan { font-style: italic; } 
+  .plan:before { content: 'Plan: '; }
+
+  pre {
+     font-size: 90%;
+     overflow: hidden;
+     padding-left: 10pt;
+     border: thin solid #F2CBD9; 
+     background-color: #FCE6EE;
+  }
+  
+  #body h2 { border-bottom: thin dashed #635E4A; }
+  #body h3 { border-bottom: thin dashed #A39B7A; }
+
+  table th { 
+     color: #635E4A;
+     background-color: #F3E7B6; 
+     border: thin solid #A39B7A;
+  }
+  table { margin: 1em 0; }
+
+  table tr.table-row-even { background: #E3E7E6; }
+  table tr.table-row-odd { background: white; }
+  table tr.log-special-day { color: #635E4A; }
+
+  /* styling the menu */
+
+  #menu {
+     float: right;
+     width: 15em;
+     margin: 10pt 0pt 5pt 10pt;
+     font-size: 83%;
+     background-color: #F3E7B6;
+     border: thin solid #A39B7A;
+  }
+
+  #menu a {
+     color: #635E4A;
+     text-decoration: none;
+  }
+
+  #menu a:hover {
+     text-decoration: underline;
+  }
+
+  #menu li.webgen-menu-item-selected {
+     font-weight: bold;
+  }
+
+  #menu ul {
+     list-style-type: none;
+     padding-left: 15pt;        /* first ul has some padding left & right */
+     padding-right: 5pt;
+  }
+
+  #menu li {
+     padding: 3pt 0pt;          /* inter-item padding */
+  }
+
+  #menu li > ul {
+     font-weight: normal;
+     padding-top: 3pt;          /* padding in front of first item */
+     padding-left: 7pt;         /* indentation */
+     padding-right: 0pt;       
+  }

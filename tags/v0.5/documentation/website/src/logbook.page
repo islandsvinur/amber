@@ -1,0 +1,233 @@
+---
+title: Log
+inMenu: true
+orderInfo: 80
+---
+h2. Log
+
+h3. About weeks 35 and earlier
+
+p(plan). Getting to know the organization, methodologies and procedures
+
+These weeks weren't officially in the traineeship period, but were used for
+some preparation work and introduction at the university. Since in those two
+weeks the "intensive Icelandic language course":http://hi.is/page/ilpc was
+still going on, those two weeks were only half working days.
+
+h3. Week 33 (0)
+
+table(log).
+(table-header). |_(day). Day|_(act). Activity|
+(table-row-even). |Thu 22.08|Introduction at the university with other exchange students|
+(table-row-odd). |Fri 23.08|Introduction to the School of Computer Science and Engineering, talk with Yngvi Björnsson|
+
+h3. Week 34 (1)
+
+table(log).
+(table-header). |_(day). Day|_(act). Activity|
+(table-row-odd). |Mon 22.08| |
+(table-row-even). |Tue 23.08|Conference call with Kristinn, "SVN repository":http://cadia.ru.is/svn/repos/webmon/|
+(table-row-odd). |Wed 24.08|Read about "CDM":http://www.mindmakers.org/projects/CDM/pages/|
+(table-row-even). |Thu 25.08|Bits and pieces of documentation and first code file structure|
+(table-row-odd). |Fri 26.08| |
+
+h3. Week 35 (2)
+
+table(log).
+(table-header). |_(day). Day|_(act). Activity|
+(table-row-odd). |Mon 28.08| |
+(table-row-even). |Tue 29.08|Conference call with Kristinn|
+(table-row-odd). |Wed 30.08|Created first psySpec file|
+(table-row-even log-special-day). |Thu 31.08|Moving to Þverholt|
+(table-row-odd). |Fri  1.09|Chat with Kristinn about psySpec|
+
+h3. Week 36 (3)
+
+p(plan). Having a global design of the modules and a first bit of object model,
+meanwhile playing around with posting and retrieving messages with Psyclone.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon  4.09|Improved psySpec|
+(table-row-even). |Tue  5.09|Thinking some more about the architecture|
+(table-row-odd). |Wed  6.09|Read "paper":CDM, Began writing design document, Created logbook page|
+(table-row-even). |Thu  7.09|More work on design|
+(table-row-odd). |Fri  8.09|More work on design|
+
+[CDM]http://www1.cs.columbia.edu/~smaskey/papers/AI_summer_vol_2.pdf
+
+h3. Week 37 (4)
+
+p(plan). Finish global design, Think about visualization issues
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 11.09|Project imported into Eclipse + exploring Eclipse, began detailling of Crawler architecture|
+(table-row-even). |Tue 12.09|"Computer problems":AppleKB304308, Install of backup computer,<br />Visualization requirements, Call with Kristinn about visual aspects|
+(table-row-odd). |Wed 13.09|Visualization requirements extended, Began research on using "Graphics":http://java.sun.com/docs/books/tutorial/2d/index.html in Java|
+(table-row-even). |Thu 14.09|Mainly work on prototype of full screen display|
+(table-row-odd). |Fri 15.09|Think about display module's architecture, Work on full screen display|
+
+[AppleKB304308]http://docs.info.apple.com/article.html?artnum=304308
+
+h3. Week 38 (5)
+
+p(plan). Create detailed design, code along, starting with basic visualization
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 18.09|Started detailed design on class level|
+(table-row-even). |Tue 19.09|Short talk with Kristinn, <br />Discussion about whether threads are at all possible to implement, <br />RSS doesn't really support threads (as in that every semantic meaning coupled to feeds is done by humans), <br />NNTP does work with threads, but its working is largely unknown to me, <br />Will implement the system as if threads are perfectly possible in RSS and come up with a solution later.|
+(table-row-odd). |Wed 20.09|Work on visualization module and AirBrush Psyclone interface, Communication succeeded|
+(table-row-even). |Thu 21.09|Implemented most of the methods currently present in the detailed design.|
+(table-row-odd). |Fri 22.09|Continued programming without design, <br/>Later concluded that it is not a good idea to work without proper design.|
+
+The weekend was spent on trips to Stykkisholmur (on Snæfellsnes) and Vík
+(southernmost point of Iceland).
+
+h3. Week 39 (6)
+
+p(plan). Create detailed design and code for crawler module. Enjoy the trip to
+Vatnajökull, Jökulsárlon, Svartifoss etc.
+
+Work on the crawler will be taken up this week, this module will hopefully be
+finished completely by Sunday, in order to be able to work on the analysis
+modules starting week 40.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 25.09|Object model of crawler,<br />Created classes,<br />Implemented simplest methods|
+(table-row-even). |Tue 26.09|Global design slightly changed, Document needs yet to be adapted,<br/>Idea to use XML dropped, using YAML now for contents of the messages|
+(table-row-odd). |Wed 27.09|Design document adapted to new architecture,<br/>YAML methods for Story added etc.|
+(table-row-even log-special-day). |Thu 28.09|Trip to Vatnajökull|
+(table-row-odd log-special-day). |Fri 29.09|Trip to Vatnajökull|
+(table-row-even). |Sat 30.09|Design document updated|
+(table-row-odd). |Sun 1.10|Experimented with the Informa library,<br/>Design document updated|
+
+Module not completed this week, will become early next week.
+
+h3. Week 40 (7)
+
+p(plan). Create detailed design and code for analysis modules.
+
+The analysis modules will be fairly simple at first, just enough to provide the
+visualiser with enough data to show something interesting. I planned two weeks
+of work on these.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 2.10|First version of Crawler finished,<br />Starts monitoring a feed,<br/>Can switch feeds via 'Feed.RSS' message on 'WB.Control'|
+(table-row-even). |Tue 3.10|Detailed design of abstract analysis modules, First steps of implementation|
+(table-row-odd). |Wed 4.10|Refactoring and cleanup of code|
+(table-row-even). |Thu 5.10|More code cleanup,<br/>Working crawler with simple analysis module behind it:<br/>WB.Analyses received first messages|
+(table-row-odd). |Fri 6.10|Work on the design document, <br/>Created UML diagrams following advise of Huub|
+
+h3. Week 41 (8)
+
+p(plan). Continue detailed design and code for analysis modules.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 9.10|Description of classes in UML diagrams added,<br/>Object models created for all three applications|
+(table-row-even). |Tue 10.10|Command line parser,<br/>One executable for all modules,<br/>More refactoring,<br/>Common configuration interface|
+(table-row-odd). |Wed 11.10|Finished work on KeywordSpotter v1,<br />There is now enough information to start visualizing,<br />Will stop working on Crawler and Sieve and start at ShowOff right away|
+(table-row-even). |Thu 12.10|Documentation updates|
+(table-row-odd). |Fri 13.10|Everything finished on KeywordSpotter,<br />Started on visualization part|
+
+h3. Week 42 (9)
+
+p(plan). Continue detailed design and code for visualization. By the end of the
+week, the EarthView widget should be finished so that in the next week the
+communication with Psyclone can be created.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 16.10|First day of visualization and already are particles flying around|
+(table-row-even). |Tue 17.10|First working prototype applet, added to <a href="{relocatable:amber/screenshots.page}">screenshots page</a>|
+(table-row-odd). |Wed 18.10|Improved prototype applet,<br />Explore possibilities of current model|
+(table-row-even). |Thu 19.10|Thoughts about implementation of attractors,<br/>Started implementation of them|
+(table-row-odd). |Fri 20.10|Full implementation of attractors,<br/>Check completeness of EarthView interface|
+
+h3. Week 43 (10)
+
+p(plan). Continue detailed design and code for visualization. Enable
+communication of visualizer with Psyclone. By the end of the week, the applet
+should respond on new stories and incoming analyses.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 23.10|Attractors fully implemented|
+(table-row-even). |Tue 24.10|Psyclone communication completed|
+(table-row-odd). |Wed 25.10|Particle trails,<br />These are far too slow, thinking about porting to OpenGL|
+(table-row-even). |Thu 26.10|Ported visualization to OpenGL,<br/>Workstation can now no longer render it in real time, but laptop can|
+(table-row-odd). |Fri 27.10|Only small fixes, half work day because of science trip to "Marorka":http://www.marorka.is/ |
+
+h3. Week 44 (11)
+
+p(plan). Complete work at OpenGL visualization, return to crawler and sieves to
+use parameter framework of Psyclone instead of own implementation.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 30.10|Tried to implement textures for fading|
+(table-row-even). |Tue 31.10|Gave up on OpenGL, removed everything and continued on the JPanel implementation|
+(table-row-odd). |Wed 1.11|Different way of configuring the modules, by making use of the parameter framework in Psyclone,<br />Small problem left, fix tomorrow|
+(table-row-even). |Thu 2.11|Fully make use of parameters, except for attractors|
+(table-row-odd). |Fri 3.11|OPML file parsing, a module can now be started for more than one RSS feed via OPML|
+
+h3. Week 45 (12)
+
+p(plan). Refactoring, fixing bugs, completing Javadoc code documentation.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 6.11|Attractors defined by parameter now,<br/>Visualization can be started as an applet|
+(table-row-even). |Tue 7.11|Mainly work on documenting source code, included Javadoc in design document|
+(table-row-odd). |Wed 8.11|Work on "internship report":report|
+(table-row-even). |Thu 9.11|More report work|
+(table-row-odd). |Fri 10.11|Implemented display of historical data|
+
+h3. Week 46 (13)
+
+p(plan). Fine-tune crawling, analysis and visualization parameters. Create
+final distribution files. Test those on various platforms.
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 13.11|Various smaller tasks, mainly bugfixing|
+(table-row-even). |Tue 14.11|Documenting|
+(table-row-odd). |Wed 15.11|Bugfixing, some documenting|
+(table-row-even). |Thu 16.11|Documenting|
+(table-row-odd). |Fri 17.11|Tiny bug fixes, full screen module now full screen (almost forgotten)|
+
+h3. Week 47 (14)
+
+p(plan). Finish everything up. *No more coding this week!* Reserved for
+"Goodbyes"
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 20.11|Documenting|
+(table-row-even). |Tue 21.11| |
+(table-row-odd). |Wed 22.11| |
+(table-row-even). |Thu 23.11| |
+(table-row-odd). |Fri 24.11| |
+(table-row-even). |Sat 25.11|_Flight back_|
+
+h3. Week 48 (15) (back in Eindhoven)
+
+p(plan). Finish "internship report":report.
+
+<div class="invisible">
+
+table(log).
+(table-header). |_(day). Day |_(act). Activity |
+(table-row-odd). |Mon 27.11| |
+(table-row-even). |Tue 28.11| |
+(table-row-odd). |Wed 29.11| |
+(table-row-even). |Thu 30.11| |
+(table-row-odd). |Fri  1.12| |
+
+</div>
+
+[report]report.pdf

@@ -1,0 +1,9 @@
+CopyFileHandler:
+    paths: 
+        - **/*.css
+        - **/*.jpg
+        - **/*.png
+        - **/*.gif
+        - **/*.pdf
+        - amber/prototypes/*.jar
+        - amber/prototypes/lib/*.jar

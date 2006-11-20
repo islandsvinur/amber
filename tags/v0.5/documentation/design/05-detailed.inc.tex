@@ -1,0 +1,142 @@
+\chapter{Detailed design}
+
+In this chapter, every single code object is described in terms of public
+interface and functionality. Because of the fairly dynamic character of this
+project -- new ideas come and go -- this chapter will not be finished until the
+end of the project and will probably change regularly.
+
+\section{Files and directories}
+
+All source code will be in the directory \texttt{src/}. All classes are in the
+package \texttt{amber} or in a subpackage thereof. The Psyclone specification
+file \texttt{psySpec.xml} is found in \texttt{data/}. External libraries that
+are redistributed with \Amber\ are in \texttt{lib/}. The source of this
+document, the traineeship report and the website are located in
+\texttt{documentation/}.
+
+The application is written using
+Eclipse\footnote{\url{http://www.eclipse.org/}} and can be built using Apache
+Ant\footnote{\url{http://ant.apache.org/}}. It requires Java SDK version 1.5 or
+greater.
+
+To open the project in Eclipse, the following user libraries need to be
+defined: ``Informa RSS Library'' and ``Jakarta Commons CLI''. These are the
+only two depending libraries which aren't redistributed with \Amber\, the first
+is a redistribution of a collection of libaries already to be found at
+\url{http://informa.sourceforge.net/}, while the other is readily available at
+\url{http://jakarta.apache.org/commons/cli/}.
+
+\section{Classes}
+
+Since the project is written in Java, the code objects are classes. This
+section deals mainly with the relation between the class hierarchies and their
+function.
+
+\subsection{Module class hierarchy}
+
+The Module family is the collection of classes which can perform a production
+task within the \Amber\ system. They are the most important family of objects.
+The first distinction is the general functionality: crawling, analysing and
+visualising.
+
+Secondly, as there can be more than one means to do one of the three main
+tasks, a class can extend one of these main modules. Thus we get the UML
+inheritance model as displayed in Figure~\ref{fig:class-diagram-module}.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics{design/image/class-diagram-module}
+  \caption{
+    \label{fig:class-diagram-module}
+    The inheritance model of the Module class}
+\end{figure}
+
+\subsection{AmberMessage class hierarchy}
+
+AmberMessage objects are the holders of information sent and received via
+Psyclone. They provide means of (de)serializing data to and from Psyclone and
+in this way are a abstraction of the raw messages to the level of Java.
+
+There are two subclasses of AmberMessage, Story and Analysis, which are to be
+used for posting on the WB.Stories and WB.Analyses whiteboards respectively.
+
+A Module can introduce extra subclasses if it needs so for sending and
+receiving configuration data over Psyclone.
+
+The UML inheritance model is shown in
+Figure~\ref{fig:class-diagram-ambermessage}.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics{design/image/class-diagram-ambermessage}
+  \caption{
+    \label{fig:class-diagram-ambermessage}
+    The inheritance model of the AmberMessage class}
+\end{figure}
+
+\subsection{Other classes}
+
+There are classes which directly descend from the Java Object class and are as
+such outside the \Amber\ hierarchy. They are displayed in
+Figure~\ref{fig:class-diagram}.
+
+The first is the Particle class, it represents a particle in the visualisation
+module. It is initialized to be ``on the surface of the earth'', then launch
+parameters are set according to the result of the first analysis which came in
+and it is launched. It will calculate its new position when the visualiser
+requests so.
+
+Another class is the AirBrush class, which eases communication with the Java
+OpenAIR library.
+
+The Launcher is a class which provides an interface to the command line and is
+responsible for starting and stopping the program. It has a command line
+argument parser which makes unwanted hard coding of parameters largely
+unneccesary.
+
+Lastly, there is the EarthView class which is a Swing component to be placed in
+a window, which will draw Particles as they orbit around the earth.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics{design/image/class-diagram}
+  \caption{
+    \label{fig:class-diagram}
+    The inheritance model of the remaining classes}
+\end{figure}
+
+\section{Detailed class descriptions}
+
+The next sections describe all classes in more detail, based on their location
+in the code base. The descriptions were automatically extracted from the
+sources via Javadoc and the \TeX{}Doclet.
+
+\input{design/05/classes/javadoc.inc}
+
+
+\section{Sequences}
+
+This section describes the main courses of events.
+
+The former three subsections describe the three types of main modules. They are
+all launched via the Launcher class which parses the command line and decides
+upon the command line switches which module will be loaded.
+
+There are currently four modules: RSS, KeywordSpotter, FullScreen and Applet,
+which launch a Crawler, Sieve, ShowOff and ShowOff module, respectively.
+
+The latter three subsections describe the life cycles of data elements in the
+system.
+
+\input{design/05/sequences/01-crawler-lifecycle.inc}
+
+\input{design/05/sequences/02-sieve-lifecycle.inc}
+
+\input{design/05/sequences/03-showoff-lifecycle.inc}
+
+\input{design/05/sequences/04-story-lifecycle.inc}
+
+\input{design/05/sequences/05-analysis-lifecycle.inc}
+
+\input{design/05/sequences/06-particle-lifecycle.inc}
+
