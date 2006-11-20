@@ -5,5 +5,4 @@ orderInfo: 40
 ---
 h2. Screenshots
 
-<applet archive="prototypes/20061026.jar,prototypes/lib/jvyaml.jar,prototypes/lib/vecmath.jar" code="amber.showoff.Demonstrator" width="500" height="350">
-</applet>
+<img src="image/screenshot.png" width="487" height="337" alt="Screenshot of Amber in action" />

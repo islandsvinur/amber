@@ -9,11 +9,6 @@ Ambient Earth is a project to visualise the *buzz* of the internet. It shows
 the *earth* from outer space and every time a new *story* is written, a
 satellite is *launched* from earth, starting to *orbit* it.
 
-If nothing happens to the story, if it isn't picked up by the world, it will
-quickly drop back to earth and disappear. However, if it *generates
-discussion*, the satellite will use its booster rockets to get into higher
-orbit in order to *stay around* longer.
-
 A story always has a certain topic. It might be about how nice the flowers
 bloom in spring or about higher order mathematics. Amber can be configured to
 *detect* several *topics* and attract satellites towards external gravity
