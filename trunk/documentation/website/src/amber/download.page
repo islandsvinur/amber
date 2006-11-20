@@ -5,5 +5,10 @@ orderInfo: 30
 ---
 h2. Download
 
-Download link will be here, once there is a release!
+The first public release of Amber was version 0.5.0 and is released on November
+20, 2006 at 14:45. It can be downloaded both in source and in binary form.
 
+* "amber-0.5.0.tgz":files/amber-0.5.0.tgz (source)
+* "amber-0.5.0.jar":files/amber-0.5.0.jar (binary)
+
+The software is licenced BSD-style.
