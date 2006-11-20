@@ -1,6 +1,7 @@
 \documentclass[english,a4paper,twoside]{scrreprt}
 
-\usepackage{design}
+\usepackage{functions}
+\include{design/05/classes/javadoc-init.inc}
 
 \acrodef{RU}{Reykjavík University}
 \acrodef{CADIA}{Center for Analysis \& Design of Intelligent Agents}
@@ -81,22 +82,22 @@
 
 \tableofcontents
 
-\include{\designpath/01-intro.inc}
+\include{design/01-intro.inc}
 
-\include{\designpath/02-scenarios.inc}
+\include{design/02-scenarios.inc}
 
-\include{\designpath/03-requirements.inc}
+\include{design/03-requirements.inc}
 
-\include{\designpath/04-architecture.inc}
+\include{design/04-architecture.inc}
 
-\include{\designpath/05-detailed.inc}
+\include{design/05-detailed.inc}
 
-% \include{\designpath/06-conclusion.inc}
+% \include{design/06-conclusion.inc}
 
 % \appendix
 
 % \chapter{Auto-generated javadoc source code documentation}
-% \include{\designpath/design-appendix-javadoc.inc}
+% \include{design/design-appendix-javadoc.inc}
 
 \bibliographystyle{cadia}
 \bibliography{bibliography}
