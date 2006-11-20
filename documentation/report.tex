@@ -1,9 +1,7 @@
 \documentclass[english,a4paper,twoside]{scrreprt}
 
 % Used packages
-\usepackage{../functions}
-
-\newcommand{\designpath}{../design}
+\usepackage{functions}
 
 % Document meta data.
 %FIXME: better title & remove draft suffix
@@ -76,24 +74,24 @@
 }
 \end{adjustwidth}
 
-\include{report-preface.inc}
+\include{report/report-preface.inc}
 
 \tableofcontents
 
-\include{report-intro.inc}
+\include{report/report-intro.inc}
 
-\include{report-assignment.inc}
+\include{report/report-assignment.inc}
 
-\include{report-planning.inc}
+\include{report/report-planning.inc}
 
-\include{report-design.inc}
+\include{report/report-design.inc}
 
-\include{report-evaluation.inc}
+\include{report/report-evaluation.inc}
 
-\include{report-conclusion.inc}
+\include{report/report-conclusion.inc}
 
+\bibliographystyle{cadia}
+\bibliography{bibliography}
 \addcontentsline{toc}{chapter}{\refname}
-% \bibliographystyle{cadia}
-% \bibliography{cadia,additional}
 
 \end{document}
