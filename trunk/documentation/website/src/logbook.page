@@ -195,9 +195,9 @@ final distribution files. Test those on various platforms.
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
 (table-row-odd). |Mon 13.11|Various smaller tasks, mainly bugfixing|
-(table-row-even). |Tue 14.11|Documentation|
-(table-row-odd). |Wed 15.11|Bugfixing, some documentation|
-(table-row-even). |Thu 16.11|Documentation|
+(table-row-even). |Tue 14.11|Documenting|
+(table-row-odd). |Wed 15.11|Bugfixing, some documenting|
+(table-row-even). |Thu 16.11|Documenting|
 (table-row-odd). |Fri 17.11|Tiny bug fixes, full screen module now full screen (almost forgotten)|
 
 h3. Week 47 (14)
@@ -205,18 +205,14 @@ h3. Week 47 (14)
 p(plan). Finish everything up. *No more coding this week!* Reserved for
 "Goodbyes"
 
-<div class="invisible">
-
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 20.11| |
+(table-row-odd). |Mon 20.11|Documenting|
 (table-row-even). |Tue 21.11| |
 (table-row-odd). |Wed 22.11| |
 (table-row-even). |Thu 23.11| |
 (table-row-odd). |Fri 24.11| |
 (table-row-even). |Sat 25.11|_Flight back_|
-
-</div>
 
 h3. Week 48 (15) (back in Eindhoven)
 
