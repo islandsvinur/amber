@@ -207,7 +207,7 @@ p(plan). Finish everything up. *No more coding this week!* Reserved for
 
 table(log).
 (table-header). |_(day). Day |_(act). Activity |
-(table-row-odd). |Mon 20.11|Documenting|
+(table-row-odd). |Mon 20.11|Documenting. Released v0.5.0|
 (table-row-even). |Tue 21.11| |
 (table-row-odd). |Wed 22.11| |
 (table-row-even). |Thu 23.11| |
