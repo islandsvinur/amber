@@ -1,2 +1,17 @@
 \chapter{\label{cpt:usage:known-bugs}Known bugs and issues}
 
+This chapter deals with the known bugs and limitations of the current Amber
+system and will hopefully be solved in the next version.
+
+\section{Incomplete historical data}
+
+Sometimes it can happen that a Crawler puts so many new items on the
+whiteboard, that a ShowOff module which is started after that moment doesn't
+receive all messages of the last two days. It is as of yet unclear whether this
+is due to the communication with Psyclone or a wrongly executed command.
+
+\section{Out of memory errors in Crawler}
+
+After about a weekend running, the Crawler can give out of memory errors. This
+could be due to the fact that new items are put into a channel, but are never
+removed from it.
