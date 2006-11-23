@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<opml version="1.1">
+ <head>
+ <title>Shrook Library</title>
+ </head>
+ <body>
+  <outline text="digg" xmlUrl="http://digg.com/rss/index.xml" htmlUrl="http://digg.com/"/>
+  <outline text="Planet Luon" xmlUrl="http://planet.luon.net/rss20.xml" htmlUrl="http://planet.luon.net/"/>
+  <outline text="Slashdot" xmlUrl="http://rss.slashdot.org/Slashdot/slashdot" htmlUrl="http://slashdot.org/"/>
+  <outline text="Apple Hot News" xmlUrl="http://www.apple.com/main/rss/hotnews/hotnews.rss" htmlUrl="http://www.apple.com/hotnews/"/>
+  <outline text="AppleInsider" xmlUrl="http://www.appleinsider.com/appleinsider.rss" htmlUrl="http://www.appleinsider.com/"/>
+  <outline text="MacRumors" xmlUrl="http://www.macrumors.com/macrumors.xml" htmlUrl="http://www.macrumors.com"/>
+  <outline text="MacRumors Page 2" xmlUrl="http://www.macrumors.com/page2.xml" htmlUrl="http://page2.macrumors.com"/>
+  <outline text="MacOSX.nl" xmlUrl="http://www.macosx.nl/macosx.xml" htmlUrl="http://www.macosx.nl/"/>
+  <outline text="Think Secret" xmlUrl="http://www.thinksecret.com/rss.xml" htmlUrl="http://www.thinksecret.com/"/>
+  <outline text="The Unofficial Apple Weblog (TUAW)" xmlUrl="http://www.tuaw.com/rss.xml" htmlUrl="http://www.tuaw.com"/>
+  <outline text="LoopRumors" xmlUrl="http://www.looprumors.com/LoopRumors.xml" htmlUrl="http://www.looprumors.com"/>
+  <outline text="Tweakers.net Nieuws" xmlUrl="http://tweakers.net/feeds/nieuws.xml" htmlUrl="http://tweakers.net/nieuws"/>
+  <outline text="Tweakers.net Reviews" xmlUrl="http://tweakers.net/feeds/reviews.xml" htmlUrl="http://tweakers.net/reviews"/>
+  <outline text="Logging the switch" xmlUrl="http://luijten.org/page/index.xml" htmlUrl="http://luijten.org"/>
+ </body>
+</opml>
