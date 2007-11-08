@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang:}">
   <head>
-    <title>{title: }</title>
+    <title>{title: } - Christian @ RU</title>
     <link href="{relocatable: default.css}" rel="stylesheet" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   </head>
   <body>
     <div id="content">
-        <div id="header">
-          <h1>Ambient Earth</h1>
-          <h2>{title: }</h2>
-        </div>
+        <div id="header"> <span> Christian @ RU </span> </div>
 
         <div id="headerbar" class="bar">
-          <span class="left">Location: {breadcrumbTrail: }</span>
-          <span class="right">Language: {langbar: }</span>
+          <span class="webmin-breadcrumb-trail left">Location: {breadcrumbTrail: {omitIndexFile: true}}</span>
+          <span class="webmin-langbar right">Language: {langbar: }</span>
           <div style="clear:both"></div>
         </div>
 
@@ -25,6 +22,7 @@
         </div>
 
         <div id="body">
+          <h1>{title: }</h1>
           {block: }
         </div>
 

@@ -19,8 +19,10 @@
      border-right: thin solid #2F393F;
   }
 
-  #header h1
-, #header h2 {
+  #header span {
+     display: block;
+     font-size: 200%;
+     font-weight: bolder;
      margin: 5pt;
      color: white;
   }
@@ -28,6 +30,7 @@
   #footer { 
      margin-top: 5pt;
      border-top: thin solid #2F393F;
+     color: white;
   }
 
   #body { 
@@ -100,7 +103,7 @@
      border: thin solid #A39B7A;
   }
 
-  #menu a {
+  #menu a, #menu span {
      color: #635E4A;
      text-decoration: none;
   }
@@ -109,7 +112,8 @@
      text-decoration: underline;
   }
 
-  #menu li.webgen-menu-item-selected {
+  #menu li.webgen-menu-item-selected, 
+  #menu li.webgen-menu-submenu-inhierarchy {
      font-weight: bold;
   }
 
@@ -128,4 +132,10 @@
      padding-top: 3pt;          /* padding in front of first item */
      padding-left: 7pt;         /* indentation */
      padding-right: 0pt;       
+  }
+
+
+  #headerbar span.webmin-breadcrumb-trail a,
+  #headerbar span.webmin-breadcrumb-trail span {
+    color: white;
   }
