@@ -1,10 +1,8 @@
 ---
-title: About
+title: About Ambient Earth
 inMenu: true
 orderInfo: 10
 ---
-h2. About Ambient Earth
-
 Ambient Earth is a project to visualise the *buzz* of the internet. It shows
 the *earth* from outer space and every time a new *story* is written, a
 satellite is *launched* from earth, starting to *orbit* it.
