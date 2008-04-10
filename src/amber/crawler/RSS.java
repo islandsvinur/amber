@@ -181,10 +181,10 @@ public class RSS extends Crawler implements PollerObserverIF {
      */
     private void readAllItemsIn(ChannelIF c) {
         if (c != null) {
-            Collection items = c.getItems();
+            Collection<ItemIF> items = c.getItems();
             System.out.println("Found " + items.size()
                     + " items in initial feed.");
-            for (Iterator it = items.iterator(); it.hasNext();) {
+            for (Iterator<ItemIF> it = items.iterator(); it.hasNext();) {
                 ItemIF item = (ItemIF) it.next();
                 handleItem(item);
             }
@@ -202,8 +202,8 @@ public class RSS extends Crawler implements PollerObserverIF {
         URL url;
         url = new URL(airBrush.getParameterString("OPML"));
         try {
-            Collection feeds = OPMLParser.parse(url);
-            for (Iterator i = feeds.iterator(); i.hasNext();) {
+            Collection<FeedIF> feeds = OPMLParser.parse(url);
+            for (Iterator<FeedIF> i = feeds.iterator(); i.hasNext();) {
                 FeedIF f = (FeedIF) i.next();
                 System.out.println("Creating feed for " + f.getLocation());
                 registerChannel(f.getLocation());
