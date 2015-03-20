@@ -1,6 +1,7 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-# gem "rails"
+ruby '1.8.7'
+
 gem "webgen", "~> 0.4.2"
 gem "RedCloth"
